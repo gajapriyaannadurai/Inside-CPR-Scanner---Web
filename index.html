@@ -609,7 +609,9 @@ function setProgress(pct){
 async function fetchOHLC(symbol){
   const cfg=TF_CFG[tf];
   const ySym=encodeURIComponent(symbol+'.NS');
-  const url=`https://query1.finance.yahoo.com/v8/finance/chart/${ySym}?range=${cfg.range}&interval=${cfg.interval}&includePrePost=false`;
+  // Fetch extra bars so we always have 3 complete candles even if current is live/incomplete
+  const rangeMap={daily:'10d',weekly:'3mo',monthly:'2y'};
+  const url=`https://query1.finance.yahoo.com/v8/finance/chart/${ySym}?range=${rangeMap[tf]}&interval=${cfg.interval}&includePrePost=false`;
   for(let i=0;i<PROXIES.length;i++){
     try{
       const res=await fetch(PROXIES[i]+encodeURIComponent(url),{signal:AbortSignal.timeout(9000)});
@@ -619,14 +621,53 @@ async function fetchOHLC(symbol){
       if(!chart) continue;
       const q=chart.indicators?.quote?.[0];
       const ts=chart.timestamp;
-      if(!q||!ts||ts.length<2) continue;
-      const n=ts.length;
-      const curr={h:q.high[n-1],l:q.low[n-1],c:q.close[n-1],v:q.volume[n-1]};
-      const prev={h:q.high[n-2],l:q.low[n-2],c:q.close[n-2]};
-      if(!curr.h||!curr.l||!curr.c||!prev.h||!prev.l||!prev.c) continue;
-      const prevClose=q.close[n-2]||curr.c;
-      const changePct=prevClose?((curr.c-prevClose)/prevClose)*100:0;
-      return{curr,prev,price:curr.c,changePct,volume:curr.v};
+      if(!q||!ts||ts.length<3) continue;
+
+      // ── Key fix: collect all COMPLETE candles (non-null H/L/C/V) ──────────
+      // A live/incomplete candle may have null close or abnormally low volume
+      const bars=[];
+      for(let j=0;j<ts.length;j++){
+        const h=q.high[j], l=q.low[j], c=q.close[j], v=q.volume[j];
+        // Skip bars with any null/zero OHLC — incomplete candles
+        if(h&&l&&c&&h>0&&l>0&&c>0) bars.push({h,l,c,v:v||0,ts:ts[j]});
+      }
+      if(bars.length<3) continue;
+
+      // For daily/weekly/monthly CPR scanner:
+      // "currBar"  = most recent COMPLETE session (yesterday for daily, last week for weekly)
+      // "prevBar"  = the session before that (day-before-yesterday, etc.)
+      // We need currBar's CPR to be INSIDE prevBar's CPR
+      // The LIVE price comes from the last bar in the raw feed (today's incomplete candle close)
+
+      const n=bars.length;
+      // currBar = second-to-last complete bar (yesterday's complete session)
+      const currBar=bars[n-1];
+      // prevBar = third-to-last complete bar (day before yesterday)
+      const prevBar=bars[n-2];
+
+      // Live price: use raw last close from Yahoo (today's live price, may be partial candle)
+      // Fall back to currBar close if today's candle is not available
+      const rawN=ts.length;
+      const liveClose=q.close[rawN-1]||currBar.c;
+      const liveHigh=q.high[rawN-1]||currBar.h;
+      const liveLow=q.low[rawN-1]||currBar.l;
+      const liveVol=q.volume[rawN-1]||currBar.v;
+
+      // Change % = today's live price vs yesterday's close
+      const changePct=currBar.c?((liveClose-currBar.c)/currBar.c)*100:0;
+
+      return{
+        // currBar = yesterday's completed OHLC → used to calculate TODAY's CPR
+        curr:{h:currBar.h,l:currBar.l,c:currBar.c},
+        // prevBar = day-before-yesterday's completed OHLC → used to calculate YESTERDAY's CPR
+        prev:{h:prevBar.h,l:prevBar.l,c:prevBar.c},
+        // Live price for display and trend bias
+        price:liveClose,
+        liveH:liveHigh,
+        liveL:liveLow,
+        changePct,
+        volume:liveVol
+      };
     }catch(e){continue;}
   }
   return null;
@@ -669,9 +710,17 @@ async function runScan(){
       setProgress(Math.round((done/total)*92));
       setStatus('loading','Fetching live NSE data... ('+done+'/'+total+')');
       if(!data) return;
+      // curr = CPR from yesterday's complete OHLC → this is "today's CPR"
+      // prev = CPR from day-before-yesterday's complete OHLC → this is "yesterday's CPR"
+      // RULE: Today's CPR must sit COMPLETELY inside yesterday's CPR
+      //       i.e. currTC < prevTC  AND  currBC > prevBC  (strict, no tolerance)
+      //       Also currWidth < prevWidth as a sanity cross-check
       const curr=calcCPR(data.curr.h,data.curr.l,data.curr.c);
       const prev=calcCPR(data.prev.h,data.prev.l,data.prev.c);
-      if(!(curr.tc<prev.tc&&curr.bc>prev.bc)) return;
+      const currW=curr.tc-curr.bc;
+      const prevW=prev.tc-prev.bc;
+      // Strict inside check — both conditions must be true, width must also be smaller
+      if(curr.tc>=prev.tc||curr.bc<=prev.bc||currW>=prevW) return;
       const widthPct=((curr.tc-curr.bc)/data.price)*100;
       const widthCat=widthPct<0.5?'narrow':widthPct<=1.5?'medium':'wide';
       const trend=data.price>curr.pivot?'bullish':'bearish';
@@ -681,7 +730,9 @@ async function runScan(){
       results.push({symbol:s.s,name:s.n,sector:s.sec,fno:s.fno,
         price:data.price,change:data.changePct,volume:data.volume,
         pivot:curr.pivot,tc:curr.tc,bc:curr.bc,
-        prevTc:prev.tc,prevBc:prev.bc,widthPct,widthCat,trend});
+        prevTc:prev.tc,prevBc:prev.bc,
+        currW:currW,prevW:prevW,
+        widthPct,widthCat,trend});
     });
     if(i+BATCH<stocks.length) await sleep(250);
   }
