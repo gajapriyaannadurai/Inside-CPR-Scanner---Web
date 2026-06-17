@@ -1,0 +1,50 @@
+name: CPR Daily Scanner
+
+on:
+  schedule:
+    # Runs at 10:15 UTC = 3:45 PM IST, Monday to Friday
+    - cron: '15 10 * * 1-5'
+    # Also runs Friday at 10:15 UTC for weekly CPR
+    # (same time — the script handles all 3 timeframes in one run)
+
+  # Allow manual trigger from GitHub Actions tab (for testing)
+  workflow_dispatch:
+
+jobs:
+  fetch-cpr-data:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write   # needed to push cpr_data.json back to repo
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install yfinance pandas
+
+      - name: Run CPR scanner
+        run: |
+          echo "Starting CPR scan at $(date '+%Y-%m-%d %H:%M:%S UTC') = $(TZ='Asia/Kolkata' date '+%H:%M IST')"
+          python fetch_cpr.py
+
+      - name: Commit and push cpr_data.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add cpr_data.json
+          git diff --staged --quiet || git commit -m "CPR data updated — $(TZ='Asia/Kolkata' date '+%d %b %Y %H:%M IST')"
+          git push
+
+      - name: Summary
+        run: |
+          echo "CPR data successfully updated!"
+          echo "File size: $(wc -c < cpr_data.json) bytes"
+          echo "Stocks processed: $(python -c "import json; d=json.load(open('cpr_data.json')); print(d['success_count'])")"
