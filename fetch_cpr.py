@@ -12,6 +12,7 @@ Stark School of Finance — tradingwithgp.com
 import json
 import time
 import datetime
+import requests
 import yfinance as yf
 from pathlib import Path
 
@@ -36,7 +37,8 @@ STOCKS = [
     ("TITAN",       "Titan Company",                "Consumer Durables",    True),
     ("SUNPHARMA",   "Sun Pharmaceutical",           "Healthcare",           True),
     ("NESTLEIND",   "Nestle India",                 "FMCG",                 True),
-    ("TATAMOTORS",  "Tata Motors",                  "Automobile",           True),
+    ("TMPV",        "Tata Motors PV (TMPV)",        "Automobile",           True),
+    ("TMCV",        "Tata Motors CV (TMCV)",        "Automobile",           True),
     ("WIPRO",       "Wipro",                        "Information Technology",True),
     ("ONGC",        "ONGC",                         "Oil & Gas",            True),
     ("NTPC",        "NTPC",                         "Power",                True),
@@ -251,18 +253,20 @@ STOCKS = [
 # ─── CPR calculation ──────────────────────────────────────────────────────────
 def calc_cpr(h, l, c):
     pivot = (h + l + c) / 3
-    tc    = (pivot + h) / 2
-    bc    = (pivot + l) / 2
+    # Raw TC and BC
+    raw_tc = (pivot + h) / 2
+    raw_bc = (pivot + l) / 2
+    # Always assign higher value as TC, lower value as BC
+    # This handles edge cases where gaps cause BC > TC
+    tc = max(raw_tc, raw_bc)
+    bc = min(raw_tc, raw_bc)
     return {"pivot": round(pivot, 2), "tc": round(tc, 2), "bc": round(bc, 2)}
 
 def is_inside_cpr(curr, prev):
-    curr_w = curr["tc"] - curr["bc"]
-    prev_w = prev["tc"] - prev["bc"]
-    return (
-        curr["tc"] < prev["tc"] and
-        curr["bc"] > prev["bc"] and
-        curr_w < prev_w
-    )
+    # Rule: next day's TC must be below today's TC
+    #       next day's BC must be above today's BC
+    # curr = next day's CPR, prev = today's CPR
+    return curr["tc"] < prev["tc"] and curr["bc"] > prev["bc"]
 
 def cpr_width_pct(cpr, price):
     return round(((cpr["tc"] - cpr["bc"]) / price) * 100, 3)
@@ -284,9 +288,8 @@ YAHOO_SYMBOL_MAP = {
     "L&TFH":       "LTFH.NS",
     "BAJAJ-AUTO":  "BAJAJ-AUTO.NS",
     "JIOFINANCE":  "JIOFIN.NS",
-    "LTIM":        "LTIM.NS",
-    "ZOMATO":      "ZOMATO.NS",
-    "TATAMOTORS":  "TATAMOTORS.NS",
+    "TMPV":        "TMPV.NS",
+    "TMCV":        "TMCV.NS",
     "360ONE":      "360ONE.NS",
     "NYKAA":       "NYKAA.NS",
     "DMART":       "DMART.NS",
@@ -299,9 +302,100 @@ YAHOO_SYMBOL_MAP = {
     "KFIN":        "KFIN.NS",
     "AMBER":       "AMBER.NS",
     "HONASA":      "HONASA.NS",
-    "JSWINFRA":    "JSWINFRA.NS",
-    "SWIGGY":      "SWIGGY.NS",
 }
+
+# ─── NSE Bhav Copy fetcher ────────────────────────────────────────────────────
+# NSE publishes official EOD OHLC for all stocks after 3:30 PM every trading day
+# URL format: https://nsearchives.nseindia.com/content/cm/BhavCopy_NSE_CM_0_0_0_YYYYMMDD_F_0000.csv.zip
+# Bhav copy has: SYMBOL, OPEN, HIGH, LOW, CLOSE, VOLUME for all NSE stocks
+
+nse_daily_map = {}  # symbol -> list of last 2 days [{h,l,c,v}]
+
+def fetch_nse_bhav():
+    """
+    Download NSE's official Bhav Copy (EOD file) for the last 2 trading days.
+    Populates nse_daily_map with accurate official OHLC data.
+    Falls back gracefully if NSE server is unreachable.
+    """
+    import requests
+    import zipfile
+    import io
+    import csv
+
+    headers = {
+        "User-Agent": "Mozilla/5.0",
+        "Referer":    "https://www.nseindia.com",
+        "Accept":     "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    }
+
+    # Generate last 5 calendar dates to find the last 2 trading days
+    today = datetime.date.today()
+    candidate_dates = []
+    d = today
+    while len(candidate_dates) < 2:
+        if d.weekday() < 5:  # Mon–Fri only
+            candidate_dates.append(d)
+        d -= datetime.timedelta(days=1)
+
+    print(f"  Fetching NSE Bhav Copy for {[str(x) for x in candidate_dates]}...")
+
+    session = requests.Session()
+    # Warm up session (NSE requires this)
+    try:
+        session.get("https://www.nseindia.com", headers=headers, timeout=10)
+    except:
+        pass
+
+    day_data = {}  # date_str -> {symbol: {h,l,c,v}}
+
+    for trade_date in candidate_dates:
+        date_str = trade_date.strftime("%Y%m%d")
+        # New NSE Bhav Copy URL format
+        url = f"https://nsearchives.nseindia.com/content/cm/BhavCopy_NSE_CM_0_0_0_{date_str}_F_0000.csv.zip"
+        try:
+            resp = session.get(url, headers=headers, timeout=30)
+            if resp.status_code != 200:
+                print(f"  NSE Bhav not available for {trade_date} (HTTP {resp.status_code}) — will use Yahoo")
+                continue
+
+            # Unzip and parse CSV
+            z = zipfile.ZipFile(io.BytesIO(resp.content))
+            csv_name = z.namelist()[0]
+            with z.open(csv_name) as f:
+                reader = csv.DictReader(io.TextIOWrapper(f, encoding="utf-8"))
+                day_data[date_str] = {}
+                for row in reader:
+                    sym = row.get("TckrSymb", row.get("SYMBOL", "")).strip()
+                    if not sym: continue
+                    try:
+                        day_data[date_str][sym] = {
+                            "h": float(row.get("High",  row.get("HIGH",  0))),
+                            "l": float(row.get("Low",   row.get("LOW",   0))),
+                            "c": float(row.get("ClsPric", row.get("CLOSE", row.get("LAST", 0)))),
+                            "v": int(float(row.get("TtlTradgVol", row.get("VOLUME", row.get("TOTTRDQTY", 0))))),
+                        }
+                    except (ValueError, KeyError):
+                        continue
+            print(f"  NSE Bhav {trade_date}: {len(day_data[date_str])} stocks loaded")
+        except Exception as e:
+            print(f"  NSE Bhav fetch failed for {trade_date}: {e}")
+
+    # Build nse_daily_map: symbol -> [prev_day, curr_day]
+    sorted_dates = sorted(day_data.keys())
+    all_symbols  = set()
+    for d in sorted_dates:
+        all_symbols.update(day_data[d].keys())
+
+    for sym in all_symbols:
+        rows = []
+        for d in sorted_dates:
+            if sym in day_data[d]:
+                rows.append(day_data[d][sym])
+        if len(rows) >= 2:
+            nse_daily_map[sym] = rows  # [prev, curr]
+
+    print(f"  NSE Bhav map built: {len(nse_daily_map)} symbols with 2 days of data")
+    return len(nse_daily_map) > 0
 
 def get_yahoo_ticker(symbol):
     """Return the correct Yahoo Finance ticker for a given NSE symbol."""
@@ -310,52 +404,69 @@ def get_yahoo_ticker(symbol):
     return symbol + ".NS"
 
 def fetch_stock(symbol):
-    """Fetch last 10 daily, 3 monthly weekly, 2 years monthly candles."""
+    """
+    Fetch OHLC data.
+    Primary  : NSE Bhav Copy (official EOD, accurate, no rate limit)
+    Fallback : Yahoo Finance (for weekly/monthly and if NSE fails)
+    """
     try:
         yahoo_sym = get_yahoo_ticker(symbol)
-        ticker = yf.Ticker(yahoo_sym)
-        # Fetch enough history for all 3 timeframes
-        hist = ticker.history(period="2y", interval="1d", auto_adjust=True)
-        if hist.empty or len(hist) < 3:
-            return None
+        ticker    = yf.Ticker(yahoo_sym)
 
-        # Filter complete candles only (no today's live candle)
-        hist = hist.dropna(subset=["High", "Low", "Close"])
+        # ── Daily: use Yahoo 1d bars (NSE bhav copy pre-loaded into nse_daily_map) ──
+        # nse_daily_map is populated by fetch_nse_bhav() before this is called
+        # If NSE data available for this symbol use it; otherwise fall back to Yahoo
+        d_curr = d_prev = None
+        price  = None
+        volume = 0
+        chg    = 0.0
 
-        # ── Daily bars (last 3 complete trading days) ──
-        daily = hist.tail(3)
-        if len(daily) < 3:
-            return None
+        if symbol in nse_daily_map and len(nse_daily_map[symbol]) >= 2:
+            # NSE Bhav Copy data — most accurate, official EOD
+            rows   = nse_daily_map[symbol]
+            d_curr = rows[-1]   # today's complete candle
+            d_prev = rows[-2]   # yesterday's complete candle
+            price  = round(float(d_curr["c"]), 2)
+            volume = int(d_curr.get("v", 0))
+            chg    = round(((d_curr["c"] - d_prev["c"]) / d_prev["c"]) * 100, 2) if d_prev["c"] else 0
+        else:
+            # Fallback: Yahoo Finance daily
+            hist = ticker.history(period="15d", interval="1d", auto_adjust=True)
+            if hist.empty: return None
+            hist = hist.dropna(subset=["High", "Low", "Close"])
+            if len(hist) < 2: return None
+            d_curr = {"h": float(hist.iloc[-1]["High"]), "l": float(hist.iloc[-1]["Low"]),  "c": float(hist.iloc[-1]["Close"])}
+            d_prev = {"h": float(hist.iloc[-2]["High"]), "l": float(hist.iloc[-2]["Low"]),  "c": float(hist.iloc[-2]["Close"])}
+            price  = round(float(d_curr["c"]), 2)
+            volume = int(hist.iloc[-1]["Volume"]) if "Volume" in hist.columns else 0
+            chg    = round(((d_curr["c"] - d_prev["c"]) / d_prev["c"]) * 100, 2) if d_prev["c"] else 0
 
-        d_curr = {"h": daily.iloc[-1]["High"], "l": daily.iloc[-1]["Low"], "c": daily.iloc[-1]["Close"]}
-        d_prev = {"h": daily.iloc[-2]["High"], "l": daily.iloc[-2]["Low"], "c": daily.iloc[-2]["Close"]}
-        price  = round(float(d_curr["c"]), 2)
-        volume = int(daily.iloc[-1]["Volume"]) if "Volume" in daily.columns else 0
-        chg    = round(((d_curr["c"] - d_prev["c"]) / d_prev["c"]) * 100, 2)
+        if not d_curr or not d_prev: return None
 
-        # ── Weekly bars ──
-        hist_wk = yf.Ticker(yahoo_sym).history(period="3mo", interval="1wk", auto_adjust=True).dropna(subset=["High","Low","Close"])
+        # ── Weekly bars (Yahoo Finance) ──
+        hist_wk = ticker.history(period="3mo", interval="1wk", auto_adjust=True).dropna(subset=["High","Low","Close"])
         w_curr = w_prev = None
         if len(hist_wk) >= 2:
-            w_curr = {"h": hist_wk.iloc[-1]["High"], "l": hist_wk.iloc[-1]["Low"], "c": hist_wk.iloc[-1]["Close"]}
-            w_prev = {"h": hist_wk.iloc[-2]["High"], "l": hist_wk.iloc[-2]["Low"], "c": hist_wk.iloc[-2]["Close"]}
+            w_curr = {"h": float(hist_wk.iloc[-1]["High"]), "l": float(hist_wk.iloc[-1]["Low"]), "c": float(hist_wk.iloc[-1]["Close"])}
+            w_prev = {"h": float(hist_wk.iloc[-2]["High"]), "l": float(hist_wk.iloc[-2]["Low"]), "c": float(hist_wk.iloc[-2]["Close"])}
 
-        # ── Monthly bars ──
-        hist_mo = yf.Ticker(yahoo_sym).history(period="2y", interval="1mo", auto_adjust=True).dropna(subset=["High","Low","Close"])
+        # ── Monthly bars (Yahoo Finance) ──
+        hist_mo = ticker.history(period="2y", interval="1mo", auto_adjust=True).dropna(subset=["High","Low","Close"])
         m_curr = m_prev = None
         if len(hist_mo) >= 2:
-            m_curr = {"h": hist_mo.iloc[-1]["High"], "l": hist_mo.iloc[-1]["Low"], "c": hist_mo.iloc[-1]["Close"]}
-            m_prev = {"h": hist_mo.iloc[-2]["High"], "l": hist_mo.iloc[-2]["Low"], "c": hist_mo.iloc[-2]["Close"]}
+            m_curr = {"h": float(hist_mo.iloc[-1]["High"]), "l": float(hist_mo.iloc[-1]["Low"]), "c": float(hist_mo.iloc[-1]["Close"])}
+            m_prev = {"h": float(hist_mo.iloc[-2]["High"]), "l": float(hist_mo.iloc[-2]["Low"]), "c": float(hist_mo.iloc[-2]["Close"])}
 
-        # ── CPR trend: last 5 daily pivots ──
-        last5 = hist.tail(5)
-        pivots = [round((row["High"]+row["Low"]+row["Close"])/3, 2) for _, row in last5.iterrows()]
+        # ── CPR trend: last 5 daily pivots from Yahoo ──
+        hist_5d = ticker.history(period="15d", interval="1d", auto_adjust=True).dropna(subset=["High","Low","Close"]).tail(5)
+        pivots  = [round((row["High"]+row["Low"]+row["Close"])/3, 2) for _, row in hist_5d.iterrows()]
 
         return {
-            "symbol": symbol,
-            "price": price,
-            "change": chg,
-            "volume": volume,
+            "symbol":  symbol,
+            "price":   price,
+            "change":  chg,
+            "volume":  volume,
+            "source":  "NSE" if symbol in nse_daily_map else "Yahoo",
             "daily":   {"curr": d_curr, "prev": d_prev},
             "weekly":  {"curr": w_curr, "prev": w_prev} if w_curr else None,
             "monthly": {"curr": m_curr, "prev": m_prev} if m_curr else None,
@@ -369,6 +480,17 @@ def fetch_stock(symbol):
 def main():
     print(f"Starting CPR scan — {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S IST')}")
     print(f"Total stocks: {len(STOCKS)}")
+
+    # ── Step 1: Fetch NSE Bhav Copy (official EOD data) ──────────────────────
+    print("\n[Step 1] Fetching NSE Bhav Copy (official EOD OHLC)...")
+    nse_ok = fetch_nse_bhav()
+    if nse_ok:
+        print(f"  NSE Bhav loaded — {len(nse_daily_map)} symbols available")
+    else:
+        print("  NSE Bhav unavailable — will use Yahoo Finance for all stocks")
+
+    # ── Step 2: Process each stock ────────────────────────────────────────────
+    print(f"\n[Step 2] Processing {len(STOCKS)} stocks...")
 
     output = {
         "generated_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M IST"),
