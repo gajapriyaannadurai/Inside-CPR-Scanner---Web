@@ -193,6 +193,20 @@ STOCKS = [
     ("COROMANDEL",  "Coromandel International",     "Chemicals",            True),
     ("CANFINHOME",  "Can Fin Homes",                "Financial Services",   True),
     ("CAMS",        "CAMS",                         "Financial Services",   True),
+    ("MANKIND",     "Mankind Pharma",               "Healthcare",           True),
+    ("POLICYBZR",   "PB Fintech (PolicyBazaar)",    "Financial Services",   True),
+    ("MAZDOCK",     "Mazagon Dock Shipbuilders",    "Capital Goods",        False),
+    ("APARINDS",    "Apar Industries",              "Capital Goods",        False),
+    ("KAYNES",      "Kaynes Technology",            "Capital Goods",        False),
+    ("TATATECH",    "Tata Technologies",            "Information Technology",False),
+    ("NUVAMA",      "Nuvama Wealth Management",     "Financial Services",   False),
+    ("SWIGGY",      "Swiggy",                       "Consumer Services",    False),
+    ("JSWINFRA",    "JSW Infrastructure",           "Services",             False),
+    ("DELHIVERY",   "Delhivery",                    "Services",             False),
+    ("AVALON",      "Avalon Technologies",          "Capital Goods",        False),
+    ("SENCO",       "Senco Gold",                   "Consumer Durables",    False),
+    ("PREMIER",     "Premier Energies",             "Power",                False),
+    ("HYUNDAI",     "Hyundai Motor India",          "Automobile",           False),
     ("ABCAPITAL",   "Aditya Birla Capital",         "Financial Services",   True),
     ("ALKYLAMINE",  "Alkyl Amines Chemicals",       "Chemicals",            True),
     ("APLAPOLLO",   "APL Apollo Tubes",             "Capital Goods",        True),
@@ -240,7 +254,6 @@ STOCKS = [
     ("LICHSGFIN",   "LIC Housing Finance",          "Financial Services",   False),
     ("PNBHOUSING",  "PNB Housing Finance",          "Financial Services",   False),
     ("GICRE",       "General Insurance Corp",       "Financial Services",   False),
-    ("DELHIVERY",   "Delhivery",                    "Services",             False),
     ("FSL",         "Firstsource Solutions",        "Services",             False),
     ("COCHINSHIP",  "Cochin Shipyard",              "Capital Goods",        False),
     ("AETHER",      "Aether Industries",            "Chemicals",            False),
@@ -252,21 +265,46 @@ STOCKS = [
 
 # ─── CPR calculation ──────────────────────────────────────────────────────────
 def calc_cpr(h, l, c):
+    """
+    Standard CPR calculation:
+    Pivot = (H + L + C) / 3
+    TC    = (Pivot + H) / 2   ← always higher than BC when H > L
+    BC    = (Pivot + L) / 2   ← always lower than TC when H > L
+    TC is always > BC because H > L always in a valid candle.
+    """
     pivot = (h + l + c) / 3
-    # Raw TC and BC
-    raw_tc = (pivot + h) / 2
-    raw_bc = (pivot + l) / 2
-    # Always assign higher value as TC, lower value as BC
-    # This handles edge cases where gaps cause BC > TC
-    tc = max(raw_tc, raw_bc)
-    bc = min(raw_tc, raw_bc)
+    tc    = (pivot + h) / 2
+    bc    = (pivot + l) / 2
+    # TC should always be >= BC since H >= L
+    # If somehow inverted (bad data), swap to keep TC as higher value
+    if bc > tc:
+        tc, bc = bc, tc
     return {"pivot": round(pivot, 2), "tc": round(tc, 2), "bc": round(bc, 2)}
 
 def is_inside_cpr(curr, prev):
-    # Rule: next day's TC must be below today's TC
-    #       next day's BC must be above today's BC
-    # curr = next day's CPR, prev = today's CPR
-    return curr["tc"] < prev["tc"] and curr["bc"] > prev["bc"]
+    """
+    Tomorrow's CPR (curr) is inside Today's CPR (prev).
+    Chartink checks BOTH normal and inverted CPR cases:
+
+    Case 1 - Normal (TC > BC for both):
+        curr.tc < prev.tc AND curr.bc > prev.bc
+
+    Case 2 - Inverted CPR (when BC > TC due to gap/anomaly):
+        Both curr TC and BC fall within prev TC and BC range
+        i.e. both curr.tc and curr.bc are between prev.bc and prev.tc
+
+    In simple terms: both tomorrow's TC and BC must be
+    within today's CPR band (between today's BC and TC).
+    """
+    prev_high = max(prev["tc"], prev["bc"])
+    prev_low  = min(prev["tc"], prev["bc"])
+    curr_high = max(curr["tc"], curr["bc"])
+    curr_low  = min(curr["tc"], curr["bc"])
+
+    # Tomorrow's entire CPR band must fit inside today's CPR band
+    return curr_high < prev_high and curr_low > prev_low
+
+
 
 def cpr_width_pct(cpr, price):
     return round(((cpr["tc"] - cpr["bc"]) / price) * 100, 3)
@@ -445,7 +483,10 @@ def fetch_stock(symbol):
                 volume = int(d_curr.get("v", 0))
                 chg    = round(((d_curr["c"] - d_prev["c"]) / d_prev["c"]) * 100, 2) if d_prev["c"] else 0
                 if symbol == "RELIANCE":
-                    print(f"  DEBUG RELIANCE NSE: h={d_curr['h']} l={d_curr['l']} c={d_curr['c']} | prev h={d_prev['h']} l={d_prev['l']} c={d_prev['c']}")
+                    print(f"  DEBUG RELIANCE NSE raw: curr H={d_curr['h']} L={d_curr['l']} C={d_curr['c']} | prev H={d_prev['h']} L={d_prev['l']} C={d_prev['c']}")
+                    dc = calc_cpr(d_curr['h'], d_curr['l'], d_curr['c'])
+                    dp = calc_cpr(d_prev['h'], d_prev['l'], d_prev['c'])
+                    print(f"  DEBUG RELIANCE CPR: curr TC={dc['tc']} BC={dc['bc']} | prev TC={dp['tc']} BC={dp['bc']} | inside={is_inside_cpr(dc,dp)}")
 
         # If daily data not set yet (NSE missing or invalid), use Yahoo
         if d_curr is None or d_prev is None:
