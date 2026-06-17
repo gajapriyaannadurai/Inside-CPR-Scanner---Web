@@ -136,7 +136,6 @@ STOCKS = [
     ("SHREECEM",    "Shree Cement",                 "Construction Materials",True),
     ("AMBUJACEM",   "Ambuja Cements",               "Construction Materials",True),
     ("ACC",         "ACC",                          "Construction Materials",True),
-    ("ULTRACEMCO",  "UltraTech Cement",             "Construction Materials",True),
     ("SIEMENS",     "Siemens",                      "Capital Goods",        True),
     ("ABB",         "ABB India",                    "Capital Goods",        True),
     ("POLYCAB",     "Polycab India",                "Capital Goods",        True),
@@ -174,7 +173,6 @@ STOCKS = [
     ("VOLTAS",      "Voltas",                       "Consumer Durables",    True),
     ("CROMPTON",    "Crompton Greaves",             "Consumer Durables",    True),
     ("PAGEIND",     "Page Industries",              "Consumer Durables",    True),
-    ("TITAN",       "Titan Company",                "Consumer Durables",    True),
     ("KAJARIACER",  "Kajaria Ceramics",             "Consumer Durables",    True),
     ("INDIAMART",   "IndiaMART InterMESH",          "Services",             True),
     ("CONCOR",      "Container Corporation",        "Services",             True),
@@ -201,14 +199,12 @@ STOCKS = [
     ("360ONE",      "360 ONE WAM",                  "Financial Services",   True),
     ("SJVN",        "SJVN",                         "Power",                False),
     ("HUDCO",       "HUDCO",                        "Financial Services",   False),
-    ("RVNL",        "Rail Vikas Nigam",             "Capital Goods",        True),
     ("GRSE",        "Garden Reach Shipbuilders",    "Capital Goods",        False),
     ("BDL",         "Bharat Dynamics",              "Capital Goods",        True),
     ("RAMCOCEM",    "Ramco Cements",                "Construction Materials",True),
     ("SUNTV",       "Sun TV Network",               "Consumer Services",    False),
     ("TORNTPOWER",  "Torrent Power",                "Power",                False),
     ("JSWENERGY",   "JSW Energy",                   "Power",                False),
-    ("TATAPOWER",   "Tata Power",                   "Power",                True),
     ("CESC",        "CESC",                         "Power",                False),
     ("HAVELLS",     "Havells India",                "Consumer Durables",    False),
     ("BERGEPAINT",  "Berger Paints",                "Consumer Durables",    True),
@@ -244,7 +240,6 @@ STOCKS = [
     ("GICRE",       "General Insurance Corp",       "Financial Services",   False),
     ("DELHIVERY",   "Delhivery",                    "Services",             False),
     ("FSL",         "Firstsource Solutions",        "Services",             False),
-    ("CONCOR",      "Container Corporation",        "Services",             True),
     ("COCHINSHIP",  "Cochin Shipyard",              "Capital Goods",        False),
     ("AETHER",      "Aether Industries",            "Chemicals",            False),
     ("HSCL",        "Himadri Speciality Chemical",  "Chemicals",            False),
@@ -281,10 +276,44 @@ def cpr_trend(pivots):
     return "sideways"
 
 # ─── Fetch OHLC from Yahoo Finance ──────────────────────────────────────────
+# ─── Yahoo Finance symbol overrides ──────────────────────────────────────────
+# Some NSE symbols differ from Yahoo Finance tickers
+YAHOO_SYMBOL_MAP = {
+    "M&M":         "M%26M.NS",
+    "M&MFIN":      "M%26MFIN.NS",
+    "L&TFH":       "LTFH.NS",
+    "BAJAJ-AUTO":  "BAJAJ-AUTO.NS",
+    "JIOFINANCE":  "JIOFIN.NS",
+    "LTIM":        "LTIM.NS",
+    "ZOMATO":      "ZOMATO.NS",
+    "TATAMOTORS":  "TATAMOTORS.NS",
+    "360ONE":      "360ONE.NS",
+    "NYKAA":       "NYKAA.NS",
+    "DMART":       "DMART.NS",
+    "PVRINOX":     "PVRINOX.NS",
+    "ABFRL":       "ABFRL.NS",
+    "ATGL":        "ATGL.NS",
+    "AWL":         "AWL.NS",
+    "RVNL":        "RVNL.NS",
+    "IRFC":        "IRFC.NS",
+    "KFIN":        "KFIN.NS",
+    "AMBER":       "AMBER.NS",
+    "HONASA":      "HONASA.NS",
+    "JSWINFRA":    "JSWINFRA.NS",
+    "SWIGGY":      "SWIGGY.NS",
+}
+
+def get_yahoo_ticker(symbol):
+    """Return the correct Yahoo Finance ticker for a given NSE symbol."""
+    if symbol in YAHOO_SYMBOL_MAP:
+        return YAHOO_SYMBOL_MAP[symbol]
+    return symbol + ".NS"
+
 def fetch_stock(symbol):
     """Fetch last 10 daily, 3 monthly weekly, 2 years monthly candles."""
     try:
-        ticker = yf.Ticker(symbol + ".NS")
+        yahoo_sym = get_yahoo_ticker(symbol)
+        ticker = yf.Ticker(yahoo_sym)
         # Fetch enough history for all 3 timeframes
         hist = ticker.history(period="2y", interval="1d", auto_adjust=True)
         if hist.empty or len(hist) < 3:
@@ -305,14 +334,14 @@ def fetch_stock(symbol):
         chg    = round(((d_curr["c"] - d_prev["c"]) / d_prev["c"]) * 100, 2)
 
         # ── Weekly bars ──
-        hist_wk = ticker.history(period="3mo", interval="1wk", auto_adjust=True).dropna(subset=["High","Low","Close"])
+        hist_wk = yf.Ticker(yahoo_sym).history(period="3mo", interval="1wk", auto_adjust=True).dropna(subset=["High","Low","Close"])
         w_curr = w_prev = None
         if len(hist_wk) >= 2:
             w_curr = {"h": hist_wk.iloc[-1]["High"], "l": hist_wk.iloc[-1]["Low"], "c": hist_wk.iloc[-1]["Close"]}
             w_prev = {"h": hist_wk.iloc[-2]["High"], "l": hist_wk.iloc[-2]["Low"], "c": hist_wk.iloc[-2]["Close"]}
 
         # ── Monthly bars ──
-        hist_mo = ticker.history(period="2y", interval="1mo", auto_adjust=True).dropna(subset=["High","Low","Close"])
+        hist_mo = yf.Ticker(yahoo_sym).history(period="2y", interval="1mo", auto_adjust=True).dropna(subset=["High","Low","Close"])
         m_curr = m_prev = None
         if len(hist_mo) >= 2:
             m_curr = {"h": hist_mo.iloc[-1]["High"], "l": hist_mo.iloc[-1]["Low"], "c": hist_mo.iloc[-1]["Close"]}
@@ -333,7 +362,7 @@ def fetch_stock(symbol):
             "pivots5": pivots,
         }
     except Exception as e:
-        print(f"  ERROR {symbol}: {e}")
+        print(f"  ERROR {symbol} ({get_yahoo_ticker(symbol)}): {e}")
         return None
 
 # ─── Main ─────────────────────────────────────────────────────────────────────
