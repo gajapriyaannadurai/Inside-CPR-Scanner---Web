@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-17 13:39 IST",
+  "generated_at": "2026-06-17 13:58 IST",
   "generated_date": "17 Jun 2026",
   "total_stocks": 226,
   "stocks": [
@@ -4266,76 +4266,6 @@
           9477.83
         ],
         "pivot_shift": 226.33
-      },
-      "virgin_cpr": {
-        "is_virgin": true,
-        "position": "above",
-        "dist_pct": 83.33
-      }
-    },
-    {
-      "symbol": "LTTS",
-      "name": "L&T Technology Services",
-      "sector": "Information Technology",
-      "fno": true,
-      "price": 3453.8,
-      "change": -0.26,
-      "volume": 51558,
-      "daily": {
-        "curr_cpr": {
-          "pivot": 1151.27,
-          "tc": 575.63,
-          "bc": 575.63
-        },
-        "prev_cpr": {
-          "pivot": 1154.3,
-          "tc": 577.15,
-          "bc": 577.15
-        },
-        "inside": false,
-        "width_pct": 0.0,
-        "trend": "bullish"
-      },
-      "weekly": {
-        "curr_cpr": {
-          "pivot": 3449.53,
-          "tc": 3477.17,
-          "bc": 3419.77
-        },
-        "prev_cpr": {
-          "pivot": 3317.03,
-          "tc": 3382.52,
-          "bc": 3234.52
-        },
-        "inside": false,
-        "width_pct": 1.662,
-        "trend": "bullish"
-      },
-      "monthly": {
-        "curr_cpr": {
-          "pivot": 3384.93,
-          "tc": 3466.97,
-          "bc": 3268.47
-        },
-        "prev_cpr": {
-          "pivot": 3517.34,
-          "tc": 3661.17,
-          "bc": 3435.12
-        },
-        "inside": false,
-        "width_pct": 5.747,
-        "trend": "bullish"
-      },
-      "cpr_trend": {
-        "direction": "bullish",
-        "pivots": [
-          3315.63,
-          3334.57,
-          3409.77,
-          3451.67,
-          3464.2
-        ],
-        "pivot_shift": 148.57
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -15474,6 +15404,69 @@
       }
     }
   ],
-  "success_count": 221,
-  "failed_count": 5
+  "success_count": 220,
+  "failed_count": 6,
+  "debug_first5": [
+    {
+      "symbol": "RELIANCE",
+      "price": 1332.7,
+      "source": "?",
+      "curr_tc": 222.12,
+      "curr_bc": 222.12,
+      "prev_tc": 221.47,
+      "prev_bc": 221.47,
+      "inside": false,
+      "curr_tc_lt_prev_tc": false,
+      "curr_bc_gt_prev_bc": true
+    },
+    {
+      "symbol": "TCS",
+      "price": 2223.0,
+      "source": "?",
+      "curr_tc": 370.5,
+      "curr_bc": 370.5,
+      "prev_tc": 366.5,
+      "prev_bc": 366.5,
+      "inside": false,
+      "curr_tc_lt_prev_tc": false,
+      "curr_bc_gt_prev_bc": true
+    },
+    {
+      "symbol": "HDFCBANK",
+      "price": 787.1,
+      "source": "?",
+      "curr_tc": 131.18,
+      "curr_bc": 131.18,
+      "prev_tc": 130.82,
+      "prev_bc": 130.82,
+      "inside": false,
+      "curr_tc_lt_prev_tc": false,
+      "curr_bc_gt_prev_bc": true
+    },
+    {
+      "symbol": "BHARTIARTL",
+      "price": 1875.7,
+      "source": "?",
+      "curr_tc": 312.62,
+      "curr_bc": 312.62,
+      "prev_tc": 308.83,
+      "prev_bc": 308.83,
+      "inside": false,
+      "curr_tc_lt_prev_tc": false,
+      "curr_bc_gt_prev_bc": true
+    },
+    {
+      "symbol": "ICICIBANK",
+      "price": 1336.8,
+      "source": "?",
+      "curr_tc": 222.8,
+      "curr_bc": 222.8,
+      "prev_tc": 222.38,
+      "prev_bc": 222.38,
+      "inside": false,
+      "curr_tc_lt_prev_tc": false,
+      "curr_bc_gt_prev_bc": true
+    }
+  ],
+  "inside_count": 0
 }
