@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-17 15:11 IST",
+  "generated_at": "2026-06-17 15:22 IST",
   "generated_date": "17 Jun 2026",
-  "total_stocks": 226,
+  "total_stocks": 239,
   "stocks": [
     {
       "symbol": "RELIANCE",
@@ -11694,6 +11694,986 @@
       }
     },
     {
+      "symbol": "MANKIND",
+      "name": "Mankind Pharma",
+      "sector": "Healthcare",
+      "fno": true,
+      "price": 2364.1,
+      "change": 0.34,
+      "volume": 157426,
+      "daily": {
+        "curr_cpr": {
+          "pivot": 2365.97,
+          "tc": 2373.58,
+          "bc": 2359.28
+        },
+        "prev_cpr": {
+          "pivot": 2366.07,
+          "tc": 2383.68,
+          "bc": 2353.38
+        },
+        "inside": true,
+        "width_pct": 0.605,
+        "trend": "bearish"
+      },
+      "weekly": {
+        "curr_cpr": {
+          "pivot": 2371.6,
+          "tc": 2390.8,
+          "bc": 2356.15
+        },
+        "prev_cpr": {
+          "pivot": 2366.37,
+          "tc": 2392.68,
+          "bc": 2332.68
+        },
+        "inside": true,
+        "width_pct": 1.466,
+        "trend": "bearish"
+      },
+      "monthly": {
+        "curr_cpr": {
+          "pivot": 2352.9,
+          "tc": 2385.95,
+          "bc": 2314.25
+        },
+        "prev_cpr": {
+          "pivot": 2417.93,
+          "tc": 2528.27,
+          "bc": 2328.77
+        },
+        "inside": false,
+        "width_pct": 3.033,
+        "trend": "bullish"
+      },
+      "cpr_trend": {
+        "direction": "bearish",
+        "pivots": [
+          2377.4,
+          2389.4,
+          2382.07,
+          2366.07,
+          2365.97
+        ],
+        "pivot_shift": -11.43
+      },
+      "virgin_cpr": {
+        "is_virgin": false,
+        "position": "inside",
+        "dist_pct": 0.2
+      }
+    },
+    {
+      "symbol": "POLICYBZR",
+      "name": "PB Fintech (PolicyBazaar)",
+      "sector": "Financial Services",
+      "fno": true,
+      "price": 1624.6,
+      "change": 1.74,
+      "volume": 1486416,
+      "daily": {
+        "curr_cpr": {
+          "pivot": 1613.93,
+          "tc": 1621.82,
+          "bc": 1600.72
+        },
+        "prev_cpr": {
+          "pivot": 1591.17,
+          "tc": 1598.23,
+          "bc": 1581.28
+        },
+        "inside": false,
+        "width_pct": 1.299,
+        "trend": "bullish"
+      },
+      "weekly": {
+        "curr_cpr": {
+          "pivot": 1602.27,
+          "tc": 1615.98,
+          "bc": 1577.38
+        },
+        "prev_cpr": {
+          "pivot": 1526.0,
+          "tc": 1538.95,
+          "bc": 1502.15
+        },
+        "inside": false,
+        "width_pct": 2.376,
+        "trend": "bullish"
+      },
+      "monthly": {
+        "curr_cpr": {
+          "pivot": 1603.93,
+          "tc": 1656.42,
+          "bc": 1541.12
+        },
+        "prev_cpr": {
+          "pivot": 1713.9,
+          "tc": 1779.7,
+          "bc": 1653.8
+        },
+        "inside": false,
+        "width_pct": 7.097,
+        "trend": "bullish"
+      },
+      "cpr_trend": {
+        "direction": "bullish",
+        "pivots": [
+          1508.77,
+          1531.5,
+          1575.1,
+          1591.17,
+          1613.93
+        ],
+        "pivot_shift": 105.16
+      },
+      "virgin_cpr": {
+        "is_virgin": true,
+        "position": "above",
+        "dist_pct": 0.17
+      }
+    },
+    {
+      "symbol": "MAZDOCK",
+      "name": "Mazagon Dock Shipbuilders",
+      "sector": "Capital Goods",
+      "fno": false,
+      "price": 2552.4,
+      "change": 3.44,
+      "volume": 1475743,
+      "daily": {
+        "curr_cpr": {
+          "pivot": 2529.47,
+          "tc": 2547.03,
+          "bc": 2500.43
+        },
+        "prev_cpr": {
+          "pivot": 2458.5,
+          "tc": 2465.1,
+          "bc": 2447.45
+        },
+        "inside": false,
+        "width_pct": 1.826,
+        "trend": "bullish"
+      },
+      "weekly": {
+        "curr_cpr": {
+          "pivot": 2517.33,
+          "tc": 2540.97,
+          "bc": 2476.17
+        },
+        "prev_cpr": {
+          "pivot": 2391.73,
+          "tc": 2420.87,
+          "bc": 2353.42
+        },
+        "inside": false,
+        "width_pct": 2.539,
+        "trend": "bullish"
+      },
+      "monthly": {
+        "curr_cpr": {
+          "pivot": 2477.37,
+          "tc": 2520.98,
+          "bc": 2396.23
+        },
+        "prev_cpr": {
+          "pivot": 2531.83,
+          "tc": 2645.42,
+          "bc": 2455.92
+        },
+        "inside": false,
+        "width_pct": 4.888,
+        "trend": "bullish"
+      },
+      "cpr_trend": {
+        "direction": "bullish",
+        "pivots": [
+          2347.57,
+          2398.03,
+          2449.97,
+          2458.5,
+          2529.47
+        ],
+        "pivot_shift": 181.9
+      },
+      "virgin_cpr": {
+        "is_virgin": true,
+        "position": "above",
+        "dist_pct": 0.21
+      }
+    },
+    {
+      "symbol": "APARINDS",
+      "name": "Apar Industries",
+      "sector": "Capital Goods",
+      "fno": false,
+      "price": 16103.0,
+      "change": -0.4,
+      "volume": 210837,
+      "daily": {
+        "curr_cpr": {
+          "pivot": 16121.33,
+          "tc": 16295.67,
+          "bc": 15956.17
+        },
+        "prev_cpr": {
+          "pivot": 16158.67,
+          "tc": 16316.83,
+          "bc": 15995.83
+        },
+        "inside": false,
+        "width_pct": 2.108,
+        "trend": "bearish"
+      },
+      "weekly": {
+        "curr_cpr": {
+          "pivot": 15983.67,
+          "tc": 16229.33,
+          "bc": 15678.33
+        },
+        "prev_cpr": {
+          "pivot": 14589.67,
+          "tc": 14964.83,
+          "bc": 13898.83
+        },
+        "inside": false,
+        "width_pct": 3.422,
+        "trend": "bullish"
+      },
+      "monthly": {
+        "curr_cpr": {
+          "pivot": 15029.67,
+          "tc": 15752.33,
+          "bc": 13770.33
+        },
+        "prev_cpr": {
+          "pivot": 12854.0,
+          "tc": 13217.0,
+          "bc": 12359.0
+        },
+        "inside": false,
+        "width_pct": 12.308,
+        "trend": "bullish"
+      },
+      "cpr_trend": {
+        "direction": "bullish",
+        "pivots": [
+          14515.33,
+          15098.0,
+          15844.33,
+          16158.67,
+          16121.33
+        ],
+        "pivot_shift": 1606.0
+      },
+      "virgin_cpr": {
+        "is_virgin": false,
+        "position": "inside",
+        "dist_pct": 0.91
+      }
+    },
+    {
+      "symbol": "KAYNES",
+      "name": "Kaynes Technology",
+      "sector": "Capital Goods",
+      "fno": false,
+      "price": 3248.3,
+      "change": 2.22,
+      "volume": 1155064,
+      "daily": {
+        "curr_cpr": {
+          "pivot": 3240.0,
+          "tc": 3263.0,
+          "bc": 3212.85
+        },
+        "prev_cpr": {
+          "pivot": 3171.53,
+          "tc": 3200.77,
+          "bc": 3139.27
+        },
+        "inside": false,
+        "width_pct": 1.544,
+        "trend": "bullish"
+      },
+      "weekly": {
+        "curr_cpr": {
+          "pivot": 3201.5,
+          "tc": 3243.75,
+          "bc": 3135.85
+        },
+        "prev_cpr": {
+          "pivot": 3068.2,
+          "tc": 3088.9,
+          "bc": 3043.15
+        },
+        "inside": false,
+        "width_pct": 3.322,
+        "trend": "bullish"
+      },
+      "monthly": {
+        "curr_cpr": {
+          "pivot": 3184.13,
+          "tc": 3235.07,
+          "bc": 3101.12
+        },
+        "prev_cpr": {
+          "pivot": 3555.73,
+          "tc": 4047.17,
+          "bc": 3275.37
+        },
+        "inside": false,
+        "width_pct": 4.124,
+        "trend": "bullish"
+      },
+      "cpr_trend": {
+        "direction": "bullish",
+        "pivots": [
+          3051.53,
+          3069.57,
+          3108.77,
+          3171.53,
+          3240.0
+        ],
+        "pivot_shift": 188.47
+      },
+      "virgin_cpr": {
+        "is_virgin": false,
+        "position": "inside",
+        "dist_pct": 0.45
+      }
+    },
+    {
+      "symbol": "TATATECH",
+      "name": "Tata Technologies",
+      "sector": "Information Technology",
+      "fno": false,
+      "price": 773.55,
+      "change": 0.47,
+      "volume": 1275758,
+      "daily": {
+        "curr_cpr": {
+          "pivot": 771.72,
+          "tc": 775.41,
+          "bc": 767.11
+        },
+        "prev_cpr": {
+          "pivot": 769.72,
+          "tc": 773.46,
+          "bc": 765.86
+        },
+        "inside": false,
+        "width_pct": 1.073,
+        "trend": "bullish"
+      },
+      "weekly": {
+        "curr_cpr": {
+          "pivot": 769.92,
+          "tc": 774.51,
+          "bc": 763.51
+        },
+        "prev_cpr": {
+          "pivot": 756.95,
+          "tc": 770.47,
+          "bc": 741.4
+        },
+        "inside": false,
+        "width_pct": 1.422,
+        "trend": "bullish"
+      },
+      "monthly": {
+        "curr_cpr": {
+          "pivot": 754.45,
+          "tc": 769.22,
+          "bc": 730.12
+        },
+        "prev_cpr": {
+          "pivot": 670.85,
+          "tc": 699.92,
+          "bc": 624.55
+        },
+        "inside": false,
+        "width_pct": 5.055,
+        "trend": "bullish"
+      },
+      "cpr_trend": {
+        "direction": "bullish",
+        "pivots": [
+          737.2,
+          753.93,
+          767.67,
+          769.72,
+          771.72
+        ],
+        "pivot_shift": 34.52
+      },
+      "virgin_cpr": {
+        "is_virgin": false,
+        "position": "inside",
+        "dist_pct": 0.24
+      }
+    },
+    {
+      "symbol": "NUVAMA",
+      "name": "Nuvama Wealth Management",
+      "sector": "Financial Services",
+      "fno": false,
+      "price": 1726.7,
+      "change": 3.97,
+      "volume": 886482,
+      "daily": {
+        "curr_cpr": {
+          "pivot": 1708.37,
+          "tc": 1721.78,
+          "bc": 1685.78
+        },
+        "prev_cpr": {
+          "pivot": 1654.1,
+          "tc": 1664.8,
+          "bc": 1640.1
+        },
+        "inside": false,
+        "width_pct": 2.085,
+        "trend": "bullish"
+      },
+      "weekly": {
+        "curr_cpr": {
+          "pivot": 1692.57,
+          "tc": 1713.88,
+          "bc": 1654.18
+        },
+        "prev_cpr": {
+          "pivot": 1561.9,
+          "tc": 1580.95,
+          "bc": 1529.75
+        },
+        "inside": false,
+        "width_pct": 3.457,
+        "trend": "bullish"
+      },
+      "monthly": {
+        "curr_cpr": {
+          "pivot": 1653.17,
+          "tc": 1694.18,
+          "bc": 1575.38
+        },
+        "prev_cpr": {
+          "pivot": 1491.9,
+          "tc": 1562.09,
+          "bc": 1397.72
+        },
+        "inside": false,
+        "width_pct": 6.88,
+        "trend": "bullish"
+      },
+      "cpr_trend": {
+        "direction": "bullish",
+        "pivots": [
+          1515.5,
+          1569.17,
+          1654.47,
+          1654.1,
+          1708.37
+        ],
+        "pivot_shift": 192.87
+      },
+      "virgin_cpr": {
+        "is_virgin": true,
+        "position": "above",
+        "dist_pct": 0.28
+      }
+    },
+    {
+      "symbol": "SWIGGY",
+      "name": "Swiggy",
+      "sector": "Consumer Services",
+      "fno": false,
+      "price": 259.45,
+      "change": -0.08,
+      "volume": 16298941,
+      "daily": {
+        "curr_cpr": {
+          "pivot": 262.63,
+          "tc": 266.32,
+          "bc": 260.54
+        },
+        "prev_cpr": {
+          "pivot": 260.1,
+          "tc": 261.98,
+          "bc": 258.45
+        },
+        "inside": false,
+        "width_pct": 2.228,
+        "trend": "bearish"
+      },
+      "weekly": {
+        "curr_cpr": {
+          "pivot": 260.87,
+          "tc": 265.43,
+          "bc": 257.01
+        },
+        "prev_cpr": {
+          "pivot": 246.35,
+          "tc": 249.35,
+          "bc": 241.58
+        },
+        "inside": false,
+        "width_pct": 3.245,
+        "trend": "bearish"
+      },
+      "monthly": {
+        "curr_cpr": {
+          "pivot": 255.42,
+          "tc": 262.71,
+          "bc": 246.11
+        },
+        "prev_cpr": {
+          "pivot": 263.07,
+          "tc": 273.53,
+          "bc": 255.18
+        },
+        "inside": false,
+        "width_pct": 6.398,
+        "trend": "bullish"
+      },
+      "cpr_trend": {
+        "direction": "bullish",
+        "pivots": [
+          240.0,
+          248.2,
+          259.17,
+          260.1,
+          262.63
+        ],
+        "pivot_shift": 22.63
+      },
+      "virgin_cpr": {
+        "is_virgin": true,
+        "position": "below",
+        "dist_pct": 0.42
+      }
+    },
+    {
+      "symbol": "JSWINFRA",
+      "name": "JSW Infrastructure",
+      "sector": "Services",
+      "fno": false,
+      "price": 299.3,
+      "change": 1.87,
+      "volume": 3599798,
+      "daily": {
+        "curr_cpr": {
+          "pivot": 297.28,
+          "tc": 299.29,
+          "bc": 294.27
+        },
+        "prev_cpr": {
+          "pivot": 294.2,
+          "tc": 295.42,
+          "bc": 293.17
+        },
+        "inside": false,
+        "width_pct": 1.677,
+        "trend": "bullish"
+      },
+      "weekly": {
+        "curr_cpr": {
+          "pivot": 297.07,
+          "tc": 299.18,
+          "bc": 293.83
+        },
+        "prev_cpr": {
+          "pivot": 284.22,
+          "tc": 289.41,
+          "bc": 275.63
+        },
+        "inside": false,
+        "width_pct": 1.788,
+        "trend": "bullish"
+      },
+      "monthly": {
+        "curr_cpr": {
+          "pivot": 289.05,
+          "tc": 295.17,
+          "bc": 277.8
+        },
+        "prev_cpr": {
+          "pivot": 275.7,
+          "tc": 285.75,
+          "bc": 265.85
+        },
+        "inside": false,
+        "width_pct": 5.804,
+        "trend": "bullish"
+      },
+      "cpr_trend": {
+        "direction": "bullish",
+        "pivots": [
+          275.48,
+          288.13,
+          295.12,
+          294.2,
+          297.28
+        ],
+        "pivot_shift": 21.8
+      },
+      "virgin_cpr": {
+        "is_virgin": true,
+        "position": "above",
+        "dist_pct": 0.0
+      }
+    },
+    {
+      "symbol": "DELHIVERY",
+      "name": "Delhivery",
+      "sector": "Services",
+      "fno": false,
+      "price": 451.55,
+      "change": 0.06,
+      "volume": 923455,
+      "daily": {
+        "curr_cpr": {
+          "pivot": 451.47,
+          "tc": 452.53,
+          "bc": 450.36
+        },
+        "prev_cpr": {
+          "pivot": 452.27,
+          "tc": 454.06,
+          "bc": 450.96
+        },
+        "inside": false,
+        "width_pct": 0.481,
+        "trend": "bullish"
+      },
+      "weekly": {
+        "curr_cpr": {
+          "pivot": 451.62,
+          "tc": 455.08,
+          "bc": 448.18
+        },
+        "prev_cpr": {
+          "pivot": 437.87,
+          "tc": 441.43,
+          "bc": 432.98
+        },
+        "inside": false,
+        "width_pct": 1.528,
+        "trend": "bearish"
+      },
+      "monthly": {
+        "curr_cpr": {
+          "pivot": 446.07,
+          "tc": 452.31,
+          "bc": 437.08
+        },
+        "prev_cpr": {
+          "pivot": 461.9,
+          "tc": 474.7,
+          "bc": 453.88
+        },
+        "inside": false,
+        "width_pct": 3.373,
+        "trend": "bullish"
+      },
+      "cpr_trend": {
+        "direction": "sideways",
+        "pivots": [
+          432.37,
+          439.12,
+          452.28,
+          452.27,
+          451.47
+        ],
+        "pivot_shift": 19.1
+      },
+      "virgin_cpr": {
+        "is_virgin": false,
+        "position": "inside",
+        "dist_pct": 0.22
+      }
+    },
+    {
+      "symbol": "AVALON",
+      "name": "Avalon Technologies",
+      "sector": "Capital Goods",
+      "fno": false,
+      "price": 1741.4,
+      "change": 0.18,
+      "volume": 222226,
+      "daily": {
+        "curr_cpr": {
+          "pivot": 1744.13,
+          "tc": 1756.07,
+          "bc": 1733.57
+        },
+        "prev_cpr": {
+          "pivot": 1749.17,
+          "tc": 1768.58,
+          "bc": 1735.18
+        },
+        "inside": false,
+        "width_pct": 1.292,
+        "trend": "bearish"
+      },
+      "weekly": {
+        "curr_cpr": {
+          "pivot": 1739.83,
+          "tc": 1763.92,
+          "bc": 1714.97
+        },
+        "prev_cpr": {
+          "pivot": 1630.93,
+          "tc": 1663.47,
+          "bc": 1570.37
+        },
+        "inside": false,
+        "width_pct": 2.811,
+        "trend": "bullish"
+      },
+      "monthly": {
+        "curr_cpr": {
+          "pivot": 1655.17,
+          "tc": 1721.58,
+          "bc": 1545.63
+        },
+        "prev_cpr": {
+          "pivot": 1376.5,
+          "tc": 1467.55,
+          "bc": 1213.45
+        },
+        "inside": false,
+        "width_pct": 10.104,
+        "trend": "bullish"
+      },
+      "cpr_trend": {
+        "direction": "bullish",
+        "pivots": [
+          1566.9,
+          1650.0,
+          1742.37,
+          1749.17,
+          1744.13
+        ],
+        "pivot_shift": 177.23
+      },
+      "virgin_cpr": {
+        "is_virgin": false,
+        "position": "inside",
+        "dist_pct": 0.45
+      }
+    },
+    {
+      "symbol": "SENCO",
+      "name": "Senco Gold",
+      "sector": "Consumer Durables",
+      "fno": false,
+      "price": 345.2,
+      "change": -1.81,
+      "volume": 479131,
+      "daily": {
+        "curr_cpr": {
+          "pivot": 346.15,
+          "tc": 351.7,
+          "bc": 341.08
+        },
+        "prev_cpr": {
+          "pivot": 352.55,
+          "tc": 355.02,
+          "bc": 350.58
+        },
+        "inside": false,
+        "width_pct": 3.076,
+        "trend": "bearish"
+      },
+      "weekly": {
+        "curr_cpr": {
+          "pivot": 346.63,
+          "tc": 352.67,
+          "bc": 341.32
+        },
+        "prev_cpr": {
+          "pivot": 341.12,
+          "tc": 351.11,
+          "bc": 332.51
+        },
+        "inside": false,
+        "width_pct": 3.288,
+        "trend": "bearish"
+      },
+      "monthly": {
+        "curr_cpr": {
+          "pivot": 343.4,
+          "tc": 352.25,
+          "bc": 333.65
+        },
+        "prev_cpr": {
+          "pivot": 339.08,
+          "tc": 354.04,
+          "bc": 320.57
+        },
+        "inside": true,
+        "width_pct": 5.388,
+        "trend": "bullish"
+      },
+      "cpr_trend": {
+        "direction": "bullish",
+        "pivots": [
+          327.98,
+          335.83,
+          350.35,
+          352.55,
+          346.15
+        ],
+        "pivot_shift": 18.17
+      },
+      "virgin_cpr": {
+        "is_virgin": false,
+        "position": "inside",
+        "dist_pct": 1.19
+      }
+    },
+    {
+      "symbol": "PREMIER",
+      "name": "Premier Energies",
+      "sector": "Power",
+      "fno": false,
+      "price": 3.0,
+      "change": 3.09,
+      "volume": 33394,
+      "daily": {
+        "curr_cpr": {
+          "pivot": 2.97,
+          "tc": 3.0,
+          "bc": 2.92
+        },
+        "prev_cpr": {
+          "pivot": 2.95,
+          "tc": 3.0,
+          "bc": 2.92
+        },
+        "inside": false,
+        "width_pct": 2.667,
+        "trend": "bullish"
+      },
+      "weekly": {
+        "curr_cpr": {
+          "pivot": 2.98,
+          "tc": 3.03,
+          "bc": 2.93
+        },
+        "prev_cpr": {
+          "pivot": 2.96,
+          "tc": 3.01,
+          "bc": 2.93
+        },
+        "inside": false,
+        "width_pct": 3.333,
+        "trend": "bullish"
+      },
+      "monthly": {
+        "curr_cpr": {
+          "pivot": 3.0,
+          "tc": 3.07,
+          "bc": 2.94
+        },
+        "prev_cpr": {
+          "pivot": 2.96,
+          "tc": 3.05,
+          "bc": 2.84
+        },
+        "inside": false,
+        "width_pct": 4.333,
+        "trend": "bearish"
+      },
+      "cpr_trend": {
+        "direction": "bullish",
+        "pivots": [
+          2.93,
+          2.98,
+          2.99,
+          2.95,
+          2.97
+        ],
+        "pivot_shift": 0.04
+      },
+      "virgin_cpr": {
+        "is_virgin": false,
+        "position": "inside",
+        "dist_pct": 0.0
+      }
+    },
+    {
+      "symbol": "HYUNDAI",
+      "name": "Hyundai Motor India",
+      "sector": "Automobile",
+      "fno": false,
+      "price": 1976.7,
+      "change": 0.1,
+      "volume": 401381,
+      "daily": {
+        "curr_cpr": {
+          "pivot": 1976.1,
+          "tc": 1981.95,
+          "bc": 1969.95
+        },
+        "prev_cpr": {
+          "pivot": 1995.4,
+          "tc": 2017.9,
+          "bc": 1983.25
+        },
+        "inside": false,
+        "width_pct": 0.607,
+        "trend": "bullish"
+      },
+      "weekly": {
+        "curr_cpr": {
+          "pivot": 1999.83,
+          "tc": 2029.42,
+          "bc": 1981.82
+        },
+        "prev_cpr": {
+          "pivot": 1950.3,
+          "tc": 1974.05,
+          "bc": 1906.65
+        },
+        "inside": false,
+        "width_pct": 2.408,
+        "trend": "bearish"
+      },
+      "monthly": {
+        "curr_cpr": {
+          "pivot": 1960.93,
+          "tc": 2009.97,
+          "bc": 1904.02
+        },
+        "prev_cpr": {
+          "pivot": 1896.2,
+          "tc": 1950.4,
+          "bc": 1828.1
+        },
+        "inside": false,
+        "width_pct": 5.36,
+        "trend": "bullish"
+      },
+      "cpr_trend": {
+        "direction": "sideways",
+        "pivots": [
+          1918.03,
+          1981.03,
+          2032.43,
+          1995.4,
+          1976.1
+        ],
+        "pivot_shift": 58.07
+      },
+      "virgin_cpr": {
+        "is_virgin": false,
+        "position": "inside",
+        "dist_pct": 0.27
+      }
+    },
+    {
       "symbol": "ABCAPITAL",
       "name": "Aditya Birla Capital",
       "sector": "Financial Services",
@@ -14914,76 +15894,6 @@
       }
     },
     {
-      "symbol": "DELHIVERY",
-      "name": "Delhivery",
-      "sector": "Services",
-      "fno": false,
-      "price": 451.55,
-      "change": 0.06,
-      "volume": 923455,
-      "daily": {
-        "curr_cpr": {
-          "pivot": 451.47,
-          "tc": 452.53,
-          "bc": 450.36
-        },
-        "prev_cpr": {
-          "pivot": 452.27,
-          "tc": 454.06,
-          "bc": 450.96
-        },
-        "inside": false,
-        "width_pct": 0.481,
-        "trend": "bullish"
-      },
-      "weekly": {
-        "curr_cpr": {
-          "pivot": 451.62,
-          "tc": 455.08,
-          "bc": 448.18
-        },
-        "prev_cpr": {
-          "pivot": 437.87,
-          "tc": 441.43,
-          "bc": 432.98
-        },
-        "inside": false,
-        "width_pct": 1.528,
-        "trend": "bearish"
-      },
-      "monthly": {
-        "curr_cpr": {
-          "pivot": 446.07,
-          "tc": 452.31,
-          "bc": 437.08
-        },
-        "prev_cpr": {
-          "pivot": 461.9,
-          "tc": 474.7,
-          "bc": 453.88
-        },
-        "inside": false,
-        "width_pct": 3.373,
-        "trend": "bullish"
-      },
-      "cpr_trend": {
-        "direction": "sideways",
-        "pivots": [
-          432.37,
-          439.12,
-          452.28,
-          452.27,
-          451.47
-        ],
-        "pivot_shift": 19.1
-      },
-      "virgin_cpr": {
-        "is_virgin": false,
-        "position": "inside",
-        "dist_pct": 0.22
-      }
-    },
-    {
       "symbol": "FSL",
       "name": "Firstsource Solutions",
       "sector": "Services",
@@ -15474,7 +16384,7 @@
       }
     }
   ],
-  "success_count": 221,
+  "success_count": 234,
   "failed_count": 5,
   "debug_first5": [
     {
@@ -15538,5 +16448,5 @@
       "curr_bc_gt_prev_bc": true
     }
   ],
-  "inside_count": 22
+  "inside_count": 23
 }
