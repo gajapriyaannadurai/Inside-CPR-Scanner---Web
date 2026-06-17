@@ -583,14 +583,37 @@ def main():
     output["success_count"] = len(output["stocks"])
     output["failed_count"]  = failed
 
+    # ── Debug summary — shows CPR values for first 5 stocks ──
+    debug = []
+    for s in output["stocks"][:5]:
+        d = s.get("daily", {})
+        debug.append({
+            "symbol":   s["symbol"],
+            "price":    s["price"],
+            "source":   s.get("source","?"),
+            "curr_tc":  d.get("curr_cpr",{}).get("tc"),
+            "curr_bc":  d.get("curr_cpr",{}).get("bc"),
+            "prev_tc":  d.get("prev_cpr",{}).get("tc"),
+            "prev_bc":  d.get("prev_cpr",{}).get("bc"),
+            "inside":   d.get("inside"),
+            "curr_tc_lt_prev_tc": (d.get("curr_cpr",{}).get("tc",0) < d.get("prev_cpr",{}).get("tc",1)),
+            "curr_bc_gt_prev_bc": (d.get("curr_cpr",{}).get("bc",1) > d.get("prev_cpr",{}).get("bc",0)),
+        })
+    output["debug_first5"] = debug
+    output["inside_count"] = sum(1 for s in output["stocks"] if s.get("daily",{}).get("inside"))
+
     # Save JSON
     out_path = Path("cpr_data.json")
     with open(out_path, "w") as f:
         json.dump(output, f, indent=2)
 
     print(f"\nDone! {len(output['stocks'])} stocks saved to cpr_data.json")
+    print(f"Inside CPR (daily): {output['inside_count']} stocks")
     print(f"Failed: {failed}")
     print(f"Generated at: {output['generated_at']}")
+    print(f"\nDebug — first 5 stocks CPR values:")
+    for d in output["debug_first5"]:
+        print(f"  {d['symbol']}: price={d['price']} source={d['source']} curr_tc={d['curr_tc']} curr_bc={d['curr_bc']} prev_tc={d['prev_tc']} prev_bc={d['prev_bc']} inside={d['inside']} (tc<prevtc:{d['curr_tc_lt_prev_tc']} bc>prevbc:{d['curr_bc_gt_prev_bc']})")
 
 if __name__ == "__main__":
     main()
