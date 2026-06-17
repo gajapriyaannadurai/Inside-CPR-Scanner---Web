@@ -112,6 +112,17 @@
       <i class="ti ti-info-circle" style="font-size:17px;flex-shrink:0;margin-top:1px"></i>
       <span id="notice-text">Daily: Current CPR (today's OHLC) must lie entirely within yesterday's CPR. TC=(Pivot+High)/2 | BC=(Pivot+Low)/2. Run after 3:30 PM on trading days.</span>
     </div>
+    <div id="market-warning" style="display:none;padding:13px 20px;border-bottom:1px solid #f5c6c6;background:#fff3f3;display:flex;align-items:flex-start;gap:10px">
+      <i class="ti ti-alert-triangle" style="font-size:18px;flex-shrink:0;margin-top:1px;color:#c0392b"></i>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#c0392b;margin-bottom:3px">Market is currently open — scanner results may be inaccurate</div>
+        <div style="font-size:12px;color:#a32d2d;line-height:1.6">Today's candle is still forming. High &amp; Low values are incomplete, so CPR calculated now may not match the final end-of-day CPR. <strong>For accurate Inside CPR results, run the scan after 3:30 PM once the market closes.</strong> Results during market hours are indicative only.</div>
+      </div>
+    </div>
+    <div id="market-closed-ok" style="display:none;padding:10px 20px;border-bottom:1px solid #c8e6d0;background:#e8f5ee;display:flex;align-items:center;gap:10px">
+      <i class="ti ti-circle-check" style="font-size:17px;flex-shrink:0;color:#0b6b40"></i>
+      <div style="font-size:13px;color:#0b6b40"><strong>Market is closed</strong> — scanner results are accurate. Today's candle is complete. Safe to scan for next day planning.</div>
+    </div>
     <div class="progress-wrap" id="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
     <div class="data-status">
       <span class="status-dot" id="status-dot"></span>
@@ -807,6 +818,43 @@ function renderTable(){
       +'</tr>';
   }).join('');
 }
+
+// ─── Market hours detection (IST) ────────────────────────────────────────────
+function checkMarketHours(){
+  const now=new Date();
+  const utc=now.getTime()+(now.getTimezoneOffset()*60000);
+  const ist=new Date(utc+(5.5*3600000));
+  const day=ist.getDay(); // 0=Sun,1=Mon..6=Sat
+  const h=ist.getHours();
+  const m=ist.getMinutes();
+  const timeNow=h*100+m; // e.g. 1430=2:30 PM IST
+
+  const isWeekday=day>=1&&day<=5;
+  const isMarketOpen=isWeekday&&timeNow>=915&&timeNow<1530;
+  const isAfterClose=isWeekday&&timeNow>=1530;
+
+  const warningEl=document.getElementById('market-warning');
+  const okEl=document.getElementById('market-closed-ok');
+
+  if(isMarketOpen){
+    // Market is open — show red warning
+    warningEl.style.display='flex';
+    okEl.style.display='none';
+  } else if(isAfterClose){
+    // After 3:30 PM on weekday — show green all-clear
+    warningEl.style.display='none';
+    okEl.style.display='flex';
+  } else {
+    // Weekend or before market open — show green (last session is complete)
+    warningEl.style.display='none';
+    okEl.style.display='flex';
+    document.getElementById('market-closed-ok').querySelector('div').innerHTML=
+      '<strong>Market is closed</strong> — scanner results are accurate. Last session\'s candle is complete.';
+  }
+}
+
+checkMarketHours();
+setInterval(checkMarketHours,60000); // re-check every minute
 </script>
 </body>
 </html>
