@@ -1,0 +1,373 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.wrap{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden}
+
+.top-header{background:#0a1628;padding:1.75rem 2rem 1.5rem}
+.top-header h1{font-size:26px;font-weight:500;color:#fff;letter-spacing:-0.01em;margin-bottom:4px}
+.top-header p{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.5}
+
+.tf-row{display:flex;align-items:center;gap:10px;margin-top:1.25rem;flex-wrap:wrap}
+.tf-label{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);margin-right:4px}
+.tf-btn{padding:7px 20px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid rgba(255,255,255,0.18);color:rgba(255,255,255,0.55);background:transparent;transition:all 0.15s;letter-spacing:0.01em}
+.tf-btn.active{background:#00c878;color:#0a1628;border-color:#00c878;font-weight:500}
+.tf-btn:hover:not(.active){color:#fff;border-color:rgba(255,255,255,0.45)}
+
+.stats-row{display:flex;border-bottom:0.5px solid var(--color-border-tertiary)}
+.stat{flex:1;padding:14px 18px;border-right:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary)}
+.stat:last-child{border-right:none}
+.stat-label{font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--color-text-secondary);margin-bottom:5px}
+.stat-val{font-size:22px;font-weight:500;color:var(--color-text-primary);line-height:1}
+.stat-val.green{color:#0b6b40}
+.stat-val.amber{color:#7a4a08}
+.stat-val.muted{color:var(--color-text-secondary)}
+
+.notice-bar{padding:11px 18px;background:#e8f5ee;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;align-items:flex-start;gap:9px;font-size:12.5px;color:#0b6b40;line-height:1.55}
+
+.filter-section{padding:14px 18px;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;background:var(--color-background-primary)}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fg label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--color-text-secondary)}
+.fg select,.fg input{font-size:13px;padding:7px 10px;border-radius:7px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-primary);min-width:130px}
+.scan-btn{padding:8px 22px;background:#00c878;color:#0a1628;border:none;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;align-self:flex-end;letter-spacing:0.01em}
+.scan-btn:hover{opacity:0.88}
+.reset-btn{padding:8px 16px;background:transparent;border:0.5px solid var(--color-border-secondary);border-radius:7px;font-size:13px;cursor:pointer;color:var(--color-text-secondary);align-self:flex-end}
+.rcount{font-size:12px;color:var(--color-text-secondary);align-self:flex-end;margin-left:auto}
+
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead th{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--color-text-secondary);padding:11px 16px;text-align:left;border-bottom:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);white-space:nowrap;cursor:pointer;user-select:none}
+thead th:hover{color:var(--color-text-primary)}
+tbody td{padding:12px 16px;border-bottom:0.5px solid var(--color-border-tertiary);white-space:nowrap;vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:var(--color-background-secondary)}
+
+.sym{font-size:14px;font-weight:500;color:var(--color-text-primary);letter-spacing:0.01em}
+.company{font-size:12px;color:var(--color-text-secondary)}
+.sector-tag{font-size:11px;color:var(--color-text-secondary)}
+.price-cell{font-size:14px;font-weight:500;color:var(--color-text-primary);text-align:right}
+.pivot-cell{font-size:13px;color:var(--color-text-secondary);text-align:right}
+.tc-cell{font-size:13px;color:#0b6b40;text-align:right;font-weight:500}
+.bc-cell{font-size:13px;color:#a32d2d;text-align:right;font-weight:500}
+.chg-up{font-size:13px;color:#0b6b40;text-align:right}
+.chg-dn{font-size:13px;color:#a32d2d;text-align:right}
+.num{font-size:13px;color:var(--color-text-primary);text-align:right}
+.rsi-cell{font-size:13px;text-align:right}
+
+.badge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;display:inline-block}
+.b-inside{background:#e1f5ee;color:#0b6b40}
+.b-narrow{background:#e6f1fb;color:#185fa5}
+.b-medium{background:#faeeda;color:#7a4a08}
+.b-wide{background:#fcebeb;color:#a32d2d}
+.b-bull{background:#e1f5ee;color:#0b6b40}
+.b-bear{background:#fcebeb;color:#a32d2d}
+.b-gray{background:#f1efe8;color:#5f5e5a}
+
+.width-bar-wrap{display:flex;align-items:center;gap:7px;justify-content:flex-end}
+.width-bar{height:5px;border-radius:3px;background:#00c878;display:inline-block}
+
+.empty-state{padding:3rem;text-align:center;color:var(--color-text-secondary);font-size:14px}
+
+.footer-legend{padding:11px 18px;border-top:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);display:flex;gap:20px;flex-wrap:wrap}
+.leg-item{font-size:11.5px;color:var(--color-text-secondary);display:flex;align-items:center;gap:5px}
+.leg-dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+</style>
+
+<h2 class="sr-only">Inside CPR Scanner — Daily, Weekly, Monthly</h2>
+
+<div class="wrap">
+
+<div class="top-header">
+  <h1>Inside CPR Scanner</h1>
+  <p>Stocks where the current period's CPR sits entirely within the previous period's CPR zone</p>
+  <div class="tf-row">
+    <span class="tf-label">Timeframe</span>
+    <button class="tf-btn active" onclick="setTF('daily',this)">Daily</button>
+    <button class="tf-btn" onclick="setTF('weekly',this)">Weekly</button>
+    <button class="tf-btn" onclick="setTF('monthly',this)">Monthly</button>
+  </div>
+</div>
+
+<div class="stats-row">
+  <div class="stat"><div class="stat-label">Inside CPR</div><div class="stat-val green" id="s-inside">—</div></div>
+  <div class="stat"><div class="stat-label">Bullish bias</div><div class="stat-val green" id="s-bull">—</div></div>
+  <div class="stat"><div class="stat-label">Bearish bias</div><div class="stat-val amber" id="s-bear">—</div></div>
+  <div class="stat"><div class="stat-label">Narrow CPR</div><div class="stat-val muted" id="s-narrow">—</div></div>
+  <div class="stat"><div class="stat-label">Last scanned</div><div class="stat-val muted" id="s-time" style="font-size:14px;padding-top:4px">—</div></div>
+</div>
+
+<div class="notice-bar">
+  <i class="ti ti-info-circle" aria-hidden="true" style="font-size:16px;flex-shrink:0;margin-top:1px"></i>
+  <span id="notice-text">Daily: Current CPR (TC &amp; BC from today's OHLC) must lie entirely within the previous day's CPR. Scan runs after market close at 3:30 PM on trading days.</span>
+</div>
+
+<div class="filter-section">
+  <div class="fg">
+    <label>Index</label>
+    <select id="f-index">
+      <option value="">All indices</option>
+      <option>Nifty 50</option>
+      <option>Nifty 100</option>
+      <option>Nifty 500</option>
+      <option>Nifty Bank</option>
+      <option>Nifty IT</option>
+      <option>Nifty Midcap</option>
+      <option>Nifty Smallcap</option>
+    </select>
+  </div>
+  <div class="fg">
+    <label>Sector</label>
+    <select id="f-sector">
+      <option value="">All sectors</option>
+      <option>Banking &amp; Finance</option>
+      <option>IT &amp; Software</option>
+      <option>Pharma &amp; Health</option>
+      <option>Auto &amp; EV</option>
+      <option>FMCG</option>
+      <option>Metals &amp; Mining</option>
+      <option>Energy &amp; Power</option>
+    </select>
+  </div>
+  <div class="fg">
+    <label>CPR Width</label>
+    <select id="f-width">
+      <option value="">Any width</option>
+      <option value="narrow">Narrow (&lt;0.5%)</option>
+      <option value="medium">Medium (0.5–1.5%)</option>
+      <option value="wide">Wide (&gt;1.5%)</option>
+    </select>
+  </div>
+  <div class="fg">
+    <label>Trend bias</label>
+    <select id="f-trend">
+      <option value="">Any</option>
+      <option value="bullish">Bullish (above pivot)</option>
+      <option value="bearish">Bearish (below pivot)</option>
+    </select>
+  </div>
+  <div class="fg">
+    <label>Min price (₹)</label>
+    <input type="number" id="f-price" placeholder="e.g. 100" style="min-width:100px">
+  </div>
+  <button class="scan-btn" onclick="runScan()"><i class="ti ti-player-play" aria-hidden="true"></i>&nbsp; Scan Now</button>
+  <button class="reset-btn" onclick="resetAll()"><i class="ti ti-refresh" aria-hidden="true"></i>&nbsp; Reset</button>
+  <span class="rcount" id="rcount"></span>
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th onclick="sortBy('symbol')" style="min-width:90px">Symbol <span id="sort-symbol"></span></th>
+      <th onclick="sortBy('name')" style="min-width:140px">Company</th>
+      <th onclick="sortBy('sector')">Sector</th>
+      <th onclick="sortBy('price')" style="text-align:right">CMP (₹)</th>
+      <th onclick="sortBy('change')" style="text-align:right">Chg %</th>
+      <th onclick="sortBy('pivot')" style="text-align:right">Pivot</th>
+      <th onclick="sortBy('tc')" style="text-align:right">TC</th>
+      <th onclick="sortBy('bc')" style="text-align:right">BC</th>
+      <th onclick="sortBy('prevTc')" style="text-align:right">Prev TC</th>
+      <th onclick="sortBy('prevBc')" style="text-align:right">Prev BC</th>
+      <th onclick="sortBy('widthPct')" style="text-align:right;min-width:110px">Width %</th>
+      <th onclick="sortBy('trend')">Trend</th>
+      <th onclick="sortBy('rsi')" style="text-align:right">RSI</th>
+    </tr>
+  </thead>
+  <tbody id="tbody">
+    <tr><td colspan="13" class="empty-state">Select a timeframe and click <strong>Scan Now</strong> to find Inside CPR stocks.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="footer-legend">
+  <span class="leg-item"><span class="leg-dot" style="background:#00c878"></span>TC = Top of CPR = (Pivot + High) / 2</span>
+  <span class="leg-item"><span class="leg-dot" style="background:#e24b4a"></span>BC = Bottom of CPR = (Pivot + Low) / 2</span>
+  <span class="leg-item"><span class="leg-dot" style="background:#7f77dd"></span>Inside CPR = Current TC &lt; Prev TC and Current BC &gt; Prev BC</span>
+  <span class="leg-item"><span class="leg-dot" style="background:#ef9f27"></span>Pivot = (High + Low + Close) / 3</span>
+</div>
+
+</div>
+
+<script>
+const STOCKS=[
+  {symbol:'RELIANCE',name:'Reliance Industries',sector:'Energy & Power',index:'Nifty 50',
+   daily:{h:2980,l:2890,c:2934,ph:2955,pl:2870,pc:2910,chg:1.24,rsi:62},
+   weekly:{h:3020,l:2810,c:2934,ph:2990,pl:2750,pc:2880,chg:1.24,rsi:62},
+   monthly:{h:3150,l:2760,c:2934,ph:3200,pl:2690,pc:2850,chg:1.24,rsi:62}},
+  {symbol:'TCS',name:'Tata Consultancy',sector:'IT & Software',index:'Nifty 50',
+   daily:{h:3850,l:3775,c:3812,ph:3830,pl:3740,pc:3790,chg:0.87,rsi:54},
+   weekly:{h:3920,l:3680,c:3812,ph:3880,pl:3620,pc:3760,chg:0.87,rsi:54},
+   monthly:{h:4100,l:3500,c:3812,ph:4050,pl:3450,pc:3720,chg:0.87,rsi:54}},
+  {symbol:'HDFCBANK',name:'HDFC Bank',sector:'Banking & Finance',index:'Nifty 50',
+   daily:{h:1762,l:1725,c:1743,ph:1755,pl:1710,pc:1738,chg:-0.42,rsi:44},
+   weekly:{h:1810,l:1680,c:1743,ph:1790,pl:1660,pc:1720,chg:-0.42,rsi:44},
+   monthly:{h:1890,l:1620,c:1743,ph:1870,pl:1600,pc:1700,chg:-0.42,rsi:44}},
+  {symbol:'INFY',name:'Infosys',sector:'IT & Software',index:'Nifty 50',
+   daily:{h:1605,l:1572,c:1589,ph:1598,pl:1558,pc:1578,chg:1.56,rsi:71},
+   weekly:{h:1650,l:1510,c:1589,ph:1630,pl:1490,pc:1560,chg:1.56,rsi:71},
+   monthly:{h:1720,l:1440,c:1589,ph:1700,pl:1420,pc:1550,chg:1.56,rsi:71}},
+  {symbol:'SBIN',name:'State Bank of India',sector:'Banking & Finance',index:'Nifty 50',
+   daily:{h:845,l:820,c:834,ph:838,pl:808,pc:826,chg:-1.12,rsi:38},
+   weekly:{h:870,l:790,c:834,ph:860,pl:775,pc:820,chg:-1.12,rsi:38},
+   monthly:{h:920,l:760,c:834,ph:900,pl:740,pc:800,chg:-1.12,rsi:38}},
+  {symbol:'TATAMOTORS',name:'Tata Motors',sector:'Auto & EV',index:'Nifty 50',
+   daily:{h:990,l:960,c:978,ph:982,pl:948,pc:968,chg:2.31,rsi:66},
+   weekly:{h:1020,l:920,c:978,ph:1000,pl:900,pc:955,chg:2.31,rsi:66},
+   monthly:{h:1080,l:870,c:978,ph:1060,pl:850,pc:940,chg:2.31,rsi:66}},
+  {symbol:'WIPRO',name:'Wipro',sector:'IT & Software',index:'Nifty 100',
+   daily:{h:575,l:560,c:568,ph:572,pl:556,pc:565,chg:-0.28,rsi:42},
+   weekly:{h:595,l:540,c:568,ph:585,pl:530,pc:558,chg:-0.28,rsi:42},
+   monthly:{h:620,l:510,c:568,ph:610,pl:495,pc:545,chg:-0.28,rsi:42}},
+  {symbol:'SUNPHARMA',name:'Sun Pharmaceutical',sector:'Pharma & Health',index:'Nifty 50',
+   daily:{h:1715,l:1688,c:1702,ph:1710,pl:1680,pc:1695,chg:0.44,rsi:55},
+   weekly:{h:1760,l:1640,c:1702,ph:1745,pl:1625,pc:1680,chg:0.44,rsi:55},
+   monthly:{h:1850,l:1580,c:1702,ph:1830,pl:1560,pc:1660,chg:0.44,rsi:55}},
+  {symbol:'TATASTEEL',name:'Tata Steel',sector:'Metals & Mining',index:'Nifty 50',
+   daily:{h:167,l:158,c:162,ph:165,pl:156,pc:161,chg:3.12,rsi:74},
+   weekly:{h:178,l:148,c:162,ph:172,pl:144,pc:158,chg:3.12,rsi:74},
+   monthly:{h:195,l:138,c:162,ph:188,pl:132,pc:152,chg:3.12,rsi:74}},
+  {symbol:'BAJFINANCE',name:'Bajaj Finance',sector:'Banking & Finance',index:'Nifty 50',
+   daily:{h:7280,l:7148,c:7214,ph:7260,pl:7120,pc:7190,chg:-1.88,rsi:28},
+   weekly:{h:7500,l:6900,c:7214,ph:7450,pl:6840,pc:7100,chg:-1.88,rsi:28},
+   monthly:{h:7900,l:6600,c:7214,ph:7800,pl:6500,pc:7000,chg:-1.88,rsi:28}},
+  {symbol:'ONGC',name:'ONGC',sector:'Energy & Power',index:'Nifty 50',
+   daily:{h:282,l:274,c:278,ph:280,pl:271,pc:276,chg:0.94,rsi:58},
+   weekly:{h:295,l:262,c:278,ph:290,pl:257,pc:272,chg:0.94,rsi:58},
+   monthly:{h:315,l:248,c:278,ph:308,pl:242,pc:265,chg:0.94,rsi:58}},
+  {symbol:'NESTLEIND',name:'Nestle India',sector:'FMCG',index:'Nifty 100',
+   daily:{h:2375,l:2345,c:2361,ph:2370,pl:2338,pc:2356,chg:0.15,rsi:50},
+   weekly:{h:2420,l:2280,c:2361,ph:2405,pl:2265,pc:2340,chg:0.15,rsi:50},
+   monthly:{h:2520,l:2180,c:2361,ph:2500,pl:2160,pc:2310,chg:0.15,rsi:50}},
+  {symbol:'DRREDDY',name:"Dr. Reddy's Labs",sector:'Pharma & Health',index:'Nifty 100',
+   daily:{h:6330,l:6264,c:6298,ph:6318,pl:6250,pc:6284,chg:-0.31,rsi:47},
+   weekly:{h:6480,l:6100,c:6298,ph:6450,pl:6060,pc:6240,chg:-0.31,rsi:47},
+   monthly:{h:6700,l:5900,c:6298,ph:6650,pl:5850,pc:6180,chg:-0.31,rsi:47}},
+  {symbol:'COFORGE',name:'Coforge',sector:'IT & Software',index:'Nifty Midcap',
+   daily:{h:9010,l:8838,c:8923,ph:8980,pl:8800,pc:8890,chg:3.44,rsi:76},
+   weekly:{h:9200,l:8500,c:8923,ph:9100,pl:8420,pc:8760,chg:3.44,rsi:76},
+   monthly:{h:9600,l:8000,c:8923,ph:9500,pl:7900,pc:8600,chg:3.44,rsi:76}},
+  {symbol:'VOLTAS',name:'Voltas',sector:'Energy & Power',index:'Nifty Midcap',
+   daily:{h:1502,l:1473,c:1487,ph:1496,pl:1464,pc:1480,chg:2.05,rsi:65},
+   weekly:{h:1550,l:1410,c:1487,ph:1535,pl:1395,pc:1465,chg:2.05,rsi:65},
+   monthly:{h:1640,l:1330,c:1487,ph:1620,pl:1310,pc:1440,chg:2.05,rsi:65}},
+];
+
+const NOTICES={
+  daily:'Daily CPR: current CPR (from today\'s OHLC) must lie entirely within yesterday\'s CPR zone. TC = (Pivot + High) / 2 &nbsp;|&nbsp; BC = (Pivot + Low) / 2. Scans run after market close at 3:30 PM on trading days.',
+  weekly:'Weekly CPR: this week\'s CPR (Mon–Fri OHLC) must lie entirely within last week\'s CPR. Scans run every Friday after 3:30 PM before the next week opens.',
+  monthly:'Monthly CPR: this month\'s CPR must lie entirely within last month\'s CPR range. Scans run on the last trading day of each month after 3:30 PM.'
+};
+
+let tf='daily', sortKey='widthPct', sortAsc=true, results=[];
+
+function setTF(t,el){
+  tf=t;
+  document.querySelectorAll('.tf-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('notice-text').innerHTML=NOTICES[t];
+  ['s-inside','s-bull','s-bear','s-narrow','s-time'].forEach(id=>document.getElementById(id).textContent='—');
+  document.getElementById('rcount').textContent='';
+  document.getElementById('tbody').innerHTML='<tr><td colspan="13" class="empty-state">Click <strong>Scan Now</strong> to find Inside CPR stocks for the '+t+' timeframe.</td></tr>';
+  results=[];
+}
+
+function calcCPR(h,l,c){const p=(h+l+c)/3;return{pivot:p,tc:(p+h)/2,bc:(p+l)/2};}
+
+function runScan(){
+  const idxF=document.getElementById('f-index').value;
+  const secF=document.getElementById('f-sector').value;
+  const widF=document.getElementById('f-width').value;
+  const trendF=document.getElementById('f-trend').value;
+  const priceF=parseFloat(document.getElementById('f-price').value)||0;
+
+  results=[];
+  STOCKS.forEach(s=>{
+    const d=s[tf];
+    const curr=calcCPR(d.h,d.l,d.c);
+    const prev=calcCPR(d.ph,d.pl,d.pc);
+    if(!(curr.tc<prev.tc && curr.bc>prev.bc)) return;
+
+    const widthPct=((curr.tc-curr.bc)/d.c)*100;
+    const widthCat=widthPct<0.5?'narrow':widthPct<=1.5?'medium':'wide';
+    const trend=d.c>curr.pivot?'bullish':'bearish';
+
+    if(idxF && s.index!==idxF) return;
+    if(secF && s.sector!==secF) return;
+    if(widF && widthCat!==widF) return;
+    if(trendF && trend!==trendF) return;
+    if(priceF && d.c<priceF) return;
+
+    results.push({
+      symbol:s.symbol,name:s.name,sector:s.sector,index:s.index,
+      price:d.c,change:d.chg,rsi:d.rsi,
+      pivot:curr.pivot,tc:curr.tc,bc:curr.bc,
+      prevTc:prev.tc,prevBc:prev.bc,
+      widthPct,widthCat,trend
+    });
+  });
+
+  document.getElementById('s-inside').textContent=results.length;
+  document.getElementById('s-bull').textContent=results.filter(r=>r.trend==='bullish').length;
+  document.getElementById('s-bear').textContent=results.filter(r=>r.trend==='bearish').length;
+  document.getElementById('s-narrow').textContent=results.filter(r=>r.widthCat==='narrow').length;
+  document.getElementById('s-time').textContent=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('rcount').textContent=results.length+' stocks found';
+  renderTable();
+}
+
+function resetAll(){
+  ['f-index','f-sector','f-width','f-trend'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-price').value='';
+  runScan();
+}
+
+function sortBy(key){
+  if(sortKey===key) sortAsc=!sortAsc; else{sortKey=key;sortAsc=true;}
+  renderTable();
+}
+
+function widBadge(cat,pct){
+  const cls=cat==='narrow'?'b-narrow':cat==='medium'?'b-medium':'b-wide';
+  const lbl=cat==='narrow'?'Narrow':cat==='medium'?'Medium':'Wide';
+  return `<span class="badge ${cls}">${lbl}</span>`;
+}
+
+function renderTable(){
+  const sorted=[...results].sort((a,b)=>{
+    const av=a[sortKey],bv=b[sortKey];
+    if(typeof av==='number') return sortAsc?av-bv:bv-av;
+    return sortAsc?String(av).localeCompare(String(bv)):String(bv).localeCompare(String(av));
+  });
+  const tbody=document.getElementById('tbody');
+  if(!sorted.length){
+    tbody.innerHTML='<tr><td colspan="13" class="empty-state">No stocks match the current filters. Try broadening your criteria.</td></tr>';
+    return;
+  }
+  const maxW=Math.max(...sorted.map(r=>r.widthPct));
+  tbody.innerHTML=sorted.map(r=>{
+    const barW=Math.round((r.widthPct/maxW)*55);
+    const rsiColor=r.rsi<30?'color:#0b6b40':r.rsi>70?'color:#a32d2d':'color:var(--color-text-primary)';
+    return`<tr>
+      <td><span class="sym">${r.symbol}</span></td>
+      <td><span class="company">${r.name}</span></td>
+      <td><span class="sector-tag">${r.sector}</span></td>
+      <td class="price-cell">₹${r.price.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</td>
+      <td class="${r.change>=0?'chg-up':'chg-dn'}">${r.change>=0?'▲':'▼'} ${Math.abs(r.change).toFixed(2)}%</td>
+      <td class="pivot-cell">${r.pivot.toFixed(2)}</td>
+      <td class="tc-cell">${r.tc.toFixed(2)}</td>
+      <td class="bc-cell">${r.bc.toFixed(2)}</td>
+      <td class="pivot-cell">${r.prevTc.toFixed(2)}</td>
+      <td class="pivot-cell">${r.prevBc.toFixed(2)}</td>
+      <td>
+        <div class="width-bar-wrap">
+          <span style="${rsiColor};font-size:13px">${r.widthPct.toFixed(2)}%</span>
+          <span class="width-bar" style="width:${barW}px"></span>
+          ${widBadge(r.widthCat)}
+        </div>
+      </td>
+      <td><span class="badge ${r.trend==='bullish'?'b-bull':'b-bear'}">${r.trend==='bullish'?'▲ Bullish':'▼ Bearish'}</span></td>
+      <td class="rsi-cell" style="${rsiColor};font-weight:${r.rsi<30||r.rsi>70?'500':'400'}">${r.rsi}</td>
+    </tr>`;
+  }).join('');
+}
+</script>
