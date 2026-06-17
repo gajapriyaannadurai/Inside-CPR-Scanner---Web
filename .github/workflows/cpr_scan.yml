@@ -28,7 +28,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install yfinance pandas
+          pip install yfinance pandas requests
 
       - name: Run CPR scanner
         run: |
