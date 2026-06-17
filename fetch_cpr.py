@@ -364,16 +364,26 @@ def fetch_nse_bhav():
             with z.open(csv_name) as f:
                 reader = csv.DictReader(io.TextIOWrapper(f, encoding="utf-8"))
                 day_data[date_str] = {}
+                first_row = True
                 for row in reader:
+                    # Print column names once for debugging
+                    if first_row:
+                        print(f"  NSE Bhav columns: {list(row.keys())[:15]}")
+                        first_row = False
                     sym = row.get("TckrSymb", row.get("SYMBOL", "")).strip()
                     if not sym: continue
                     try:
-                        day_data[date_str][sym] = {
-                            "h": float(row.get("High",  row.get("HIGH",  0))),
-                            "l": float(row.get("Low",   row.get("LOW",   0))),
-                            "c": float(row.get("ClsPric", row.get("CLOSE", row.get("LAST", 0)))),
-                            "v": int(float(row.get("TtlTradgVol", row.get("VOLUME", row.get("TOTTRDQTY", 0))))),
-                        }
+                        # NSE new format columns (2024+):
+                        # TckrSymb, OpnPric, HghPric, LwPric, ClsPric, TtlTradgVol
+                        # NSE old format columns:
+                        # SYMBOL, OPEN, HIGH, LOW, CLOSE, TOTTRDQTY
+                        h = float(row.get("HghPric",  row.get("HIGH",  row.get("high",  0))))
+                        l = float(row.get("LwPric",   row.get("LOW",   row.get("low",   0))))
+                        c = float(row.get("ClsPric",  row.get("CLOSE", row.get("close", 0))))
+                        v = int(float(row.get("TtlTradgVol", row.get("TOTTRDQTY", row.get("volume", 0)))))
+                        if h == 0 or l == 0 or c == 0:
+                            continue
+                        day_data[date_str][sym] = {"h": h, "l": l, "c": c, "v": v}
                     except (ValueError, KeyError):
                         continue
             print(f"  NSE Bhav {trade_date}: {len(day_data[date_str])} stocks loaded")
@@ -426,11 +436,19 @@ def fetch_stock(symbol):
             rows   = nse_daily_map[symbol]
             d_curr = rows[-1]   # today's complete candle
             d_prev = rows[-2]   # yesterday's complete candle
-            price  = round(float(d_curr["c"]), 2)
-            volume = int(d_curr.get("v", 0))
-            chg    = round(((d_curr["c"] - d_prev["c"]) / d_prev["c"]) * 100, 2) if d_prev["c"] else 0
-        else:
-            # Fallback: Yahoo Finance daily
+            # Verify data is valid — H and L must differ and be non-zero
+            if d_curr["h"] == 0 or d_curr["l"] == 0 or d_curr["h"] == d_curr["l"]:
+                print(f"  WARN {symbol}: NSE data invalid (h={d_curr['h']} l={d_curr['l']} c={d_curr['c']}) — falling back to Yahoo")
+                # Fall through to Yahoo
+            else:
+                price  = round(float(d_curr["c"]), 2)
+                volume = int(d_curr.get("v", 0))
+                chg    = round(((d_curr["c"] - d_prev["c"]) / d_prev["c"]) * 100, 2) if d_prev["c"] else 0
+                if symbol == "RELIANCE":
+                    print(f"  DEBUG RELIANCE NSE: h={d_curr['h']} l={d_curr['l']} c={d_curr['c']} | prev h={d_prev['h']} l={d_prev['l']} c={d_prev['c']}")
+
+        # If daily data not set yet (NSE missing or invalid), use Yahoo
+        if d_curr is None or d_prev is None:
             hist = ticker.history(period="15d", interval="1d", auto_adjust=True)
             if hist.empty: return None
             hist = hist.dropna(subset=["High", "Low", "Close"])
@@ -466,7 +484,7 @@ def fetch_stock(symbol):
             "price":   price,
             "change":  chg,
             "volume":  volume,
-            "source":  "NSE" if symbol in nse_daily_map else "Yahoo",
+            "source":  "NSE" if (symbol in nse_daily_map and d_curr and d_curr["h"] != d_curr["l"] and d_curr["h"] != 0) else "Yahoo",
             "daily":   {"curr": d_curr, "prev": d_prev},
             "weekly":  {"curr": w_curr, "prev": w_prev} if w_curr else None,
             "monthly": {"curr": m_curr, "prev": m_prev} if m_curr else None,
