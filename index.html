@@ -572,34 +572,27 @@ function getStockList(idxKey) {
   return N500;
 }
 
-const NOTICES = {
-  daily:'Daily: Current CPR (today\'s OHLC) must lie entirely within yesterday\'s CPR. TC=(Pivot+High)/2 | BC=(Pivot+Low)/2. Run after 3:30 PM on trading days.',
-  weekly:'Weekly: This week\'s CPR (Mon–Fri OHLC) must lie entirely within last week\'s CPR. Run every Friday after 3:30 PM.',
-  monthly:'Monthly: This month\'s CPR must lie entirely within last month\'s CPR range. Run on last trading day of the month after 3:30 PM.'
-};
-const TF_CFG = {
-  daily:{range:'5d',interval:'1d'},
-  weekly:{range:'1mo',interval:'1wk'},
-  monthly:{range:'1y',interval:'1mo'},
-};
-const PROXIES = [
-  'https://corsproxy.io/?',
-  'https://api.allorigins.win/raw?url=',
-];
 
-let tf='daily', sortKey='widthPct', sortAsc=true, results=[], scanning=false;
+const NOTICES = {
+  daily:'Daily: CPR is pre-calculated from yesterday\'s complete OHLC. TC=(Pivot+High)/2 | BC=(Pivot+Low)/2. Data updated automatically after 3:30 PM every trading day.',
+  weekly:'Weekly: CPR is pre-calculated from last week\'s complete Mon–Fri OHLC. Data updated every Friday after 3:30 PM.',
+  monthly:'Monthly: CPR is pre-calculated from last month\'s complete OHLC. Data updated on the last trading day of each month after 3:30 PM.'
+};
+
+// GitHub raw URL for cpr_data.json — replace USERNAME and REPONAME if needed
+const DATA_URL = 'https://raw.githubusercontent.com/gajapriyaannadurai/Inside-CPR-Scanner---Web/main/cpr_data.json';
+
+let tf='daily', sortKey='widthPct', sortAsc=true, results=[], allData=[], scanning=false, dataLoaded=false, lastFetched=null;
 
 function setTF(t,el){
-  if(scanning) return;
   tf=t;
   document.querySelectorAll('.tf-btn').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');
   document.getElementById('notice-text').textContent=NOTICES[t];
-  ['s-inside','s-bull','s-bear','s-narrow','s-scanned','s-time'].forEach(id=>document.getElementById(id).textContent='—');
   document.getElementById('rcount').textContent='';
-  setStatus('','');
-  document.getElementById('tbody').innerHTML='<tr><td colspan="14" class="empty-state">Click <strong>Scan Now</strong> to fetch live NSE data for '+t+' timeframe.</td></tr>';
-  results=[];
+  // If data already loaded, re-filter instantly
+  if(dataLoaded) applyFilters();
+  else document.getElementById('tbody').innerHTML='<tr><td colspan="14" class="empty-state">Click <strong>Scan Now</strong> to load CPR data.</td></tr>';
 }
 
 function setStatus(type,msg){
@@ -617,161 +610,129 @@ function setProgress(pct){
   bar.style.width=pct+'%';
 }
 
-async function fetchOHLC(symbol){
-  const cfg=TF_CFG[tf];
-  const ySym=encodeURIComponent(symbol+'.NS');
-  // Fetch extra bars so we always have 3 complete candles even if current is live/incomplete
-  const rangeMap={daily:'10d',weekly:'3mo',monthly:'2y'};
-  const url=`https://query1.finance.yahoo.com/v8/finance/chart/${ySym}?range=${rangeMap[tf]}&interval=${cfg.interval}&includePrePost=false`;
-  for(let i=0;i<PROXIES.length;i++){
-    try{
-      const res=await fetch(PROXIES[i]+encodeURIComponent(url),{signal:AbortSignal.timeout(9000)});
-      if(!res.ok) continue;
-      const json=await res.json();
-      const chart=json?.chart?.result?.[0];
-      if(!chart) continue;
-      const q=chart.indicators?.quote?.[0];
-      const ts=chart.timestamp;
-      if(!q||!ts||ts.length<3) continue;
-
-      // ── Key fix: collect all COMPLETE candles (non-null H/L/C/V) ──────────
-      // A live/incomplete candle may have null close or abnormally low volume
-      const bars=[];
-      for(let j=0;j<ts.length;j++){
-        const h=q.high[j], l=q.low[j], c=q.close[j], v=q.volume[j];
-        // Skip bars with any null/zero OHLC — incomplete candles
-        if(h&&l&&c&&h>0&&l>0&&c>0) bars.push({h,l,c,v:v||0,ts:ts[j]});
-      }
-      if(bars.length<3) continue;
-
-      // For daily/weekly/monthly CPR scanner:
-      // "currBar"  = most recent COMPLETE session (yesterday for daily, last week for weekly)
-      // "prevBar"  = the session before that (day-before-yesterday, etc.)
-      // We need currBar's CPR to be INSIDE prevBar's CPR
-      // The LIVE price comes from the last bar in the raw feed (today's incomplete candle close)
-
-      const n=bars.length;
-      // currBar = second-to-last complete bar (yesterday's complete session)
-      const currBar=bars[n-1];
-      // prevBar = third-to-last complete bar (day before yesterday)
-      const prevBar=bars[n-2];
-
-      // Live price: use raw last close from Yahoo (today's live price, may be partial candle)
-      // Fall back to currBar close if today's candle is not available
-      const rawN=ts.length;
-      const liveClose=q.close[rawN-1]||currBar.c;
-      const liveHigh=q.high[rawN-1]||currBar.h;
-      const liveLow=q.low[rawN-1]||currBar.l;
-      const liveVol=q.volume[rawN-1]||currBar.v;
-
-      // Change % = today's live price vs yesterday's close
-      const changePct=currBar.c?((liveClose-currBar.c)/currBar.c)*100:0;
-
-      return{
-        // currBar = yesterday's completed OHLC → used to calculate TODAY's CPR
-        curr:{h:currBar.h,l:currBar.l,c:currBar.c},
-        // prevBar = day-before-yesterday's completed OHLC → used to calculate YESTERDAY's CPR
-        prev:{h:prevBar.h,l:prevBar.l,c:prevBar.c},
-        // Live price for display and trend bias
-        price:liveClose,
-        liveH:liveHigh,
-        liveL:liveLow,
-        changePct,
-        volume:liveVol
-      };
-    }catch(e){continue;}
-  }
-  return null;
-}
-
-function calcCPR(h,l,c){const p=(h+l+c)/3;return{pivot:p,tc:(p+h)/2,bc:(p+l)/2};}
-
+// ─── Main scan — fetches pre-computed JSON once, then filters in browser ──────
 async function runScan(){
   if(scanning) return;
   scanning=true;
   const btn=document.getElementById('scan-btn');
-  btn.disabled=true;btn.textContent='Scanning...';
+  btn.disabled=true; btn.textContent='Loading...';
+  setStatus('loading','Fetching pre-calculated CPR data...');
+  setProgress(30);
 
-  const idxKey=document.getElementById('f-index').value;
-  const secF=document.getElementById('f-sector').value;
-  const widF=document.getElementById('f-width').value;
-  const trendF=document.getElementById('f-trend').value;
-  const fnoF=document.getElementById('f-fno').value;
-  const priceF=parseFloat(document.getElementById('f-price').value)||0;
-
-  let stocks=getStockList(idxKey);
-  if(secF) stocks=stocks.filter(s=>s.sec===secF);
-  if(fnoF==='yes') stocks=stocks.filter(s=>s.fno);
-
-  results=[];
-  let done=0;
-  const total=stocks.length;
-
-  setStatus('loading','Fetching live NSE data... (0/'+total+')');
-  setProgress(2);
-  document.getElementById('tbody').innerHTML='<tr><td colspan="14" class="empty-state">Scanning '+total+' stocks from NSE...<br><span style="font-size:13px;color:#aaa">Please wait — large indices (Nifty 500) may take 3–4 minutes.</span></td></tr>';
-
-  const BATCH=6;
-  for(let i=0;i<stocks.length;i+=BATCH){
-    const batch=stocks.slice(i,i+BATCH);
-    const batchData=await Promise.all(batch.map(s=>fetchOHLC(s.s)));
-    batchData.forEach((data,j)=>{
-      const s=batch[j];
-      done++;
-      setProgress(Math.round((done/total)*92));
-      setStatus('loading','Fetching live NSE data... ('+done+'/'+total+')');
-      if(!data) return;
-      // curr = CPR from yesterday's complete OHLC → this is "today's CPR"
-      // prev = CPR from day-before-yesterday's complete OHLC → this is "yesterday's CPR"
-      // RULE: Today's CPR must sit COMPLETELY inside yesterday's CPR
-      //       i.e. currTC < prevTC  AND  currBC > prevBC  (strict, no tolerance)
-      //       Also currWidth < prevWidth as a sanity cross-check
-      const curr=calcCPR(data.curr.h,data.curr.l,data.curr.c);
-      const prev=calcCPR(data.prev.h,data.prev.l,data.prev.c);
-      const currW=curr.tc-curr.bc;
-      const prevW=prev.tc-prev.bc;
-      // Strict inside check — both conditions must be true, width must also be smaller
-      if(curr.tc>=prev.tc||curr.bc<=prev.bc||currW>=prevW) return;
-      const widthPct=((curr.tc-curr.bc)/data.price)*100;
-      const widthCat=widthPct<0.5?'narrow':widthPct<=1.5?'medium':'wide';
-      const trend=data.price>curr.pivot?'bullish':'bearish';
-      if(widF&&widthCat!==widF) return;
-      if(trendF&&trend!==trendF) return;
-      if(priceF&&data.price<priceF) return;
-      results.push({symbol:s.s,name:s.n,sector:s.sec,fno:s.fno,
-        price:data.price,change:data.changePct,volume:data.volume,
-        pivot:curr.pivot,tc:curr.tc,bc:curr.bc,
-        prevTc:prev.tc,prevBc:prev.bc,
-        currW:currW,prevW:prevW,
-        widthPct,widthCat,trend});
-    });
-    if(i+BATCH<stocks.length) await sleep(250);
+  try{
+    // Fetch the cached JSON (generated by GitHub Actions at 3:45 PM)
+    const res = await fetch(DATA_URL + '?t=' + Date.now()); // cache-bust
+    if(!res.ok) throw new Error('Could not load CPR data. Status: ' + res.status);
+    const json = await res.json();
+    allData = json.stocks || [];
+    lastFetched = json.generated_at || '—';
+    dataLoaded = true;
+    setProgress(80);
+    setStatus('loading','Applying filters...');
+    applyFilters();
+    setProgress(100);
+    setTimeout(()=>setProgress(0), 500);
+    setStatus('live', 'Data loaded — generated at ' + lastFetched + ' · ' + allData.length + ' stocks');
+    document.getElementById('s-time').textContent = lastFetched;
+  } catch(err){
+    setStatus('error', 'Error: ' + err.message + ' — check your internet connection');
+    document.getElementById('tbody').innerHTML = '<tr><td colspan="14" class="empty-state" style="color:#a32d2d">Failed to load CPR data. The data file may not exist yet — it is generated automatically at 3:45 PM every trading day.<br><br>If this is your first time, trigger the GitHub Action manually from your repo → Actions tab → Run workflow.</td></tr>';
+    setProgress(0);
   }
 
-  setProgress(100);
-  setTimeout(()=>setProgress(0),600);
-  document.getElementById('s-inside').textContent=results.length;
-  document.getElementById('s-bull').textContent=results.filter(r=>r.trend==='bullish').length;
-  document.getElementById('s-bear').textContent=results.filter(r=>r.trend==='bearish').length;
-  document.getElementById('s-narrow').textContent=results.filter(r=>r.widthCat==='narrow').length;
-  document.getElementById('s-scanned').textContent=done;
-  document.getElementById('s-time').textContent=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
-  document.getElementById('rcount').textContent=results.length+' stocks found';
-  setStatus('live','Scan complete — '+done+' stocks checked, '+results.length+' Inside CPR found');
-  renderTable();
   scanning=false;
   btn.disabled=false;
   btn.innerHTML='&#9654;&nbsp; Scan Now';
 }
 
-function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+// ─── Filter + render from cached data (instant — no API calls) ───────────────
+function applyFilters(){
+  const idxKey  = document.getElementById('f-index').value;
+  const secF    = document.getElementById('f-sector').value;
+  const widF    = document.getElementById('f-width').value;
+  const trendF  = document.getElementById('f-trend').value;
+  const fnoF    = document.getElementById('f-fno').value;
+  const priceF  = parseFloat(document.getElementById('f-price').value)||0;
 
+  // Get symbols for selected index
+  const idxSymbols = getIndexSymbols(idxKey);
+
+  results = [];
+  allData.forEach(s => {
+    // Index filter
+    if(idxKey !== 'all' && !idxSymbols.has(s.symbol)) return;
+    // Sector filter
+    if(secF && s.sector !== secF) return;
+    // F&O filter
+    if(fnoF === 'yes' && !s.fno) return;
+    // Price filter
+    if(priceF && s.price < priceF) return;
+
+    // Get timeframe data
+    const tfData = s[tf];
+    if(!tfData) return;
+    // Inside CPR filter
+    if(!tfData.inside) return;
+
+    const widthCat = tfData.width_pct < 0.5 ? 'narrow' : tfData.width_pct <= 1.5 ? 'medium' : 'wide';
+    if(widF && widthCat !== widF) return;
+    if(trendF && tfData.trend !== trendF) return;
+
+    results.push({
+      symbol:   s.symbol,
+      name:     s.name,
+      sector:   s.sector,
+      fno:      s.fno,
+      price:    s.price,
+      change:   s.change,
+      volume:   s.volume,
+      pivot:    tfData.curr_cpr.pivot,
+      tc:       tfData.curr_cpr.tc,
+      bc:       tfData.curr_cpr.bc,
+      prevTc:   tfData.prev_cpr.tc,
+      prevBc:   tfData.prev_cpr.bc,
+      widthPct: tfData.width_pct,
+      widthCat: widthCat,
+      trend:    tfData.trend,
+    });
+  });
+
+  // Update stat counters
+  document.getElementById('s-inside').textContent  = results.length;
+  document.getElementById('s-bull').textContent    = results.filter(r=>r.trend==='bullish').length;
+  document.getElementById('s-bear').textContent    = results.filter(r=>r.trend==='bearish').length;
+  document.getElementById('s-narrow').textContent  = results.filter(r=>r.widthCat==='narrow').length;
+  document.getElementById('s-scanned').textContent = allData.filter(s => {
+    const sym = getIndexSymbols(idxKey);
+    return idxKey === 'all' || sym.has(s.symbol);
+  }).length;
+  document.getElementById('rcount').textContent = results.length + ' stocks found';
+
+  renderTable();
+}
+
+function getIndexSymbols(idxKey){
+  const map = {
+    nifty50:     new Set(NIFTY50_SYM),
+    niftybank:   new Set(NIFTYBANK_SYM),
+    niftyit:     new Set(NIFTYIT_SYM),
+    niftymidcap50: new Set(NIFTYMID50_SYM),
+    nifty100:    new Set(NIFTY100_SYM),
+    nifty200:    new Set(NIFTY200_SYM),
+    nifty500:    new Set(N500.map(s=>s.s)),
+    fno:         new Set(N500.filter(s=>s.fno).map(s=>s.s)),
+  };
+  return map[idxKey] || new Set(N500.map(s=>s.s));
+}
+
+// Filters re-apply instantly without re-fetching
 function resetAll(){
   document.getElementById('f-sector').value='';
   document.getElementById('f-width').value='';
   document.getElementById('f-trend').value='';
   document.getElementById('f-fno').value='';
   document.getElementById('f-price').value='';
+  if(dataLoaded) applyFilters();
 }
 
 function sortBy(key){
@@ -794,7 +755,7 @@ function renderTable(){
   });
   const tbody=document.getElementById('tbody');
   if(!sorted.length){
-    tbody.innerHTML='<tr><td colspan="14" class="empty-state">No Inside CPR stocks found. Try adjusting filters or check after market close.</td></tr>';
+    tbody.innerHTML='<tr><td colspan="14" class="empty-state">No Inside CPR stocks found for current filters.<br><span style="font-size:13px;color:#aaa">Try selecting a broader index or clearing filters.</span></td></tr>';
     return;
   }
   const maxW=Math.max(...sorted.map(r=>r.widthPct));
@@ -824,11 +785,8 @@ function checkMarketHours(){
   const now=new Date();
   const utc=now.getTime()+(now.getTimezoneOffset()*60000);
   const ist=new Date(utc+(5.5*3600000));
-  const day=ist.getDay(); // 0=Sun,1=Mon..6=Sat
-  const h=ist.getHours();
-  const m=ist.getMinutes();
-  const timeNow=h*100+m; // e.g. 1430=2:30 PM IST
-
+  const day=ist.getDay();
+  const timeNow=ist.getHours()*100+ist.getMinutes();
   const isWeekday=day>=1&&day<=5;
   const isMarketOpen=isWeekday&&timeNow>=915&&timeNow<1530;
   const isAfterClose=isWeekday&&timeNow>=1530;
@@ -837,24 +795,22 @@ function checkMarketHours(){
   const okEl=document.getElementById('market-closed-ok');
 
   if(isMarketOpen){
-    // Market is open — show red warning
     warningEl.style.display='flex';
     okEl.style.display='none';
-  } else if(isAfterClose){
-    // After 3:30 PM on weekday — show green all-clear
-    warningEl.style.display='none';
-    okEl.style.display='flex';
+    warningEl.querySelector('div div:last-child').innerHTML=
+      'Market is live ('+ist.getHours()+':'+(ist.getMinutes()<10?'0':'')+ist.getMinutes()+' IST). The scanner shows <strong>yesterday\'s pre-calculated CPR data</strong> — which is exactly what you need for today\'s trading plan. Results are accurate for today.';
   } else {
-    // Weekend or before market open — show green (last session is complete)
     warningEl.style.display='none';
     okEl.style.display='flex';
-    document.getElementById('market-closed-ok').querySelector('div').innerHTML=
-      '<strong>Market is closed</strong> — scanner results are accurate. Last session\'s candle is complete.';
+    const msg = isAfterClose
+      ? '<strong>Market closed</strong> — CPR data updated at 3:45 PM. Results are accurate for tomorrow\'s trading plan.'
+      : '<strong>Market is closed</strong> — showing last session\'s pre-calculated CPR data. Accurate and ready to use.';
+    okEl.querySelector('div').innerHTML=msg;
   }
 }
 
 checkMarketHours();
-setInterval(checkMarketHours,60000); // re-check every minute
+setInterval(checkMarketHours,60000);
 </script>
 </body>
 </html>
