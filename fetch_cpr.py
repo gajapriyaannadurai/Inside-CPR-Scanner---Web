@@ -366,14 +366,20 @@ def fetch_nse_bhav():
         "Accept":     "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     }
 
-    # Generate last 5 calendar dates to find the last 2 trading days
+    # Find last 2 completed trading days
+    # candidate_dates[0] = yesterday (prev), candidate_dates[1] = today (curr)
     today = datetime.date.today()
     candidate_dates = []
     d = today
+    # We want exactly 2 trading days: today and the day before
+    # Start from today and go back
     while len(candidate_dates) < 2:
-        if d.weekday() < 5:  # Mon–Fri only
+        if d.weekday() < 5:  # Mon–Fri only, skip weekends
             candidate_dates.append(d)
         d -= datetime.timedelta(days=1)
+    # candidate_dates is now [today, yesterday] — reverse to get [yesterday, today]
+    candidate_dates = list(reversed(candidate_dates))
+    # candidate_dates[0] = yesterday (prev/older), candidate_dates[1] = today (curr/newer)
 
     print(f"  Fetching NSE Bhav Copy for {[str(x) for x in candidate_dates]}...")
 
@@ -428,21 +434,22 @@ def fetch_nse_bhav():
         except Exception as e:
             print(f"  NSE Bhav fetch failed for {trade_date}: {e}")
 
-    # Build nse_daily_map: symbol -> [prev_day, curr_day]
-    sorted_dates = sorted(day_data.keys())
+    # Build nse_daily_map: symbol -> [older_day, newer_day] sorted by date ascending
+    sorted_dates = sorted(day_data.keys())  # ascending = oldest first
     all_symbols  = set()
     for d in sorted_dates:
         all_symbols.update(day_data[d].keys())
 
     for sym in all_symbols:
         rows = []
-        for d in sorted_dates:
+        for d in sorted_dates:  # oldest → newest
             if sym in day_data[d]:
                 rows.append(day_data[d][sym])
         if len(rows) >= 2:
-            nse_daily_map[sym] = rows  # [prev, curr]
+            nse_daily_map[sym] = rows  # [oldest/prev, newest/curr]
 
     print(f"  NSE Bhav map built: {len(nse_daily_map)} symbols with 2 days of data")
+    print(f"  Date order: prev={sorted_dates[0]} → curr={sorted_dates[-1]} (oldest first = correct)")
     return len(nse_daily_map) > 0
 
 def get_yahoo_ticker(symbol):
@@ -471,9 +478,10 @@ def fetch_stock(symbol):
 
         if symbol in nse_daily_map and len(nse_daily_map[symbol]) >= 2:
             # NSE Bhav Copy data — most accurate, official EOD
+            # nse_daily_map[symbol] = [yesterday_data, today_data] (sorted oldest→newest)
             rows   = nse_daily_map[symbol]
-            d_curr = rows[-1]   # today's complete candle
-            d_prev = rows[-2]   # yesterday's complete candle
+            d_curr = rows[-1]   # today's complete candle (newest = index -1)
+            d_prev = rows[-2]   # yesterday's complete candle (older = index -2)
             # Verify data is valid — H and L must differ and be non-zero
             if d_curr["h"] == 0 or d_curr["l"] == 0 or d_curr["h"] == d_curr["l"]:
                 print(f"  WARN {symbol}: NSE data invalid (h={d_curr['h']} l={d_curr['l']} c={d_curr['c']}) — falling back to Yahoo")
@@ -482,11 +490,11 @@ def fetch_stock(symbol):
                 price  = round(float(d_curr["c"]), 2)
                 volume = int(d_curr.get("v", 0))
                 chg    = round(((d_curr["c"] - d_prev["c"]) / d_prev["c"]) * 100, 2) if d_prev["c"] else 0
-                if symbol == "RELIANCE":
-                    print(f"  DEBUG RELIANCE NSE raw: curr H={d_curr['h']} L={d_curr['l']} C={d_curr['c']} | prev H={d_prev['h']} L={d_prev['l']} C={d_prev['c']}")
+                if symbol in ["ALKEM", "JSWSTEEL", "BAJFINANCE", "RELIANCE"]:
+                    print(f"  DEBUG {symbol} NSE raw: curr H={d_curr['h']} L={d_curr['l']} C={d_curr['c']} | prev H={d_prev['h']} L={d_prev['l']} C={d_prev['c']}")
                     dc = calc_cpr(d_curr['h'], d_curr['l'], d_curr['c'])
                     dp = calc_cpr(d_prev['h'], d_prev['l'], d_prev['c'])
-                    print(f"  DEBUG RELIANCE CPR: curr TC={dc['tc']} BC={dc['bc']} | prev TC={dp['tc']} BC={dp['bc']} | inside={is_inside_cpr(dc,dp)}")
+                    print(f"  DEBUG {symbol} CPR: curr TC={dc['tc']} BC={dc['bc']} | prev TC={dp['tc']} BC={dp['bc']} | inside={is_inside_cpr(dc,dp)}")
 
         # If daily data not set yet (NSE missing or invalid), use Yahoo
         if d_curr is None or d_prev is None:
