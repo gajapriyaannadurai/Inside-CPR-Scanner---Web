@@ -347,6 +347,7 @@ YAHOO_SYMBOL_MAP = {
 # Bhav copy has: SYMBOL, OPEN, HIGH, LOW, CLOSE, VOLUME for all NSE stocks
 
 nse_daily_map = {}  # symbol -> list of last 2 days [{h,l,c,v}]
+scan_mode = "DURING_MARKET"  # global, set by fetch_nse_bhav based on IST time
 
 def fetch_nse_bhav():
     """
@@ -365,6 +366,7 @@ def fetch_nse_bhav():
         "Accept":     "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     }
 
+    global scan_mode
     # ── Time-based date selection (IST) ──────────────────────────────────────
     # Before 3:30 PM IST (market open):
     #   curr = yesterday OHLC  → today's CPR
@@ -451,23 +453,22 @@ def fetch_nse_bhav():
                     if first_row:
                         print(f"  NSE Bhav columns: {list(row.keys())[:15]}")
                         first_row = False
-                    # Symbol column — NSE uses SYMBOL in standard bhav copy
-                    sym = row.get("SYMBOL", row.get("TckrSymb", row.get("Symbol", ""))).strip()
+                    # NSE new Bhav Copy format (confirmed from log):
+                    # Columns: TradDt,BizDt,Sgmt,Src,FinInstrmTp,FinInstrmId,ISIN,TckrSymb,SctySrs,OpnPric,HghPric,LwPric,ClsPric,LastPric,PrvsClsgPric,UndrlygPric,SttlmPric,OpnIntrst,ChngInOpnIntrst,TtlTradgVol,TtlTrfVal,TtlNbOfTxsExctd,SsnId,NewBrdLotQty,Rmks
+                    # NSE old format: SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN
+                    sym = row.get("TckrSymb", row.get("SYMBOL", row.get("Symbol", ""))).strip()
                     if not sym: continue
-                    # Only process EQ series (equity), skip BE, BZ, IL etc
-                    series = row.get("SERIES", row.get("Series", "EQ")).strip()
+                    # Only process EQ series
+                    series = row.get("SctySrs", row.get("SERIES", row.get("Series", "EQ"))).strip()
                     if series not in ("EQ", "BE"):
                         continue
-                    # Print raw row for key stocks to debug
-                    if sym in ["ALKEM", "JSWSTEEL", "RELIANCE"]:
-                        print(f"  RAW NSE ROW {sym}: {dict(row)}")
                     try:
-                        # NSE Bhav Copy actual column names (confirmed from Excel):
-                        # DATE, SERIES, OPEN, HIGH, LOW, PREV. CLO, LTP, CLOSE, VWAP, 52W H, 52W L, VOLUME, VALUE, NO. OF TRADES
-                        h = float(row.get("HIGH",     row.get("HghPric",  row.get("high",  0))))
-                        l = float(row.get("LOW",      row.get("LwPric",   row.get("low",   0))))
-                        c = float(row.get("CLOSE",    row.get("ClsPric",  row.get("close", 0))))
-                        v = int(float(row.get("VOLUME", row.get("TtlTradgVol", row.get("TOTTRDQTY", 0)))))
+                        # New format: HghPric, LwPric, ClsPric, TtlTradgVol
+                        # Old format: HIGH, LOW, CLOSE, TOTTRDQTY
+                        h = float(row.get("HghPric",     row.get("HIGH",   row.get("high",  0))))
+                        l = float(row.get("LwPric",      row.get("LOW",    row.get("low",   0))))
+                        c = float(row.get("ClsPric",     row.get("CLOSE",  row.get("close", 0))))
+                        v = int(float(row.get("TtlTradgVol", row.get("TOTTRDQTY", row.get("VOLUME", 0)))))
                         if h == 0 or l == 0 or c == 0:
                             continue
                         day_data[date_str][sym] = {"h": h, "l": l, "c": c, "v": v}
