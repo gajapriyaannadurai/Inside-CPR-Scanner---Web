@@ -115,13 +115,10 @@
       <div class="stat"><div class="stat-label">Last scanned</div><div class="stat-val muted" id="s-time">—</div></div>
     </div>
 
-    <div id="market-warning" style="display:none;padding:10px 20px;border-bottom:1px solid #f5c6c6;background:#fff3f3;display:flex;align-items:center;gap:8px;font-size:13px;color:#a32d2d">
-      <i class="ti ti-alert-triangle" style="font-size:15px;flex-shrink:0;color:#c0392b"></i>
-      ⚠️ Market is open — CPR is calculated from yesterday's OHLC (not live data). Results are valid for today's session.
-    </div>
-    <div id="market-closed-ok" style="display:none;padding:10px 20px;border-bottom:1px solid #c8e6d0;background:#e8f5ee;display:flex;align-items:center;gap:8px;font-size:13px;color:#0b6b40">
-      <i class="ti ti-circle-check" style="font-size:15px;flex-shrink:0;color:#0b6b40"></i>
-      <span id="market-closed-ok-text">✅ Market closed — CPR calculated from today's OHLC. Valid for tomorrow's trading.</span>
+    <div id="market-status-bar" style="padding:8px 20px;border-bottom:1px solid #e8ecf0;display:flex;align-items:center;gap:8px;font-size:12.5px">
+      <span id="market-flag" style="display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-weight:600;font-size:12px">
+      </span>
+      <span id="market-flag-text" style="color:#666"></span>
     </div>
     <div class="progress-wrap" id="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
     <div class="data-status">
@@ -571,13 +568,7 @@ function getStockList(idxKey) {
 }
 
 
-const NOTICES = {
-  daily:'Daily: CPR is pre-calculated from yesterday\'s complete OHLC. TC=(Pivot+High)/2 | BC=(Pivot+Low)/2. Data updated automatically after 3:30 PM every trading day.',
-  weekly:'Weekly: CPR is pre-calculated from last week\'s complete Mon–Fri OHLC. Data updated every Friday after 3:30 PM.',
-  monthly:'Monthly: CPR is pre-calculated from last month\'s complete OHLC. Data updated on the last trading day of each month after 3:30 PM.'
-};
-
-// GitHub raw URL for cpr_data.json — replace USERNAME and REPONAME if needed
+// GitHub raw URL for cpr_data.json
 const DATA_URL = 'https://raw.githubusercontent.com/gajapriyaannadurai/Inside-CPR-Scanner---Web/main/cpr_data.json';
 
 let tf='daily', sortKey='widthPct', sortAsc=true, results=[], allData=[], scanning=false, dataLoaded=false, lastFetched=null;
@@ -613,44 +604,32 @@ async function runScan(){
   scanning=true;
   const btn=document.getElementById('scan-btn');
   btn.disabled=true; btn.textContent='Loading...';
-  setStatus('loading','Fetching pre-calculated CPR data...');
+  setStatus('loading','Fetching CPR data...');
   setProgress(30);
 
   try{
     const res = await fetch(DATA_URL + '?t=' + Date.now());
-    if(!res.ok) throw new Error('Could not load CPR data. Status: ' + res.status);
+    if(!res.ok) throw new Error('HTTP ' + res.status + ' — data file not found. Run the GitHub Action first.');
     const json = await res.json();
     allData = json.stocks || [];
     lastFetched = json.generated_at || '—';
-    const scanMode = json.scan_mode || 'UNKNOWN';
     dataLoaded = true;
     setProgress(80);
     setStatus('loading','Applying filters...');
-
-    // Update notice based on scan mode
-    const noticeEl = document.getElementById('notice-text');
-    if(scanMode === 'AFTER_CLOSE'){
-      noticeEl.innerHTML = '<strong>After market close mode:</strong> curr = today\'s OHLC → tomorrow\'s CPR | prev = yesterday\'s OHLC → today\'s CPR | Checking: Is tomorrow\'s CPR inside today\'s CPR? ✅ Valid for <strong>tomorrow\'s trading</strong>';
-      document.querySelector('.top-header p').innerHTML = 'Stocks where <strong>tomorrow\'s CPR</strong> (today\'s OHLC) fits inside <strong>today\'s CPR</strong> (yesterday\'s OHLC) — run after 3:30 PM';
-    } else {
-      noticeEl.innerHTML = '<strong>During market hours mode:</strong> curr = yesterday\'s OHLC → today\'s CPR | prev = day-before-yesterday\'s OHLC → yesterday\'s CPR | Checking: Is today\'s CPR inside yesterday\'s CPR? ✅ Valid for <strong>today\'s trading</strong>';
-      document.querySelector('.top-header p').innerHTML = 'Stocks where <strong>today\'s CPR</strong> (yesterday\'s OHLC) fits inside <strong>yesterday\'s CPR</strong> (day-before-yesterday\'s OHLC) — valid during market hours';
-    }
-
     applyFilters();
     setProgress(100);
     setTimeout(()=>setProgress(0), 500);
-    setStatus('live', 'Data loaded — ' + lastFetched + ' · Mode: ' + (scanMode==='AFTER_CLOSE'?'After close (tomorrow planning)':'During market (today planning)') + ' · ' + allData.length + ' stocks');
+    setStatus('live', 'Loaded ' + allData.length + ' stocks · Generated: ' + lastFetched);
     document.getElementById('s-time').textContent = lastFetched;
   } catch(err){
-    setStatus('error', 'Error: ' + err.message + ' — check your internet connection');
-    document.getElementById('tbody').innerHTML = '<tr><td colspan="12" class="empty-state" style="color:#a32d2d">Failed to load CPR data. The data file may not exist yet — it is generated automatically at 3:45 PM every trading day.<br><br>If this is your first time, trigger the GitHub Action manually from your repo → Actions tab → Run workflow.</td></tr>';
+    setStatus('error', '⚠️ ' + err.message);
+    document.getElementById('tbody').innerHTML = '<tr><td colspan="12" class="empty-state" style="color:#a32d2d">Could not load data.<br><br><strong>Fix:</strong> Go to your GitHub repo → Actions tab → CPR Daily Scanner → Run workflow. Wait 4 minutes then try again.</td></tr>';
     setProgress(0);
+  } finally {
+    scanning=false;
+    btn.disabled=false;
+    btn.innerHTML='&#9654;&nbsp; Scan Now';
   }
-
-  scanning=false;
-  btn.disabled=false;
-  btn.innerHTML='&#9654;&nbsp; Scan Now';
 }
 
 // ─── Filter + render from cached data (instant — no API calls) ───────────────
@@ -798,19 +777,25 @@ function checkMarketHours(){
   const isMarketOpen=isWeekday&&timeNow>=915&&timeNow<1530;
   const isAfterClose=isWeekday&&timeNow>=1530;
 
-  const warningEl=document.getElementById('market-warning');
-  const okEl=document.getElementById('market-closed-ok');
+  const flag     = document.getElementById('market-flag');
+  const flagText = document.getElementById('market-flag-text');
 
   if(isMarketOpen){
-    warningEl.style.display='flex';
-    okEl.style.display='none';
+    flag.style.background = '#fff0f0';
+    flag.style.color      = '#c0392b';
+    flag.style.border     = '1px solid #f5c6c6';
+    flag.innerHTML        = '🔴 Market Open';
+    flagText.textContent  = 'CPR calculated from yesterday\'s OHLC — valid for today\'s session.';
+    flagText.style.color  = '#888';
   } else {
-    warningEl.style.display='none';
-    okEl.style.display='flex';
-    const msgEl=document.getElementById('market-closed-ok-text');
-    if(msgEl) msgEl.textContent = isAfterClose
-      ? '✅ Market closed — CPR calculated from today\'s OHLC. Valid for tomorrow\'s trading.'
-      : '✅ Market closed — CPR calculated from last session\'s OHLC. Valid for today\'s trading.';
+    flag.style.background = '#e8f5ee';
+    flag.style.color      = '#0b6b40';
+    flag.style.border     = '1px solid #c8e6d0';
+    flag.innerHTML        = '🟢 Market Closed';
+    flagText.textContent  = isAfterClose
+      ? 'CPR calculated from today\'s OHLC — valid for tomorrow\'s trading.'
+      : 'CPR calculated from last session\'s OHLC — valid for today\'s trading.';
+    flagText.style.color  = '#888';
   }
 }
 
@@ -823,20 +808,21 @@ function getTableHeaders(){
 }
 
 function resultsToRows(data){
+  const safe = (v, dec=2) => (v != null && !isNaN(v)) ? Number(v).toFixed(dec) : '—';
   return data.map(r => [
-    r.symbol,
-    r.name,
-    r.sector,
+    r.symbol || '—',
+    r.name   || '—',
+    r.sector || '—',
     r.fno ? 'Yes' : 'No',
-    r.price.toFixed(2),
-    r.change.toFixed(2) + '%',
-    r.pivot.toFixed(2),
-    r.tc.toFixed(2),
-    r.bc.toFixed(2),
-    r.prevTc.toFixed(2),
-    r.prevBc.toFixed(2),
-    r.widthPct.toFixed(2) + '%',
-    r.widthCat.charAt(0).toUpperCase() + r.widthCat.slice(1)
+    safe(r.price),
+    safe(r.change) + '%',
+    safe(r.pivot),
+    safe(r.tc),
+    safe(r.bc),
+    safe(r.prevTc),
+    safe(r.prevBc),
+    safe(r.widthPct) + '%',
+    r.widthCat ? r.widthCat.charAt(0).toUpperCase() + r.widthCat.slice(1) : '—'
   ]);
 }
 
@@ -853,8 +839,7 @@ function downloadCSV(){
     headers.join(','),
     ...rows.map(r => r.map(v => '"' + String(v).replace(/"/g,'""') + '"').join(','))
   ];
-  const blob = new Blob([csvLines.join('
-')], {type:'text/csv;charset=utf-8;'});
+  const blob = new Blob([csvLines.join('\n')], {type:'text/csv;charset=utf-8;'});
   const url  = URL.createObjectURL(blob);
   const a    = document.createElement('a');
   a.href     = url;
@@ -885,8 +870,7 @@ function downloadExcel(){
       const isNum = numCols.has(i) && !isNaN(parseFloat(raw));
       return isNum ? cell(parseFloat(raw), 'n') : cell(v, '');
     }).join('') + '</Row>'
-  ).join('
-        ');
+  ).join('\n        ');
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <?mso-application progid="Excel.Sheet"?>
