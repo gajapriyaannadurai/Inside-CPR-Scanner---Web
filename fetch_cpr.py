@@ -365,22 +365,60 @@ def fetch_nse_bhav():
         "Accept":     "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     }
 
-    # Find last 2 completed trading days
-    # candidate_dates[0] = yesterday (prev), candidate_dates[1] = today (curr)
-    today = datetime.date.today()
-    candidate_dates = []
-    d = today
-    # We want exactly 2 trading days: today and the day before
-    # Start from today and go back
-    while len(candidate_dates) < 2:
-        if d.weekday() < 5:  # Mon–Fri only, skip weekends
-            candidate_dates.append(d)
-        d -= datetime.timedelta(days=1)
-    # candidate_dates is now [today, yesterday] — reverse to get [yesterday, today]
-    candidate_dates = list(reversed(candidate_dates))
-    # candidate_dates[0] = yesterday (prev/older), candidate_dates[1] = today (curr/newer)
+    # ── Time-based date selection (IST) ──────────────────────────────────────
+    # Before 3:30 PM IST (market open):
+    #   curr = yesterday OHLC  → today's CPR
+    #   prev = day-before-yesterday OHLC → yesterday's CPR
+    #   Question: Is today's CPR inside yesterday's CPR?
+    #
+    # After 3:30 PM IST (market closed, today's candle complete):
+    #   curr = today OHLC     → tomorrow's CPR
+    #   prev = yesterday OHLC → today's CPR
+    #   Question: Is tomorrow's CPR inside today's CPR?
 
-    print(f"  Fetching NSE Bhav Copy for {[str(x) for x in candidate_dates]}...")
+    # Get current IST time
+    import time as _time
+    utc_now   = datetime.datetime.utcnow()
+    ist_now   = utc_now + datetime.timedelta(hours=5, minutes=30)
+    ist_hhmm  = ist_now.hour * 100 + ist_now.minute  # e.g. 1545 = 3:45 PM
+    today     = ist_now.date()
+    is_weekday = today.weekday() < 5  # Mon–Fri
+
+    # Market is closed if after 3:30 PM on a weekday
+    market_closed = is_weekday and ist_hhmm >= 1530
+
+    if market_closed:
+        # After 3:30 PM — use today + yesterday (today candle is complete)
+        scan_mode = "AFTER_CLOSE"
+        candidate_dates = []
+        d = today
+        while len(candidate_dates) < 2:
+            if d.weekday() < 5:
+                candidate_dates.append(d)
+            d -= datetime.timedelta(days=1)
+        candidate_dates = list(reversed(candidate_dates))
+        # [0]=yesterday (prev→today CPR), [1]=today (curr→tomorrow CPR)
+    else:
+        # Before 3:30 PM — skip today, use yesterday + day-before-yesterday
+        scan_mode = "DURING_MARKET"
+        candidate_dates = []
+        d = today - datetime.timedelta(days=1)  # start from yesterday
+        while len(candidate_dates) < 2:
+            if d.weekday() < 5:
+                candidate_dates.append(d)
+            d -= datetime.timedelta(days=1)
+        candidate_dates = list(reversed(candidate_dates))
+        # [0]=day-before-yesterday (prev→yesterday CPR), [1]=yesterday (curr→today CPR)
+
+    print(f"  IST time: {ist_now.strftime('%H:%M')} | Mode: {scan_mode}")
+    if scan_mode == "AFTER_CLOSE":
+        print(f"  prev={candidate_dates[0]} (yesterday OHLC → today CPR)")
+        print(f"  curr={candidate_dates[1]} (today OHLC → tomorrow CPR)")
+        print(f"  Checking: Is tomorrow CPR inside today CPR?")
+    else:
+        print(f"  prev={candidate_dates[0]} (day-before-yesterday OHLC → yesterday CPR)")
+        print(f"  curr={candidate_dates[1]} (yesterday OHLC → today CPR)")
+        print(f"  Checking: Is today CPR inside yesterday CPR?")
 
     session = requests.Session()
     # Warm up session (NSE requires this)
@@ -439,10 +477,13 @@ def fetch_nse_bhav():
         except Exception as e:
             print(f"  NSE Bhav fetch failed for {trade_date}: {e}")
 
-    # Build nse_daily_map: symbol -> [older_day, newer_day]
-    # sorted_dates ascending = [yesterday, today] so rows[-2]=yesterday, rows[-1]=today
-    sorted_dates = sorted(day_data.keys())  # ascending: oldest first → [Jun16, Jun17]
+    # Build nse_daily_map: symbol -> [day-before-yesterday, yesterday]
+    # sorted ascending = oldest first
+    # rows[-2] = day-before-yesterday → yesterday's CPR (prev)
+    # rows[-1] = yesterday            → today's CPR    (curr)
+    sorted_dates = sorted(day_data.keys())  # ascending: oldest first
     print(f"  Dates sorted ascending: {sorted_dates}")
+    print(f"  prev (yesterday CPR) = {sorted_dates[0]} | curr (today CPR) = {sorted_dates[-1]}")
     all_symbols = set()
     for d in sorted_dates:
         all_symbols.update(day_data[d].keys())
@@ -486,24 +527,29 @@ def fetch_stock(symbol):
 
         if symbol in nse_daily_map and len(nse_daily_map[symbol]) >= 2:
             rows       = nse_daily_map[symbol]
-            today_ohlc = rows[-1]   # newest date = today OHLC → tomorrow CPR
-            yest_ohlc  = rows[-2]   # older  date = yesterday OHLC → today CPR
+            # rows[0] = day-before-yesterday → yesterday's CPR (prev)
+            # rows[1] = yesterday            → today's CPR    (curr)
+            # We use only completed candles — today is skipped entirely
+            yest_ohlc = rows[-1]   # yesterday's complete OHLC → today's CPR
+            dbdy_ohlc = rows[-2]   # day-before-yesterday OHLC → yesterday's CPR
 
-            if today_ohlc["h"] == 0 or today_ohlc["l"] == 0 or today_ohlc["h"] == today_ohlc["l"]:
-                print(f"  WARN {symbol}: bad NSE data")
+            if yest_ohlc["h"] == 0 or yest_ohlc["l"] == 0 or yest_ohlc["h"] == yest_ohlc["l"]:
+                print(f"  WARN {symbol}: bad NSE data h={yest_ohlc['h']} l={yest_ohlc['l']}")
                 return None
 
-            d_curr = today_ohlc   # tomorrow CPR source
-            d_prev = yest_ohlc    # today CPR source
-            price  = round(float(today_ohlc["c"]), 2)
-            volume = int(today_ohlc.get("v", 0))
-            chg    = round(((today_ohlc["c"] - yest_ohlc["c"]) / yest_ohlc["c"]) * 100, 2) if yest_ohlc["c"] else 0
+            # curr = today's CPR    = from yesterday's OHLC
+            # prev = yesterday's CPR = from day-before-yesterday's OHLC
+            d_curr = yest_ohlc   # → today's CPR
+            d_prev = dbdy_ohlc   # → yesterday's CPR
+            price  = round(float(yest_ohlc["c"]), 2)
+            volume = int(yest_ohlc.get("v", 0))
+            chg    = round(((yest_ohlc["c"] - dbdy_ohlc["c"]) / dbdy_ohlc["c"]) * 100, 2) if dbdy_ohlc["c"] else 0
 
-            if symbol in ["HDFCBANK", "RELIANCE", "ALKEM", "JSWSTEEL"]:
-                dc = calc_cpr(today_ohlc["h"], today_ohlc["l"], today_ohlc["c"])
-                dp = calc_cpr(yest_ohlc["h"],  yest_ohlc["l"],  yest_ohlc["c"])
-                print(f"  DEBUG {symbol}: today H={today_ohlc['h']} L={today_ohlc['l']} C={today_ohlc['c']} | yest H={yest_ohlc['h']} L={yest_ohlc['l']} C={yest_ohlc['c']}")
-                print(f"  DEBUG {symbol}: tom_CPR TC={dc['tc']} BC={dc['bc']} | tod_CPR TC={dp['tc']} BC={dp['bc']} | inside={is_inside_cpr(dc,dp)}")
+            if symbol in ["HDFCBANK", "RELIANCE", "ALKEM", "ITC"]:
+                dc = calc_cpr(yest_ohlc["h"], yest_ohlc["l"], yest_ohlc["c"])
+                dp = calc_cpr(dbdy_ohlc["h"], dbdy_ohlc["l"], dbdy_ohlc["c"])
+                print(f"  DEBUG {symbol}: yest H={yest_ohlc['h']} L={yest_ohlc['l']} C={yest_ohlc['c']} | dbdy H={dbdy_ohlc['h']} L={dbdy_ohlc['l']} C={dbdy_ohlc['c']}")
+                print(f"  DEBUG {symbol}: today_CPR TC={dc['tc']} BC={dc['bc']} | yest_CPR TC={dp['tc']} BC={dp['bc']} | inside={is_inside_cpr(dc,dp)}")
         else:
             # NSE Bhav not available for this symbol — use Yahoo Finance as fallback
             print(f"  INFO {symbol}: not in NSE Bhav, using Yahoo")
@@ -574,7 +620,8 @@ def main():
     output = {
         "generated_at":   datetime.datetime.now().strftime("%Y-%m-%d %H:%M IST"),
         "generated_date": datetime.datetime.now().strftime("%d %b %Y"),
-        "scan_logic":     "curr = today OHLC CPR | prev = yesterday OHLC CPR | inside = today CPR fits inside yesterday CPR = valid for tomorrow trading",
+        "scan_mode":      scan_mode,   # AFTER_CLOSE or DURING_MARKET
+        "scan_logic":     "AFTER_CLOSE: tomorrow CPR (today OHLC) inside today CPR (yesterday OHLC) | DURING_MARKET: today CPR (yesterday OHLC) inside yesterday CPR (day-before-yesterday OHLC)",
         "total_stocks":   len(STOCKS),
         "stocks":         []
     }
