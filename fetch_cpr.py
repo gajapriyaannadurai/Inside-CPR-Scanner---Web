@@ -305,6 +305,20 @@ def is_inside_cpr(curr, prev):
 
 
 
+def get_trend(price, cpr):
+    """
+    Trend based on price position relative to CPR zone:
+    - Above TC → Bullish (price trading above top of CPR)
+    - Below BC → Bearish (price trading below bottom of CPR)
+    - Between TC and BC → Neutral (price inside CPR zone)
+    """
+    if price > cpr["tc"]:
+        return "bullish"
+    elif price < cpr["bc"]:
+        return "bearish"
+    else:
+        return "neutral"
+
 def cpr_width_pct(cpr, price):
     return round(((cpr["tc"] - cpr["bc"]) / price) * 100, 3)
 
@@ -656,7 +670,6 @@ def main():
             "prev_cpr": dp,
             "inside":   is_inside_cpr(dc, dp),
             "width_pct": cpr_width_pct(dc, data["price"]),
-            "trend":    "bullish" if data["price"] > dc["pivot"] else "bearish",
         }
 
         # Weekly CPR
@@ -668,7 +681,6 @@ def main():
                 "prev_cpr": wp,
                 "inside":   is_inside_cpr(wc, wp),
                 "width_pct": cpr_width_pct(wc, data["price"]),
-                "trend":    "bullish" if data["price"] > wc["pivot"] else "bearish",
             }
 
         # Monthly CPR
@@ -680,7 +692,6 @@ def main():
                 "prev_cpr": mp,
                 "inside":   is_inside_cpr(mc, mp),
                 "width_pct": cpr_width_pct(mc, data["price"]),
-                "trend":    "bullish" if data["price"] > mc["pivot"] else "bearish",
             }
 
         # CPR Trend (5-day pivot direction)
