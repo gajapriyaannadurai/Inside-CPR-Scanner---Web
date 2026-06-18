@@ -71,6 +71,7 @@
   .b-wide{background:#fcebeb;color:#a32d2d}
   .b-bull{background:#e1f5ee;color:#0b6b40}
   .b-bear{background:#fcebeb;color:#a32d2d}
+  .b-neutral{background:#f1efe8;color:#5f5e5a}
   .b-fno{background:#eeedfe;color:#3c3489}
   .width-bar-wrap{display:flex;align-items:center;gap:7px;justify-content:flex-end}
   .width-bar{height:5px;border-radius:3px;background:#00c878;display:inline-block}
@@ -102,8 +103,8 @@
     </div>
     <div class="stats-row">
       <div class="stat"><div class="stat-label">Inside CPR</div><div class="stat-val green" id="s-inside">—</div></div>
-      <div class="stat"><div class="stat-label">Bullish bias</div><div class="stat-val green" id="s-bull">—</div></div>
-      <div class="stat"><div class="stat-label">Bearish bias</div><div class="stat-val amber" id="s-bear">—</div></div>
+      <div class="stat"><div class="stat-label">Wide CPR</div><div class="stat-val muted" id="s-bull" style="font-size:22px;padding-top:2px">—</div></div>
+      <div class="stat"><div class="stat-label">Medium CPR</div><div class="stat-val muted" id="s-bear" style="font-size:22px;padding-top:2px">—</div></div>
       <div class="stat"><div class="stat-label">Narrow CPR</div><div class="stat-val muted" id="s-narrow" style="font-size:22px;padding-top:2px">—</div></div>
       <div class="stat"><div class="stat-label">Stocks scanned</div><div class="stat-val muted" id="s-scanned" style="font-size:22px;padding-top:2px">—</div></div>
       <div class="stat"><div class="stat-label">Last scanned</div><div class="stat-val muted" id="s-time">—</div></div>
@@ -171,14 +172,7 @@
           <option value="wide">Wide (&gt;1.5%)</option>
         </select>
       </div>
-      <div class="fg">
-        <label>Trend bias</label>
-        <select id="f-trend">
-          <option value="">Any</option>
-          <option value="bullish">Bullish (above pivot)</option>
-          <option value="bearish">Bearish (below pivot)</option>
-        </select>
-      </div>
+
       <div class="fg">
         <label>F&amp;O only</label>
         <select id="f-fno">
@@ -210,12 +204,11 @@
             <th onclick="sortBy('prevTc')" style="text-align:right">Today TC</th>
             <th onclick="sortBy('prevBc')" style="text-align:right">Today BC</th>
             <th onclick="sortBy('widthPct')" style="text-align:right;min-width:130px">Width %</th>
-            <th onclick="sortBy('trend')">Trend</th>
-            <th onclick="sortBy('volume')" style="text-align:right">Volume</th>
+
           </tr>
         </thead>
         <tbody id="tbody">
-          <tr><td colspan="14" class="empty-state">Select an index and click <strong>Scan Now</strong> to fetch live NSE data.<br><span style="font-size:13px;color:#aaa">Nifty 500 / F&amp;O scan may take 2–4 minutes — fetches 500 stocks live.</span></td></tr>
+          <tr><td colspan="12" class="empty-state">Select an index and click <strong>Scan Now</strong> to fetch live NSE data.<br><span style="font-size:13px;color:#aaa">Nifty 500 / F&amp;O scan may take 2–4 minutes — fetches 500 stocks live.</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -592,7 +585,7 @@ function setTF(t,el){
   document.getElementById('rcount').textContent='';
   // If data already loaded, re-filter instantly
   if(dataLoaded) applyFilters();
-  else document.getElementById('tbody').innerHTML='<tr><td colspan="14" class="empty-state">Click <strong>Scan Now</strong> to load CPR data.</td></tr>';
+  else document.getElementById('tbody').innerHTML='<tr><td colspan="12" class="empty-state">Click <strong>Scan Now</strong> to load CPR data.</td></tr>';
 }
 
 function setStatus(type,msg){
@@ -647,7 +640,7 @@ async function runScan(){
     document.getElementById('s-time').textContent = lastFetched;
   } catch(err){
     setStatus('error', 'Error: ' + err.message + ' — check your internet connection');
-    document.getElementById('tbody').innerHTML = '<tr><td colspan="14" class="empty-state" style="color:#a32d2d">Failed to load CPR data. The data file may not exist yet — it is generated automatically at 3:45 PM every trading day.<br><br>If this is your first time, trigger the GitHub Action manually from your repo → Actions tab → Run workflow.</td></tr>';
+    document.getElementById('tbody').innerHTML = '<tr><td colspan="12" class="empty-state" style="color:#a32d2d">Failed to load CPR data. The data file may not exist yet — it is generated automatically at 3:45 PM every trading day.<br><br>If this is your first time, trigger the GitHub Action manually from your repo → Actions tab → Run workflow.</td></tr>';
     setProgress(0);
   }
 
@@ -661,7 +654,7 @@ function applyFilters(){
   const idxKey  = document.getElementById('f-index').value;
   const secF    = document.getElementById('f-sector').value;
   const widF    = document.getElementById('f-width').value;
-  const trendF  = document.getElementById('f-trend').value;
+  const trendF  = '';
   const fnoF    = document.getElementById('f-fno').value;
   const priceF  = parseFloat(document.getElementById('f-price').value)||0;
 
@@ -687,7 +680,6 @@ function applyFilters(){
 
     const widthCat = tfData.width_pct < 0.5 ? 'narrow' : tfData.width_pct <= 1.5 ? 'medium' : 'wide';
     if(widF && widthCat !== widF) return;
-    if(trendF && tfData.trend !== trendF) return;
 
     results.push({
       symbol:   s.symbol,
@@ -704,14 +696,13 @@ function applyFilters(){
       prevBc:   tfData.prev_cpr.bc,
       widthPct: tfData.width_pct,
       widthCat: widthCat,
-      trend:    tfData.trend,
     });
   });
 
   // Update stat counters
   document.getElementById('s-inside').textContent  = results.length;
-  document.getElementById('s-bull').textContent    = results.filter(r=>r.trend==='bullish').length;
-  document.getElementById('s-bear').textContent    = results.filter(r=>r.trend==='bearish').length;
+  document.getElementById('s-bull').textContent    = results.filter(r=>r.widthCat==='wide').length;
+  document.getElementById('s-bear').textContent    = results.filter(r=>r.widthCat==='medium').length;
   document.getElementById('s-narrow').textContent  = results.filter(r=>r.widthCat==='narrow').length;
   document.getElementById('s-scanned').textContent = allData.filter(s => {
     const sym = getIndexSymbols(idxKey);
@@ -740,7 +731,6 @@ function getIndexSymbols(idxKey){
 function resetAll(){
   document.getElementById('f-sector').value='';
   document.getElementById('f-width').value='';
-  document.getElementById('f-trend').value='';
   document.getElementById('f-fno').value='';
   document.getElementById('f-price').value='';
   if(dataLoaded) applyFilters();
@@ -766,7 +756,7 @@ function renderTable(){
   });
   const tbody=document.getElementById('tbody');
   if(!sorted.length){
-    tbody.innerHTML='<tr><td colspan="14" class="empty-state">No Inside CPR stocks found for current filters.<br><span style="font-size:13px;color:#aaa">Try selecting a broader index or clearing filters.</span></td></tr>';
+    tbody.innerHTML='<tr><td colspan="12" class="empty-state">No Inside CPR stocks found for current filters.<br><span style="font-size:13px;color:#aaa">Try selecting a broader index or clearing filters.</span></td></tr>';
     return;
   }
   const maxW=Math.max(...sorted.map(r=>r.widthPct));
@@ -785,8 +775,8 @@ function renderTable(){
       +'<td class="pivot-cell">'+r.prevTc.toFixed(2)+'</td>'
       +'<td class="pivot-cell">'+r.prevBc.toFixed(2)+'</td>'
       +'<td><div class="width-bar-wrap"><span style="font-size:13px">'+r.widthPct.toFixed(2)+'%</span><span class="width-bar" style="width:'+bw+'px"></span><span class="badge '+(r.widthCat==='narrow'?'b-narrow':r.widthCat==='medium'?'b-medium':'b-wide')+'">'+r.widthCat.charAt(0).toUpperCase()+r.widthCat.slice(1)+'</span></div></td>'
-      +'<td><span class="badge '+(r.trend==='bullish'?'b-bull':'b-bear')+'">'+(r.trend==='bullish'?'&#9650; Bullish':'&#9660; Bearish')+'</span></td>'
-      +'<td class="pivot-cell">'+fmtVol(r.volume)+'</td>'
+      
+      
       +'</tr>';
   }).join('');
 }
