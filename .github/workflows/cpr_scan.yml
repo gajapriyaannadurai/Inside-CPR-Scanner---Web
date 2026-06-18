@@ -2,13 +2,18 @@ name: CPR Daily Scanner
 
 on:
   schedule:
+    # Run 1: 9:30 AM IST = 4:00 UTC (after market opens, uses yesterday+day-before data)
     - cron: '0 4 * * 1-5'
+    # Run 2: 3:45 PM IST = 10:15 UTC (after market closes, uses today+yesterday data)
     - cron: '15 10 * * 1-5'
+
+  # Manual trigger from GitHub Actions tab
   workflow_dispatch:
 
 jobs:
   fetch-cpr-data:
     runs-on: ubuntu-latest
+
     permissions:
       contents: write
 
@@ -30,56 +35,17 @@ jobs:
           echo "Starting CPR scan at $(date '+%Y-%m-%d %H:%M:%S UTC') = $(TZ='Asia/Kolkata' date '+%H:%M IST')"
           python fetch_cpr.py
 
-      - name: Inject data into index.html
-        run: |
-          python3 << 'PYEOF'
-          import json, re
-
-          # Load the generated CPR data
-          with open('cpr_data.json', 'r') as f:
-              data = json.dumps(json.load(f))
-
-          # Load index.html
-          with open('index.html', 'r') as f:
-              html = f.read()
-
-          # Replace the DATA_URLS block and runScan fetch with embedded data
-          # Find and replace the embedded data marker
-          marker_start = '// ===EMBEDDED_DATA_START==='
-          marker_end   = '// ===EMBEDDED_DATA_END==='
-
-          new_block = f"""{marker_start}
-          // Data is embedded directly — no network request needed
-          window.__CPR_DATA__ = {data};
-          {marker_end}"""
-
-          if marker_start in html:
-              # Replace existing block
-              html = re.sub(
-                  r'// ===EMBEDDED_DATA_START===.*?// ===EMBEDDED_DATA_END===',
-                  new_block,
-                  html,
-                  flags=re.DOTALL
-              )
-          else:
-              # Insert before closing script tag
-              html = html.replace('</script>', new_block + '\n</script>', 1)
-
-          with open('index.html', 'w') as f:
-              f.write(html)
-
-          print('Data injected into index.html successfully')
-          PYEOF
-
-      - name: Commit and push
+      - name: Commit and push cpr_data.json
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add cpr_data.json index.html
+          git add cpr_data.json
           git diff --staged --quiet || git commit -m "CPR data updated — $(TZ='Asia/Kolkata' date '+%d %b %Y %H:%M IST')"
           git push
 
       - name: Summary
         run: |
-          echo "CPR data successfully updated and embedded!"
+          echo "CPR data successfully updated!"
+          echo "File size: $(wc -c < cpr_data.json) bytes"
+          echo "Mode: $(python -c "import json; d=json.load(open('cpr_data.json')); print(d.get('scan_mode','UNKNOWN'))")"
           echo "Inside CPR stocks: $(python -c "import json; d=json.load(open('cpr_data.json')); print(d.get('inside_count',0))")"
