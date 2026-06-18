@@ -639,19 +639,67 @@ def fetch_stock(symbol):
 
         if not d_curr or not d_prev: return None
 
-        # ── Weekly bars (Yahoo Finance) ──
-        hist_wk = ticker.history(period="3mo", interval="1wk", auto_adjust=True).dropna(subset=["High","Low","Close"])
+        # ── Weekly OHLC — aggregate from daily bars (Mon-Fri NSE week) ──────────
+        # Yahoo 1wk uses Sunday start which doesn't match NSE Mon-Fri week
+        # So we build weekly candles from daily data ourselves
+        hist_daily = ticker.history(period="6mo", interval="1d", auto_adjust=True).dropna(subset=["High","Low","Close"])
         w_curr = w_prev = None
-        if len(hist_wk) >= 2:
-            w_curr = {"h": float(hist_wk.iloc[-1]["High"]), "l": float(hist_wk.iloc[-1]["Low"]), "c": float(hist_wk.iloc[-1]["Close"])}
-            w_prev = {"h": float(hist_wk.iloc[-2]["High"]), "l": float(hist_wk.iloc[-2]["Low"]), "c": float(hist_wk.iloc[-2]["Close"])}
 
-        # ── Monthly bars (Yahoo Finance) ──
-        hist_mo = ticker.history(period="2y", interval="1mo", auto_adjust=True).dropna(subset=["High","Low","Close"])
+        if not hist_daily.empty and len(hist_daily) >= 10:
+            # Group by ISO week (Mon-Sun) and aggregate OHLC
+            import pandas as pd
+            df = hist_daily.copy()
+            df.index = pd.to_datetime(df.index)
+            df['week'] = df.index.to_period('W-FRI')  # Week ending Friday
+            weekly = df.groupby('week').agg(
+                High=('High','max'),
+                Low=('Low','min'),
+                Close=('Close','last'),
+                Open=('Open','first')
+            ).dropna()
+
+            now_ist = datetime.datetime.utcnow() + datetime.timedelta(hours=5, minutes=30)
+            current_week = pd.Period(now_ist.date(), 'W-FRI')
+
+            # Remove current incomplete week if present
+            if len(weekly) > 0 and weekly.index[-1] == current_week:
+                weekly = weekly.iloc[:-1]
+
+            if len(weekly) >= 2:
+                w_curr = {"h": float(weekly.iloc[-1]["High"]),  "l": float(weekly.iloc[-1]["Low"]),  "c": float(weekly.iloc[-1]["Close"])}
+                w_prev = {"h": float(weekly.iloc[-2]["High"]),  "l": float(weekly.iloc[-2]["Low"]),  "c": float(weekly.iloc[-2]["Close"])}
+                if symbol in ["RELIANCE","HDFCBANK","ITC","WIPRO"]:
+                    wc = calc_cpr(w_curr["h"], w_curr["l"], w_curr["c"])
+                    wp = calc_cpr(w_prev["h"], w_prev["l"], w_prev["c"])
+                    print(f"  WK {symbol}: curr_wk={weekly.index[-1]} H={w_curr['h']:.2f} L={w_curr['l']:.2f} C={w_curr['c']:.2f} → TC={wc['tc']} BC={wc['bc']}")
+                    print(f"  WK {symbol}: prev_wk={weekly.index[-2]} H={w_prev['h']:.2f} L={w_prev['l']:.2f} C={w_prev['c']:.2f} → TC={wp['tc']} BC={wp['bc']} | inside={is_inside_cpr(wc,wp)}")
+
+        # ── Monthly OHLC — aggregate from daily bars ──────────────────────────────
+        hist_daily_long = ticker.history(period="2y", interval="1d", auto_adjust=True).dropna(subset=["High","Low","Close"])
         m_curr = m_prev = None
-        if len(hist_mo) >= 2:
-            m_curr = {"h": float(hist_mo.iloc[-1]["High"]), "l": float(hist_mo.iloc[-1]["Low"]), "c": float(hist_mo.iloc[-1]["Close"])}
-            m_prev = {"h": float(hist_mo.iloc[-2]["High"]), "l": float(hist_mo.iloc[-2]["Low"]), "c": float(hist_mo.iloc[-2]["Close"])}
+
+        if not hist_daily_long.empty and len(hist_daily_long) >= 40:
+            import pandas as pd
+            df_m = hist_daily_long.copy()
+            df_m.index = pd.to_datetime(df_m.index)
+            df_m['month'] = df_m.index.to_period('M')
+            monthly = df_m.groupby('month').agg(
+                High=('High','max'),
+                Low=('Low','min'),
+                Close=('Close','last'),
+                Open=('Open','first')
+            ).dropna()
+
+            now_ist = datetime.datetime.utcnow() + datetime.timedelta(hours=5, minutes=30)
+            current_month = pd.Period(now_ist.date(), 'M')
+
+            # Remove current incomplete month
+            if len(monthly) > 0 and monthly.index[-1] == current_month:
+                monthly = monthly.iloc[:-1]
+
+            if len(monthly) >= 2:
+                m_curr = {"h": float(monthly.iloc[-1]["High"]), "l": float(monthly.iloc[-1]["Low"]), "c": float(monthly.iloc[-1]["Close"])}
+                m_prev = {"h": float(monthly.iloc[-2]["High"]), "l": float(monthly.iloc[-2]["Low"]), "c": float(monthly.iloc[-2]["Close"])}
 
         # ── CPR trend: last 5 daily pivots from Yahoo ──
         hist_5d = ticker.history(period="15d", interval="1d", auto_adjust=True).dropna(subset=["High","Low","Close"]).tail(5)
