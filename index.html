@@ -4,930 +4,443 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Inside CPR Scanner — Stark School of Finance</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
-  ,::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f4f6f9;color:#1a1a2e;min-height:100vh;padding:2rem 1rem}
-  .page-wrap{max-width:1380px;margin:0 auto}
-  .page-heading{margin-bottom:1.5rem}
-  .page-heading h1{font-size:30px;font-weight:700;color:#0a1628;letter-spacing:-0.02em;margin-bottom:4px}
-  .page-heading p{font-size:15px;color:#666}
-  .card{background:#fff;border-radius:14px;border:1px solid #e2e6ed;overflow:hidden}
-  .top-header{background:#0a1628;padding:1.75rem 2rem 1.5rem}
-  .top-header h2{font-size:24px;font-weight:700;color:#fff;letter-spacing:-0.01em;margin-bottom:4px}
-  .top-header p{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.5}
-  .tf-row{display:flex;align-items:center;gap:10px;margin-top:1.25rem;flex-wrap:wrap}
-  .tf-label{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);margin-right:4px}
-  .tf-btn{padding:7px 22px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.55);background:transparent;transition:all 0.15s}
-  .tf-btn.active{background:#00c878;color:#0a1628;border-color:#00c878;font-weight:700}
-  .tf-btn:hover:not(.active){color:#fff;border-color:rgba(255,255,255,0.5)}
-  .stats-row{display:flex;border-bottom:1px solid #e8ecf0;flex-wrap:wrap}
-  .stat{flex:1;min-width:110px;padding:16px 20px;border-right:1px solid #e8ecf0;background:#f8fafc}
-  .stat:last-child{border-right:none}
-  .stat-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:#888;margin-bottom:6px}
-  .stat-val{font-size:26px;font-weight:700;color:#1a1a2e;line-height:1}
-  .stat-val.green{color:#0b6b40}
-  .stat-val.amber{color:#7a4a08}
-  .stat-val.muted{color:#888;font-size:14px;padding-top:6px}
-  .progress-wrap{height:3px;background:#e8ecf0;display:none}
-  .progress-bar{height:3px;background:#00c878;width:0%;transition:width 0.3s}
-  .data-status{padding:8px 20px;border-bottom:1px solid #e8ecf0;display:flex;align-items:center;gap:8px;font-size:12px;background:#fff}
-  .status-dot{width:8px;height:8px;border-radius:50%;background:#ccc;display:inline-block;flex-shrink:0}
-  .status-dot.live{background:#00c878;animation:pulse 2s infinite}
-  .status-dot.loading{background:#ef9f27;animation:pulse 0.8s infinite}
-  .status-dot.error{background:#e24b4a}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-  .filter-section{padding:14px 20px;border-bottom:1px solid #e8ecf0;display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;background:#fff}
-  .fg{display:flex;flex-direction:column;gap:5px}
-  .fg label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:#888}
-  .fg select,.fg input{font-size:13px;padding:8px 11px;border-radius:7px;border:1px solid #dde1e8;background:#fff;color:#1a1a2e;outline:none;transition:border 0.15s}
-  .fg select:focus,.fg input:focus{border-color:#00c878}
-  .scan-btn{padding:9px 24px;background:#00c878;color:#0a1628;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;align-self:flex-end;transition:opacity 0.15s}
-  .scan-btn:hover{opacity:0.88}
-  .scan-btn:disabled{opacity:0.5;cursor:not-allowed}
-  .reset-btn{padding:9px 16px;background:transparent;border:1px solid #dde1e8;border-radius:7px;font-size:13px;cursor:pointer;color:#888;align-self:flex-end}
-  .reset-btn:hover{border-color:#aaa;color:#555}
-  .rcount{font-size:13px;color:#888;align-self:flex-end;margin-left:auto}
-  .dl-btn{padding:9px 16px;border:1px solid #dde1e8;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;align-self:flex-end;display:flex;align-items:center;gap:5px;transition:all 0.15s}
-  .dl-csv{background:#fff;color:#185fa5;border-color:#185fa5}
-  .dl-csv:hover{background:#e6f1fb}
-  .dl-xlsx{background:#fff;color:#0b6b40;border-color:#0b6b40}
-  .dl-xlsx:hover{background:#e1f5ee}
-  .dl-btn:disabled{opacity:0.4;cursor:not-allowed}
-  .table-wrap{overflow-x:auto}
-  table{width:100%;border-collapse:collapse}
-  thead th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#888;padding:12px 14px;text-align:left;border-bottom:1px solid #e8ecf0;background:#f8fafc;white-space:nowrap;cursor:pointer;user-select:none}
-  thead th:hover{color:#1a1a2e}
-  tbody td{padding:12px 14px;border-bottom:1px solid #f0f2f5;white-space:nowrap;vertical-align:middle}
-  tbody tr:last-child td{border-bottom:none}
-  tbody tr:hover td{background:#f8fafc}
-  .sym{font-size:14px;font-weight:700;color:#0a1628}
-  .company{font-size:12px;color:#555}
-  .sector-tag{font-size:11px;color:#888}
-  .price-cell{font-size:14px;font-weight:600;color:#1a1a2e;text-align:right}
-  .pivot-cell{font-size:13px;color:#888;text-align:right}
-  .tc-cell{font-size:13px;color:#0b6b40;text-align:right;font-weight:600}
-  .bc-cell{font-size:13px;color:#a32d2d;text-align:right;font-weight:600}
-  .chg-up{font-size:13px;color:#0b6b40;text-align:right;font-weight:500}
-  .chg-dn{font-size:13px;color:#a32d2d;text-align:right;font-weight:500}
-  .badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;display:inline-block}
-  .b-narrow{background:#e6f1fb;color:#185fa5}
-  .b-medium{background:#faeeda;color:#7a4a08}
-  .b-wide{background:#fcebeb;color:#a32d2d}
-  .b-bull{background:#e1f5ee;color:#0b6b40}
-  .b-bear{background:#fcebeb;color:#a32d2d}
-  .b-neutral{background:#f1efe8;color:#5f5e5a}
-  .b-fno{background:#eeedfe;color:#3c3489}
-  .width-bar-wrap{display:flex;align-items:center;gap:7px;justify-content:flex-end}
-  .width-bar{height:5px;border-radius:3px;background:#00c878;display:inline-block}
-  .empty-state{padding:3.5rem;text-align:center;color:#888;font-size:15px;line-height:2}
-  .footer-legend{padding:12px 20px;border-top:1px solid #e8ecf0;background:#f8fafc;display:flex;gap:18px;flex-wrap:wrap}
-  .leg-item{font-size:12px;color:#888;display:flex;align-items:center;gap:5px}
-  .leg-dot{width:7px;height:7px;border-radius:50%;display:inline-block}
-  .brand-footer{margin-top:1.5rem;text-align:center;font-size:12px;color:#aaa}
-  .brand-footer a{color:#00c878;text-decoration:none;font-weight:600}
-  @media(max-width:700px){body{padding:1rem 0.5rem}.top-header h2{font-size:20px}.stat-val{font-size:20px}.stats-row{flex-wrap:wrap}.stat{min-width:50%}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f4f6f9;color:#1a1a2e;padding:1.5rem 1rem}
+.page-wrap{max-width:1380px;margin:0 auto}
+.card{background:#fff;border-radius:14px;border:1px solid #e2e6ed;overflow:hidden;margin-bottom:1.5rem}
+.top-header{background:#0a1628;padding:1.5rem 2rem}
+.top-header h2{font-size:24px;font-weight:700;color:#fff;margin-bottom:4px}
+.top-header p{font-size:13px;color:rgba(255,255,255,0.45)}
+.tf-row{display:flex;align-items:center;gap:10px;margin-top:1rem;flex-wrap:wrap}
+.tf-label{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4)}
+.tf-btn{padding:7px 20px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.55);background:transparent}
+.tf-btn.active{background:#00c878;color:#0a1628;border-color:#00c878;font-weight:700}
+.stats-row{display:flex;border-bottom:1px solid #e8ecf0;flex-wrap:wrap}
+.stat{flex:1;min-width:110px;padding:14px 18px;border-right:1px solid #e8ecf0;background:#f8fafc}
+.stat:last-child{border-right:none}
+.stat-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:#888;margin-bottom:5px}
+.stat-val{font-size:24px;font-weight:700;color:#1a1a2e}
+.stat-val.green{color:#0b6b40}
+.stat-val.muted{color:#888;font-size:14px;padding-top:4px}
+.flag-bar{padding:9px 18px;border-bottom:1px solid #e8ecf0;display:flex;align-items:center;gap:10px}
+.flag-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 12px;border-radius:20px;font-weight:600;font-size:12px}
+.flag-red{background:#fff0f0;color:#c0392b;border:1px solid #f5c6c6}
+.flag-green{background:#e8f5ee;color:#0b6b40;border:1px solid #c8e6d0}
+.flag-msg{font-size:12.5px;color:#666}
+.status-bar{padding:7px 18px;border-bottom:1px solid #e8ecf0;display:flex;align-items:center;gap:8px;font-size:12px;background:#fff}
+.dot{width:8px;height:8px;border-radius:50%;background:#ccc;display:inline-block;flex-shrink:0}
+.dot.live{background:#00c878}
+.dot.loading{background:#ef9f27}
+.dot.error{background:#e24b4a}
+.filter-row{padding:12px 18px;border-bottom:1px solid #e8ecf0;display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;background:#fff}
+.fg{display:flex;flex-direction:column;gap:4px}
+.fg label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:#888}
+.fg select,.fg input{font-size:13px;padding:7px 10px;border-radius:7px;border:1px solid #dde1e8;background:#fff;color:#1a1a2e;outline:none}
+.scan-btn{padding:9px 24px;background:#00c878;color:#0a1628;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;align-self:flex-end}
+.reset-btn{padding:9px 14px;background:transparent;border:1px solid #dde1e8;border-radius:7px;font-size:13px;cursor:pointer;color:#888;align-self:flex-end}
+.dl-btn{padding:9px 14px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;align-self:flex-end}
+.dl-csv{background:#fff;color:#185fa5;border:1px solid #185fa5}
+.dl-xlsx{background:#fff;color:#0b6b40;border:1px solid #0b6b40}
+.dl-btn:disabled{opacity:0.35;cursor:not-allowed}
+.rcount{font-size:13px;color:#888;align-self:flex-end;margin-left:auto}
+.progress-wrap{height:3px;background:#e8ecf0;display:none}
+.progress-bar{height:3px;background:#00c878;width:0%;transition:width 0.3s}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#888;padding:11px 14px;text-align:left;border-bottom:1px solid #e8ecf0;background:#f8fafc;white-space:nowrap;cursor:pointer;user-select:none}
+thead th:hover{color:#1a1a2e}
+tbody td{padding:12px 14px;border-bottom:1px solid #f0f2f5;white-space:nowrap;vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:#f8fafc}
+.sym{font-size:14px;font-weight:700;color:#0a1628}
+.company{font-size:12px;color:#555}
+.sector-tag{font-size:11px;color:#888}
+.price-cell{font-size:14px;font-weight:600;color:#1a1a2e;text-align:right}
+.pc{font-size:13px;color:#888;text-align:right}
+.tc-cell{font-size:13px;color:#0b6b40;text-align:right;font-weight:600}
+.bc-cell{font-size:13px;color:#a32d2d;text-align:right;font-weight:600}
+.up{font-size:13px;color:#0b6b40;text-align:right;font-weight:500}
+.dn{font-size:13px;color:#a32d2d;text-align:right;font-weight:500}
+.badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;display:inline-block}
+.b-narrow{background:#e6f1fb;color:#185fa5}
+.b-medium{background:#faeeda;color:#7a4a08}
+.b-wide{background:#fcebeb;color:#a32d2d}
+.b-fno{background:#eeedfe;color:#3c3489}
+.wbar-wrap{display:flex;align-items:center;gap:6px;justify-content:flex-end}
+.wbar{height:5px;border-radius:3px;background:#00c878;display:inline-block}
+.empty-state{padding:3rem;text-align:center;color:#888;font-size:15px;line-height:2}
+.brand-footer{text-align:center;font-size:12px;color:#aaa;margin-top:1rem}
+.brand-footer a{color:#00c878;text-decoration:none;font-weight:600}
 </style>
 </head>
 <body>
 <div class="page-wrap">
-  <div class="page-heading">
-    <h1>CPR Scanners</h1>
-    <p>Professional pivot-based screeners — NSE live data · Stark School of Finance</p>
-  </div>
-  <div class="card">
-    <div class="top-header">
-      <h2>Inside CPR Scanner</h2>
-      <p>Scans for stocks where <strong>tomorrow's CPR</strong> (from today's OHLC) fits inside <strong>today's CPR</strong> (from yesterday's OHLC) — run after 3:30 PM for next day planning</p>
-      <div class="tf-row">
-        <span class="tf-label">Timeframe</span>
-        <button class="tf-btn active" onclick="setTF('daily',this)">Daily</button>
-        <button class="tf-btn" onclick="setTF('weekly',this)">Weekly</button>
-        <button class="tf-btn" onclick="setTF('monthly',this)">Monthly</button>
-      </div>
-    </div>
-    <div class="stats-row">
-      <div class="stat"><div class="stat-label">Inside CPR</div><div class="stat-val green" id="s-inside">—</div></div>
-      <div class="stat"><div class="stat-label">Wide CPR</div><div class="stat-val muted" id="s-bull" style="font-size:22px;padding-top:2px">—</div></div>
-      <div class="stat"><div class="stat-label">Medium CPR</div><div class="stat-val muted" id="s-bear" style="font-size:22px;padding-top:2px">—</div></div>
-      <div class="stat"><div class="stat-label">Narrow CPR</div><div class="stat-val muted" id="s-narrow" style="font-size:22px;padding-top:2px">—</div></div>
-      <div class="stat"><div class="stat-label">Stocks scanned</div><div class="stat-val muted" id="s-scanned" style="font-size:22px;padding-top:2px">—</div></div>
-      <div class="stat"><div class="stat-label">Last scanned</div><div class="stat-val muted" id="s-time">—</div></div>
-    </div>
-
-    <div id="market-status-bar" style="padding:8px 20px;border-bottom:1px solid #e8ecf0;display:flex;align-items:center;gap:8px;font-size:12.5px">
-      <span id="market-flag" style="display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-weight:600;font-size:12px">
-      </span>
-      <span id="market-flag-text" style="color:#666"></span>
-    </div>
-    <div class="progress-wrap" id="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
-    <div class="data-status">
-      <span class="status-dot" id="status-dot"></span>
-      <span id="status-text" style="color:#888">Select index and click Scan Now to fetch live NSE data</span>
-    </div>
-    <div class="filter-section">
-      <div class="fg">
-        <label>Index / Segment</label>
-        <select id="f-index">
-          <option value="nifty50">Nifty 50 (50 stocks)</option>
-          <option value="niftybank">Nifty Bank (12 stocks)</option>
-          <option value="niftyit">Nifty IT (10 stocks)</option>
-          <option value="niftymidcap50">Nifty Midcap 50</option>
-          <option value="nifty100">Nifty 100</option>
-          <option value="nifty200">Nifty 200</option>
-          <option value="nifty500">Nifty 500 (500 stocks)</option>
-          <option value="fno">F&amp;O Segment (~180 stocks)</option>
-        </select>
-      </div>
-      <div class="fg">
-        <label>Sector</label>
-        <select id="f-sector">
-          <option value="">All sectors</option>
-          <option>Financial Services</option>
-          <option>Information Technology</option>
-          <option>Healthcare</option>
-          <option>Automobile</option>
-          <option>Capital Goods</option>
-          <option>FMCG</option>
-          <option>Oil &amp; Gas</option>
-          <option>Metals &amp; Mining</option>
-          <option>Chemicals</option>
-          <option>Realty</option>
-          <option>Power</option>
-          <option>Telecom</option>
-          <option>Consumer Durables</option>
-          <option>Services</option>
-        </select>
-      </div>
-      <div class="fg">
-        <label>CPR Width</label>
-        <select id="f-width">
-          <option value="">Any</option>
-          <option value="narrow">Narrow (&lt;0.5%)</option>
-          <option value="medium">Medium (0.5–1.5%)</option>
-          <option value="wide">Wide (&gt;1.5%)</option>
-        </select>
-      </div>
-
-      <div class="fg">
-        <label>F&amp;O only</label>
-        <select id="f-fno">
-          <option value="">All stocks</option>
-          <option value="yes">F&amp;O stocks only</option>
-        </select>
-      </div>
-      <div class="fg">
-        <label>Min price (₹)</label>
-        <input type="number" id="f-price" placeholder="e.g. 100" style="width:110px">
-      </div>
-      <button class="scan-btn" id="scan-btn" onclick="runScan()">&#9654;&nbsp; Scan Now</button>
-      <button class="reset-btn" onclick="resetAll()">&#8635;&nbsp; Reset</button>
-      <button class="dl-btn dl-csv" id="dl-csv" onclick="downloadCSV()" disabled title="Download results as CSV">
-        &#8595;&nbsp;CSV
-      </button>
-      <button class="dl-btn dl-xlsx" id="dl-xlsx" onclick="downloadExcel()" disabled title="Download results as Excel">
-        &#8595;&nbsp;Excel
-      </button>
-      <span class="rcount" id="rcount"></span>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th onclick="sortBy('symbol')" style="min-width:95px">Symbol</th>
-            <th onclick="sortBy('name')" style="min-width:160px">Company</th>
-            <th onclick="sortBy('sector')">Sector</th>
-            <th onclick="sortBy('fno')">F&amp;O</th>
-            <th onclick="sortBy('price')" style="text-align:right">CMP (₹)</th>
-            <th onclick="sortBy('change')" style="text-align:right">Chg %</th>
-            <th onclick="sortBy('pivot')" style="text-align:right">Pivot</th>
-            <th onclick="sortBy('tc')" style="text-align:right">Tom. TC</th>
-            <th onclick="sortBy('bc')" style="text-align:right">Tom. BC</th>
-            <th onclick="sortBy('prevTc')" style="text-align:right">Today TC</th>
-            <th onclick="sortBy('prevBc')" style="text-align:right">Today BC</th>
-            <th onclick="sortBy('widthPct')" style="text-align:right;min-width:130px">Width %</th>
-
-          </tr>
-        </thead>
-        <tbody id="tbody">
-          <tr><td colspan="12" class="empty-state">Select an index and click <strong>Scan Now</strong> to fetch live NSE data.<br><span style="font-size:13px;color:#aaa">Nifty 500 / F&amp;O scan may take 2–4 minutes — fetches 500 stocks live.</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="footer-legend">
-      <span class="leg-item"><span class="leg-dot" style="background:#00c878"></span>Tom. TC = PP + (PP − BC) where PP=(H+L+C)/3, BC=(H+L)/2 — using today's OHLC</span>
-      <span class="leg-item"><span class="leg-dot" style="background:#e24b4a"></span>Tom. BC = (High + Low) / 2 — using today's OHLC</span>
-      <span class="leg-item"><span class="leg-dot" style="background:#7f77dd"></span>Inside: Tomorrow TC &lt; Today TC AND Tomorrow BC &gt; Today BC</span>
-      <span class="leg-item"><span class="leg-dot" style="background:#ef9f27"></span>Pivot = (H + L + C) / 3</span>
-      <span class="leg-item" style="margin-left:auto"><span class="leg-dot" style="background:#185fa5"></span>Data: NSE Bhav Copy (official EOD after 3:30 PM)</span>
+<div class="card">
+  <div class="top-header">
+    <h2>Inside CPR Scanner</h2>
+    <p>Scans stocks where current period CPR fits inside the previous period CPR — Stark School of Finance</p>
+    <div class="tf-row">
+      <span class="tf-label">Timeframe</span>
+      <button class="tf-btn active" onclick="setTF('daily',this)">Daily</button>
+      <button class="tf-btn" onclick="setTF('weekly',this)">Weekly</button>
+      <button class="tf-btn" onclick="setTF('monthly',this)">Monthly</button>
     </div>
   </div>
-  <div class="brand-footer">Powered by <a href="https://www.tradingwithgp.com" target="_blank">Stark School of Finance — tradingwithgp.com</a> &nbsp;|&nbsp; Data: Yahoo Finance (delayed)</div>
+  <div class="stats-row">
+    <div class="stat"><div class="stat-label">Inside CPR</div><div class="stat-val green" id="s-inside">—</div></div>
+    <div class="stat"><div class="stat-label">Narrow CPR</div><div class="stat-val muted" id="s-narrow" style="font-size:20px;padding-top:3px">—</div></div>
+    <div class="stat"><div class="stat-label">Wide CPR</div><div class="stat-val muted" id="s-wide" style="font-size:20px;padding-top:3px">—</div></div>
+    <div class="stat"><div class="stat-label">Stocks Scanned</div><div class="stat-val muted" id="s-scanned" style="font-size:20px;padding-top:3px">—</div></div>
+    <div class="stat"><div class="stat-label">Last Scanned</div><div class="stat-val muted" id="s-time">—</div></div>
+  </div>
+  <div class="flag-bar">
+    <span class="flag-pill" id="flag-pill">⏳ Loading...</span>
+    <span class="flag-msg" id="flag-msg"></span>
+  </div>
+  <div class="status-bar">
+    <span class="dot" id="status-dot"></span>
+    <span id="status-text" style="color:#888">Click Scan Now to load data</span>
+  </div>
+  <div class="progress-wrap" id="pw"><div class="progress-bar" id="pb"></div></div>
+  <div class="filter-row">
+    <div class="fg"><label>Index</label>
+      <select id="f-index">
+        <option value="nifty50">Nifty 50</option>
+        <option value="niftybank">Nifty Bank</option>
+        <option value="niftyit">Nifty IT</option>
+        <option value="niftymidcap50">Nifty Midcap 50</option>
+        <option value="nifty100">Nifty 100</option>
+        <option value="nifty200">Nifty 200</option>
+        <option value="nifty500">Nifty 500</option>
+        <option value="fno">F&amp;O Segment</option>
+      </select></div>
+    <div class="fg"><label>Sector</label>
+      <select id="f-sector">
+        <option value="">All sectors</option>
+        <option>Financial Services</option>
+        <option>Information Technology</option>
+        <option>Healthcare</option>
+        <option>Automobile</option>
+        <option>Capital Goods</option>
+        <option>FMCG</option>
+        <option>Oil &amp; Gas</option>
+        <option>Metals &amp; Mining</option>
+        <option>Chemicals</option>
+        <option>Realty</option>
+        <option>Power</option>
+        <option>Telecom</option>
+        <option>Consumer Durables</option>
+        <option>Services</option>
+      </select></div>
+    <div class="fg"><label>CPR Width</label>
+      <select id="f-width">
+        <option value="">Any</option>
+        <option value="narrow">Narrow (&lt;0.5%)</option>
+        <option value="medium">Medium (0.5–1.5%)</option>
+        <option value="wide">Wide (&gt;1.5%)</option>
+      </select></div>
+    <div class="fg"><label>F&amp;O Only</label>
+      <select id="f-fno">
+        <option value="">All stocks</option>
+        <option value="yes">F&amp;O only</option>
+      </select></div>
+    <div class="fg"><label>Min Price (₹)</label>
+      <input type="number" id="f-price" placeholder="e.g. 100" style="width:100px"></div>
+    <button class="scan-btn" onclick="doScan()">&#9654; Scan Now</button>
+    <button class="reset-btn" onclick="doReset()">&#8635; Reset</button>
+    <button class="dl-btn dl-csv" id="dl-csv" onclick="dlCSV()" disabled>&#8595; CSV</button>
+    <button class="dl-btn dl-xlsx" id="dl-xlsx" onclick="dlExcel()" disabled>&#8595; Excel</button>
+    <span class="rcount" id="rcount"></span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th onclick="srt('symbol')">Symbol</th>
+        <th onclick="srt('name')">Company</th>
+        <th onclick="srt('sector')">Sector</th>
+        <th onclick="srt('fno')">F&amp;O</th>
+        <th onclick="srt('price')" style="text-align:right">CMP (₹)</th>
+        <th onclick="srt('change')" style="text-align:right">Chg %</th>
+        <th onclick="srt('pivot')" style="text-align:right">Pivot</th>
+        <th onclick="srt('tc')" style="text-align:right" id="th-tc">Curr. TC</th>
+        <th onclick="srt('bc')" style="text-align:right" id="th-bc">Curr. BC</th>
+        <th onclick="srt('prevTc')" style="text-align:right" id="th-ptc">Prev. TC</th>
+        <th onclick="srt('prevBc')" style="text-align:right" id="th-pbc">Prev. BC</th>
+        <th onclick="srt('widthPct')" style="text-align:right;min-width:120px">Width %</th>
+      </tr></thead>
+      <tbody id="tbody">
+        <tr><td colspan="12" class="empty-state">Select index and click <strong>Scan Now</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="brand-footer">Powered by <a href="https://www.tradingwithgp.com" target="_blank">Stark School of Finance — tradingwithgp.com</a></div>
 </div>
 
 <script>
-// ─── F&O eligible stocks (NSE, ~180 current as of 2025) ──────────────────────
-const FNO_SET = new Set([
-  'AARTIIND','ABB','ABBOTINDIA','ABCAPITAL','ABFRL','ACC','ADANIENT','ADANIPORTS','ADANIPOWER',
-  'ALKEM','ALKYLAMINE','AMBUJACEM','ANGELONE','APLAPOLLO','APOLLOHOSP','APOLLOTYRE','ASHOKLEY',
-  'ASIANPAINT','ASTRAL','AUROPHARMA','AUBANK','AXISBANK','BAJAJ-AUTO','BAJAJFINSV','BAJFINANCE',
-  'BAJAJHLDNG','BALKRISIND','BANDHANBNK','BANKBARODA','BANKINDIA','BATAINDIA','BDL','BEL',
-  'BERGEPAINT','BHARATFORG','BHARTIARTL','BHEL','BIOCON','BOSCHLTD','BPCL','BRITANNIA',
-  'BSOFT','CAMS','CANFINHOME','CANBK','CDSL','CEATLTD','CGPOWER','CHOLAFIN','CIPLA',
-  'COALINDIA','COFORGE','COLPAL','CONCOR','COROMANDEL','CROMPTON','CUB','CUMMINSIND',
-  'CYIENT','DABUR','DALBHARAT','DEEPAKNTR','DELTACORP','DIVI\'SLAB','DIVISLAB','DIXON',
-  'DLF','DRREDDY','EICHERMOT','ESCORTS','EXIDEIND','FEDERALBNK','FLUOROCHEM','FORTIS',
-  'GAIL','GLAND','GLENMARK','GMRINFRA','GODREJCP','GODREJPROP','GRANULES','GRASIM',
-  'GSPL','HCLTECH','HDFCAMC','HDFCBANK','HDFCLIFE','HEROMOTOCO','HINDALCO','HINDCOPPER',
-  'HINDPETRO','HINDUNILVR','HINDZINC','ICICIBANK','ICICIGI','ICICIPRULI','IDFCFIRSTB',
-  'IEX','INDHOTEL','INDIAMART','INDUSINDBK','INDUSTOWER','INFY','INTELLECT','IOC',
-  'IPCALAB','IRCTC','ITC','JINDALSTEL','JSWSTEEL','JUBLFOOD','KAJARIACER','KOTAKBANK',
-  'KROMAUTO','L&TFH','LALPATHLAB','LAURUSLABS','LT','LTIM','LTTS','LUPIN',
-  'M&M','M&MFIN','MANAPPURAM','MARICO','MARUTI','MCX','METROPOLIS','MFSL',
-  'MGL','MPHASIS','MRF','MUTHOOTFIN','NATIONALUM','NAUKRI','NAVINFLUOR','NESTLEIND',
-  'NMDC','NTPC','NYKAA','OFSS','ONGC','PAGEIND','PEL','PERSISTENT','PETRONET',
-  'PFC','PIIND','POLYCAB','POWERGRID','PVR','RAMCOCEM','RBLBANK','RECLTD',
-  'RELIANCE','SAIL','SBICARD','SBILIFE','SBIN','SHREECEM','SHRIRAMFIN','SIEMENS',
-  'SRF','STARHEALTH','SUNPHARMA','SUNTV','SYNGENE','TATACHEM','TATACOMM','TATACONSUM',
-  'TMPV','TMCV','TATAPOWER','TATASTEEL','TCS','TECHM','TITAN','TORNTPHARM','TRENT',
-  'TVSMOTOR','UBL','ULTRACEMCO','UNIONBANK','UPL','VEDL','VOLTAS','WIPRO',
-  'ZOMATO','ZYDUSLIFE','DMART','JIOFINANCE','360ONE','AMBER','KFIN','PGEL',
-  'HAL','BLS','BSE','CDSL','POLYCAB','IRFC','RVNL','NHPC','SJVN',
-  'ADANIGREEN','ADANIENSOL','AWL','ATGL','ABREL'
-]);
+// ── State ──────────────────────────────────────────────────────────────────────
+var tf='daily', sk='widthPct', sa=true, results=[], allData=[], dataLoaded=false;
 
-// ─── NIFTY 500 complete stock list ───────────────────────────────────────────
-const N500 = [
-  {s:'360ONE',n:'360 ONE WAM',sec:'Financial Services',fno:true},
-  {s:'3MINDIA',n:'3M India',sec:'Diversified',fno:false},
-  {s:'ABB',n:'ABB India',sec:'Capital Goods',fno:true},
-  {s:'ACC',n:'ACC',sec:'Construction Materials',fno:true},
-  {s:'AIAENG',n:'AIA Engineering',sec:'Capital Goods',fno:false},
-  {s:'APLAPOLLO',n:'APL Apollo Tubes',sec:'Capital Goods',fno:true},
-  {s:'AUBANK',n:'AU Small Finance Bank',sec:'Financial Services',fno:true},
-  {s:'AARTIIND',n:'Aarti Industries',sec:'Chemicals',fno:true},
-  {s:'ABBOTINDIA',n:'Abbott India',sec:'Healthcare',fno:false},
-  {s:'ABCAPITAL',n:'Aditya Birla Capital',sec:'Financial Services',fno:true},
-  {s:'ABFRL',n:'Aditya Birla Fashion',sec:'Consumer Services',fno:true},
-  {s:'ADANIENT',n:'Adani Enterprises',sec:'Metals & Mining',fno:true},
-  {s:'ADANIGREEN',n:'Adani Green Energy',sec:'Power',fno:true},
-  {s:'ADANIPORTS',n:'Adani Ports',sec:'Services',fno:true},
-  {s:'ADANIPOWER',n:'Adani Power',sec:'Power',fno:true},
-  {s:'ATGL',n:'Adani Total Gas',sec:'Oil & Gas',fno:false},
-  {s:'AWL',n:'Adani Wilmar',sec:'FMCG',fno:false},
-  {s:'ADANIENSOL',n:'Adani Energy Solutions',sec:'Power',fno:false},
-  {s:'AEGISLOG',n:'Aegis Logistics',sec:'Oil & Gas',fno:false},
-  {s:'AFFLE',n:'Affle India',sec:'Information Technology',fno:false},
-  {s:'AJANTPHARM',n:'Ajanta Pharmaceuticals',sec:'Healthcare',fno:false},
-  {s:'ALKEM',n:'Alkem Laboratories',sec:'Healthcare',fno:true},
-  {s:'ALKYLAMINE',n:'Alkyl Amines Chemicals',sec:'Chemicals',fno:true},
-  {s:'AMBUJACEM',n:'Ambuja Cements',sec:'Construction Materials',fno:true},
-  {s:'ANANDRATHI',n:'Anand Rathi Wealth',sec:'Financial Services',fno:false},
-  {s:'ANGELONE',n:'Angel One',sec:'Financial Services',fno:true},
-  {s:'APOLLOHOSP',n:'Apollo Hospitals',sec:'Healthcare',fno:true},
-  {s:'APOLLOTYRE',n:'Apollo Tyres',sec:'Automobile',fno:true},
-  {s:'ASHOKLEY',n:'Ashok Leyland',sec:'Capital Goods',fno:true},
-  {s:'ASIANPAINT',n:'Asian Paints',sec:'Consumer Durables',fno:true},
-  {s:'ASTRAL',n:'Astral',sec:'Capital Goods',fno:true},
-  {s:'AUROPHARMA',n:'Aurobindo Pharma',sec:'Healthcare',fno:true},
-  {s:'DMART',n:'Avenue Supermarts',sec:'Consumer Services',fno:true},
-  {s:'AXISBANK',n:'Axis Bank',sec:'Financial Services',fno:true},
-  {s:'BEML',n:'BEML',sec:'Capital Goods',fno:false},
-  {s:'BSE',n:'BSE',sec:'Financial Services',fno:true},
-  {s:'BAJAJ-AUTO',n:'Bajaj Auto',sec:'Automobile',fno:true},
-  {s:'BAJFINANCE',n:'Bajaj Finance',sec:'Financial Services',fno:true},
-  {s:'BAJAJFINSV',n:'Bajaj Finserv',sec:'Financial Services',fno:true},
-  {s:'BAJAJHLDNG',n:'Bajaj Holdings',sec:'Financial Services',fno:true},
-  {s:'BALKRISIND',n:'Balkrishna Industries',sec:'Automobile',fno:true},
-  {s:'BANDHANBNK',n:'Bandhan Bank',sec:'Financial Services',fno:true},
-  {s:'BANKBARODA',n:'Bank of Baroda',sec:'Financial Services',fno:true},
-  {s:'BANKINDIA',n:'Bank of India',sec:'Financial Services',fno:true},
-  {s:'MAHABANK',n:'Bank of Maharashtra',sec:'Financial Services',fno:false},
-  {s:'BATAINDIA',n:'Bata India',sec:'Consumer Durables',fno:false},
-  {s:'BERGEPAINT',n:'Berger Paints',sec:'Consumer Durables',fno:true},
-  {s:'BDL',n:'Bharat Dynamics',sec:'Capital Goods',fno:true},
-  {s:'BEL',n:'Bharat Electronics',sec:'Capital Goods',fno:true},
-  {s:'BHARATFORG',n:'Bharat Forge',sec:'Automobile',fno:true},
-  {s:'BHEL',n:'BHEL',sec:'Capital Goods',fno:true},
-  {s:'BPCL',n:'BPCL',sec:'Oil & Gas',fno:true},
-  {s:'BHARTIARTL',n:'Bharti Airtel',sec:'Telecom',fno:true},
-  {s:'BIKAJI',n:'Bikaji Foods',sec:'FMCG',fno:false},
-  {s:'BIOCON',n:'Biocon',sec:'Healthcare',fno:true},
-  {s:'BLUEDART',n:'Blue Dart Express',sec:'Services',fno:false},
-  {s:'BLUESTARCO',n:'Blue Star',sec:'Consumer Durables',fno:false},
-  {s:'BOSCHLTD',n:'Bosch',sec:'Automobile',fno:true},
-  {s:'BRIGADE',n:'Brigade Enterprises',sec:'Realty',fno:false},
-  {s:'BRITANNIA',n:'Britannia Industries',sec:'FMCG',fno:true},
-  {s:'CAMS',n:'CAMS',sec:'Financial Services',fno:true},
-  {s:'CANFINHOME',n:'Can Fin Homes',sec:'Financial Services',fno:true},
-  {s:'CANBK',n:'Canara Bank',sec:'Financial Services',fno:true},
-  {s:'CDSL',n:'CDSL',sec:'Financial Services',fno:true},
-  {s:'CEATLTD',n:'Ceat',sec:'Automobile',fno:true},
-  {s:'CGPOWER',n:'CG Power',sec:'Capital Goods',fno:true},
-  {s:'CHAMBLFERT',n:'Chambal Fertilizers',sec:'Chemicals',fno:false},
-  {s:'CHOLAFIN',n:'Cholamandalam Finance',sec:'Financial Services',fno:true},
-  {s:'CIPLA',n:'Cipla',sec:'Healthcare',fno:true},
-  {s:'COALINDIA',n:'Coal India',sec:'Oil & Gas',fno:true},
-  {s:'COCHINSHIP',n:'Cochin Shipyard',sec:'Capital Goods',fno:false},
-  {s:'COFORGE',n:'Coforge',sec:'Information Technology',fno:true},
-  {s:'COLPAL',n:'Colgate Palmolive',sec:'FMCG',fno:true},
-  {s:'CONCOR',n:'Container Corporation',sec:'Services',fno:true},
-  {s:'COROMANDEL',n:'Coromandel International',sec:'Chemicals',fno:true},
-  {s:'CROMPTON',n:'Crompton Greaves',sec:'Consumer Durables',fno:true},
-  {s:'CUMMINSIND',n:'Cummins India',sec:'Capital Goods',fno:true},
-  {s:'CYIENT',n:'Cyient',sec:'Information Technology',fno:true},
-  {s:'DLF',n:'DLF',sec:'Realty',fno:true},
-  {s:'DABUR',n:'Dabur India',sec:'FMCG',fno:true},
-  {s:'DALBHARAT',n:'Dalmia Bharat',sec:'Construction Materials',fno:true},
-  {s:'DELHIVERY',n:'Delhivery',sec:'Services',fno:false},
-  {s:'DEEPAKNTR',n:'Deepak Nitrite',sec:'Chemicals',fno:true},
-  {s:'DEEPAKFERT',n:'Deepak Fertilisers',sec:'Chemicals',fno:false},
-  {s:'DIVISLAB',n:"Divi's Laboratories",sec:'Healthcare',fno:true},
-  {s:'DIXON',n:'Dixon Technologies',sec:'Consumer Durables',fno:true},
-  {s:'DRREDDY',n:"Dr. Reddy's Labs",sec:'Healthcare',fno:true},
-  {s:'EICHERMOT',n:'Eicher Motors',sec:'Automobile',fno:true},
-  {s:'ESCORTS',n:'Escorts Kubota',sec:'Capital Goods',fno:true},
-  {s:'EXIDEIND',n:'Exide Industries',sec:'Automobile',fno:false},
-  {s:'NYKAA',n:'FSN E-Commerce (Nykaa)',sec:'Consumer Services',fno:true},
-  {s:'FEDERALBNK',n:'Federal Bank',sec:'Financial Services',fno:true},
-  {s:'FINCABLES',n:'Finolex Cables',sec:'Capital Goods',fno:false},
-  {s:'FORTIS',n:'Fortis Healthcare',sec:'Healthcare',fno:true},
-  {s:'FLUOROCHEM',n:'Gujarat Fluorochemicals',sec:'Chemicals',fno:true},
-  {s:'GAIL',n:'GAIL India',sec:'Oil & Gas',fno:true},
-  {s:'GLAND',n:'Gland Pharma',sec:'Healthcare',fno:true},
-  {s:'GLENMARK',n:'Glenmark Pharmaceuticals',sec:'Healthcare',fno:true},
-  {s:'GODREJCP',n:'Godrej Consumer Products',sec:'FMCG',fno:true},
-  {s:'GODREJPROP',n:'Godrej Properties',sec:'Realty',fno:true},
-  {s:'GRANULES',n:'Granules India',sec:'Healthcare',fno:false},
-  {s:'GRASIM',n:'Grasim Industries',sec:'Construction Materials',fno:true},
-  {s:'GSPL',n:'Gujarat State Petronet',sec:'Oil & Gas',fno:true},
-  {s:'GUJGASLTD',n:'Gujarat Gas',sec:'Oil & Gas',fno:false},
-  {s:'HAL',n:'Hindustan Aeronautics',sec:'Capital Goods',fno:true},
-  {s:'HCLTECH',n:'HCL Technologies',sec:'Information Technology',fno:true},
-  {s:'HDFCAMC',n:'HDFC AMC',sec:'Financial Services',fno:true},
-  {s:'HDFCBANK',n:'HDFC Bank',sec:'Financial Services',fno:true},
-  {s:'HDFCLIFE',n:'HDFC Life Insurance',sec:'Financial Services',fno:true},
-  {s:'HAVELLS',n:'Havells India',sec:'Consumer Durables',fno:false},
-  {s:'HEROMOTOCO',n:'Hero MotoCorp',sec:'Automobile',fno:true},
-  {s:'HINDALCO',n:'Hindalco Industries',sec:'Metals & Mining',fno:true},
-  {s:'HAL',n:'Hindustan Aeronautics',sec:'Capital Goods',fno:true},
-  {s:'HINDCOPPER',n:'Hindustan Copper',sec:'Metals & Mining',fno:true},
-  {s:'HINDPETRO',n:'Hindustan Petroleum',sec:'Oil & Gas',fno:true},
-  {s:'HINDUNILVR',n:'Hindustan Unilever',sec:'FMCG',fno:true},
-  {s:'HINDZINC',n:'Hindustan Zinc',sec:'Metals & Mining',fno:true},
-  {s:'ICICIBANK',n:'ICICI Bank',sec:'Financial Services',fno:true},
-  {s:'ICICIGI',n:'ICICI Lombard',sec:'Financial Services',fno:true},
-  {s:'ICICIPRULI',n:'ICICI Prudential Life',sec:'Financial Services',fno:true},
-  {s:'IDFCFIRSTB',n:'IDFC First Bank',sec:'Financial Services',fno:true},
-  {s:'IEX',n:'India Energy Exchange',sec:'Financial Services',fno:true},
-  {s:'INDIAMART',n:'IndiaMART InterMESH',sec:'Services',fno:true},
-  {s:'INDUSINDBK',n:'IndusInd Bank',sec:'Financial Services',fno:true},
-  {s:'INDUSTOWER',n:'Indus Towers',sec:'Telecom',fno:true},
-  {s:'INFY',n:'Infosys',sec:'Information Technology',fno:true},
-  {s:'IOC',n:'Indian Oil Corporation',sec:'Oil & Gas',fno:true},
-  {s:'IRCTC',n:'IRCTC',sec:'Services',fno:true},
-  {s:'IRFC',n:'Indian Railway Finance',sec:'Financial Services',fno:true},
-  {s:'ITC',n:'ITC',sec:'FMCG',fno:true},
-  {s:'JINDALSTEL',n:'Jindal Steel & Power',sec:'Metals & Mining',fno:true},
-  {s:'JSWSTEEL',n:'JSW Steel',sec:'Metals & Mining',fno:true},
-  {s:'JUBLFOOD',n:'Jubilant FoodWorks',sec:'Consumer Services',fno:true},
-  {s:'JIOFINANCE',n:'Jio Financial Services',sec:'Financial Services',fno:true},
-  {s:'KAJARIACER',n:'Kajaria Ceramics',sec:'Consumer Durables',fno:true},
-  {s:'KALYANKJIL',n:'Kalyan Jewellers',sec:'Consumer Durables',fno:false},
-  {s:'KOTAKBANK',n:'Kotak Mahindra Bank',sec:'Financial Services',fno:true},
-  {s:'KPITTECH',n:'KPIT Technologies',sec:'Information Technology',fno:false},
-  {s:'L&TFH',n:'L&T Finance',sec:'Financial Services',fno:true},
-  {s:'LALPATHLAB',n:"Dr Lal PathLabs",sec:'Healthcare',fno:false},
-  {s:'LAURUSLABS',n:'Laurus Labs',sec:'Healthcare',fno:true},
-  {s:'LT',n:'Larsen & Toubro',sec:'Capital Goods',fno:true},
-  {s:'LTIM',n:'LTIMindtree',sec:'Information Technology',fno:true},
-  {s:'LTTS',n:'L&T Technology Services',sec:'Information Technology',fno:true},
-  {s:'LUPIN',n:'Lupin',sec:'Healthcare',fno:true},
-  {s:'MRF',n:'MRF',sec:'Automobile',fno:true},
-  {s:'M&M',n:'Mahindra & Mahindra',sec:'Automobile',fno:true},
-  {s:'M&MFIN',n:'Mahindra & Mahindra Financial',sec:'Financial Services',fno:true},
-  {s:'MANAPPURAM',n:'Manappuram Finance',sec:'Financial Services',fno:true},
-  {s:'MARICO',n:'Marico',sec:'FMCG',fno:true},
-  {s:'MARUTI',n:'Maruti Suzuki',sec:'Automobile',fno:true},
-  {s:'MCX',n:'MCX',sec:'Financial Services',fno:true},
-  {s:'MEDANTA',n:'Global Health (Medanta)',sec:'Healthcare',fno:false},
-  {s:'MFSL',n:'Max Financial Services',sec:'Financial Services',fno:true},
-  {s:'MGL',n:'Mahanagar Gas',sec:'Oil & Gas',fno:true},
-  {s:'MPHASIS',n:'Mphasis',sec:'Information Technology',fno:true},
-  {s:'MUTHOOTFIN',n:'Muthoot Finance',sec:'Financial Services',fno:true},
-  {s:'NATIONALUM',n:'National Aluminium',sec:'Metals & Mining',fno:true},
-  {s:'NAUKRI',n:'Info Edge (Naukri)',sec:'Services',fno:true},
-  {s:'NAVINFLUOR',n:'Navin Fluorine',sec:'Chemicals',fno:false},
-  {s:'NESTLEIND',n:'Nestle India',sec:'FMCG',fno:true},
-  {s:'NHPC',n:'NHPC',sec:'Power',fno:true},
-  {s:'NMDC',n:'NMDC',sec:'Metals & Mining',fno:true},
-  {s:'NTPC',n:'NTPC',sec:'Power',fno:true},
-  {s:'OFSS',n:'Oracle Financial Services',sec:'Information Technology',fno:true},
-  {s:'ONGC',n:'ONGC',sec:'Oil & Gas',fno:true},
-  {s:'PAGEIND',n:'Page Industries',sec:'Consumer Durables',fno:true},
-  {s:'PERSISTENT',n:'Persistent Systems',sec:'Information Technology',fno:true},
-  {s:'PETRONET',n:'Petronet LNG',sec:'Oil & Gas',fno:true},
-  {s:'PFC',n:'Power Finance Corp',sec:'Financial Services',fno:true},
-  {s:'PIIND',n:'PI Industries',sec:'Chemicals',fno:true},
-  {s:'POLYCAB',n:'Polycab India',sec:'Capital Goods',fno:true},
-  {s:'POWERGRID',n:'Power Grid Corp',sec:'Power',fno:true},
-  {s:'RBLBANK',n:'RBL Bank',sec:'Financial Services',fno:true},
-  {s:'RECLTD',n:'REC',sec:'Financial Services',fno:true},
-  {s:'RELIANCE',n:'Reliance Industries',sec:'Oil & Gas',fno:true},
-  {s:'RVNL',n:'Rail Vikas Nigam',sec:'Capital Goods',fno:true},
-  {s:'SAIL',n:'Steel Authority of India',sec:'Metals & Mining',fno:true},
-  {s:'SBICARD',n:'SBI Cards',sec:'Financial Services',fno:true},
-  {s:'SBILIFE',n:'SBI Life Insurance',sec:'Financial Services',fno:true},
-  {s:'SBIN',n:'State Bank of India',sec:'Financial Services',fno:true},
-  {s:'SHREECEM',n:'Shree Cement',sec:'Construction Materials',fno:true},
-  {s:'SHRIRAMFIN',n:'Shriram Finance',sec:'Financial Services',fno:true},
-  {s:'SIEMENS',n:'Siemens',sec:'Capital Goods',fno:true},
-  {s:'SRF',n:'SRF',sec:'Chemicals',fno:true},
-  {s:'SUNPHARMA',n:'Sun Pharmaceutical',sec:'Healthcare',fno:true},
-  {s:'SYNGENE',n:'Syngene International',sec:'Healthcare',fno:true},
-  {s:'TATACHEM',n:'Tata Chemicals',sec:'Chemicals',fno:true},
-  {s:'TATACOMM',n:'Tata Communications',sec:'Telecom',fno:true},
-  {s:'TATACONSUM',n:'Tata Consumer Products',sec:'FMCG',fno:true},
-  {s:'TMPV',n:'Tata Motors PV',sec:'Automobile',fno:true},
-  {s:'TMCV',n:'Tata Motors CV',sec:'Automobile',fno:true},
-  {s:'TATAPOWER',n:'Tata Power',sec:'Power',fno:true},
-  {s:'TATASTEEL',n:'Tata Steel',sec:'Metals & Mining',fno:true},
-  {s:'TCS',n:'Tata Consultancy Services',sec:'Information Technology',fno:true},
-  {s:'TECHM',n:'Tech Mahindra',sec:'Information Technology',fno:true},
-  {s:'TITAN',n:'Titan Company',sec:'Consumer Durables',fno:true},
-  {s:'TORNTPHARM',n:'Torrent Pharmaceuticals',sec:'Healthcare',fno:true},
-  {s:'TRENT',n:'Trent',sec:'Consumer Services',fno:true},
-  {s:'TVSMOTOR',n:'TVS Motor',sec:'Automobile',fno:true},
-  {s:'UBL',n:'United Breweries',sec:'FMCG',fno:false},
-  {s:'ULTRACEMCO',n:'UltraTech Cement',sec:'Construction Materials',fno:true},
-  {s:'UNIONBANK',n:'Union Bank of India',sec:'Financial Services',fno:true},
-  {s:'UPL',n:'UPL',sec:'Chemicals',fno:true},
-  {s:'VEDL',n:'Vedanta',sec:'Metals & Mining',fno:true},
-  {s:'VOLTAS',n:'Voltas',sec:'Consumer Durables',fno:true},
-  {s:'WIPRO',n:'Wipro',sec:'Information Technology',fno:true},
-  {s:'ZOMATO',n:'Zomato',sec:'Consumer Services',fno:true},
-  {s:'ZYDUSLIFE',n:'Zydus Lifesciences',sec:'Healthcare',fno:true},
-  {s:'SJVN',n:'SJVN',sec:'Power',fno:false},
-  {s:'AMBER',n:'Amber Enterprises',sec:'Consumer Durables',fno:true},
-  {s:'KFIN',n:'KFin Technologies',sec:'Financial Services',fno:true},
-  {s:'360ONE',n:'360 ONE WAM',sec:'Financial Services',fno:true},
-  {s:'IPCALAB',n:'IPCA Laboratories',sec:'Healthcare',fno:false},
-  {s:'MAPMYINDIA',n:'MapMyIndia',sec:'Information Technology',fno:false},
-  {s:'AETHER',n:'Aether Industries',sec:'Chemicals',fno:false},
-  {s:'CLEAN',n:'Clean Science',sec:'Chemicals',fno:false},
-  {s:'DIVI\'SLAB',n:"Divi's Labs",sec:'Healthcare',fno:false},
-  {s:'DOMS',n:'DOMS Industries',sec:'FMCG',fno:false},
-  {s:'DEVYANI',n:'Devyani International',sec:'Consumer Services',fno:false},
-  {s:'HAPPSTMNDS',n:'Happiest Minds',sec:'Information Technology',fno:false},
-  {s:'ASTERDM',n:'Aster DM Healthcare',sec:'Healthcare',fno:false},
-  {s:'CENTURYPLY',n:'Century Plyboards',sec:'Consumer Durables',fno:false},
-  {s:'CHOLAHLDNG',n:'Cholamandalam Financial',sec:'Financial Services',fno:false},
-  {s:'CREDITACC',n:'CreditAccess Grameen',sec:'Financial Services',fno:false},
-  {s:'DCMSHRIRAM',n:'DCM Shriram',sec:'Diversified',fno:false},
-  {s:'GICRE',n:'General Insurance Corp',sec:'Financial Services',fno:false},
-  {s:'GODREJIND',n:'Godrej Industries',sec:'Diversified',fno:false},
-  {s:'GRSE',n:'Garden Reach Shipbuilders',sec:'Capital Goods',fno:false},
-  {s:'HONASA',n:'Honasa Consumer (Mamaearth)',sec:'FMCG',fno:false},
-  {s:'HUDCO',n:'HUDCO',sec:'Financial Services',fno:false},
-  {s:'INDHOTEL',n:'Indian Hotels',sec:'Consumer Services',fno:true},
-  {s:'INTELLECT',n:'Intellect Design Arena',sec:'Information Technology',fno:true},
-  {s:'JINDALSAW',n:'Jindal Saw',sec:'Capital Goods',fno:false},
-  {s:'JSWENERGY',n:'JSW Energy',sec:'Power',fno:false},
-  {s:'LAURUSLABS',n:'Laurus Labs',sec:'Healthcare',fno:true},
-  {s:'LICHSGFIN',n:'LIC Housing Finance',sec:'Financial Services',fno:false},
-  {s:'LINDEINDIA',n:'Linde India',sec:'Chemicals',fno:false},
-  {s:'MAXHEALTH',n:'Max Healthcare',sec:'Healthcare',fno:false},
-  {s:'METROPOLIS',n:'Metropolis Healthcare',sec:'Healthcare',fno:false},
-  {s:'NATCOPHARM',n:'Natco Pharma',sec:'Healthcare',fno:false},
-  {s:'NUVOCO',n:'Nuvoco Vistas',sec:'Construction Materials',fno:false},
-  {s:'OBEROIRLTY',n:'Oberoi Realty',sec:'Realty',fno:false},
-  {s:'OIL',n:'Oil India',sec:'Oil & Gas',fno:false},
-  {s:'ORIENTELEC',n:'Orient Electric',sec:'Consumer Durables',fno:false},
-  {s:'PGHH',n:'P&G Hygiene',sec:'FMCG',fno:false},
-  {s:'PNBHOUSING',n:'PNB Housing Finance',sec:'Financial Services',fno:false},
-  {s:'PNB',n:'Punjab National Bank',sec:'Financial Services',fno:true},
-  {s:'PRESTIGE',n:'Prestige Estates',sec:'Realty',fno:false},
-  {s:'PRIMEHOTELS',n:'EIH (Oberoi Hotels)',sec:'Consumer Services',fno:false},
-  {s:'PVRINOX',n:'PVR INOX',sec:'Consumer Services',fno:false},
-  {s:'RAMCOCEM',n:'Ramco Cements',sec:'Construction Materials',fno:true},
-  {s:'SCHAEFFLER',n:'Schaeffler India',sec:'Automobile',fno:false},
-  {s:'SJVN',n:'SJVN',sec:'Power',fno:false},
-  {s:'SKFINDIA',n:'SKF India',sec:'Capital Goods',fno:false},
-  {s:'STARHEALTH',n:'Star Health Insurance',sec:'Financial Services',fno:true},
-  {s:'SUNDARMFIN',n:'Sundaram Finance',sec:'Financial Services',fno:false},
-  {s:'SUNTV',n:'Sun TV Network',sec:'Consumer Services',fno:false},
-  {s:'SUPREMEIND',n:'Supreme Industries',sec:'Capital Goods',fno:false},
-  {s:'SUZLON',n:'Suzlon Energy',sec:'Power',fno:false},
-  {s:'SWIGGY',n:'Swiggy',sec:'Consumer Services',fno:false},
-  {s:'TATAELXSI',n:'Tata Elxsi',sec:'Information Technology',fno:false},
-  {s:'TIINDIA',n:'Tube Investments',sec:'Automobile',fno:false},
-  {s:'TORNTPOWER',n:'Torrent Power',sec:'Power',fno:false},
-  {s:'TRIDENT',n:'Trident',sec:'Textiles',fno:false},
-  {s:'TTKPRESTIG',n:'TTK Prestige',sec:'Consumer Durables',fno:false},
-  {s:'UCOBANK',n:'UCO Bank',sec:'Financial Services',fno:false},
-  {s:'UJJIVAN',n:'Ujjivan Small Finance Bank',sec:'Financial Services',fno:false},
-  {s:'VGUARD',n:'V-Guard Industries',sec:'Consumer Durables',fno:false},
-  {s:'WHIRLPOOL',n:'Whirlpool of India',sec:'Consumer Durables',fno:false},
-  {s:'WINDLAS',n:'Windlas Biotech',sec:'Healthcare',fno:false},
-  {s:'YESBANK',n:'Yes Bank',sec:'Financial Services',fno:false},
-  {s:'CGCL',n:'Capri Global Capital',sec:'Financial Services',fno:false},
-  {s:'CESC',n:'CESC',sec:'Power',fno:false},
-  {s:'FINPIPE',n:'Finolex Industries',sec:'Capital Goods',fno:false},
-  {s:'FIVESTAR',n:'Five-Star Business Finance',sec:'Financial Services',fno:false},
-  {s:'FSL',n:'Firstsource Solutions',sec:'Services',fno:false},
-  {s:'GAEL',n:'Gujarat Ambuja Exports',sec:'FMCG',fno:false},
-  {s:'GESHIP',n:'Great Eastern Shipping',sec:'Services',fno:false},
-  {s:'GNFC',n:'Gujarat Narmada Fertilizers',sec:'Chemicals',fno:false},
-  {s:'GPIL',n:'Godawari Power',sec:'Capital Goods',fno:false},
-  {s:'GSFC',n:'Gujarat State Fertilizers',sec:'Chemicals',fno:false},
-  {s:'HEG',n:'HEG',sec:'Capital Goods',fno:false},
-  {s:'HFCL',n:'HFCL',sec:'Telecom',fno:false},
-  {s:'HSCL',n:'Himadri Speciality Chemical',sec:'Chemicals',fno:false},
-  {s:'IIFL',n:'IIFL Finance',sec:'Financial Services',fno:false},
-  {s:'JSWINFRA',n:'JSW Infrastructure',sec:'Services',fno:false},
-];
+// ── Index symbol sets ──────────────────────────────────────────────────────────
+var IDX={
+  nifty50:['RELIANCE','TCS','HDFCBANK','BHARTIARTL','ICICIBANK','INFY','SBIN','HINDUNILVR','ITC','KOTAKBANK','LT','AXISBANK','BAJFINANCE','MARUTI','ASIANPAINT','TITAN','SUNPHARMA','NESTLEIND','WIPRO','ONGC','NTPC','POWERGRID','TATASTEEL','TECHM','HCLTECH','DRREDDY','DIVISLAB','JSWSTEEL','ADANIENT','BAJAJFINSV','ULTRACEMCO','GRASIM','INDUSINDBK','CIPLA','EICHERMOT','APOLLOHOSP','BPCL','COALINDIA','BRITANNIA','TATACONSUM','HEROMOTOCO','HINDALCO','SBILIFE','HDFCLIFE','BAJAJ-AUTO','M&M','SHRIRAMFIN','TRENT','BEL','TMPV'],
+  niftybank:['HDFCBANK','ICICIBANK','KOTAKBANK','SBIN','AXISBANK','INDUSINDBK','BANDHANBNK','FEDERALBNK','IDFCFIRSTB','AUBANK','PNB','BANKBARODA'],
+  niftyit:['TCS','INFY','HCLTECH','WIPRO','TECHM','LTIM','MPHASIS','COFORGE','PERSISTENT','OFSS'],
+  niftymidcap50:['COFORGE','VOLTAS','MUTHOOTFIN','PERSISTENT','ABCAPITAL','KPITTECH','LAURUSLABS','IIFL','ANGELONE','DMART','IRCTC','NAUKRI','GODREJPROP','TATAPOWER','TATAELXSI','FORTIS'],
+};
+IDX.nifty100=[...new Set([...IDX.nifty50,'ADANIPORTS','ADANIGREEN','ADANIPOWER','BAJAJHLDNG','BERGEPAINT','BHEL','BIOCON','BOSCHLTD','CDSL','CGPOWER','CHOLAFIN','COFORGE','CROMPTON','CUMMINSIND','DABUR','DEEPAKNTR','DIXON','DLF','GAIL','GODREJCP','GODREJPROP','HAL','HDFCAMC','HINDCOPPER','HINDPETRO','HINDZINC','ICICIGI','ICICIPRULI','IEX','IOC','IRCTC','JSWSTEEL','JUBLFOOD','LTIM','LTTS','LUPIN','M&MFIN','MANAPPURAM','MARICO','MCX','MFSL','MPHASIS','NATIONALUM','NAUKRI','NMDC','NYKAA','PERSISTENT','PETRONET','PFC','PIIND','POLYCAB','RBLBANK','RECLTD','SAIL','SBICARD','SHREECEM','SIEMENS','SRF','SYNGENE','TATACHEM','TATACOMM','TATAPOWER','TORNTPHARM','TRENT','TVSMOTOR','UPL','VEDL','VOLTAS','ZOMATO','ZYDUSLIFE'])];
+IDX.nifty200=[...new Set([...IDX.nifty100,'ABB','ACC','AIAENG','APLAPOLLO','AUBANK','AARTIIND','ABBOTINDIA','ABFRL','AWL','ALKEM','ALKYLAMINE','AMBUJACEM','ANGELONE','APOLLOTYRE','ASHOKLEY','ASTRAL','AUROPHARMA','BALKRISIND','BANDHANBNK','BANKBARODA','BANKINDIA','BATAINDIA','BDL','BHARATFORG','CAMS','CANFINHOME','CANBK','CEATLTD','CHAMBLFERT','COCHINSHIP','COLPAL','CONCOR','COROMANDEL','CYIENT','DALBHARAT','ESCORTS','FEDERALBNK','FORTIS','FLUOROCHEM','GLAND','GLENMARK','GRANULES','GSPL','HAVELLS','HINDCOPPER','IDFCFIRSTB','INDHOTEL','INDUSTOWER','IRFC','JINDALSTEL','JUBLFOOD','JIOFINANCE','KAJARIACER','LAURUSLABS','MANKIND','MUTHOOTFIN','NAVINFLUOR','NHPC','NYKAA','PAGEIND','PNB','RAMCOCEM','RVNL','SJVN','STARHEALTH','TATACHEM','TATACOMM','TATAELXSI','TVSMOTOR','UNIONBANK','VEDL','YESBANK','ZOMATO'])];
 
-// ─── Index subsets (symbols only) ──────────────────────────────────────────────
-const NIFTY50_SYM=['RELIANCE','TCS','HDFCBANK','BHARTIARTL','ICICIBANK','INFY','SBIN','HINDUNILVR','ITC','KOTAKBANK','LT','AXISBANK','BAJFINANCE','MARUTI','ASIANPAINT','TITAN','SUNPHARMA','NESTLEIND','TMPV','WIPRO','ONGC','NTPC','POWERGRID','TATASTEEL','TECHM','HCLTECH','DRREDDY','DIVISLAB','JSWSTEEL','ADANIENT','BAJAJFINSV','ULTRACEMCO','GRASIM','INDUSINDBK','CIPLA','EICHERMOT','APOLLOHOSP','BPCL','COALINDIA','BRITANNIA','TATACONSUM','HEROMOTOCO','HINDALCO','SBILIFE','HDFCLIFE','BAJAJ-AUTO','M&M','SHRIRAMFIN','TRENT','BEL'];
-const NIFTYBANK_SYM=['HDFCBANK','ICICIBANK','KOTAKBANK','SBIN','AXISBANK','INDUSINDBK','BANDHANBNK','FEDERALBNK','IDFCFIRSTB','AUBANK','PNB','BANKBARODA'];
-const NIFTYIT_SYM=['TCS','INFY','HCLTECH','WIPRO','TECHM','LTIM','MPHASIS','COFORGE','PERSISTENT','OFSS'];
-const NIFTYMID50_SYM=['COFORGE','VOLTAS','MUTHOOTFIN','KALYANKJIL','PERSISTENT','ABCAPITAL','SUNDARMFIN','KPITTECH','LAURUSLABS','IIFL','ANGEL ONE','DMART','IRCTC','NAUKRI','GODREJPROP','TATAPOWER','JSWENERGY','TATAELXSI','FORTIS','MAXHEALTH'];
-const NIFTY100_SYM=[...new Set([...NIFTY50_SYM,'ADANIPORTS','ADANIGREEN','ADANIPOWER','BAJAJHLDNG','BERGEPAINT','BHEL','BIOCON','BOSCHLTD','CDSL','CGPOWER','CHOLAFIN','COFORGE','CROMPTON','CUMMINSIND','DABUR','DEEPAKNTR','DIXON','DLF','GAIL','GODREJCP','GODREJPROP','GRASIM','HAL','HDFCAMC','HINDCOPPER','HINDPETRO','HINDZINC','ICICIPRULI','ICICIGI','IEX','INDIAMART','IOC','IRCTC','JSWSTEEL','JUBLFOOD','L&TFH','LTIM','LTTS','LUPIN','M&MFIN','MANAPPURAM','MARICO','MCX','MFSL','MGL','MPHASIS','NATIONALUM','NAUKRI','NMDC','NYKAA','PAGEIND','PERSISTENT','PETRONET','PFC','PIIND','POLYCAB','RBLBANK','RECLTD','SAIL','SBICARD','SHREECEM','SIEMENS','SRF','SYNGENE','TATACHEM','TATACOMM','TATAPOWER','TORNTPHARM','TRENT','TVSMOTOR','UPL','VEDL','VOLTAS','ZOMATO','ZYDUSLIFE'])];
-const NIFTY200_SYM=[...new Set([...NIFTY100_SYM,'ABB','ACC','AIAENG','APLAPOLLO','AUBANK','AARTIIND','ABBOTINDIA','ABFRL','AWL','AEGISLOG','AFFLE','ALKEM','ALKYLAMINE','AMBUJACEM','ANGELONE','APOLLOTYRE','ASHOKLEY','ASTRAL','AUROPHARMA','BALKRISIND','BANDHANBNK','BANKBARODA','BANKINDIA','BATAINDIA','BDL','BEL','BHARATFORG','BIKAJI','BLUEDART','BRIGADE','CAMS','CANFINHOME','CANBK','CEATLTD','CHAMBLFERT','CIPLA','COCHINSHIP','COLPAL','CONCOR','COROMANDEL','CYIENT','DALBHARAT','DELHIVERY','DEEPAKFERT','ESCORTS','FEDERALBNK','FORTIS','FLUOROCHEM','GLAND','GLENMARK','GODREJIND','GRANULES','GSPL','GUJGASLTD','HAVELLS','HCLTECH','HINDCOPPER','IDFCFIRSTB','IEX','INDHOTEL','INDUSTOWER','IPCALAB','IRFC','JINDALSTEL','JUBLFOOD','JIOFINANCE','KAJARIACER','LALPATHLAB','LAURUSLABS','LICHSGFIN','LINDEINDIA','MAXHEALTH','METROPOLIS','MRF','NATCOPHARM','NAVINFLUOR','NHPC','NYKAA','OFSS','OIL','PAGEIND','PNB','PVRINOX','RAMCOCEM','RVNL','SAIL','SBICARD','SJVN','STARHEALTH','TATACHEM','TATACOMM','TATAELXSI','TIINDIA','TORNTPOWER','TVSMOTOR','UBL','UJJIVAN','UNIONBANK','VEDL','WHIRLPOOL','YESBANK','ZOMATO'])];
-
-function getStockList(idxKey) {
-  if (idxKey === 'nifty50') return N500.filter(s => NIFTY50_SYM.includes(s.s));
-  if (idxKey === 'niftybank') return N500.filter(s => NIFTYBANK_SYM.includes(s.s));
-  if (idxKey === 'niftyit') return N500.filter(s => NIFTYIT_SYM.includes(s.s));
-  if (idxKey === 'niftymidcap50') return N500.filter(s => NIFTYMID50_SYM.includes(s.s));
-  if (idxKey === 'nifty100') return N500.filter(s => NIFTY100_SYM.includes(s.s));
-  if (idxKey === 'nifty200') return N500.filter(s => NIFTY200_SYM.includes(s.s));
-  if (idxKey === 'nifty500') return N500;
-  if (idxKey === 'fno') return N500.filter(s => s.fno);
-  return N500;
-}
-
-
-// GitHub raw URL for cpr_data.json
-const DATA_URL = 'https://raw.githubusercontent.com/gajapriyaannadurai/Inside-CPR-Scanner---Web/main/cpr_data.json';
-
-let tf='daily', sortKey='widthPct', sortAsc=true, results=[], allData=[], scanning=false, dataLoaded=false, lastFetched=null;
-
-function setTF(t,el){
-  tf=t;
-  document.querySelectorAll('.tf-btn').forEach(b=>b.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('rcount').textContent='';
-  // If data already loaded, re-filter instantly
-  if(dataLoaded) applyFilters();
-  else document.getElementById('tbody').innerHTML='<tr><td colspan="12" class="empty-state">Click <strong>Scan Now</strong> to load CPR data.</td></tr>';
-}
-
+// ── Utility ────────────────────────────────────────────────────────────────────
 function setStatus(type,msg){
-  const dot=document.getElementById('status-dot');
-  const txt=document.getElementById('status-text');
-  dot.className='status-dot'+(type?' '+type:'');
-  txt.textContent=msg;
-  txt.style.color=type==='error'?'#a32d2d':type==='live'?'#0b6b40':'#888';
+  var d=document.getElementById('status-dot');
+  var t=document.getElementById('status-text');
+  d.className='dot'+(type?' '+type:'');
+  t.textContent=msg;
+  t.style.color=type==='error'?'#a32d2d':type==='live'?'#0b6b40':'#888';
 }
-
-function setProgress(pct){
-  const wrap=document.getElementById('progress-wrap');
-  const bar=document.getElementById('progress-bar');
-  wrap.style.display=pct>0?'block':'none';
-  bar.style.width=pct+'%';
+function setProg(p){
+  document.getElementById('pw').style.display=p>0?'block':'none';
+  document.getElementById('pb').style.width=p+'%';
 }
+function setFlag(green,label,msg){
+  var p=document.getElementById('flag-pill');
+  var m=document.getElementById('flag-msg');
+  p.className='flag-pill '+(green?'flag-green':'flag-red');
+  p.textContent=(green?'🟢 ':'🔴 ')+label;
+  m.textContent=msg;
+}
+function updateFlag(){
+  var now=new Date();
+  var ist=new Date(now.getTime()+(now.getTimezoneOffset()*60000)+(5.5*3600000));
+  var day=ist.getDay();
+  var hhmm=ist.getHours()*100+ist.getMinutes();
+  var isWeekday=day>=1&&day<=5;
+  var isOpen=isWeekday&&hhmm>=915&&hhmm<1530;
+  var isAfterClose=isWeekday&&hhmm>=1530;
+  var isFriday=day===5;
+  var isWeekend=day===0||day===6;
+  var lastDay=new Date(ist.getFullYear(),ist.getMonth()+1,0).getDate();
+  var isMonthEnd=ist.getDate()===lastDay&&isAfterClose;
 
-// ─── Main scan — fetches pre-computed JSON once, then filters in browser ──────
-async function runScan(){
-  if(scanning) return;
-  scanning=true;
-  const btn=document.getElementById('scan-btn');
-  btn.disabled=true; btn.textContent='Loading...';
-  setStatus('loading','Fetching CPR data...');
-  setProgress(30);
+  // Update column headers
+  if(tf==='daily'){
+    document.getElementById('th-tc').textContent=isAfterClose?'Tom. TC':'Curr. TC';
+    document.getElementById('th-bc').textContent=isAfterClose?'Tom. BC':'Curr. BC';
+    document.getElementById('th-ptc').textContent=isAfterClose?'Today TC':'Prev. TC';
+    document.getElementById('th-pbc').textContent=isAfterClose?'Today BC':'Prev. BC';
+  }
 
-  try{
-    const res = await fetch(DATA_URL + '?t=' + Date.now());
-    if(!res.ok) throw new Error('HTTP ' + res.status + ' — data file not found. Run the GitHub Action first.');
-    const json = await res.json();
-    allData = json.stocks || [];
-    lastFetched = json.generated_at || '—';
-    dataLoaded = true;
-    setProgress(80);
-    setStatus('loading','Applying filters...');
-    applyFilters();
-    setProgress(100);
-    setTimeout(()=>setProgress(0), 500);
-    setStatus('live', 'Loaded ' + allData.length + ' stocks · Generated: ' + lastFetched);
-    document.getElementById('s-time').textContent = lastFetched;
-  } catch(err){
-    setStatus('error', '⚠️ ' + err.message);
-    document.getElementById('tbody').innerHTML = '<tr><td colspan="12" class="empty-state" style="color:#a32d2d">Could not load data.<br><br><strong>Fix:</strong> Go to your GitHub repo → Actions tab → CPR Daily Scanner → Run workflow. Wait 4 minutes then try again.</td></tr>';
-    setProgress(0);
-  } finally {
-    scanning=false;
-    btn.disabled=false;
-    btn.innerHTML='&#9654;&nbsp; Scan Now';
+  if(tf==='daily'){
+    if(isOpen) setFlag(false,'Market Open','CPR calculated from yesterday\'s OHLC — valid for today\'s session.');
+    else if(isAfterClose) setFlag(true,'Market Closed','CPR calculated from today\'s OHLC — valid for tomorrow\'s trading.');
+    else setFlag(true,'Market Closed','CPR calculated from last session\'s OHLC — valid for today\'s trading.');
+  } else if(tf==='weekly'){
+    if((isFriday&&isAfterClose)||isWeekend) setFlag(true,'Week Closed','CPR calculated from this week\'s OHLC — valid for next week\'s trading.');
+    else setFlag(false,'Week Running','CPR calculated from previous week\'s OHLC — valid for this week\'s trading session.');
+  } else if(tf==='monthly'){
+    if(isMonthEnd) setFlag(true,'Month Closed','CPR calculated from this month\'s OHLC — valid for next month\'s trading.');
+    else setFlag(false,'Month Running','CPR calculated from previous month\'s OHLC — valid for this month\'s trading session.');
   }
 }
 
-// ─── Filter + render from cached data (instant — no API calls) ───────────────
+// ── TF switch ──────────────────────────────────────────────────────────────────
+function setTF(t,el){
+  tf=t;
+  document.querySelectorAll('.tf-btn').forEach(function(b){b.classList.remove('active');});
+  el.classList.add('active');
+  updateFlag();
+  if(dataLoaded) applyFilters();
+  else document.getElementById('tbody').innerHTML='<tr><td colspan="12" class="empty-state">Click <strong>Scan Now</strong> to load data</td></tr>';
+}
+
+// ── Scan ───────────────────────────────────────────────────────────────────────
+function doScan(){
+  setStatus('loading','Loading CPR data...');
+  setProg(20);
+
+  // Use embedded data if available (injected by GitHub Actions)
+  if(window.__CPR_DATA__){
+    allData=window.__CPR_DATA__.stocks||[];
+    dataLoaded=true;
+    setProg(80);
+    applyFilters();
+    setProg(100);
+    setTimeout(function(){setProg(0);},500);
+    setStatus('live','Loaded '+allData.length+' stocks · '+(window.__CPR_DATA__.generated_at||''));
+    document.getElementById('s-time').textContent=window.__CPR_DATA__.generated_at||'—';
+    return;
+  }
+
+  // Fallback: fetch from URL
+  var urls=[
+    'https://scanner.tradingwithgp.com/cpr_data.json',
+    'https://gajapriyaannadurai.github.io/Inside-CPR-Scanner---Web/cpr_data.json'
+  ];
+  tryFetch(urls,0);
+}
+
+function tryFetch(urls,i){
+  if(i>=urls.length){
+    setStatus('error','No data found. Please run the GitHub Action first.');
+    setProg(0);
+    document.getElementById('tbody').innerHTML='<tr><td colspan="12" class="empty-state" style="color:#a32d2d">Data not available.<br>Go to GitHub repo → Actions → CPR Daily Scanner → Run workflow.<br>Wait 4 minutes then click Scan Now again.</td></tr>';
+    return;
+  }
+  setStatus('loading','Trying: '+urls[i]);
+  var xhr=new XMLHttpRequest();
+  xhr.open('GET',urls[i]+'?t='+Date.now(),true);
+  xhr.onreadystatechange=function(){
+    if(xhr.readyState===4){
+      if(xhr.status===200){
+        try{
+          var json=JSON.parse(xhr.responseText);
+          allData=json.stocks||[];
+          dataLoaded=true;
+          setProg(100);
+          setTimeout(function(){setProg(0);},500);
+          applyFilters();
+          setStatus('live','Loaded '+allData.length+' stocks · '+(json.generated_at||''));
+          document.getElementById('s-time').textContent=json.generated_at||'—';
+        } catch(e){
+          tryFetch(urls,i+1);
+        }
+      } else {
+        tryFetch(urls,i+1);
+      }
+    }
+  };
+  xhr.onerror=function(){ tryFetch(urls,i+1); };
+  xhr.send();
+}
+
+// ── Filter ─────────────────────────────────────────────────────────────────────
 function applyFilters(){
-  const idxKey  = document.getElementById('f-index').value;
-  const secF    = document.getElementById('f-sector').value;
-  const widF    = document.getElementById('f-width').value;
-  const trendF  = '';
-  const fnoF    = document.getElementById('f-fno').value;
-  const priceF  = parseFloat(document.getElementById('f-price').value)||0;
+  var idxKey=document.getElementById('f-index').value;
+  var secF=document.getElementById('f-sector').value;
+  var widF=document.getElementById('f-width').value;
+  var fnoF=document.getElementById('f-fno').value;
+  var priceF=parseFloat(document.getElementById('f-price').value)||0;
 
-  // Get symbols for selected index
-  const idxSymbols = getIndexSymbols(idxKey);
+  var idxSet=null;
+  if(IDX[idxKey]) idxSet=new Set(IDX[idxKey]);
+  else if(idxKey==='nifty500'||idxKey==='fno') idxSet=null; // all
 
-  results = [];
-  allData.forEach(s => {
-    // Index filter
-    if(idxKey !== 'all' && !idxSymbols.has(s.symbol)) return;
-    // Sector filter
-    if(secF && s.sector !== secF) return;
-    // F&O filter
-    if(fnoF === 'yes' && !s.fno) return;
-    // Price filter
-    if(priceF && s.price < priceF) return;
+  results=[];
+  allData.forEach(function(s){
+    if(idxSet&&!idxSet.has(s.symbol)) return;
+    if(secF&&s.sector!==secF) return;
+    if(fnoF==='yes'&&!s.fno) return;
+    if(priceF&&s.price<priceF) return;
+    if(idxKey==='fno'&&!s.fno) return;
 
-    // Get timeframe data
-    const tfData = s[tf];
-    if(!tfData) return;
-    // Inside CPR filter
-    if(!tfData.inside) return;
+    var tfData=s[tf];
+    if(!tfData||!tfData.inside) return;
 
-    const widthCat = tfData.width_pct < 0.5 ? 'narrow' : tfData.width_pct <= 1.5 ? 'medium' : 'wide';
-    if(widF && widthCat !== widF) return;
+    var wc=tfData.width_pct<0.5?'narrow':tfData.width_pct<=1.5?'medium':'wide';
+    if(widF&&wc!==widF) return;
 
     results.push({
-      symbol:   s.symbol,
-      name:     s.name,
-      sector:   s.sector,
-      fno:      s.fno,
-      price:    s.price,
-      change:   s.change,
-      volume:   s.volume,
-      pivot:    tfData.curr_cpr.pivot,
-      tc:       tfData.curr_cpr.tc,
-      bc:       tfData.curr_cpr.bc,
-      prevTc:   tfData.prev_cpr.tc,
-      prevBc:   tfData.prev_cpr.bc,
-      widthPct: tfData.width_pct,
-      widthCat: widthCat,
+      symbol:s.symbol,name:s.name,sector:s.sector,fno:s.fno,
+      price:s.price,change:s.change,
+      pivot:tfData.curr_cpr.pivot,tc:tfData.curr_cpr.tc,bc:tfData.curr_cpr.bc,
+      prevTc:tfData.prev_cpr.tc,prevBc:tfData.prev_cpr.bc,
+      widthPct:tfData.width_pct,widthCat:wc
     });
   });
 
-  // Update stat counters
-  document.getElementById('s-inside').textContent  = results.length;
-  document.getElementById('s-bull').textContent    = results.filter(r=>r.widthCat==='wide').length;
-  document.getElementById('s-bear').textContent    = results.filter(r=>r.widthCat==='medium').length;
-  document.getElementById('s-narrow').textContent  = results.filter(r=>r.widthCat==='narrow').length;
-  document.getElementById('s-scanned').textContent = allData.filter(s => {
-    const sym = getIndexSymbols(idxKey);
-    return idxKey === 'all' || sym.has(s.symbol);
+  var scanned=allData.filter(function(s){
+    if(!IDX[idxKey]) return true;
+    return IDX[idxKey]?new Set(IDX[idxKey]).has(s.symbol):true;
   }).length;
-  document.getElementById('rcount').textContent = results.length + ' stocks found';
-  enableDownload(results.length > 0);
 
+  document.getElementById('s-inside').textContent=results.length;
+  document.getElementById('s-narrow').textContent=results.filter(function(r){return r.widthCat==='narrow';}).length;
+  document.getElementById('s-wide').textContent=results.filter(function(r){return r.widthCat==='wide';}).length;
+  document.getElementById('s-scanned').textContent=scanned||allData.length;
+  document.getElementById('rcount').textContent=results.length+' stocks found';
+  document.getElementById('dl-csv').disabled=results.length===0;
+  document.getElementById('dl-xlsx').disabled=results.length===0;
   renderTable();
 }
 
-function getIndexSymbols(idxKey){
-  const map = {
-    nifty50:     new Set(NIFTY50_SYM),
-    niftybank:   new Set(NIFTYBANK_SYM),
-    niftyit:     new Set(NIFTYIT_SYM),
-    niftymidcap50: new Set(NIFTYMID50_SYM),
-    nifty100:    new Set(NIFTY100_SYM),
-    nifty200:    new Set(NIFTY200_SYM),
-    nifty500:    new Set(N500.map(s=>s.s)),
-    fno:         new Set(N500.filter(s=>s.fno).map(s=>s.s)),
-  };
-  return map[idxKey] || new Set(N500.map(s=>s.s));
-}
-
-// Filters re-apply instantly without re-fetching
-function resetAll(){
-  enableDownload(false);
-  document.getElementById('f-sector').value='';
-  document.getElementById('f-width').value='';
-  document.getElementById('f-fno').value='';
+function doReset(){
+  ['f-sector','f-width','f-fno'].forEach(function(id){document.getElementById(id).value='';});
   document.getElementById('f-price').value='';
   if(dataLoaded) applyFilters();
 }
 
-function sortBy(key){
-  if(sortKey===key) sortAsc=!sortAsc; else{sortKey=key;sortAsc=true;}
+// ── Sort + Render ──────────────────────────────────────────────────────────────
+function srt(k){
+  if(sk===k) sa=!sa; else{sk=k;sa=true;}
   renderTable();
 }
-
-function fmtVol(v){
-  if(!v) return '—';
-  if(v>=1e7) return (v/1e7).toFixed(2)+' Cr';
-  if(v>=1e5) return (v/1e5).toFixed(1)+' L';
-  return v.toLocaleString('en-IN');
-}
-
+function n2(v){return v!=null&&!isNaN(v)?Number(v).toFixed(2):'—';}
 function renderTable(){
-  const sorted=[...results].sort((a,b)=>{
-    const av=a[sortKey],bv=b[sortKey];
-    if(typeof av==='number') return sortAsc?av-bv:bv-av;
-    return sortAsc?String(av).localeCompare(String(bv)):String(bv).localeCompare(String(av));
+  var sorted=results.slice().sort(function(a,b){
+    var av=a[sk],bv=b[sk];
+    if(typeof av==='number') return sa?av-bv:bv-av;
+    return sa?String(av).localeCompare(String(bv)):String(bv).localeCompare(String(av));
   });
-  const tbody=document.getElementById('tbody');
+  var tbody=document.getElementById('tbody');
   if(!sorted.length){
-    tbody.innerHTML='<tr><td colspan="12" class="empty-state">No Inside CPR stocks found for current filters.<br><span style="font-size:13px;color:#aaa">Try selecting a broader index or clearing filters.</span></td></tr>';
+    tbody.innerHTML='<tr><td colspan="12" class="empty-state">No Inside CPR stocks found. Try a broader index or clear filters.</td></tr>';
     return;
   }
-  const maxW=Math.max(...sorted.map(r=>r.widthPct));
-  tbody.innerHTML=sorted.map(r=>{
-    const bw=Math.round((r.widthPct/maxW)*50);
-    return'<tr>'
+  var mx=Math.max.apply(null,sorted.map(function(r){return r.widthPct;}));
+  tbody.innerHTML=sorted.map(function(r){
+    var bw=Math.round((r.widthPct/mx)*50);
+    var wc=r.widthCat==='narrow'?'b-narrow':r.widthCat==='medium'?'b-medium':'b-wide';
+    return '<tr>'
       +'<td><span class="sym">'+r.symbol+'</span></td>'
       +'<td><span class="company">'+r.name+'</span></td>'
       +'<td><span class="sector-tag">'+r.sector+'</span></td>'
-      +'<td>'+(r.fno?'<span class="badge b-fno">F&amp;O</span>':'<span style="font-size:11px;color:#ccc">—</span>')+'</td>'
-      +'<td class="price-cell">&#8377;'+r.price.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})+'</td>'
-      +'<td class="'+(r.change>=0?'chg-up':'chg-dn')+'">'+(r.change>=0?'&#9650;':'&#9660;')+' '+Math.abs(r.change).toFixed(2)+'%</td>'
-      +'<td class="pivot-cell">'+r.pivot.toFixed(2)+'</td>'
-      +'<td class="tc-cell">'+r.tc.toFixed(2)+'</td>'
-      +'<td class="bc-cell">'+r.bc.toFixed(2)+'</td>'
-      +'<td class="pivot-cell">'+r.prevTc.toFixed(2)+'</td>'
-      +'<td class="pivot-cell">'+r.prevBc.toFixed(2)+'</td>'
-      +'<td><div class="width-bar-wrap"><span style="font-size:13px">'+r.widthPct.toFixed(2)+'%</span><span class="width-bar" style="width:'+bw+'px"></span><span class="badge '+(r.widthCat==='narrow'?'b-narrow':r.widthCat==='medium'?'b-medium':'b-wide')+'">'+r.widthCat.charAt(0).toUpperCase()+r.widthCat.slice(1)+'</span></div></td>'
-      
-      
+      +'<td>'+(r.fno?'<span class="badge b-fno">F&O</span>':'<span style="color:#ccc;font-size:11px">—</span>')+'</td>'
+      +'<td class="price-cell">&#8377;'+n2(r.price)+'</td>'
+      +'<td class="'+(r.change>=0?'up':'dn')+'">'+(r.change>=0?'▲':'▼')+' '+Math.abs(r.change||0).toFixed(2)+'%</td>'
+      +'<td class="pc">'+n2(r.pivot)+'</td>'
+      +'<td class="tc-cell">'+n2(r.tc)+'</td>'
+      +'<td class="bc-cell">'+n2(r.bc)+'</td>'
+      +'<td class="pc">'+n2(r.prevTc)+'</td>'
+      +'<td class="pc">'+n2(r.prevBc)+'</td>'
+      +'<td><div class="wbar-wrap"><span style="font-size:13px">'+n2(r.widthPct)+'%</span><span class="wbar" style="width:'+bw+'px"></span><span class="badge '+wc+'">'+r.widthCat.charAt(0).toUpperCase()+r.widthCat.slice(1)+'</span></div></td>'
       +'</tr>';
   }).join('');
 }
 
-// ─── Market hours detection (IST) ────────────────────────────────────────────
-function checkMarketHours(){
-  const now=new Date();
-  const utc=now.getTime()+(now.getTimezoneOffset()*60000);
-  const ist=new Date(utc+(5.5*3600000));
-  const day=ist.getDay();
-  const timeNow=ist.getHours()*100+ist.getMinutes();
-  const isWeekday=day>=1&&day<=5;
-  const isMarketOpen=isWeekday&&timeNow>=915&&timeNow<1530;
-  const isAfterClose=isWeekday&&timeNow>=1530;
-
-  const flag     = document.getElementById('market-flag');
-  const flagText = document.getElementById('market-flag-text');
-
-  if(isMarketOpen){
-    flag.style.background = '#fff0f0';
-    flag.style.color      = '#c0392b';
-    flag.style.border     = '1px solid #f5c6c6';
-    flag.innerHTML        = '🔴 Market Open';
-    flagText.textContent  = 'CPR calculated from yesterday\'s OHLC — valid for today\'s session.';
-    flagText.style.color  = '#888';
-  } else {
-    flag.style.background = '#e8f5ee';
-    flag.style.color      = '#0b6b40';
-    flag.style.border     = '1px solid #c8e6d0';
-    flag.innerHTML        = '🟢 Market Closed';
-    flagText.textContent  = isAfterClose
-      ? 'CPR calculated from today\'s OHLC — valid for tomorrow\'s trading.'
-      : 'CPR calculated from last session\'s OHLC — valid for today\'s trading.';
-    flagText.style.color  = '#888';
-  }
-}
-
-checkMarketHours();
-setInterval(checkMarketHours,60000);
-
-// ─── Download functions ───────────────────────────────────────────────────────
-function getTableHeaders(){
-  return ['Symbol','Company','Sector','F&O','CMP (Rs)','Chg %','Pivot','Tom. TC','Tom. BC','Today TC','Today BC','Width %','Width Cat'];
-}
-
-function resultsToRows(data){
-  const safe = (v, dec=2) => (v != null && !isNaN(v)) ? Number(v).toFixed(dec) : '—';
-  return data.map(r => [
-    r.symbol || '—',
-    r.name   || '—',
-    r.sector || '—',
-    r.fno ? 'Yes' : 'No',
-    safe(r.price),
-    safe(r.change) + '%',
-    safe(r.pivot),
-    safe(r.tc),
-    safe(r.bc),
-    safe(r.prevTc),
-    safe(r.prevBc),
-    safe(r.widthPct) + '%',
-    r.widthCat ? r.widthCat.charAt(0).toUpperCase() + r.widthCat.slice(1) : '—'
-  ]);
-}
-
-function downloadCSV(){
-  if(!results.length){ alert('No results to download. Run a scan first.'); return; }
-  const headers = getTableHeaders();
-  const rows    = resultsToRows(results);
-  const scanInfo = document.getElementById('status-text').textContent;
-  const csvLines = [
-    '# Inside CPR Scanner — Stark School of Finance — tradingwithgp.com',
-    '# ' + scanInfo,
-    '# Downloaded: ' + new Date().toLocaleString('en-IN'),
-    '',
-    headers.join(','),
-    ...rows.map(r => r.map(v => '"' + String(v).replace(/"/g,'""') + '"').join(','))
-  ];
-  const blob = new Blob([csvLines.join('\n')], {type:'text/csv;charset=utf-8;'});
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href     = url;
-  a.download = 'inside_cpr_' + new Date().toISOString().slice(0,10) + '.csv';
+// ── Downloads ──────────────────────────────────────────────────────────────────
+function dlCSV(){
+  if(!results.length) return;
+  var hdr=['Symbol','Company','Sector','F&O','CMP','Chg%','Pivot','Curr TC','Curr BC','Prev TC','Prev BC','Width%','Width Cat'];
+  var rows=results.map(function(r){return[r.symbol,r.name,r.sector,r.fno?'Yes':'No',n2(r.price),n2(r.change)+'%',n2(r.pivot),n2(r.tc),n2(r.bc),n2(r.prevTc),n2(r.prevBc),n2(r.widthPct)+'%',r.widthCat];});
+  var csv=['# Inside CPR Scanner — tradingwithgp.com','# Generated: '+new Date().toLocaleString('en-IN'),'',hdr.join(',')].concat(rows.map(function(r){return r.map(function(v){return '"'+String(v).replace(/"/g,'""')+'"';}).join(',');})).join('\n');
+  var a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='inside_cpr_'+new Date().toISOString().slice(0,10)+'.csv';
   a.click();
-  URL.revokeObjectURL(url);
 }
-
-function downloadExcel(){
-  if(!results.length){ alert('No results to download. Run a scan first.'); return; }
-  const headers = getTableHeaders();
-  const rows    = resultsToRows(results);
-  const scanInfo = document.getElementById('status-text').textContent;
-
-  // Build Excel XML (SpreadsheetML — opens natively in Excel)
-  const esc = v => String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  const cell = (v, type) => {
-    if(type === 'n') return <Cell ss:StyleID="num"><Data ss:Type="Number">${esc(v)}</Data></Cell>;
-    if(type === 'h') return <Cell ss:StyleID="hdr"><Data ss:Type="String">${esc(v)}</Data></Cell>;
-    return <Cell><Data ss:Type="String">${esc(v)}</Data></Cell>;
-  };
-
-  const numCols = new Set([4,5,6,7,8,9,10,11]); // 0-indexed cols that are numbers
-
-  const dataRows = rows.map(r =>
-    '<Row>' + r.map((v,i) => {
-      const raw = v.replace('%','').replace('Rs','').trim();
-      const isNum = numCols.has(i) && !isNaN(parseFloat(raw));
-      return isNum ? cell(parseFloat(raw), 'n') : cell(v, '');
-    }).join('') + '</Row>'
-  ).join('\n        ');
-
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<?mso-application progid="Excel.Sheet"?>
-<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
-  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
-  <Styles>
-    <Style ss:ID="hdr">
-      <Font ss:Bold="1" ss:Color="#FFFFFF"/>
-      <Interior ss:Color="#0a1628" ss:Pattern="Solid"/>
-    </Style>
-    <Style ss:ID="num">
-      <NumberFormat ss:Format="0.00"/>
-    </Style>
-    <Style ss:ID="info">
-      <Font ss:Italic="1" ss:Color="#888888"/>
-    </Style>
-  </Styles>
-  <Worksheet ss:Name="Inside CPR Scanner">
-    <Table>
-      <Column ss:Width="80"/>
-      <Column ss:Width="160"/>
-      <Column ss:Width="130"/>
-      <Column ss:Width="45"/>
-      <Column ss:Width="75"/>
-      <Column ss:Width="60"/>
-      <Column ss:Width="70"/>
-      <Column ss:Width="75"/>
-      <Column ss:Width="75"/>
-      <Column ss:Width="75"/>
-      <Column ss:Width="75"/>
-      <Column ss:Width="65"/>
-      <Column ss:Width="70"/>
-      <Row>
-        <Cell ss:MergeAcross="12" ss:StyleID="info"><Data ss:Type="String">Inside CPR Scanner — Stark School of Finance — tradingwithgp.com | ${esc(scanInfo)}</Data></Cell>
-      </Row>
-      <Row>
-        ${headers.map(h => cell(h,'h')).join('')}
-      </Row>
-        ${dataRows}
-    </Table>
-  </Worksheet>
-</Workbook>`;
-
-  const blob = new Blob([xml], {type:'application/vnd.ms-excel;charset=utf-8;'});
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href     = url;
-  a.download = 'inside_cpr_' + new Date().toISOString().slice(0,10) + '.xls';
+function dlExcel(){
+  if(!results.length) return;
+  var hdr=['Symbol','Company','Sector','F&O','CMP','Chg%','Pivot','Curr TC','Curr BC','Prev TC','Prev BC','Width%','Width Cat'];
+  var rows=results.map(function(r){return[r.symbol,r.name,r.sector,r.fno?'Yes':'No',n2(r.price),n2(r.change)+'%',n2(r.pivot),n2(r.tc),n2(r.bc),n2(r.prevTc),n2(r.prevBc),n2(r.widthPct)+'%',r.widthCat];});
+  var xml='<?xml version="1.0" encoding="UTF-8"?><?mso-application progid="Excel.Sheet"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"><Styles><Style ss:ID="h"><Font ss:Bold="1" ss:Color="#FFFFFF"/><Interior ss:Color="#0a1628" ss:Pattern="Solid"/></Style></Styles><Worksheet ss:Name="Inside CPR"><Table>'+
+    '<Row>'+hdr.map(function(h){return'<Cell ss:StyleID="h"><Data ss:Type="String">'+h+'</Data></Cell>';}).join('')+'</Row>'+
+    rows.map(function(r){return'<Row>'+r.map(function(v){return'<Cell><Data ss:Type="String">'+String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</Data></Cell>';}).join('')+'</Row>';}).join('')+
+    '</Table></Worksheet></Workbook>';
+  var a=document.createElement('a');
+  a.href='data:application/vnd.ms-excel;charset=utf-8,'+encodeURIComponent(xml);
+  a.download='inside_cpr_'+new Date().toISOString().slice(0,10)+'.xls';
   a.click();
-  URL.revokeObjectURL(url);
 }
 
-// Enable download buttons when results exist
-function enableDownload(hasResults){
-  document.getElementById('dl-csv').disabled  = !hasResults;
-  document.getElementById('dl-xlsx').disabled = !hasResults;
-}
+// ── Init ───────────────────────────────────────────────────────────────────────
+updateFlag();
+setInterval(updateFlag,60000);
+
+// ===EMBEDDED_DATA_START===
+// Data will be injected here by GitHub Actions
+// ===EMBEDDED_DATA_END===
 </script>
 </body>
 </html>
