@@ -2,12 +2,12 @@ name: CPR Daily Scanner
 
 on:
   schedule:
-    # Runs at 10:15 UTC = 3:45 PM IST, Monday to Friday
+    # Run 1: 9:30 AM IST = 4:00 UTC (after market opens, uses yesterday+day-before data)
+    - cron: '0 4 * * 1-5'
+    # Run 2: 3:45 PM IST = 10:15 UTC (after market closes, uses today+yesterday data)
     - cron: '15 10 * * 1-5'
-    # Also runs Friday at 10:15 UTC for weekly CPR
-    # (same time — the script handles all 3 timeframes in one run)
 
-  # Allow manual trigger from GitHub Actions tab (for testing)
+  # Manual trigger from GitHub Actions tab
   workflow_dispatch:
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write   # needed to push cpr_data.json back to repo
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -47,4 +47,5 @@ jobs:
         run: |
           echo "CPR data successfully updated!"
           echo "File size: $(wc -c < cpr_data.json) bytes"
-          echo "Stocks processed: $(python -c "import json; d=json.load(open('cpr_data.json')); print(d['success_count'])")"
+          echo "Mode: $(python -c "import json; d=json.load(open('cpr_data.json')); print(d.get('scan_mode','UNKNOWN'))")"
+          echo "Inside CPR stocks: $(python -c "import json; d=json.load(open('cpr_data.json')); print(d.get('inside_count',0))")"
