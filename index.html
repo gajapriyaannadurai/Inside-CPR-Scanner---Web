@@ -92,7 +92,7 @@
   <div class="card">
     <div class="top-header">
       <h2>Inside CPR Scanner</h2>
-      <p>Current period's CPR lies entirely within the previous period's CPR — live NSE data via Yahoo Finance</p>
+      <p>Scans for stocks where <strong>tomorrow's CPR</strong> (from today's OHLC) fits inside <strong>today's CPR</strong> (from yesterday's OHLC) — run after 3:30 PM for next day planning</p>
       <div class="tf-row">
         <span class="tf-label">Timeframe</span>
         <button class="tf-btn active" onclick="setTF('daily',this)">Daily</button>
@@ -110,7 +110,7 @@
     </div>
     <div class="notice-bar">
       <i class="ti ti-info-circle" style="font-size:17px;flex-shrink:0;margin-top:1px"></i>
-      <span id="notice-text">Daily: Current CPR (today's OHLC) must lie entirely within yesterday's CPR. TC=(Pivot+High)/2 | BC=(Pivot+Low)/2. Run after 3:30 PM on trading days.</span>
+      <span id="notice-text">Daily: Tomorrow's CPR = calculated from today's OHLC (TC = (Pivot+High)/2, BC = (Pivot+Low)/2). Today's CPR = calculated from yesterday's OHLC. Inside CPR = Tomorrow's TC &lt; Today's TC AND Tomorrow's BC &gt; Today's BC. Run after market closes at 3:30 PM.</span>
     </div>
     <div id="market-warning" style="display:none;padding:13px 20px;border-bottom:1px solid #f5c6c6;background:#fff3f3;display:flex;align-items:flex-start;gap:10px">
       <i class="ti ti-alert-triangle" style="font-size:18px;flex-shrink:0;margin-top:1px;color:#c0392b"></i>
@@ -205,10 +205,10 @@
             <th onclick="sortBy('price')" style="text-align:right">CMP (₹)</th>
             <th onclick="sortBy('change')" style="text-align:right">Chg %</th>
             <th onclick="sortBy('pivot')" style="text-align:right">Pivot</th>
-            <th onclick="sortBy('tc')" style="text-align:right">TC</th>
-            <th onclick="sortBy('bc')" style="text-align:right">BC</th>
-            <th onclick="sortBy('prevTc')" style="text-align:right">Prev TC</th>
-            <th onclick="sortBy('prevBc')" style="text-align:right">Prev BC</th>
+            <th onclick="sortBy('tc')" style="text-align:right">Tom. TC</th>
+            <th onclick="sortBy('bc')" style="text-align:right">Tom. BC</th>
+            <th onclick="sortBy('prevTc')" style="text-align:right">Today TC</th>
+            <th onclick="sortBy('prevBc')" style="text-align:right">Today BC</th>
             <th onclick="sortBy('widthPct')" style="text-align:right;min-width:130px">Width %</th>
             <th onclick="sortBy('trend')">Trend</th>
             <th onclick="sortBy('volume')" style="text-align:right">Volume</th>
@@ -220,12 +220,11 @@
       </table>
     </div>
     <div class="footer-legend">
-      <span class="leg-item"><span class="leg-dot" style="background:#00c878"></span>TC = (Pivot+High)/2</span>
-      <span class="leg-item"><span class="leg-dot" style="background:#e24b4a"></span>BC = (Pivot+Low)/2</span>
-      <span class="leg-item"><span class="leg-dot" style="background:#7f77dd"></span>Inside: Current TC&lt;Prev TC AND Current BC&gt;Prev BC</span>
-      <span class="leg-item"><span class="leg-dot" style="background:#ef9f27"></span>Pivot=(H+L+C)/3</span>
-      <span class="leg-item"><span class="leg-dot" style="background:#3c3489"></span>F&amp;O = Futures &amp; Options eligible</span>
-      <span class="leg-item" style="margin-left:auto"><span class="leg-dot" style="background:#185fa5"></span>Data: Yahoo Finance NSE (15–20 min delay)</span>
+      <span class="leg-item"><span class="leg-dot" style="background:#00c878"></span>Tom. TC = Tomorrow's Top CPR = (Pivot+High)/2 using today's OHLC</span>
+      <span class="leg-item"><span class="leg-dot" style="background:#e24b4a"></span>Tom. BC = Tomorrow's Bottom CPR = (Pivot+Low)/2 using today's OHLC</span>
+      <span class="leg-item"><span class="leg-dot" style="background:#7f77dd"></span>Inside: Tomorrow TC &lt; Today TC AND Tomorrow BC &gt; Today BC</span>
+      <span class="leg-item"><span class="leg-dot" style="background:#ef9f27"></span>Pivot = (H + L + C) / 3</span>
+      <span class="leg-item" style="margin-left:auto"><span class="leg-dot" style="background:#185fa5"></span>Data: NSE Bhav Copy (official EOD after 3:30 PM)</span>
     </div>
   </div>
   <div class="brand-footer">Powered by <a href="https://www.tradingwithgp.com" target="_blank">Stark School of Finance — tradingwithgp.com</a> &nbsp;|&nbsp; Data: Yahoo Finance (delayed)</div>
@@ -255,7 +254,7 @@ const FNO_SET = new Set([
   'PFC','PIIND','POLYCAB','POWERGRID','PVR','RAMCOCEM','RBLBANK','RECLTD',
   'RELIANCE','SAIL','SBICARD','SBILIFE','SBIN','SHREECEM','SHRIRAMFIN','SIEMENS',
   'SRF','STARHEALTH','SUNPHARMA','SUNTV','SYNGENE','TATACHEM','TATACOMM','TATACONSUM',
-  'TATAMOTORS','TATAPOWER','TATASTEEL','TCS','TECHM','TITAN','TORNTPHARM','TRENT',
+  'TMPV','TMCV','TATAPOWER','TATASTEEL','TCS','TECHM','TITAN','TORNTPHARM','TRENT',
   'TVSMOTOR','UBL','ULTRACEMCO','UNIONBANK','UPL','VEDL','VOLTAS','WIPRO',
   'ZOMATO','ZYDUSLIFE','DMART','JIOFINANCE','360ONE','AMBER','KFIN','PGEL',
   'HAL','BLS','BSE','CDSL','POLYCAB','IRFC','RVNL','NHPC','SJVN',
@@ -454,7 +453,8 @@ const N500 = [
   {s:'TATACHEM',n:'Tata Chemicals',sec:'Chemicals',fno:true},
   {s:'TATACOMM',n:'Tata Communications',sec:'Telecom',fno:true},
   {s:'TATACONSUM',n:'Tata Consumer Products',sec:'FMCG',fno:true},
-  {s:'TATAMOTORS',n:'Tata Motors',sec:'Automobile',fno:true},
+  {s:'TMPV',n:'Tata Motors PV',sec:'Automobile',fno:true},
+  {s:'TMCV',n:'Tata Motors CV',sec:'Automobile',fno:true},
   {s:'TATAPOWER',n:'Tata Power',sec:'Power',fno:true},
   {s:'TATASTEEL',n:'Tata Steel',sec:'Metals & Mining',fno:true},
   {s:'TCS',n:'Tata Consultancy Services',sec:'Information Technology',fno:true},
@@ -553,7 +553,7 @@ const N500 = [
 ];
 
 // ─── Index subsets (symbols only) ──────────────────────────────────────────────
-const NIFTY50_SYM=['RELIANCE','TCS','HDFCBANK','BHARTIARTL','ICICIBANK','INFY','SBIN','HINDUNILVR','ITC','KOTAKBANK','LT','AXISBANK','BAJFINANCE','MARUTI','ASIANPAINT','TITAN','SUNPHARMA','NESTLEIND','TATAMOTORS','WIPRO','ONGC','NTPC','POWERGRID','TATASTEEL','TECHM','HCLTECH','DRREDDY','DIVISLAB','JSWSTEEL','ADANIENT','BAJAJFINSV','ULTRACEMCO','GRASIM','INDUSINDBK','CIPLA','EICHERMOT','APOLLOHOSP','BPCL','COALINDIA','BRITANNIA','TATACONSUM','HEROMOTOCO','HINDALCO','SBILIFE','HDFCLIFE','BAJAJ-AUTO','M&M','SHRIRAMFIN','TRENT','BEL'];
+const NIFTY50_SYM=['RELIANCE','TCS','HDFCBANK','BHARTIARTL','ICICIBANK','INFY','SBIN','HINDUNILVR','ITC','KOTAKBANK','LT','AXISBANK','BAJFINANCE','MARUTI','ASIANPAINT','TITAN','SUNPHARMA','NESTLEIND','TMPV','WIPRO','ONGC','NTPC','POWERGRID','TATASTEEL','TECHM','HCLTECH','DRREDDY','DIVISLAB','JSWSTEEL','ADANIENT','BAJAJFINSV','ULTRACEMCO','GRASIM','INDUSINDBK','CIPLA','EICHERMOT','APOLLOHOSP','BPCL','COALINDIA','BRITANNIA','TATACONSUM','HEROMOTOCO','HINDALCO','SBILIFE','HDFCLIFE','BAJAJ-AUTO','M&M','SHRIRAMFIN','TRENT','BEL'];
 const NIFTYBANK_SYM=['HDFCBANK','ICICIBANK','KOTAKBANK','SBIN','AXISBANK','INDUSINDBK','BANDHANBNK','FEDERALBNK','IDFCFIRSTB','AUBANK','PNB','BANKBARODA'];
 const NIFTYIT_SYM=['TCS','INFY','HCLTECH','WIPRO','TECHM','LTIM','MPHASIS','COFORGE','PERSISTENT','OFSS'];
 const NIFTYMID50_SYM=['COFORGE','VOLTAS','MUTHOOTFIN','KALYANKJIL','PERSISTENT','ABCAPITAL','SUNDARMFIN','KPITTECH','LAURUSLABS','IIFL','ANGEL ONE','DMART','IRCTC','NAUKRI','GODREJPROP','TATAPOWER','JSWENERGY','TATAELXSI','FORTIS','MAXHEALTH'];
@@ -803,8 +803,8 @@ function checkMarketHours(){
     warningEl.style.display='none';
     okEl.style.display='flex';
     const msg = isAfterClose
-      ? '<strong>Market closed</strong> — CPR data updated at 3:45 PM. Results are accurate for tomorrow\'s trading plan.'
-      : '<strong>Market is closed</strong> — showing last session\'s pre-calculated CPR data. Accurate and ready to use.';
+      ? '<strong>Market closed ✅</strong> — Today\'s OHLC is complete. Scanner shows stocks where <strong>tomorrow\'s CPR is inside today\'s CPR</strong>. Safe to plan tomorrow\'s trades.'
+      : '<strong>Market is closed</strong> — Showing last session data. Tomorrow\'s CPR levels are calculated and ready.';
     okEl.querySelector('div').innerHTML=msg;
   }
 }
