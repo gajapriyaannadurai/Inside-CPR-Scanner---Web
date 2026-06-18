@@ -266,20 +266,19 @@ STOCKS = [
 # ─── CPR calculation ──────────────────────────────────────────────────────────
 def calc_cpr(h, l, c):
     """
-    Standard CPR calculation:
-    Pivot = (H + L + C) / 3
-    TC    = (Pivot + H) / 2   ← always higher than BC when H > L
-    BC    = (Pivot + L) / 2   ← always lower than TC when H > L
-    TC is always > BC because H > L always in a valid candle.
+    CPR formula matching GP indicator exactly:
+    PP = (High + Low + Close) / 3
+    BC = (High + Low) / 2
+    TC = PP + (PP - BC)
     """
-    pivot = (h + l + c) / 3
-    tc    = (pivot + h) / 2
-    bc    = (pivot + l) / 2
-    # TC should always be >= BC since H >= L
-    # If somehow inverted (bad data), swap to keep TC as higher value
+    pp = (h + l + c) / 3
+    bc = (h + l) / 2
+    tc = pp + (pp - bc)
+    # TC should always be >= BC
+    # If inverted (bad data), swap
     if bc > tc:
         tc, bc = bc, tc
-    return {"pivot": round(pivot, 2), "tc": round(tc, 2), "bc": round(bc, 2)}
+    return {"pivot": round(pp, 2), "tc": round(tc, 2), "bc": round(bc, 2)}
 
 def is_inside_cpr(curr, prev):
     """
@@ -440,22 +439,25 @@ def fetch_nse_bhav():
         except Exception as e:
             print(f"  NSE Bhav fetch failed for {trade_date}: {e}")
 
-    # Build nse_daily_map: symbol -> [older_day, newer_day] sorted by date ascending
-    sorted_dates = sorted(day_data.keys())  # ascending = oldest first
-    all_symbols  = set()
+    # Build nse_daily_map: symbol -> [older_day, newer_day]
+    # sorted_dates ascending = [yesterday, today] so rows[-2]=yesterday, rows[-1]=today
+    sorted_dates = sorted(day_data.keys())  # ascending: oldest first → [Jun16, Jun17]
+    print(f"  Dates sorted ascending: {sorted_dates}")
+    all_symbols = set()
     for d in sorted_dates:
         all_symbols.update(day_data[d].keys())
 
     for sym in all_symbols:
         rows = []
-        for d in sorted_dates:  # oldest → newest
+        for d in sorted_dates:  # oldest first
             if sym in day_data[d]:
                 rows.append(day_data[d][sym])
         if len(rows) >= 2:
-            nse_daily_map[sym] = rows  # [oldest/prev, newest/curr]
+            # rows[0] = yesterday (older date) → today's CPR
+            # rows[1] = today (newer date)     → tomorrow's CPR
+            nse_daily_map[sym] = rows  # [yesterday, today]
 
-    print(f"  NSE Bhav map built: {len(nse_daily_map)} symbols with 2 days of data")
-    print(f"  Date order: prev={sorted_dates[0]} → curr={sorted_dates[-1]} (oldest first = correct)")
+    print(f"  NSE map: {len(nse_daily_map)} symbols | prev={sorted_dates[0]} (yesterday CPR) | curr={sorted_dates[-1]} (tomorrow CPR)")
     return len(nse_daily_map) > 0
 
 def get_yahoo_ticker(symbol):
@@ -483,22 +485,25 @@ def fetch_stock(symbol):
         chg    = 0.0
 
         if symbol in nse_daily_map and len(nse_daily_map[symbol]) >= 2:
-            # NSE Bhav Copy data — official EOD, most accurate
-            rows   = nse_daily_map[symbol]
-            d_curr = rows[-1]   # today's complete candle (newest)
-            d_prev = rows[-2]   # yesterday's complete candle (older)
-            # Validate — H must be > L and both non-zero
-            if d_curr["h"] == 0 or d_curr["l"] == 0 or d_curr["h"] == d_curr["l"]:
-                print(f"  WARN {symbol}: NSE data invalid h={d_curr['h']} l={d_curr['l']}")
-                return None  # Skip rather than use wrong data
-            price  = round(float(d_curr["c"]), 2)
-            volume = int(d_curr.get("v", 0))
-            chg    = round(((d_curr["c"] - d_prev["c"]) / d_prev["c"]) * 100, 2) if d_prev["c"] else 0
-            if symbol in ["ALKEM", "JSWSTEEL", "BAJFINANCE", "MRF"]:
-                print(f"  DEBUG {symbol} NSE raw: curr H={d_curr['h']} L={d_curr['l']} C={d_curr['c']} | prev H={d_prev['h']} L={d_prev['l']} C={d_prev['c']}")
-                dc = calc_cpr(d_curr['h'], d_curr['l'], d_curr['c'])
-                dp = calc_cpr(d_prev['h'], d_prev['l'], d_prev['c'])
-                print(f"  DEBUG {symbol} CPR: curr TC={dc['tc']} BC={dc['bc']} | prev TC={dp['tc']} BC={dp['bc']} | inside={is_inside_cpr(dc,dp)}")
+            rows       = nse_daily_map[symbol]
+            today_ohlc = rows[-1]   # newest date = today OHLC → tomorrow CPR
+            yest_ohlc  = rows[-2]   # older  date = yesterday OHLC → today CPR
+
+            if today_ohlc["h"] == 0 or today_ohlc["l"] == 0 or today_ohlc["h"] == today_ohlc["l"]:
+                print(f"  WARN {symbol}: bad NSE data")
+                return None
+
+            d_curr = today_ohlc   # tomorrow CPR source
+            d_prev = yest_ohlc    # today CPR source
+            price  = round(float(today_ohlc["c"]), 2)
+            volume = int(today_ohlc.get("v", 0))
+            chg    = round(((today_ohlc["c"] - yest_ohlc["c"]) / yest_ohlc["c"]) * 100, 2) if yest_ohlc["c"] else 0
+
+            if symbol in ["HDFCBANK", "RELIANCE", "ALKEM", "JSWSTEEL"]:
+                dc = calc_cpr(today_ohlc["h"], today_ohlc["l"], today_ohlc["c"])
+                dp = calc_cpr(yest_ohlc["h"],  yest_ohlc["l"],  yest_ohlc["c"])
+                print(f"  DEBUG {symbol}: today H={today_ohlc['h']} L={today_ohlc['l']} C={today_ohlc['c']} | yest H={yest_ohlc['h']} L={yest_ohlc['l']} C={yest_ohlc['c']}")
+                print(f"  DEBUG {symbol}: tom_CPR TC={dc['tc']} BC={dc['bc']} | tod_CPR TC={dp['tc']} BC={dp['bc']} | inside={is_inside_cpr(dc,dp)}")
         else:
             # NSE Bhav not available for this symbol — use Yahoo Finance as fallback
             print(f"  INFO {symbol}: not in NSE Bhav, using Yahoo")
