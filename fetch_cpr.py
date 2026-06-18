@@ -1,862 +1,446 @@
-"""
-fetch_cpr.py
-------------
-Runs automatically via GitHub Actions every weekday at 3:45 PM IST.
-Fetches OHLC from Yahoo Finance for all NSE stocks,
-calculates Inside CPR / Virgin CPR / CPR Trend,
-and saves the result as cpr_data.json in the repo.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inside CPR Scanner — Stark School of Finance</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f4f6f9;color:#1a1a2e;padding:1.5rem 1rem}
+.page-wrap{max-width:1380px;margin:0 auto}
+.card{background:#fff;border-radius:14px;border:1px solid #e2e6ed;overflow:hidden;margin-bottom:1.5rem}
+.top-header{background:#0a1628;padding:1.5rem 2rem}
+.top-header h2{font-size:24px;font-weight:700;color:#fff;margin-bottom:4px}
+.top-header p{font-size:13px;color:rgba(255,255,255,0.45)}
+.tf-row{display:flex;align-items:center;gap:10px;margin-top:1rem;flex-wrap:wrap}
+.tf-label{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4)}
+.tf-btn{padding:7px 20px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.55);background:transparent}
+.tf-btn.active{background:#00c878;color:#0a1628;border-color:#00c878;font-weight:700}
+.stats-row{display:flex;border-bottom:1px solid #e8ecf0;flex-wrap:wrap}
+.stat{flex:1;min-width:110px;padding:14px 18px;border-right:1px solid #e8ecf0;background:#f8fafc}
+.stat:last-child{border-right:none}
+.stat-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:#888;margin-bottom:5px}
+.stat-val{font-size:24px;font-weight:700;color:#1a1a2e}
+.stat-val.green{color:#0b6b40}
+.stat-val.muted{color:#888;font-size:14px;padding-top:4px}
+.flag-bar{padding:9px 18px;border-bottom:1px solid #e8ecf0;display:flex;align-items:center;gap:10px}
+.flag-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 12px;border-radius:20px;font-weight:600;font-size:12px}
+.flag-red{background:#fff0f0;color:#c0392b;border:1px solid #f5c6c6}
+.flag-green{background:#e8f5ee;color:#0b6b40;border:1px solid #c8e6d0}
+.flag-msg{font-size:12.5px;color:#666}
+.status-bar{padding:7px 18px;border-bottom:1px solid #e8ecf0;display:flex;align-items:center;gap:8px;font-size:12px;background:#fff}
+.dot{width:8px;height:8px;border-radius:50%;background:#ccc;display:inline-block;flex-shrink:0}
+.dot.live{background:#00c878}
+.dot.loading{background:#ef9f27}
+.dot.error{background:#e24b4a}
+.filter-row{padding:12px 18px;border-bottom:1px solid #e8ecf0;display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;background:#fff}
+.fg{display:flex;flex-direction:column;gap:4px}
+.fg label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:#888}
+.fg select,.fg input{font-size:13px;padding:7px 10px;border-radius:7px;border:1px solid #dde1e8;background:#fff;color:#1a1a2e;outline:none}
+.scan-btn{padding:9px 24px;background:#00c878;color:#0a1628;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;align-self:flex-end}
+.reset-btn{padding:9px 14px;background:transparent;border:1px solid #dde1e8;border-radius:7px;font-size:13px;cursor:pointer;color:#888;align-self:flex-end}
+.dl-btn{padding:9px 14px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;align-self:flex-end}
+.dl-csv{background:#fff;color:#185fa5;border:1px solid #185fa5}
+.dl-xlsx{background:#fff;color:#0b6b40;border:1px solid #0b6b40}
+.dl-btn:disabled{opacity:0.35;cursor:not-allowed}
+.rcount{font-size:13px;color:#888;align-self:flex-end;margin-left:auto}
+.progress-wrap{height:3px;background:#e8ecf0;display:none}
+.progress-bar{height:3px;background:#00c878;width:0%;transition:width 0.3s}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#888;padding:11px 14px;text-align:left;border-bottom:1px solid #e8ecf0;background:#f8fafc;white-space:nowrap;cursor:pointer;user-select:none}
+thead th:hover{color:#1a1a2e}
+tbody td{padding:12px 14px;border-bottom:1px solid #f0f2f5;white-space:nowrap;vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:#f8fafc}
+.sym{font-size:14px;font-weight:700;color:#0a1628}
+.company{font-size:12px;color:#555}
+.sector-tag{font-size:11px;color:#888}
+.price-cell{font-size:14px;font-weight:600;color:#1a1a2e;text-align:right}
+.pc{font-size:13px;color:#888;text-align:right}
+.tc-cell{font-size:13px;color:#0b6b40;text-align:right;font-weight:600}
+.bc-cell{font-size:13px;color:#a32d2d;text-align:right;font-weight:600}
+.up{font-size:13px;color:#0b6b40;text-align:right;font-weight:500}
+.dn{font-size:13px;color:#a32d2d;text-align:right;font-weight:500}
+.badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;display:inline-block}
+.b-narrow{background:#e6f1fb;color:#185fa5}
+.b-medium{background:#faeeda;color:#7a4a08}
+.b-wide{background:#fcebeb;color:#a32d2d}
+.b-fno{background:#eeedfe;color:#3c3489}
+.wbar-wrap{display:flex;align-items:center;gap:6px;justify-content:flex-end}
+.wbar{height:5px;border-radius:3px;background:#00c878;display:inline-block}
+.empty-state{padding:3rem;text-align:center;color:#888;font-size:15px;line-height:2}
+.brand-footer{text-align:center;font-size:12px;color:#aaa;margin-top:1rem}
+.brand-footer a{color:#00c878;text-decoration:none;font-weight:600}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+<div class="card">
+  <div class="top-header">
+    <h2>Inside CPR Scanner</h2>
+    <p>Scans stocks where current period CPR fits inside the previous period CPR — Stark School of Finance</p>
+    <div class="tf-row">
+      <span class="tf-label">Timeframe</span>
+      <button class="tf-btn active" onclick="setTF('daily',this)">Daily</button>
+      <button class="tf-btn" onclick="setTF('weekly',this)">Weekly</button>
+      <button class="tf-btn" onclick="setTF('monthly',this)">Monthly</button>
+    </div>
+  </div>
+  <div class="stats-row">
+    <div class="stat"><div class="stat-label">Inside CPR</div><div class="stat-val green" id="s-inside">—</div></div>
+    <div class="stat"><div class="stat-label">Narrow CPR</div><div class="stat-val muted" id="s-narrow" style="font-size:20px;padding-top:3px">—</div></div>
+    <div class="stat"><div class="stat-label">Wide CPR</div><div class="stat-val muted" id="s-wide" style="font-size:20px;padding-top:3px">—</div></div>
+    <div class="stat"><div class="stat-label">Stocks Scanned</div><div class="stat-val muted" id="s-scanned" style="font-size:20px;padding-top:3px">—</div></div>
+    <div class="stat"><div class="stat-label">Last Scanned</div><div class="stat-val muted" id="s-time">—</div></div>
+  </div>
+  <div class="flag-bar">
+    <span class="flag-pill" id="flag-pill">⏳ Loading...</span>
+    <span class="flag-msg" id="flag-msg"></span>
+  </div>
+  <div class="status-bar">
+    <span class="dot" id="status-dot"></span>
+    <span id="status-text" style="color:#888">Click Scan Now to load data</span>
+  </div>
+  <div class="progress-wrap" id="pw"><div class="progress-bar" id="pb"></div></div>
+  <div class="filter-row">
+    <div class="fg"><label>Index</label>
+      <select id="f-index">
+        <option value="nifty50">Nifty 50</option>
+        <option value="niftybank">Nifty Bank</option>
+        <option value="niftyit">Nifty IT</option>
+        <option value="niftymidcap50">Nifty Midcap 50</option>
+        <option value="nifty100">Nifty 100</option>
+        <option value="nifty200">Nifty 200</option>
+        <option value="nifty500">Nifty 500</option>
+        <option value="fno">F&amp;O Segment</option>
+      </select></div>
+    <div class="fg"><label>Sector</label>
+      <select id="f-sector">
+        <option value="">All sectors</option>
+        <option>Financial Services</option>
+        <option>Information Technology</option>
+        <option>Healthcare</option>
+        <option>Automobile</option>
+        <option>Capital Goods</option>
+        <option>FMCG</option>
+        <option>Oil &amp; Gas</option>
+        <option>Metals &amp; Mining</option>
+        <option>Chemicals</option>
+        <option>Realty</option>
+        <option>Power</option>
+        <option>Telecom</option>
+        <option>Consumer Durables</option>
+        <option>Services</option>
+      </select></div>
+    <div class="fg"><label>CPR Width</label>
+      <select id="f-width">
+        <option value="">Any</option>
+        <option value="narrow">Narrow (&lt;0.5%)</option>
+        <option value="medium">Medium (0.5–1.5%)</option>
+        <option value="wide">Wide (&gt;1.5%)</option>
+      </select></div>
+    <div class="fg"><label>F&amp;O Only</label>
+      <select id="f-fno">
+        <option value="">All stocks</option>
+        <option value="yes">F&amp;O only</option>
+      </select></div>
+    <div class="fg"><label>Min Price (₹)</label>
+      <input type="number" id="f-price" placeholder="e.g. 100" style="width:100px"></div>
+    <button class="scan-btn" onclick="doScan()">&#9654; Scan Now</button>
+    <button class="reset-btn" onclick="doReset()">&#8635; Reset</button>
+    <button class="dl-btn dl-csv" id="dl-csv" onclick="dlCSV()" disabled>&#8595; CSV</button>
+    <button class="dl-btn dl-xlsx" id="dl-xlsx" onclick="dlExcel()" disabled>&#8595; Excel</button>
+    <span class="rcount" id="rcount"></span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th onclick="srt('symbol')">Symbol</th>
+        <th onclick="srt('name')">Company</th>
+        <th onclick="srt('sector')">Sector</th>
+        <th onclick="srt('fno')">F&amp;O</th>
+        <th onclick="srt('price')" style="text-align:right">CMP (₹)</th>
+        <th onclick="srt('change')" style="text-align:right">Chg %</th>
+        <th onclick="srt('pivot')" style="text-align:right">Pivot</th>
+        <th onclick="srt('tc')" style="text-align:right" id="th-tc">Curr. TC</th>
+        <th onclick="srt('bc')" style="text-align:right" id="th-bc">Curr. BC</th>
+        <th onclick="srt('prevTc')" style="text-align:right" id="th-ptc">Prev. TC</th>
+        <th onclick="srt('prevBc')" style="text-align:right" id="th-pbc">Prev. BC</th>
+        <th onclick="srt('widthPct')" style="text-align:right;min-width:120px">Width %</th>
+      </tr></thead>
+      <tbody id="tbody">
+        <tr><td colspan="12" class="empty-state">Select index and click <strong>Scan Now</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="brand-footer">Powered by <a href="https://www.tradingwithgp.com" target="_blank">Stark School of Finance — tradingwithgp.com</a></div>
+</div>
 
-Stark School of Finance — tradingwithgp.com
-"""
+<script>
+// ── State ──────────────────────────────────────────────────────────────────────
+var tf='daily', sk='widthPct', sa=true, results=[], allData=[], dataLoaded=false;
 
-import json
-import time
-import datetime
-import requests
-import yfinance as yf
-from pathlib import Path
+// ── Index symbol sets ──────────────────────────────────────────────────────────
+var IDX={
+  nifty50:['RELIANCE','TCS','HDFCBANK','BHARTIARTL','ICICIBANK','INFY','SBIN','HINDUNILVR','ITC','KOTAKBANK','LT','AXISBANK','BAJFINANCE','MARUTI','ASIANPAINT','TITAN','SUNPHARMA','NESTLEIND','WIPRO','ONGC','NTPC','POWERGRID','TATASTEEL','TECHM','HCLTECH','DRREDDY','DIVISLAB','JSWSTEEL','ADANIENT','BAJAJFINSV','ULTRACEMCO','GRASIM','INDUSINDBK','CIPLA','EICHERMOT','APOLLOHOSP','BPCL','COALINDIA','BRITANNIA','TATACONSUM','HEROMOTOCO','HINDALCO','SBILIFE','HDFCLIFE','BAJAJ-AUTO','M&M','SHRIRAMFIN','TRENT','BEL','TMPV'],
+  niftybank:['HDFCBANK','ICICIBANK','KOTAKBANK','SBIN','AXISBANK','INDUSINDBK','BANDHANBNK','FEDERALBNK','IDFCFIRSTB','AUBANK','PNB','BANKBARODA'],
+  niftyit:['TCS','INFY','HCLTECH','WIPRO','TECHM','LTIM','MPHASIS','COFORGE','PERSISTENT','OFSS'],
+  niftymidcap50:['COFORGE','VOLTAS','MUTHOOTFIN','PERSISTENT','ABCAPITAL','KPITTECH','LAURUSLABS','IIFL','ANGELONE','DMART','IRCTC','NAUKRI','GODREJPROP','TATAPOWER','TATAELXSI','FORTIS'],
+};
+IDX.nifty100=[...new Set([...IDX.nifty50,'ADANIPORTS','ADANIGREEN','ADANIPOWER','BAJAJHLDNG','BERGEPAINT','BHEL','BIOCON','BOSCHLTD','CDSL','CGPOWER','CHOLAFIN','COFORGE','CROMPTON','CUMMINSIND','DABUR','DEEPAKNTR','DIXON','DLF','GAIL','GODREJCP','GODREJPROP','HAL','HDFCAMC','HINDCOPPER','HINDPETRO','HINDZINC','ICICIGI','ICICIPRULI','IEX','IOC','IRCTC','JSWSTEEL','JUBLFOOD','LTIM','LTTS','LUPIN','M&MFIN','MANAPPURAM','MARICO','MCX','MFSL','MPHASIS','NATIONALUM','NAUKRI','NMDC','NYKAA','PERSISTENT','PETRONET','PFC','PIIND','POLYCAB','RBLBANK','RECLTD','SAIL','SBICARD','SHREECEM','SIEMENS','SRF','SYNGENE','TATACHEM','TATACOMM','TATAPOWER','TORNTPHARM','TRENT','TVSMOTOR','UPL','VEDL','VOLTAS','ZOMATO','ZYDUSLIFE'])];
+IDX.nifty200=[...new Set([...IDX.nifty100,'ABB','ACC','AIAENG','APLAPOLLO','AUBANK','AARTIIND','ABBOTINDIA','ABFRL','AWL','ALKEM','ALKYLAMINE','AMBUJACEM','ANGELONE','APOLLOTYRE','ASHOKLEY','ASTRAL','AUROPHARMA','BALKRISIND','BANDHANBNK','BANKBARODA','BANKINDIA','BATAINDIA','BDL','BHARATFORG','CAMS','CANFINHOME','CANBK','CEATLTD','CHAMBLFERT','COCHINSHIP','COLPAL','CONCOR','COROMANDEL','CYIENT','DALBHARAT','ESCORTS','FEDERALBNK','FORTIS','FLUOROCHEM','GLAND','GLENMARK','GRANULES','GSPL','HAVELLS','HINDCOPPER','IDFCFIRSTB','INDHOTEL','INDUSTOWER','IRFC','JINDALSTEL','JUBLFOOD','JIOFINANCE','KAJARIACER','LAURUSLABS','MANKIND','MUTHOOTFIN','NAVINFLUOR','NHPC','NYKAA','PAGEIND','PNB','RAMCOCEM','RVNL','SJVN','STARHEALTH','TATACHEM','TATACOMM','TATAELXSI','TVSMOTOR','UNIONBANK','VEDL','YESBANK','ZOMATO'])];
 
-# ─── Stock universe ────────────────────────────────────────────────────────────
-STOCKS = [
-    # symbol, name, sector, fno(bool)
-    ("RELIANCE",    "Reliance Industries",          "Oil & Gas",            True),
-    ("TCS",         "Tata Consultancy Services",    "Information Technology",True),
-    ("HDFCBANK",    "HDFC Bank",                    "Financial Services",   True),
-    ("BHARTIARTL",  "Bharti Airtel",                "Telecom",              True),
-    ("ICICIBANK",   "ICICI Bank",                   "Financial Services",   True),
-    ("INFY",        "Infosys",                      "Information Technology",True),
-    ("SBIN",        "State Bank of India",          "Financial Services",   True),
-    ("HINDUNILVR",  "Hindustan Unilever",           "FMCG",                 True),
-    ("ITC",         "ITC",                          "FMCG",                 True),
-    ("KOTAKBANK",   "Kotak Mahindra Bank",          "Financial Services",   True),
-    ("LT",          "Larsen & Toubro",              "Capital Goods",        True),
-    ("AXISBANK",    "Axis Bank",                    "Financial Services",   True),
-    ("BAJFINANCE",  "Bajaj Finance",                "Financial Services",   True),
-    ("MARUTI",      "Maruti Suzuki",                "Automobile",           True),
-    ("ASIANPAINT",  "Asian Paints",                 "Consumer Durables",    True),
-    ("TITAN",       "Titan Company",                "Consumer Durables",    True),
-    ("SUNPHARMA",   "Sun Pharmaceutical",           "Healthcare",           True),
-    ("NESTLEIND",   "Nestle India",                 "FMCG",                 True),
-    ("TMPV",        "Tata Motors PV (TMPV)",        "Automobile",           True),
-    ("TMCV",        "Tata Motors CV (TMCV)",        "Automobile",           True),
-    ("WIPRO",       "Wipro",                        "Information Technology",True),
-    ("ONGC",        "ONGC",                         "Oil & Gas",            True),
-    ("NTPC",        "NTPC",                         "Power",                True),
-    ("POWERGRID",   "Power Grid Corp",              "Power",                True),
-    ("TATASTEEL",   "Tata Steel",                   "Metals & Mining",      True),
-    ("TECHM",       "Tech Mahindra",                "Information Technology",True),
-    ("HCLTECH",     "HCL Technologies",             "Information Technology",True),
-    ("DRREDDY",     "Dr. Reddy's Labs",             "Healthcare",           True),
-    ("DIVISLAB",    "Divi's Laboratories",          "Healthcare",           True),
-    ("JSWSTEEL",    "JSW Steel",                    "Metals & Mining",      True),
-    ("ADANIENT",    "Adani Enterprises",            "Metals & Mining",      True),
-    ("BAJAJFINSV",  "Bajaj Finserv",                "Financial Services",   True),
-    ("ULTRACEMCO",  "UltraTech Cement",             "Construction Materials",True),
-    ("GRASIM",      "Grasim Industries",            "Construction Materials",True),
-    ("INDUSINDBK",  "IndusInd Bank",                "Financial Services",   True),
-    ("CIPLA",       "Cipla",                        "Healthcare",           True),
-    ("EICHERMOT",   "Eicher Motors",                "Automobile",           True),
-    ("APOLLOHOSP",  "Apollo Hospitals",             "Healthcare",           True),
-    ("BPCL",        "BPCL",                         "Oil & Gas",            True),
-    ("COALINDIA",   "Coal India",                   "Oil & Gas",            True),
-    ("BRITANNIA",   "Britannia Industries",         "FMCG",                 True),
-    ("TATACONSUM",  "Tata Consumer Products",       "FMCG",                 True),
-    ("HEROMOTOCO",  "Hero MotoCorp",                "Automobile",           True),
-    ("HINDALCO",    "Hindalco Industries",          "Metals & Mining",      True),
-    ("SBILIFE",     "SBI Life Insurance",           "Financial Services",   True),
-    ("HDFCLIFE",    "HDFC Life Insurance",          "Financial Services",   True),
-    ("BAJAJ-AUTO",  "Bajaj Auto",                   "Automobile",           True),
-    ("M&M",         "Mahindra & Mahindra",          "Automobile",           True),
-    ("SHRIRAMFIN",  "Shriram Finance",              "Financial Services",   True),
-    ("TRENT",       "Trent",                        "Consumer Services",    True),
-    ("BEL",         "Bharat Electronics",           "Capital Goods",        True),
-    # Nifty Bank extra
-    ("BANDHANBNK",  "Bandhan Bank",                 "Financial Services",   True),
-    ("FEDERALBNK",  "Federal Bank",                 "Financial Services",   True),
-    ("IDFCFIRSTB",  "IDFC First Bank",              "Financial Services",   True),
-    ("AUBANK",      "AU Small Finance Bank",        "Financial Services",   True),
-    ("PNB",         "Punjab National Bank",         "Financial Services",   True),
-    ("BANKBARODA",  "Bank of Baroda",               "Financial Services",   True),
-    # Nifty IT extra
-    ("LTIM",        "LTIMindtree",                  "Information Technology",True),
-    ("MPHASIS",     "Mphasis",                      "Information Technology",True),
-    ("COFORGE",     "Coforge",                      "Information Technology",True),
-    ("PERSISTENT",  "Persistent Systems",           "Information Technology",True),
-    ("OFSS",        "Oracle Financial Services",    "Information Technology",True),
-    ("LTTS",        "L&T Technology Services",      "Information Technology",True),
-    # Nifty 100 / 200 extra
-    ("ADANIPORTS",  "Adani Ports",                  "Services",             True),
-    ("ADANIPOWER",  "Adani Power",                  "Power",                True),
-    ("ADANIGREEN",  "Adani Green Energy",           "Power",                True),
-    ("HAL",         "Hindustan Aeronautics",        "Capital Goods",        True),
-    ("RVNL",        "Rail Vikas Nigam",             "Capital Goods",        True),
-    ("IRFC",        "Indian Railway Finance",       "Financial Services",   True),
-    ("NHPC",        "NHPC",                         "Power",                True),
-    ("RECLTD",      "REC",                          "Financial Services",   True),
-    ("PFC",         "Power Finance Corp",           "Financial Services",   True),
-    ("ZOMATO",      "Zomato",                       "Consumer Services",    True),
-    ("JIOFINANCE",  "Jio Financial Services",       "Financial Services",   True),
-    ("NYKAA",       "FSN E-Commerce (Nykaa)",       "Consumer Services",    True),
-    ("DMART",       "Avenue Supermarts",            "Consumer Services",    True),
-    ("IRCTC",       "IRCTC",                        "Services",             True),
-    ("NAUKRI",      "Info Edge (Naukri)",           "Services",             True),
-    ("HDFCAMC",     "HDFC AMC",                     "Financial Services",   True),
-    ("ICICIGI",     "ICICI Lombard",                "Financial Services",   True),
-    ("ICICIPRULI",  "ICICI Prudential Life",        "Financial Services",   True),
-    ("SBICARD",     "SBI Cards",                    "Financial Services",   True),
-    ("STARHEALTH",  "Star Health Insurance",        "Financial Services",   True),
-    ("MFSL",        "Max Financial Services",       "Financial Services",   True),
-    ("GAIL",        "GAIL India",                   "Oil & Gas",            True),
-    ("IOC",         "Indian Oil Corporation",       "Oil & Gas",            True),
-    ("HINDPETRO",   "Hindustan Petroleum",          "Oil & Gas",            True),
-    ("HINDCOPPER",  "Hindustan Copper",             "Metals & Mining",      True),
-    ("HINDZINC",    "Hindustan Zinc",               "Metals & Mining",      True),
-    ("NMDC",        "NMDC",                         "Metals & Mining",      True),
-    ("SAIL",        "Steel Authority of India",     "Metals & Mining",      True),
-    ("VEDL",        "Vedanta",                      "Metals & Mining",      True),
-    ("JINDALSTEL",  "Jindal Steel & Power",         "Metals & Mining",      True),
-    ("NATIONALUM",  "National Aluminium",           "Metals & Mining",      True),
-    ("DABUR",       "Dabur India",                  "FMCG",                 True),
-    ("MARICO",      "Marico",                       "FMCG",                 True),
-    ("COLPAL",      "Colgate Palmolive",            "FMCG",                 True),
-    ("GODREJCP",    "Godrej Consumer Products",     "FMCG",                 True),
-    ("TATAPOWER",   "Tata Power",                   "Power",                True),
-    ("TATACHEM",    "Tata Chemicals",               "Chemicals",            True),
-    ("TATACOMM",    "Tata Communications",          "Telecom",              True),
-    ("TATAELXSI",   "Tata Elxsi",                   "Information Technology",False),
-    ("LUPIN",       "Lupin",                        "Healthcare",           True),
-    ("TORNTPHARM",  "Torrent Pharmaceuticals",      "Healthcare",           True),
-    ("ZYDUSLIFE",   "Zydus Lifesciences",           "Healthcare",           True),
-    ("SYNGENE",     "Syngene International",        "Healthcare",           True),
-    ("GLAND",       "Gland Pharma",                 "Healthcare",           True),
-    ("FORTIS",      "Fortis Healthcare",            "Healthcare",           True),
-    ("BIOCON",      "Biocon",                       "Healthcare",           True),
-    ("AUROPHARMA",  "Aurobindo Pharma",             "Healthcare",           True),
-    ("DLF",         "DLF",                          "Realty",               True),
-    ("GODREJPROP",  "Godrej Properties",            "Realty",               True),
-    ("DALBHARAT",   "Dalmia Bharat",                "Construction Materials",True),
-    ("SHREECEM",    "Shree Cement",                 "Construction Materials",True),
-    ("AMBUJACEM",   "Ambuja Cements",               "Construction Materials",True),
-    ("ACC",         "ACC",                          "Construction Materials",True),
-    ("SIEMENS",     "Siemens",                      "Capital Goods",        True),
-    ("ABB",         "ABB India",                    "Capital Goods",        True),
-    ("POLYCAB",     "Polycab India",                "Capital Goods",        True),
-    ("BHEL",        "BHEL",                         "Capital Goods",        True),
-    ("CUMMINSIND",  "Cummins India",                "Capital Goods",        True),
-    ("ASHOKLEY",    "Ashok Leyland",                "Capital Goods",        True),
-    ("ESCORTS",     "Escorts Kubota",               "Capital Goods",        True),
-    ("BHARATFORG",  "Bharat Forge",                 "Automobile",           True),
-    ("BALKRISIND",  "Balkrishna Industries",        "Automobile",           True),
-    ("APOLLOTYRE",  "Apollo Tyres",                 "Automobile",           True),
-    ("MRF",         "MRF",                          "Automobile",           True),
-    ("TVSMOTOR",    "TVS Motor",                    "Automobile",           True),
-    ("BOSCHLTD",    "Bosch",                        "Automobile",           True),
-    ("MUTHOOTFIN",  "Muthoot Finance",              "Financial Services",   True),
-    ("MANAPPURAM",  "Manappuram Finance",           "Financial Services",   True),
-    ("CHOLAFIN",    "Cholamandalam Finance",        "Financial Services",   True),
-    ("L&TFH",       "L&T Finance",                  "Financial Services",   True),
-    ("M&MFIN",      "Mahindra Finance",             "Financial Services",   True),
-    ("CANBK",       "Canara Bank",                  "Financial Services",   True),
-    ("BANKINDIA",   "Bank of India",                "Financial Services",   True),
-    ("UNIONBANK",   "Union Bank of India",          "Financial Services",   True),
-    ("IEX",         "India Energy Exchange",        "Financial Services",   True),
-    ("MCX",         "MCX",                          "Financial Services",   True),
-    ("BSE",         "BSE",                          "Financial Services",   True),
-    ("CDSL",        "CDSL",                         "Financial Services",   True),
-    ("ANGELONE",    "Angel One",                    "Financial Services",   True),
-    ("RBLBANK",     "RBL Bank",                     "Financial Services",   True),
-    ("SRF",         "SRF",                          "Chemicals",            True),
-    ("DEEPAKNTR",   "Deepak Nitrite",               "Chemicals",            True),
-    ("PIIND",       "PI Industries",                "Chemicals",            True),
-    ("FLUOROCHEM",  "Gujarat Fluorochemicals",      "Chemicals",            True),
-    ("AARTIIND",    "Aarti Industries",             "Chemicals",            True),
-    ("UPL",         "UPL",                          "Chemicals",            True),
-    ("DIXON",       "Dixon Technologies",           "Consumer Durables",    True),
-    ("VOLTAS",      "Voltas",                       "Consumer Durables",    True),
-    ("CROMPTON",    "Crompton Greaves",             "Consumer Durables",    True),
-    ("PAGEIND",     "Page Industries",              "Consumer Durables",    True),
-    ("KAJARIACER",  "Kajaria Ceramics",             "Consumer Durables",    True),
-    ("INDIAMART",   "IndiaMART InterMESH",          "Services",             True),
-    ("CONCOR",      "Container Corporation",        "Services",             True),
-    ("INDUSTOWER",  "Indus Towers",                 "Telecom",              True),
-    ("MGL",         "Mahanagar Gas",                "Oil & Gas",            True),
-    ("PETRONET",    "Petronet LNG",                 "Oil & Gas",            True),
-    ("GSPL",        "Gujarat State Petronet",       "Oil & Gas",            True),
-    ("JUBLFOOD",    "Jubilant FoodWorks",           "Consumer Services",    True),
-    ("INDHOTEL",    "Indian Hotels",                "Consumer Services",    True),
-    ("CYIENT",      "Cyient",                       "Information Technology",True),
-    ("INTELLECT",   "Intellect Design Arena",       "Information Technology",True),
-    ("LAURUSLABS",  "Laurus Labs",                  "Healthcare",           True),
-    ("LALPATHLAB",  "Dr Lal PathLabs",              "Healthcare",           False),
-    ("CGPOWER",     "CG Power",                     "Capital Goods",        True),
-    ("ASTRAL",      "Astral",                       "Capital Goods",        True),
-    ("COROMANDEL",  "Coromandel International",     "Chemicals",            True),
-    ("CANFINHOME",  "Can Fin Homes",                "Financial Services",   True),
-    ("CAMS",        "CAMS",                         "Financial Services",   True),
-    ("MANKIND",     "Mankind Pharma",               "Healthcare",           True),
-    ("POLICYBZR",   "PB Fintech (PolicyBazaar)",    "Financial Services",   True),
-    ("MAZDOCK",     "Mazagon Dock Shipbuilders",    "Capital Goods",        False),
-    ("APARINDS",    "Apar Industries",              "Capital Goods",        False),
-    ("KAYNES",      "Kaynes Technology",            "Capital Goods",        False),
-    ("TATATECH",    "Tata Technologies",            "Information Technology",False),
-    ("NUVAMA",      "Nuvama Wealth Management",     "Financial Services",   False),
-    ("SWIGGY",      "Swiggy",                       "Consumer Services",    False),
-    ("JSWINFRA",    "JSW Infrastructure",           "Services",             False),
-    ("DELHIVERY",   "Delhivery",                    "Services",             False),
-    ("AVALON",      "Avalon Technologies",          "Capital Goods",        False),
-    ("SENCO",       "Senco Gold",                   "Consumer Durables",    False),
-    ("PREMIER",     "Premier Energies",             "Power",                False),
-    ("HYUNDAI",     "Hyundai Motor India",          "Automobile",           False),
-    ("ABCAPITAL",   "Aditya Birla Capital",         "Financial Services",   True),
-    ("ALKYLAMINE",  "Alkyl Amines Chemicals",       "Chemicals",            True),
-    ("APLAPOLLO",   "APL Apollo Tubes",             "Capital Goods",        True),
-    ("AMBER",       "Amber Enterprises",            "Consumer Durables",    True),
-    ("KFIN",        "KFin Technologies",            "Financial Services",   True),
-    ("360ONE",      "360 ONE WAM",                  "Financial Services",   True),
-    ("SJVN",        "SJVN",                         "Power",                False),
-    ("HUDCO",       "HUDCO",                        "Financial Services",   False),
-    ("GRSE",        "Garden Reach Shipbuilders",    "Capital Goods",        False),
-    ("BDL",         "Bharat Dynamics",              "Capital Goods",        True),
-    ("RAMCOCEM",    "Ramco Cements",                "Construction Materials",True),
-    ("SUNTV",       "Sun TV Network",               "Consumer Services",    False),
-    ("TORNTPOWER",  "Torrent Power",                "Power",                False),
-    ("JSWENERGY",   "JSW Energy",                   "Power",                False),
-    ("CESC",        "CESC",                         "Power",                False),
-    ("HAVELLS",     "Havells India",                "Consumer Durables",    False),
-    ("BERGEPAINT",  "Berger Paints",                "Consumer Durables",    True),
-    ("ALKEM",       "Alkem Laboratories",           "Healthcare",           True),
-    ("IPCALAB",     "IPCA Laboratories",            "Healthcare",           False),
-    ("NATCOPHARM",  "Natco Pharma",                 "Healthcare",           False),
-    ("METROPOLIS",  "Metropolis Healthcare",        "Healthcare",           False),
-    ("MAXHEALTH",   "Max Healthcare",               "Healthcare",           False),
-    ("ASTERDM",     "Aster DM Healthcare",          "Healthcare",           False),
-    ("SUZLON",      "Suzlon Energy",                "Power",                False),
-    ("YESBANK",     "Yes Bank",                     "Financial Services",   False),
-    ("OBEROIRLTY",  "Oberoi Realty",                "Realty",               False),
-    ("PRESTIGE",    "Prestige Estates",             "Realty",               False),
-    ("BRIGADE",     "Brigade Enterprises",          "Realty",               False),
-    ("HAPPSTMNDS",  "Happiest Minds",               "Information Technology",False),
-    ("KPITTECH",    "KPIT Technologies",            "Information Technology",False),
-    ("MAPMYINDIA",  "MapMyIndia",                   "Information Technology",False),
-    ("HONASA",      "Honasa Consumer",              "FMCG",                 False),
-    ("BIKAJI",      "Bikaji Foods",                 "FMCG",                 False),
-    ("DEVYANI",     "Devyani International",        "Consumer Services",    False),
-    ("KALYANKJIL",  "Kalyan Jewellers",             "Consumer Durables",    False),
-    ("CENTURYPLY",  "Century Plyboards",            "Consumer Durables",    False),
-    ("CLEAN",       "Clean Science",                "Chemicals",            False),
-    ("DEEPAKFERT",  "Deepak Fertilisers",           "Chemicals",            False),
-    ("CHAMBLFERT",  "Chambal Fertilizers",          "Chemicals",            False),
-    ("GNFC",        "Gujarat Narmada Fertilizers",  "Chemicals",            False),
-    ("IIFL",        "IIFL Finance",                 "Financial Services",   False),
-    ("CREDITACC",   "CreditAccess Grameen",         "Financial Services",   False),
-    ("FIVESTAR",    "Five-Star Business Finance",   "Financial Services",   False),
-    ("SUNDARMFIN",  "Sundaram Finance",             "Financial Services",   False),
-    ("LICHSGFIN",   "LIC Housing Finance",          "Financial Services",   False),
-    ("PNBHOUSING",  "PNB Housing Finance",          "Financial Services",   False),
-    ("GICRE",       "General Insurance Corp",       "Financial Services",   False),
-    ("FSL",         "Firstsource Solutions",        "Services",             False),
-    ("COCHINSHIP",  "Cochin Shipyard",              "Capital Goods",        False),
-    ("AETHER",      "Aether Industries",            "Chemicals",            False),
-    ("HSCL",        "Himadri Speciality Chemical",  "Chemicals",            False),
-    ("NAVINFLUOR",  "Navin Fluorine",               "Chemicals",            False),
-    ("DCMSHRIRAM",  "DCM Shriram",                  "Diversified",          False),
-    ("GODREJIND",   "Godrej Industries",            "Diversified",          False),
+// ── Utility ────────────────────────────────────────────────────────────────────
+function setStatus(type,msg){
+  var d=document.getElementById('status-dot');
+  var t=document.getElementById('status-text');
+  d.className='dot'+(type?' '+type:'');
+  t.textContent=msg;
+  t.style.color=type==='error'?'#a32d2d':type==='live'?'#0b6b40':'#888';
+}
+function setProg(p){
+  document.getElementById('pw').style.display=p>0?'block':'none';
+  document.getElementById('pb').style.width=p+'%';
+}
+function setFlag(green,label,msg){
+  var p=document.getElementById('flag-pill');
+  var m=document.getElementById('flag-msg');
+  p.className='flag-pill '+(green?'flag-green':'flag-red');
+  p.textContent=(green?'🟢 ':'🔴 ')+label;
+  m.textContent=msg;
+}
+function updateFlag(){
+  var now=new Date();
+  var ist=new Date(now.getTime()+(now.getTimezoneOffset()*60000)+(5.5*3600000));
+  var day=ist.getDay();
+  var hhmm=ist.getHours()*100+ist.getMinutes();
+  var isWeekday=day>=1&&day<=5;
+  var isOpen=isWeekday&&hhmm>=915&&hhmm<1530;
+  var isAfterClose=isWeekday&&hhmm>=1530;
+  var isFriday=day===5;
+  var isWeekend=day===0||day===6;
+  var lastDay=new Date(ist.getFullYear(),ist.getMonth()+1,0).getDate();
+  var isMonthEnd=ist.getDate()===lastDay&&isAfterClose;
 
-    # ── Additional Nifty 500 stocks ──
-    ("3MINDIA", "3M India", "Diversified", False),
-    ("AIAENG", "AIA Engineering", "Capital Goods", False),
-    ("ABBOTINDIA", "Abbott India", "Healthcare", False),
-    ("ABFRL", "Aditya Birla Fashion", "Consumer Services", True),
-    ("ATGL", "Adani Total Gas", "Oil & Gas", False),
-    ("AWL", "Adani Wilmar", "FMCG", False),
-    ("ADANIENSOL", "Adani Energy Solutions", "Power", False),
-    ("AEGISLOG", "Aegis Logistics", "Oil & Gas", False),
-    ("AFFLE", "Affle India", "Information Technology", False),
-    ("AJANTPHARM", "Ajanta Pharmaceuticals", "Healthcare", False),
-    ("ANANDRATHI", "Anand Rathi Wealth", "Financial Services", False),
-    ("BEML", "BEML", "Capital Goods", False),
-    ("BAJAJHLDNG", "Bajaj Holdings", "Financial Services", True),
-    ("MAHABANK", "Bank of Maharashtra", "Financial Services", False),
-    ("BATAINDIA", "Bata India", "Consumer Durables", False),
-    ("BLUEDART", "Blue Dart Express", "Services", False),
-    ("BLUESTARCO", "Blue Star", "Consumer Durables", False),
-    ("CEATLTD", "Ceat", "Automobile", True),
-    ("EXIDEIND", "Exide Industries", "Automobile", False),
-    ("FINCABLES", "Finolex Cables", "Capital Goods", False),
-    ("GLENMARK", "Glenmark Pharmaceuticals", "Healthcare", True),
-    ("GRANULES", "Granules India", "Healthcare", False),
-    ("GUJGASLTD", "Gujarat Gas", "Oil & Gas", False),
-    ("MEDANTA", "Global Health (Medanta)", "Healthcare", False),
-    ("UBL", "United Breweries", "FMCG", False),
-    ("DOMS", "DOMS Industries", "FMCG", False),
-    ("CHOLAHLDNG", "Cholamandalam Financial", "Financial Services", False),
-    ("JINDALSAW", "Jindal Saw", "Capital Goods", False),
-    ("LINDEINDIA", "Linde India", "Chemicals", False),
-    ("NUVOCO", "Nuvoco Vistas", "Construction Materials", False),
-    ("OIL", "Oil India", "Oil & Gas", False),
-    ("ORIENTELEC", "Orient Electric", "Consumer Durables", False),
-    ("PGHH", "P&G Hygiene", "FMCG", False),
-    ("PRIMEHOTELS", "EIH (Oberoi Hotels)", "Consumer Services", False),
-    ("PVRINOX", "PVR INOX", "Consumer Services", False),
-    ("SCHAEFFLER", "Schaeffler India", "Automobile", False),
-    ("SKFINDIA", "SKF India", "Capital Goods", False),
-    ("SUPREMEIND", "Supreme Industries", "Capital Goods", False),
-    ("TIINDIA", "Tube Investments", "Automobile", False),
-    ("TRIDENT", "Trident", "Textiles", False),
-    ("TTKPRESTIG", "TTK Prestige", "Consumer Durables", False),
-    ("UCOBANK", "UCO Bank", "Financial Services", False),
-    ("UJJIVAN", "Ujjivan Small Finance Bank", "Financial Services", False),
-    ("VGUARD", "V-Guard Industries", "Consumer Durables", False),
-    ("WHIRLPOOL", "Whirlpool of India", "Consumer Durables", False),
-    ("WINDLAS", "Windlas Biotech", "Healthcare", False),
-    ("CGCL", "Capri Global Capital", "Financial Services", False),
-    ("FINPIPE", "Finolex Industries", "Capital Goods", False),
-    ("GAEL", "Gujarat Ambuja Exports", "FMCG", False),
-    ("GESHIP", "Great Eastern Shipping", "Services", False),
-    ("GPIL", "Godawari Power", "Capital Goods", False),
-    ("GSFC", "Gujarat State Fertilizers", "Chemicals", False),
-    ("HEG", "HEG", "Capital Goods", False),
-    ("HFCL", "HFCL", "Telecom", False),
-]
+  // Update column headers
+  if(tf==='daily'){
+    document.getElementById('th-tc').textContent=isAfterClose?'Tom. TC':'Curr. TC';
+    document.getElementById('th-bc').textContent=isAfterClose?'Tom. BC':'Curr. BC';
+    document.getElementById('th-ptc').textContent=isAfterClose?'Today TC':'Prev. TC';
+    document.getElementById('th-pbc').textContent=isAfterClose?'Today BC':'Prev. BC';
+  }
 
-# ─── CPR calculation ──────────────────────────────────────────────────────────
-def calc_cpr(h, l, c):
-    """
-    CPR formula matching GP indicator exactly:
-    PP = (High + Low + Close) / 3
-    BC = (High + Low) / 2
-    TC = PP + (PP - BC)
-    """
-    pp = (h + l + c) / 3
-    bc = (h + l) / 2
-    tc = pp + (pp - bc)
-    # TC should always be >= BC
-    # If inverted (bad data), swap
-    if bc > tc:
-        tc, bc = bc, tc
-    return {"pivot": round(pp, 2), "tc": round(tc, 2), "bc": round(bc, 2)}
-
-def is_inside_cpr(curr, prev):
-    """
-    Tomorrow's CPR (curr) is inside Today's CPR (prev).
-    Chartink checks BOTH normal and inverted CPR cases:
-
-    Case 1 - Normal (TC > BC for both):
-        curr.tc < prev.tc AND curr.bc > prev.bc
-
-    Case 2 - Inverted CPR (when BC > TC due to gap/anomaly):
-        Both curr TC and BC fall within prev TC and BC range
-        i.e. both curr.tc and curr.bc are between prev.bc and prev.tc
-
-    In simple terms: both tomorrow's TC and BC must be
-    within today's CPR band (between today's BC and TC).
-    """
-    prev_high = max(prev["tc"], prev["bc"])
-    prev_low  = min(prev["tc"], prev["bc"])
-    curr_high = max(curr["tc"], curr["bc"])
-    curr_low  = min(curr["tc"], curr["bc"])
-
-    # Tomorrow's entire CPR band must fit inside today's CPR band
-    return curr_high < prev_high and curr_low > prev_low
-
-
-
-def get_trend(price, cpr):
-    """
-    Trend based on price position relative to CPR zone:
-    - Above TC → Bullish (price trading above top of CPR)
-    - Below BC → Bearish (price trading below bottom of CPR)
-    - Between TC and BC → Neutral (price inside CPR zone)
-    """
-    if price > cpr["tc"]:
-        return "bullish"
-    elif price < cpr["bc"]:
-        return "bearish"
-    else:
-        return "neutral"
-
-def cpr_width_pct(cpr, price):
-    return round(((cpr["tc"] - cpr["bc"]) / price) * 100, 3)
-
-def cpr_trend(pivots):
-    """Returns bullish/bearish/sideways based on last 5 pivot direction."""
-    up = sum(1 for i in range(1, len(pivots)) if pivots[i] > pivots[i-1])
-    dn = sum(1 for i in range(1, len(pivots)) if pivots[i] < pivots[i-1])
-    if up >= 3: return "bullish"
-    if dn >= 3: return "bearish"
-    return "sideways"
-
-# ─── Fetch OHLC from Yahoo Finance ──────────────────────────────────────────
-# ─── Yahoo Finance symbol overrides ──────────────────────────────────────────
-# Some NSE symbols differ from Yahoo Finance tickers
-YAHOO_SYMBOL_MAP = {
-    "M&M":         "M%26M.NS",
-    "M&MFIN":      "M%26MFIN.NS",
-    "L&TFH":       "LTFH.NS",
-    "BAJAJ-AUTO":  "BAJAJ-AUTO.NS",
-    "JIOFINANCE":  "JIOFIN.NS",
-    "TMPV":        "TMPV.NS",
-    "TMCV":        "TMCV.NS",
-    "360ONE":      "360ONE.NS",
-    "NYKAA":       "NYKAA.NS",
-    "DMART":       "DMART.NS",
-    "PVRINOX":     "PVRINOX.NS",
-    "ABFRL":       "ABFRL.NS",
-    "ATGL":        "ATGL.NS",
-    "AWL":         "AWL.NS",
-    "RVNL":        "RVNL.NS",
-    "IRFC":        "IRFC.NS",
-    "KFIN":        "KFIN.NS",
-    "AMBER":       "AMBER.NS",
-    "HONASA":      "HONASA.NS",
+  if(tf==='daily'){
+    if(isOpen) setFlag(false,'Market Open','CPR calculated from yesterday\'s OHLC — valid for today\'s session.');
+    else if(isAfterClose) setFlag(true,'Market Closed','CPR calculated from today\'s OHLC — valid for tomorrow\'s trading.');
+    else setFlag(true,'Market Closed','CPR calculated from last session\'s OHLC — valid for today\'s trading.');
+  } else if(tf==='weekly'){
+    if((isFriday&&isAfterClose)||isWeekend) setFlag(true,'Week Closed','CPR calculated from this week\'s OHLC — valid for next week\'s trading.');
+    else setFlag(false,'Week Running','CPR calculated from previous week\'s OHLC — valid for this week\'s trading session.');
+  } else if(tf==='monthly'){
+    if(isMonthEnd) setFlag(true,'Month Closed','CPR calculated from this month\'s OHLC — valid for next month\'s trading.');
+    else setFlag(false,'Month Running','CPR calculated from previous month\'s OHLC — valid for this month\'s trading session.');
+  }
 }
 
-# ─── NSE Bhav Copy fetcher ────────────────────────────────────────────────────
-# NSE publishes official EOD OHLC for all stocks after 3:30 PM every trading day
-# URL format: https://nsearchives.nseindia.com/content/cm/BhavCopy_NSE_CM_0_0_0_YYYYMMDD_F_0000.csv.zip
-# Bhav copy has: SYMBOL, OPEN, HIGH, LOW, CLOSE, VOLUME for all NSE stocks
+// ── TF switch ──────────────────────────────────────────────────────────────────
+function setTF(t,el){
+  tf=t;
+  document.querySelectorAll('.tf-btn').forEach(function(b){b.classList.remove('active');});
+  el.classList.add('active');
+  updateFlag();
+  if(dataLoaded) applyFilters();
+  else document.getElementById('tbody').innerHTML='<tr><td colspan="12" class="empty-state">Click <strong>Scan Now</strong> to load data</td></tr>';
+}
 
-nse_daily_map = {}  # symbol -> list of last 2 days [{h,l,c,v}]
-scan_mode = "DURING_MARKET"  # global, set by fetch_nse_bhav based on IST time
+// ── Scan ───────────────────────────────────────────────────────────────────────
+function doScan(){
+  setStatus('loading','Loading CPR data...');
+  setProg(20);
 
-def fetch_nse_bhav():
-    """
-    Download NSE's official Bhav Copy (EOD file) for the last 2 trading days.
-    Populates nse_daily_map with accurate official OHLC data.
-    Falls back gracefully if NSE server is unreachable.
-    """
-    import requests
-    import zipfile
-    import io
-    import csv
+  // Use embedded data if available (injected by GitHub Actions)
+  if(window.__CPR_DATA__){
+    allData=window.__CPR_DATA__.stocks||[];
+    dataLoaded=true;
+    setProg(80);
+    applyFilters();
+    setProg(100);
+    setTimeout(function(){setProg(0);},500);
+    setStatus('live','Loaded '+allData.length+' stocks · '+(window.__CPR_DATA__.generated_at||''));
+    document.getElementById('s-time').textContent=window.__CPR_DATA__.generated_at||'—';
+    return;
+  }
 
-    headers = {
-        "User-Agent": "Mozilla/5.0",
-        "Referer":    "https://www.nseindia.com",
-        "Accept":     "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+  // Fallback: fetch from URL
+  var urls=[
+    'https://scanner.tradingwithgp.com/cpr_data.json',
+    'https://gajapriyaannadurai.github.io/Inside-CPR-Scanner---Web/cpr_data.json'
+  ];
+  tryFetch(urls,0);
+}
+
+function tryFetch(urls,i){
+  if(i>=urls.length){
+    setStatus('error','No data found. Please run the GitHub Action first.');
+    setProg(0);
+    document.getElementById('tbody').innerHTML='<tr><td colspan="12" class="empty-state" style="color:#a32d2d">Data not available.<br>Go to GitHub repo → Actions → CPR Daily Scanner → Run workflow.<br>Wait 4 minutes then click Scan Now again.</td></tr>';
+    return;
+  }
+  setStatus('loading','Trying: '+urls[i]);
+  var xhr=new XMLHttpRequest();
+  xhr.open('GET',urls[i]+'?t='+Date.now(),true);
+  xhr.onreadystatechange=function(){
+    if(xhr.readyState===4){
+      if(xhr.status===200){
+        try{
+          var json=JSON.parse(xhr.responseText);
+          allData=json.stocks||[];
+          dataLoaded=true;
+          setProg(100);
+          setTimeout(function(){setProg(0);},500);
+          applyFilters();
+          setStatus('live','Loaded '+allData.length+' stocks · '+(json.generated_at||''));
+          document.getElementById('s-time').textContent=json.generated_at||'—';
+        } catch(e){
+          tryFetch(urls,i+1);
+        }
+      } else {
+        tryFetch(urls,i+1);
+      }
     }
+  };
+  xhr.onerror=function(){ tryFetch(urls,i+1); };
+  xhr.send();
+}
 
-    global scan_mode
-    # ── Time-based date selection (IST) ──────────────────────────────────────
-    # Before 3:30 PM IST (market open):
-    #   curr = yesterday OHLC  → today's CPR
-    #   prev = day-before-yesterday OHLC → yesterday's CPR
-    #   Question: Is today's CPR inside yesterday's CPR?
-    #
-    # After 3:30 PM IST (market closed, today's candle complete):
-    #   curr = today OHLC     → tomorrow's CPR
-    #   prev = yesterday OHLC → today's CPR
-    #   Question: Is tomorrow's CPR inside today's CPR?
+// ── Filter ─────────────────────────────────────────────────────────────────────
+function applyFilters(){
+  var idxKey=document.getElementById('f-index').value;
+  var secF=document.getElementById('f-sector').value;
+  var widF=document.getElementById('f-width').value;
+  var fnoF=document.getElementById('f-fno').value;
+  var priceF=parseFloat(document.getElementById('f-price').value)||0;
 
-    # Get current IST time
-    import time as _time
-    utc_now   = datetime.datetime.utcnow()
-    ist_now   = utc_now + datetime.timedelta(hours=5, minutes=30)
-    ist_hhmm  = ist_now.hour * 100 + ist_now.minute  # e.g. 1545 = 3:45 PM
-    today     = ist_now.date()
-    is_weekday = today.weekday() < 5  # Mon–Fri
+  var idxSet=null;
+  if(IDX[idxKey]) idxSet=new Set(IDX[idxKey]);
+  else if(idxKey==='nifty500'||idxKey==='fno') idxSet=null; // all
 
-    # Market is closed if after 3:30 PM on a weekday
-    market_closed = is_weekday and ist_hhmm >= 1530
+  results=[];
+  allData.forEach(function(s){
+    if(idxSet&&!idxSet.has(s.symbol)) return;
+    if(secF&&s.sector!==secF) return;
+    if(fnoF==='yes'&&!s.fno) return;
+    if(priceF&&s.price<priceF) return;
+    if(idxKey==='fno'&&!s.fno) return;
 
-    if market_closed:
-        # After 3:30 PM — use today + yesterday (today candle is complete)
-        scan_mode = "AFTER_CLOSE"
-        candidate_dates = []
-        d = today
-        while len(candidate_dates) < 2:
-            if d.weekday() < 5:
-                candidate_dates.append(d)
-            d -= datetime.timedelta(days=1)
-        candidate_dates = list(reversed(candidate_dates))
-        # [0]=yesterday (prev→today CPR), [1]=today (curr→tomorrow CPR)
-    else:
-        # Before 3:30 PM — skip today, use yesterday + day-before-yesterday
-        scan_mode = "DURING_MARKET"
-        candidate_dates = []
-        d = today - datetime.timedelta(days=1)  # start from yesterday
-        while len(candidate_dates) < 2:
-            if d.weekday() < 5:
-                candidate_dates.append(d)
-            d -= datetime.timedelta(days=1)
-        candidate_dates = list(reversed(candidate_dates))
-        # [0]=day-before-yesterday (prev→yesterday CPR), [1]=yesterday (curr→today CPR)
+    var tfData=s[tf];
+    if(!tfData||!tfData.inside) return;
 
-    print(f"  IST time: {ist_now.strftime('%H:%M')} | Mode: {scan_mode}")
-    if scan_mode == "AFTER_CLOSE":
-        print(f"  prev={candidate_dates[0]} (yesterday OHLC → today CPR)")
-        print(f"  curr={candidate_dates[1]} (today OHLC → tomorrow CPR)")
-        print(f"  Checking: Is tomorrow CPR inside today CPR?")
-    else:
-        print(f"  prev={candidate_dates[0]} (day-before-yesterday OHLC → yesterday CPR)")
-        print(f"  curr={candidate_dates[1]} (yesterday OHLC → today CPR)")
-        print(f"  Checking: Is today CPR inside yesterday CPR?")
+    var wc=tfData.width_pct<0.5?'narrow':tfData.width_pct<=1.5?'medium':'wide';
+    if(widF&&wc!==widF) return;
 
-    session = requests.Session()
-    # Warm up session (NSE requires this)
-    try:
-        session.get("https://www.nseindia.com", headers=headers, timeout=10)
-    except:
-        pass
+    results.push({
+      symbol:s.symbol,name:s.name,sector:s.sector,fno:s.fno,
+      price:s.price,change:s.change,
+      pivot:tfData.curr_cpr.pivot,tc:tfData.curr_cpr.tc,bc:tfData.curr_cpr.bc,
+      prevTc:tfData.prev_cpr.tc,prevBc:tfData.prev_cpr.bc,
+      widthPct:tfData.width_pct,widthCat:wc
+    });
+  });
 
-    day_data = {}  # date_str -> {symbol: {h,l,c,v}}
+  var scanned=allData.filter(function(s){
+    if(!IDX[idxKey]) return true;
+    return IDX[idxKey]?new Set(IDX[idxKey]).has(s.symbol):true;
+  }).length;
 
-    for trade_date in candidate_dates:
-        date_str = trade_date.strftime("%Y%m%d")
-        # New NSE Bhav Copy URL format
-        url = f"https://nsearchives.nseindia.com/content/cm/BhavCopy_NSE_CM_0_0_0_{date_str}_F_0000.csv.zip"
-        try:
-            resp = session.get(url, headers=headers, timeout=30)
-            if resp.status_code != 200:
-                print(f"  NSE Bhav not available for {trade_date} (HTTP {resp.status_code}) — will use Yahoo")
-                continue
+  document.getElementById('s-inside').textContent=results.length;
+  document.getElementById('s-narrow').textContent=results.filter(function(r){return r.widthCat==='narrow';}).length;
+  document.getElementById('s-wide').textContent=results.filter(function(r){return r.widthCat==='wide';}).length;
+  document.getElementById('s-scanned').textContent=scanned||allData.length;
+  document.getElementById('rcount').textContent=results.length+' stocks found';
+  document.getElementById('dl-csv').disabled=results.length===0;
+  document.getElementById('dl-xlsx').disabled=results.length===0;
+  renderTable();
+}
 
-            # Unzip and parse CSV
-            z = zipfile.ZipFile(io.BytesIO(resp.content))
-            csv_name = z.namelist()[0]
-            with z.open(csv_name) as f:
-                reader = csv.DictReader(io.TextIOWrapper(f, encoding="utf-8"))
-                day_data[date_str] = {}
-                first_row = True
-                for row in reader:
-                    # Print column names once for debugging
-                    if first_row:
-                        print(f"  NSE Bhav columns: {list(row.keys())[:15]}")
-                        first_row = False
-                    # NSE new Bhav Copy format (confirmed from log):
-                    # Columns: TradDt,BizDt,Sgmt,Src,FinInstrmTp,FinInstrmId,ISIN,TckrSymb,SctySrs,OpnPric,HghPric,LwPric,ClsPric,LastPric,PrvsClsgPric,UndrlygPric,SttlmPric,OpnIntrst,ChngInOpnIntrst,TtlTradgVol,TtlTrfVal,TtlNbOfTxsExctd,SsnId,NewBrdLotQty,Rmks
-                    # NSE old format: SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN
-                    sym = row.get("TckrSymb", row.get("SYMBOL", row.get("Symbol", ""))).strip()
-                    if not sym: continue
-                    # Only process EQ series
-                    series = row.get("SctySrs", row.get("SERIES", row.get("Series", "EQ"))).strip()
-                    if series not in ("EQ", "BE"):
-                        continue
-                    try:
-                        # New format: HghPric, LwPric, ClsPric, TtlTradgVol
-                        # Old format: HIGH, LOW, CLOSE, TOTTRDQTY
-                        h = float(row.get("HghPric",     row.get("HIGH",   row.get("high",  0))))
-                        l = float(row.get("LwPric",      row.get("LOW",    row.get("low",   0))))
-                        c = float(row.get("ClsPric",     row.get("CLOSE",  row.get("close", 0))))
-                        v = int(float(row.get("TtlTradgVol", row.get("TOTTRDQTY", row.get("VOLUME", 0)))))
-                        if h == 0 or l == 0 or c == 0:
-                            continue
-                        day_data[date_str][sym] = {"h": h, "l": l, "c": c, "v": v}
-                    except (ValueError, KeyError):
-                        continue
-            print(f"  NSE Bhav {trade_date}: {len(day_data[date_str])} stocks loaded")
-        except Exception as e:
-            print(f"  NSE Bhav fetch failed for {trade_date}: {e}")
+function doReset(){
+  ['f-sector','f-width','f-fno'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('f-price').value='';
+  if(dataLoaded) applyFilters();
+}
 
-    # Build nse_daily_map: symbol -> [day-before-yesterday, yesterday]
-    # sorted ascending = oldest first
-    # rows[-2] = day-before-yesterday → yesterday's CPR (prev)
-    # rows[-1] = yesterday            → today's CPR    (curr)
-    sorted_dates = sorted(day_data.keys())  # ascending: oldest first
-    print(f"  Dates sorted ascending: {sorted_dates}")
-    print(f"  prev (yesterday CPR) = {sorted_dates[0]} | curr (today CPR) = {sorted_dates[-1]}")
-    all_symbols = set()
-    for d in sorted_dates:
-        all_symbols.update(day_data[d].keys())
+// ── Sort + Render ──────────────────────────────────────────────────────────────
+function srt(k){
+  if(sk===k) sa=!sa; else{sk=k;sa=true;}
+  renderTable();
+}
+function n2(v){return v!=null&&!isNaN(v)?Number(v).toFixed(2):'—';}
+function renderTable(){
+  var sorted=results.slice().sort(function(a,b){
+    var av=a[sk],bv=b[sk];
+    if(typeof av==='number') return sa?av-bv:bv-av;
+    return sa?String(av).localeCompare(String(bv)):String(bv).localeCompare(String(av));
+  });
+  var tbody=document.getElementById('tbody');
+  if(!sorted.length){
+    tbody.innerHTML='<tr><td colspan="12" class="empty-state">No Inside CPR stocks found. Try a broader index or clear filters.</td></tr>';
+    return;
+  }
+  var mx=Math.max.apply(null,sorted.map(function(r){return r.widthPct;}));
+  tbody.innerHTML=sorted.map(function(r){
+    var bw=Math.round((r.widthPct/mx)*50);
+    var wc=r.widthCat==='narrow'?'b-narrow':r.widthCat==='medium'?'b-medium':'b-wide';
+    return '<tr>'
+      +'<td><span class="sym">'+r.symbol+'</span></td>'
+      +'<td><span class="company">'+r.name+'</span></td>'
+      +'<td><span class="sector-tag">'+r.sector+'</span></td>'
+      +'<td>'+(r.fno?'<span class="badge b-fno">F&O</span>':'<span style="color:#ccc;font-size:11px">—</span>')+'</td>'
+      +'<td class="price-cell">&#8377;'+n2(r.price)+'</td>'
+      +'<td class="'+(r.change>=0?'up':'dn')+'">'+(r.change>=0?'▲':'▼')+' '+Math.abs(r.change||0).toFixed(2)+'%</td>'
+      +'<td class="pc">'+n2(r.pivot)+'</td>'
+      +'<td class="tc-cell">'+n2(r.tc)+'</td>'
+      +'<td class="bc-cell">'+n2(r.bc)+'</td>'
+      +'<td class="pc">'+n2(r.prevTc)+'</td>'
+      +'<td class="pc">'+n2(r.prevBc)+'</td>'
+      +'<td><div class="wbar-wrap"><span style="font-size:13px">'+n2(r.widthPct)+'%</span><span class="wbar" style="width:'+bw+'px"></span><span class="badge '+wc+'">'+r.widthCat.charAt(0).toUpperCase()+r.widthCat.slice(1)+'</span></div></td>'
+      +'</tr>';
+  }).join('');
+}
 
-    for sym in all_symbols:
-        rows = []
-        for d in sorted_dates:  # oldest first
-            if sym in day_data[d]:
-                rows.append(day_data[d][sym])
-        if len(rows) >= 2:
-            # rows[0] = yesterday (older date) → today's CPR
-            # rows[1] = today (newer date)     → tomorrow's CPR
-            nse_daily_map[sym] = rows  # [yesterday, today]
+// ── Downloads ──────────────────────────────────────────────────────────────────
+function dlCSV(){
+  if(!results.length) return;
+  var hdr=['Symbol','Company','Sector','F&O','CMP','Chg%','Pivot','Curr TC','Curr BC','Prev TC','Prev BC','Width%','Width Cat'];
+  var rows=results.map(function(r){return[r.symbol,r.name,r.sector,r.fno?'Yes':'No',n2(r.price),n2(r.change)+'%',n2(r.pivot),n2(r.tc),n2(r.bc),n2(r.prevTc),n2(r.prevBc),n2(r.widthPct)+'%',r.widthCat];});
+  var csv=['# Inside CPR Scanner — tradingwithgp.com','# Generated: '+new Date().toLocaleString('en-IN'),'',hdr.join(',')].concat(rows.map(function(r){return r.map(function(v){return '"'+String(v).replace(/"/g,'""')+'"';}).join(',');})).join('\n');
+  var a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='inside_cpr_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
+}
+function dlExcel(){
+  if(!results.length) return;
+  var hdr=['Symbol','Company','Sector','F&O','CMP','Chg%','Pivot','Curr TC','Curr BC','Prev TC','Prev BC','Width%','Width Cat'];
+  var rows=results.map(function(r){return[r.symbol,r.name,r.sector,r.fno?'Yes':'No',n2(r.price),n2(r.change)+'%',n2(r.pivot),n2(r.tc),n2(r.bc),n2(r.prevTc),n2(r.prevBc),n2(r.widthPct)+'%',r.widthCat];});
+  var xml='<?xml version="1.0" encoding="UTF-8"?><?mso-application progid="Excel.Sheet"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"><Styles><Style ss:ID="h"><Font ss:Bold="1" ss:Color="#FFFFFF"/><Interior ss:Color="#0a1628" ss:Pattern="Solid"/></Style></Styles><Worksheet ss:Name="Inside CPR"><Table>'+
+    '<Row>'+hdr.map(function(h){return'<Cell ss:StyleID="h"><Data ss:Type="String">'+h+'</Data></Cell>';}).join('')+'</Row>'+
+    rows.map(function(r){return'<Row>'+r.map(function(v){return'<Cell><Data ss:Type="String">'+String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</Data></Cell>';}).join('')+'</Row>';}).join('')+
+    '</Table></Worksheet></Workbook>';
+  var a=document.createElement('a');
+  a.href='data:application/vnd.ms-excel;charset=utf-8,'+encodeURIComponent(xml);
+  a.download='inside_cpr_'+new Date().toISOString().slice(0,10)+'.xls';
+  a.click();
+}
 
-    print(f"  NSE map: {len(nse_daily_map)} symbols | prev={sorted_dates[0]} (yesterday CPR) | curr={sorted_dates[-1]} (tomorrow CPR)")
-    return len(nse_daily_map) > 0
+// ── Init ───────────────────────────────────────────────────────────────────────
+updateFlag();
+setInterval(updateFlag,60000);
 
-def get_yahoo_ticker(symbol):
-    """Return the correct Yahoo Finance ticker for a given NSE symbol."""
-    if symbol in YAHOO_SYMBOL_MAP:
-        return YAHOO_SYMBOL_MAP[symbol]
-    return symbol + ".NS"
-
-def fetch_stock(symbol):
-    """
-    Fetch OHLC data.
-    Primary  : NSE Bhav Copy (official EOD, accurate, no rate limit)
-    Fallback : Yahoo Finance (for weekly/monthly and if NSE fails)
-    """
-    try:
-        yahoo_sym = get_yahoo_ticker(symbol)
-        ticker    = yf.Ticker(yahoo_sym)
-
-        # ── Daily: use Yahoo 1d bars (NSE bhav copy pre-loaded into nse_daily_map) ──
-        # nse_daily_map is populated by fetch_nse_bhav() before this is called
-        # If NSE data available for this symbol use it; otherwise fall back to Yahoo
-        d_curr = d_prev = None
-        price  = None
-        volume = 0
-        chg    = 0.0
-
-        if symbol in nse_daily_map and len(nse_daily_map[symbol]) >= 2:
-            rows       = nse_daily_map[symbol]
-            # rows[0] = day-before-yesterday → yesterday's CPR (prev)
-            # rows[1] = yesterday            → today's CPR    (curr)
-            # We use only completed candles — today is skipped entirely
-            yest_ohlc = rows[-1]   # yesterday's complete OHLC → today's CPR
-            dbdy_ohlc = rows[-2]   # day-before-yesterday OHLC → yesterday's CPR
-
-            if yest_ohlc["h"] == 0 or yest_ohlc["l"] == 0 or yest_ohlc["h"] == yest_ohlc["l"]:
-                print(f"  WARN {symbol}: bad NSE data h={yest_ohlc['h']} l={yest_ohlc['l']}")
-                return None
-
-            # curr = today's CPR    = from yesterday's OHLC
-            # prev = yesterday's CPR = from day-before-yesterday's OHLC
-            d_curr = yest_ohlc   # → today's CPR
-            d_prev = dbdy_ohlc   # → yesterday's CPR
-            price  = round(float(yest_ohlc["c"]), 2)
-            volume = int(yest_ohlc.get("v", 0))
-            chg    = round(((yest_ohlc["c"] - dbdy_ohlc["c"]) / dbdy_ohlc["c"]) * 100, 2) if dbdy_ohlc["c"] else 0
-
-            if symbol in ["HDFCBANK", "RELIANCE", "ALKEM", "ITC"]:
-                dc = calc_cpr(yest_ohlc["h"], yest_ohlc["l"], yest_ohlc["c"])
-                dp = calc_cpr(dbdy_ohlc["h"], dbdy_ohlc["l"], dbdy_ohlc["c"])
-                print(f"  DEBUG {symbol}: yest H={yest_ohlc['h']} L={yest_ohlc['l']} C={yest_ohlc['c']} | dbdy H={dbdy_ohlc['h']} L={dbdy_ohlc['l']} C={dbdy_ohlc['c']}")
-                print(f"  DEBUG {symbol}: today_CPR TC={dc['tc']} BC={dc['bc']} | yest_CPR TC={dp['tc']} BC={dp['bc']} | inside={is_inside_cpr(dc,dp)}")
-        else:
-            # NSE Bhav not available for this symbol — use Yahoo Finance as fallback
-            print(f"  INFO {symbol}: not in NSE Bhav, using Yahoo")
-
-        # If daily data not set yet (NSE missing or invalid), use Yahoo
-        if d_curr is None or d_prev is None:
-            hist = ticker.history(period="15d", interval="1d", auto_adjust=True)
-            if hist.empty: return None
-            hist = hist.dropna(subset=["High", "Low", "Close"])
-            if len(hist) < 2: return None
-            d_curr = {"h": float(hist.iloc[-1]["High"]), "l": float(hist.iloc[-1]["Low"]),  "c": float(hist.iloc[-1]["Close"])}
-            d_prev = {"h": float(hist.iloc[-2]["High"]), "l": float(hist.iloc[-2]["Low"]),  "c": float(hist.iloc[-2]["Close"])}
-            price  = round(float(d_curr["c"]), 2)
-            volume = int(hist.iloc[-1]["Volume"]) if "Volume" in hist.columns else 0
-            chg    = round(((d_curr["c"] - d_prev["c"]) / d_prev["c"]) * 100, 2) if d_prev["c"] else 0
-
-        if not d_curr or not d_prev: return None
-
-        # ── Weekly OHLC — aggregate from daily bars (Mon-Fri NSE week) ──────────
-        # Yahoo 1wk uses Sunday start which doesn't match NSE Mon-Fri week
-        # So we build weekly candles from daily data ourselves
-        hist_daily = ticker.history(period="6mo", interval="1d", auto_adjust=True).dropna(subset=["High","Low","Close"])
-        w_curr = w_prev = None
-
-        if not hist_daily.empty and len(hist_daily) >= 10:
-            # Group by ISO week (Mon-Sun) and aggregate OHLC
-            import pandas as pd
-            df = hist_daily.copy()
-            df.index = pd.to_datetime(df.index)
-            df['week'] = df.index.to_period('W-FRI')  # Week ending Friday
-            weekly = df.groupby('week').agg(
-                High=('High','max'),
-                Low=('Low','min'),
-                Close=('Close','last'),
-                Open=('Open','first')
-            ).dropna()
-
-            now_ist = datetime.datetime.utcnow() + datetime.timedelta(hours=5, minutes=30)
-            current_week = pd.Period(now_ist.date(), 'W-FRI')
-
-            # Remove current incomplete week if present
-            if len(weekly) > 0 and weekly.index[-1] == current_week:
-                weekly = weekly.iloc[:-1]
-
-            if len(weekly) >= 2:
-                w_curr = {"h": float(weekly.iloc[-1]["High"]),  "l": float(weekly.iloc[-1]["Low"]),  "c": float(weekly.iloc[-1]["Close"])}
-                w_prev = {"h": float(weekly.iloc[-2]["High"]),  "l": float(weekly.iloc[-2]["Low"]),  "c": float(weekly.iloc[-2]["Close"])}
-                if symbol in ["RELIANCE","HDFCBANK","ITC","WIPRO"]:
-                    wc = calc_cpr(w_curr["h"], w_curr["l"], w_curr["c"])
-                    wp = calc_cpr(w_prev["h"], w_prev["l"], w_prev["c"])
-                    print(f"  WK {symbol}: curr_wk={weekly.index[-1]} H={w_curr['h']:.2f} L={w_curr['l']:.2f} C={w_curr['c']:.2f} → TC={wc['tc']} BC={wc['bc']}")
-                    print(f"  WK {symbol}: prev_wk={weekly.index[-2]} H={w_prev['h']:.2f} L={w_prev['l']:.2f} C={w_prev['c']:.2f} → TC={wp['tc']} BC={wp['bc']} | inside={is_inside_cpr(wc,wp)}")
-
-        # ── Monthly OHLC — aggregate from daily bars ──────────────────────────────
-        hist_daily_long = ticker.history(period="2y", interval="1d", auto_adjust=True).dropna(subset=["High","Low","Close"])
-        m_curr = m_prev = None
-
-        if not hist_daily_long.empty and len(hist_daily_long) >= 40:
-            import pandas as pd
-            df_m = hist_daily_long.copy()
-            df_m.index = pd.to_datetime(df_m.index)
-            df_m['month'] = df_m.index.to_period('M')
-            monthly = df_m.groupby('month').agg(
-                High=('High','max'),
-                Low=('Low','min'),
-                Close=('Close','last'),
-                Open=('Open','first')
-            ).dropna()
-
-            now_ist = datetime.datetime.utcnow() + datetime.timedelta(hours=5, minutes=30)
-            current_month = pd.Period(now_ist.date(), 'M')
-
-            # Remove current incomplete month
-            if len(monthly) > 0 and monthly.index[-1] == current_month:
-                monthly = monthly.iloc[:-1]
-
-            if len(monthly) >= 2:
-                m_curr = {"h": float(monthly.iloc[-1]["High"]), "l": float(monthly.iloc[-1]["Low"]), "c": float(monthly.iloc[-1]["Close"])}
-                m_prev = {"h": float(monthly.iloc[-2]["High"]), "l": float(monthly.iloc[-2]["Low"]), "c": float(monthly.iloc[-2]["Close"])}
-
-        # ── CPR trend: last 5 daily pivots from Yahoo ──
-        hist_5d = ticker.history(period="15d", interval="1d", auto_adjust=True).dropna(subset=["High","Low","Close"]).tail(5)
-        pivots  = [round((row["High"]+row["Low"]+row["Close"])/3, 2) for _, row in hist_5d.iterrows()]
-
-        return {
-            "symbol":  symbol,
-            "price":   price,
-            "change":  chg,
-            "volume":  volume,
-            "source":  "NSE" if (symbol in nse_daily_map and d_curr and d_curr["h"] != d_curr["l"] and d_curr["h"] != 0) else "Yahoo",
-            "daily":   {"curr": d_curr, "prev": d_prev},
-            "weekly":  {"curr": w_curr, "prev": w_prev} if w_curr else None,
-            "monthly": {"curr": m_curr, "prev": m_prev} if m_curr else None,
-            "pivots5": pivots,
-        }
-    except Exception as e:
-        print(f"  ERROR {symbol} ({get_yahoo_ticker(symbol)}): {e}")
-        return None
-
-# ─── Main ─────────────────────────────────────────────────────────────────────
-def main():
-    print(f"Starting CPR scan — {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S IST')}")
-    print(f"Total stocks: {len(STOCKS)}")
-
-    # ── Step 1: Fetch NSE Bhav Copy (official EOD data) ──────────────────────
-    print("\n[Step 1] Fetching NSE Bhav Copy (official EOD OHLC)...")
-    nse_ok = fetch_nse_bhav()
-    if nse_ok:
-        print(f"  NSE Bhav loaded — {len(nse_daily_map)} symbols available")
-    else:
-        print("  NSE Bhav unavailable — will use Yahoo Finance for all stocks")
-
-    # ── Step 2: Process each stock ────────────────────────────────────────────
-    print(f"\n[Step 2] Processing {len(STOCKS)} stocks...")
-
-    output = {
-        "generated_at":   datetime.datetime.now().strftime("%Y-%m-%d %H:%M IST"),
-        "generated_date": datetime.datetime.now().strftime("%d %b %Y"),
-        "scan_mode":      scan_mode,   # AFTER_CLOSE or DURING_MARKET
-        "scan_logic":     "AFTER_CLOSE: tomorrow CPR (today OHLC) inside today CPR (yesterday OHLC) | DURING_MARKET: today CPR (yesterday OHLC) inside yesterday CPR (day-before-yesterday OHLC)",
-        "total_stocks":   len(STOCKS),
-        "stocks":         []
-    }
-
-    failed = 0
-    for i, (sym, name, sector, fno) in enumerate(STOCKS):
-        print(f"  [{i+1}/{len(STOCKS)}] {sym}...", end=" ")
-        data = fetch_stock(sym)
-        if not data:
-            print("SKIP")
-            failed += 1
-            time.sleep(0.3)
-            continue
-
-        # ── Calculate CPR for all timeframes ──
-        stock_entry = {
-            "symbol":  sym,
-            "name":    name,
-            "sector":  sector,
-            "fno":     fno,
-            "price":   data["price"],
-            "change":  data["change"],
-            "volume":  data["volume"],
-        }
-
-        # Daily CPR
-        dc = calc_cpr(data["daily"]["curr"]["h"], data["daily"]["curr"]["l"], data["daily"]["curr"]["c"])
-        dp = calc_cpr(data["daily"]["prev"]["h"], data["daily"]["prev"]["l"], data["daily"]["prev"]["c"])
-        stock_entry["daily"] = {
-            "curr_cpr": dc,
-            "prev_cpr": dp,
-            "inside":   is_inside_cpr(dc, dp),
-            "width_pct": cpr_width_pct(dc, data["price"]),
-        }
-
-        # Weekly CPR
-        if data["weekly"]:
-            wc = calc_cpr(data["weekly"]["curr"]["h"], data["weekly"]["curr"]["l"], data["weekly"]["curr"]["c"])
-            wp = calc_cpr(data["weekly"]["prev"]["h"], data["weekly"]["prev"]["l"], data["weekly"]["prev"]["c"])
-            stock_entry["weekly"] = {
-                "curr_cpr": wc,
-                "prev_cpr": wp,
-                "inside":   is_inside_cpr(wc, wp),
-                "width_pct": cpr_width_pct(wc, data["price"]),
-            }
-
-        # Monthly CPR
-        if data["monthly"]:
-            mc = calc_cpr(data["monthly"]["curr"]["h"], data["monthly"]["curr"]["l"], data["monthly"]["curr"]["c"])
-            mp = calc_cpr(data["monthly"]["prev"]["h"], data["monthly"]["prev"]["l"], data["monthly"]["prev"]["c"])
-            stock_entry["monthly"] = {
-                "curr_cpr": mc,
-                "prev_cpr": mp,
-                "inside":   is_inside_cpr(mc, mp),
-                "width_pct": cpr_width_pct(mc, data["price"]),
-            }
-
-        # CPR Trend (5-day pivot direction)
-        pivots = data["pivots5"]
-        stock_entry["cpr_trend"] = {
-            "direction": cpr_trend(pivots),
-            "pivots":    pivots,
-            "pivot_shift": round(pivots[-1] - pivots[0], 2) if len(pivots) >= 2 else 0,
-        }
-
-        # Virgin CPR — price has not touched CPR zone today
-        # (approximated: if price is more than 0.5% away from CPR zone)
-        dist_to_cpr = min(
-            abs(data["price"] - dc["tc"]),
-            abs(data["price"] - dc["bc"])
-        )
-        in_cpr_zone = dc["bc"] <= data["price"] <= dc["tc"]
-        stock_entry["virgin_cpr"] = {
-            "is_virgin": not in_cpr_zone,
-            "position":  "above" if data["price"] > dc["tc"] else ("below" if data["price"] < dc["bc"] else "inside"),
-            "dist_pct":  round((dist_to_cpr / data["price"]) * 100, 2),
-        }
-
-        output["stocks"].append(stock_entry)
-        print(f"OK — Inside(D):{stock_entry['daily']['inside']} Price:₹{data['price']}")
-        time.sleep(0.4)  # Be polite to Yahoo Finance
-
-    output["success_count"] = len(output["stocks"])
-    output["failed_count"]  = failed
-
-    # ── Debug summary — shows CPR values for first 5 stocks ──
-    debug = []
-    for s in output["stocks"][:5]:
-        d = s.get("daily", {})
-        debug.append({
-            "symbol":   s["symbol"],
-            "price":    s["price"],
-            "source":   s.get("source","?"),
-            "curr_tc":  d.get("curr_cpr",{}).get("tc"),
-            "curr_bc":  d.get("curr_cpr",{}).get("bc"),
-            "prev_tc":  d.get("prev_cpr",{}).get("tc"),
-            "prev_bc":  d.get("prev_cpr",{}).get("bc"),
-            "inside":   d.get("inside"),
-            "curr_tc_lt_prev_tc": (d.get("curr_cpr",{}).get("tc",0) < d.get("prev_cpr",{}).get("tc",1)),
-            "curr_bc_gt_prev_bc": (d.get("curr_cpr",{}).get("bc",1) > d.get("prev_cpr",{}).get("bc",0)),
-        })
-    output["debug_first5"] = debug
-    output["inside_count"] = sum(1 for s in output["stocks"] if s.get("daily",{}).get("inside"))
-
-    # Save JSON
-    out_path = Path("cpr_data.json")
-    with open(out_path, "w") as f:
-        json.dump(output, f, indent=2)
-
-    print(f"\nDone! {len(output['stocks'])} stocks saved to cpr_data.json")
-    print(f"Inside CPR (daily): {output['inside_count']} stocks")
-    print(f"Failed: {failed}")
-    print(f"Generated at: {output['generated_at']}")
-    print(f"\nDebug — first 5 stocks CPR values:")
-    for d in output["debug_first5"]:
-        print(f"  {d['symbol']}: price={d['price']} source={d['source']} curr_tc={d['curr_tc']} curr_bc={d['curr_bc']} prev_tc={d['prev_tc']} prev_bc={d['prev_bc']} inside={d['inside']} (tc<prevtc:{d['curr_tc_lt_prev_tc']} bc>prevbc:{d['curr_bc_gt_prev_bc']})")
-
-if __name__ == "__main__":
-    main()
+// ===EMBEDDED_DATA_START===
+// Data will be injected here by GitHub Actions
+// ===EMBEDDED_DATA_END===
+</script>
+</body>
+</html>
