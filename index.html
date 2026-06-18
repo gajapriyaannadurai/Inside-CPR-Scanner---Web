@@ -29,7 +29,6 @@
   .stat-val.green{color:#0b6b40}
   .stat-val.amber{color:#7a4a08}
   .stat-val.muted{color:#888;font-size:14px;padding-top:6px}
-  .notice-bar{padding:12px 20px;background:#e8f5ee;border-bottom:1px solid #c8e6d0;display:flex;align-items:flex-start;gap:9px;font-size:13px;color:#0b6b40;line-height:1.55}
   .progress-wrap{height:3px;background:#e8ecf0;display:none}
   .progress-bar{height:3px;background:#00c878;width:0%;transition:width 0.3s}
   .data-status{padding:8px 20px;border-bottom:1px solid #e8ecf0;display:flex;align-items:center;gap:8px;font-size:12px;background:#fff}
@@ -49,6 +48,12 @@
   .reset-btn{padding:9px 16px;background:transparent;border:1px solid #dde1e8;border-radius:7px;font-size:13px;cursor:pointer;color:#888;align-self:flex-end}
   .reset-btn:hover{border-color:#aaa;color:#555}
   .rcount{font-size:13px;color:#888;align-self:flex-end;margin-left:auto}
+  .dl-btn{padding:9px 16px;border:1px solid #dde1e8;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;align-self:flex-end;display:flex;align-items:center;gap:5px;transition:all 0.15s}
+  .dl-csv{background:#fff;color:#185fa5;border-color:#185fa5}
+  .dl-csv:hover{background:#e6f1fb}
+  .dl-xlsx{background:#fff;color:#0b6b40;border-color:#0b6b40}
+  .dl-xlsx:hover{background:#e1f5ee}
+  .dl-btn:disabled{opacity:0.4;cursor:not-allowed}
   .table-wrap{overflow-x:auto}
   table{width:100%;border-collapse:collapse}
   thead th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#888;padding:12px 14px;text-align:left;border-bottom:1px solid #e8ecf0;background:#f8fafc;white-space:nowrap;cursor:pointer;user-select:none}
@@ -109,10 +114,7 @@
       <div class="stat"><div class="stat-label">Stocks scanned</div><div class="stat-val muted" id="s-scanned" style="font-size:22px;padding-top:2px">—</div></div>
       <div class="stat"><div class="stat-label">Last scanned</div><div class="stat-val muted" id="s-time">—</div></div>
     </div>
-    <div class="notice-bar">
-      <i class="ti ti-info-circle" style="font-size:17px;flex-shrink:0;margin-top:1px"></i>
-      <span id="notice-text">Daily: Tomorrow's CPR = calculated from today's OHLC (TC = (Pivot+High)/2, BC = (Pivot+Low)/2). Today's CPR = calculated from yesterday's OHLC. Inside CPR = Tomorrow's TC &lt; Today's TC AND Tomorrow's BC &gt; Today's BC. Run after market closes at 3:30 PM.</span>
-    </div>
+
     <div id="market-warning" style="display:none;padding:13px 20px;border-bottom:1px solid #f5c6c6;background:#fff3f3;display:flex;align-items:flex-start;gap:10px">
       <i class="ti ti-alert-triangle" style="font-size:18px;flex-shrink:0;margin-top:1px;color:#c0392b"></i>
       <div>
@@ -186,6 +188,12 @@
       </div>
       <button class="scan-btn" id="scan-btn" onclick="runScan()">&#9654;&nbsp; Scan Now</button>
       <button class="reset-btn" onclick="resetAll()">&#8635;&nbsp; Reset</button>
+      <button class="dl-btn dl-csv" id="dl-csv" onclick="downloadCSV()" disabled title="Download results as CSV">
+        &#8595;&nbsp;CSV
+      </button>
+      <button class="dl-btn dl-xlsx" id="dl-xlsx" onclick="downloadExcel()" disabled title="Download results as Excel">
+        &#8595;&nbsp;Excel
+      </button>
       <span class="rcount" id="rcount"></span>
     </div>
     <div class="table-wrap">
@@ -581,7 +589,6 @@ function setTF(t,el){
   tf=t;
   document.querySelectorAll('.tf-btn').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');
-  document.getElementById('notice-text').textContent=NOTICES[t];
   document.getElementById('rcount').textContent='';
   // If data already loaded, re-filter instantly
   if(dataLoaded) applyFilters();
@@ -709,6 +716,7 @@ function applyFilters(){
     return idxKey === 'all' || sym.has(s.symbol);
   }).length;
   document.getElementById('rcount').textContent = results.length + ' stocks found';
+  enableDownload(results.length > 0);
 
   renderTable();
 }
@@ -729,6 +737,7 @@ function getIndexSymbols(idxKey){
 
 // Filters re-apply instantly without re-fetching
 function resetAll(){
+  enableDownload(false);
   document.getElementById('f-sector').value='';
   document.getElementById('f-width').value='';
   document.getElementById('f-fno').value='';
@@ -799,19 +808,147 @@ function checkMarketHours(){
     warningEl.style.display='flex';
     okEl.style.display='none';
     warningEl.querySelector('div div:last-child').innerHTML=
-      'Market is live ('+ist.getHours()+':'+(ist.getMinutes()<10?'0':'')+ist.getMinutes()+' IST). The scanner shows <strong>yesterday\'s pre-calculated CPR data</strong> — which is exactly what you need for today\'s trading plan. Results are accurate for today.';
+      'Market is live ('+ist.getHours()+':'+(ist.getMinutes()<10?'0':'')+ist.getMinutes()+' IST). Scanner uses <strong>yesterday's OHLC → today's CPR</strong> vs <strong>day-before-yesterday's OHLC → yesterday's CPR</strong>. Results are valid for today\'s session.';
   } else {
     warningEl.style.display='none';
     okEl.style.display='flex';
     const msg = isAfterClose
-      ? '<strong>Market closed ✅</strong> — Today\'s OHLC is complete. Scanner shows stocks where <strong>tomorrow\'s CPR is inside today\'s CPR</strong>. Safe to plan tomorrow\'s trades.'
-      : '<strong>Market is closed</strong> — Showing last session data. Tomorrow\'s CPR levels are calculated and ready.';
-    okEl.querySelector('div').innerHTML=msg;
+      ? '<strong>Market closed</strong> — CPR calculated from today\'s OHLC. Valid for tomorrow\'s trading.'
+      : '<strong>Market closed</strong> — CPR calculated from last session\'s OHLC. Valid for today\'s trading.';
+    document.getElementById('market-closed-ok-text').innerHTML=msg;
   }
 }
 
 checkMarketHours();
 setInterval(checkMarketHours,60000);
+
+// ─── Download functions ───────────────────────────────────────────────────────
+function getTableHeaders(){
+  return ['Symbol','Company','Sector','F&O','CMP (Rs)','Chg %','Pivot','Tom. TC','Tom. BC','Today TC','Today BC','Width %','Width Cat'];
+}
+
+function resultsToRows(data){
+  return data.map(r => [
+    r.symbol,
+    r.name,
+    r.sector,
+    r.fno ? 'Yes' : 'No',
+    r.price.toFixed(2),
+    r.change.toFixed(2) + '%',
+    r.pivot.toFixed(2),
+    r.tc.toFixed(2),
+    r.bc.toFixed(2),
+    r.prevTc.toFixed(2),
+    r.prevBc.toFixed(2),
+    r.widthPct.toFixed(2) + '%',
+    r.widthCat.charAt(0).toUpperCase() + r.widthCat.slice(1)
+  ]);
+}
+
+function downloadCSV(){
+  if(!results.length){ alert('No results to download. Run a scan first.'); return; }
+  const headers = getTableHeaders();
+  const rows    = resultsToRows(results);
+  const scanInfo = document.getElementById('status-text').textContent;
+  const csvLines = [
+    '# Inside CPR Scanner — Stark School of Finance — tradingwithgp.com',
+    '# ' + scanInfo,
+    '# Downloaded: ' + new Date().toLocaleString('en-IN'),
+    '',
+    headers.join(','),
+    ...rows.map(r => r.map(v => '"' + String(v).replace(/"/g,'""') + '"').join(','))
+  ];
+  const blob = new Blob([csvLines.join('
+')], {type:'text/csv;charset=utf-8;'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = 'inside_cpr_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function downloadExcel(){
+  if(!results.length){ alert('No results to download. Run a scan first.'); return; }
+  const headers = getTableHeaders();
+  const rows    = resultsToRows(results);
+  const scanInfo = document.getElementById('status-text').textContent;
+
+  // Build Excel XML (SpreadsheetML — opens natively in Excel)
+  const esc = v => String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const cell = (v, type) => {
+    if(type === 'n') return `<Cell ss:StyleID="num"><Data ss:Type="Number">${esc(v)}</Data></Cell>`;
+    if(type === 'h') return `<Cell ss:StyleID="hdr"><Data ss:Type="String">${esc(v)}</Data></Cell>`;
+    return `<Cell><Data ss:Type="String">${esc(v)}</Data></Cell>`;
+  };
+
+  const numCols = new Set([4,5,6,7,8,9,10,11]); // 0-indexed cols that are numbers
+
+  const dataRows = rows.map(r =>
+    '<Row>' + r.map((v,i) => {
+      const raw = v.replace('%','').replace('Rs','').trim();
+      const isNum = numCols.has(i) && !isNaN(parseFloat(raw));
+      return isNum ? cell(parseFloat(raw), 'n') : cell(v, '');
+    }).join('') + '</Row>'
+  ).join('
+        ');
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
+  <Styles>
+    <Style ss:ID="hdr">
+      <Font ss:Bold="1" ss:Color="#FFFFFF"/>
+      <Interior ss:Color="#0a1628" ss:Pattern="Solid"/>
+    </Style>
+    <Style ss:ID="num">
+      <NumberFormat ss:Format="0.00"/>
+    </Style>
+    <Style ss:ID="info">
+      <Font ss:Italic="1" ss:Color="#888888"/>
+    </Style>
+  </Styles>
+  <Worksheet ss:Name="Inside CPR Scanner">
+    <Table>
+      <Column ss:Width="80"/>
+      <Column ss:Width="160"/>
+      <Column ss:Width="130"/>
+      <Column ss:Width="45"/>
+      <Column ss:Width="75"/>
+      <Column ss:Width="60"/>
+      <Column ss:Width="70"/>
+      <Column ss:Width="75"/>
+      <Column ss:Width="75"/>
+      <Column ss:Width="75"/>
+      <Column ss:Width="75"/>
+      <Column ss:Width="65"/>
+      <Column ss:Width="70"/>
+      <Row>
+        <Cell ss:MergeAcross="12" ss:StyleID="info"><Data ss:Type="String">Inside CPR Scanner — Stark School of Finance — tradingwithgp.com | ${esc(scanInfo)}</Data></Cell>
+      </Row>
+      <Row>
+        ${headers.map(h => cell(h,'h')).join('')}
+      </Row>
+        ${dataRows}
+    </Table>
+  </Worksheet>
+</Workbook>`;
+
+  const blob = new Blob([xml], {type:'application/vnd.ms-excel;charset=utf-8;'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = 'inside_cpr_' + new Date().toISOString().slice(0,10) + '.xls';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// Enable download buttons when results exist
+function enableDownload(hasResults){
+  document.getElementById('dl-csv').disabled  = !hasResults;
+  document.getElementById('dl-xlsx').disabled = !hasResults;
+}
 </script>
 </body>
 </html>
