@@ -214,15 +214,8 @@
         </tbody>
       </table>
     </div>
-    <div class="footer-legend">
-      <span class="leg-item"><span class="leg-dot" style="background:#00c878"></span>Tom. TC = PP + (PP − BC) where PP=(H+L+C)/3, BC=(H+L)/2 — using today's OHLC</span>
-      <span class="leg-item"><span class="leg-dot" style="background:#e24b4a"></span>Tom. BC = (High + Low) / 2 — using today's OHLC</span>
-      <span class="leg-item"><span class="leg-dot" style="background:#7f77dd"></span>Inside: Tomorrow TC &lt; Today TC AND Tomorrow BC &gt; Today BC</span>
-      <span class="leg-item"><span class="leg-dot" style="background:#ef9f27"></span>Pivot = (H + L + C) / 3</span>
-      <span class="leg-item" style="margin-left:auto"><span class="leg-dot" style="background:#185fa5"></span>Data: NSE Bhav Copy (official EOD after 3:30 PM)</span>
-    </div>
   </div>
-  <div class="brand-footer">Powered by <a href="https://www.tradingwithgp.com" target="_blank">Stark School of Finance — tradingwithgp.com</a> &nbsp;|&nbsp; Data: Yahoo Finance (delayed)</div>
+  <div class="brand-footer">Powered by <a href="https://www.tradingwithgp.com" target="_blank">Stark School of Finance — tradingwithgp.com</a></div>
 </div>
 
 <script>
@@ -568,8 +561,12 @@ function getStockList(idxKey) {
 }
 
 
-// GitHub raw URL for cpr_data.json
-const DATA_URL = 'https://raw.githubusercontent.com/gajapriyaannadurai/Inside-CPR-Scanner---Web/main/cpr_data.json';
+// Data URLs — tries each in order until one works
+const DATA_URLS = [
+  'https://scanner.tradingwithgp.com/cpr_data.json',
+  'https://gajapriyaannadurai.github.io/Inside-CPR-Scanner---Web/cpr_data.json',
+  'https://raw.githubusercontent.com/gajapriyaannadurai/Inside-CPR-Scanner---Web/main/cpr_data.json',
+];
 
 let tf='daily', sortKey='widthPct', sortAsc=true, results=[], allData=[], scanning=false, dataLoaded=false, lastFetched=null;
 
@@ -578,7 +575,7 @@ function setTF(t,el){
   document.querySelectorAll('.tf-btn').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');
   document.getElementById('rcount').textContent='';
-  // If data already loaded, re-filter instantly
+  checkMarketHours(); // update flag for new timeframe immediately
   if(dataLoaded) applyFilters();
   else document.getElementById('tbody').innerHTML='<tr><td colspan="12" class="empty-state">Click <strong>Scan Now</strong> to load CPR data.</td></tr>';
 }
@@ -608,9 +605,16 @@ async function runScan(){
   setProgress(30);
 
   try{
-    const res = await fetch(DATA_URL + '?t=' + Date.now());
-    if(!res.ok) throw new Error('HTTP ' + res.status + ' — data file not found. Run the GitHub Action first.');
-    const json = await res.json();
+    let json = null;
+    let lastErr = '';
+    for(const url of DATA_URLS){
+      try{
+        const res = await fetch(url + '?t=' + Date.now());
+        if(res.ok){ json = await res.json(); break; }
+        else lastErr = 'HTTP ' + res.status + ' from ' + url;
+      } catch(e){ lastErr = e.message; continue; }
+    }
+    if(!json) throw new Error('Could not load data from any source. ' + lastErr + '. Please run the GitHub Action first.');
     allData = json.stocks || [];
     lastFetched = json.generated_at || '—';
     dataLoaded = true;
@@ -777,30 +781,74 @@ function checkMarketHours(){
   const isMarketOpen=isWeekday&&timeNow>=915&&timeNow<1530;
   const isAfterClose=isWeekday&&timeNow>=1530;
 
+function checkMarketHours(){
+  const now    = new Date();
+  const utc    = now.getTime() + (now.getTimezoneOffset() * 60000);
+  const ist    = new Date(utc + (5.5 * 3600000));
+  const day    = ist.getDay();       // 0=Sun,1=Mon,...,6=Sat
+  const hhmm   = ist.getHours() * 100 + ist.getMinutes();
+  const isWeekday   = day >= 1 && day <= 5;
+  const isMarketOpen  = isWeekday && hhmm >= 915 && hhmm < 1530;
+  const isAfterClose  = isWeekday && hhmm >= 1530;
+  const isFriday      = day === 5;
+  const isWeekend     = day === 0 || day === 6;
+
+  // Last day of current month check
+  const lastDayOfMonth = new Date(ist.getFullYear(), ist.getMonth() + 1, 0).getDate();
+  const isLastDayOfMonth = ist.getDate() === lastDayOfMonth;
+  const isMonthComplete  = isLastDayOfMonth && isAfterClose;
+
   const flag     = document.getElementById('market-flag');
   const flagText = document.getElementById('market-flag-text');
+  const activeTF = tf; // current selected timeframe
 
-  if(isMarketOpen){
-    flag.style.background = '#fff0f0';
-    flag.style.color      = '#c0392b';
-    flag.style.border     = '1px solid #f5c6c6';
-    flag.innerHTML        = '🔴 Market Open';
-    flagText.textContent  = 'CPR calculated from yesterday\'s OHLC — valid for today\'s session.';
-    flagText.style.color  = '#888';
-  } else {
-    flag.style.background = '#e8f5ee';
-    flag.style.color      = '#0b6b40';
-    flag.style.border     = '1px solid #c8e6d0';
-    flag.innerHTML        = '🟢 Market Closed';
-    flagText.textContent  = isAfterClose
-      ? 'CPR calculated from today\'s OHLC — valid for tomorrow\'s trading.'
-      : 'CPR calculated from last session\'s OHLC — valid for today\'s trading.';
-    flagText.style.color  = '#888';
+  function setFlag(isGreen, label, msg){
+    flag.style.background = isGreen ? '#e8f5ee' : '#fff0f0';
+    flag.style.color      = isGreen ? '#0b6b40' : '#c0392b';
+    flag.style.border     = isGreen ? '1px solid #c8e6d0' : '1px solid #f5c6c6';
+    flag.innerHTML        = (isGreen ? '🟢 ' : '🔴 ') + label;
+    flagText.textContent  = msg;
+    flagText.style.color  = '#666';
+  }
+
+  if(activeTF === 'daily'){
+    if(isMarketOpen){
+      setFlag(false, 'Market Open',
+        'CPR calculated from yesterday\'s OHLC — valid for today\'s session.');
+    } else {
+      setFlag(true, 'Market Closed',
+        isAfterClose
+          ? 'CPR calculated from today\'s OHLC — valid for tomorrow\'s trading.'
+          : 'CPR calculated from last session\'s OHLC — valid for today\'s trading.');
+    }
+
+  } else if(activeTF === 'weekly'){
+    // GREEN: after Friday 3:30 PM OR weekend (current week closed)
+    // RED:   Mon–Fri during/before market (current week still running)
+    const weekClosed = (isFriday && isAfterClose) || isWeekend;
+    if(weekClosed){
+      setFlag(true, 'Week Closed',
+        'CPR calculated from this week\'s OHLC — valid for next week\'s trading.');
+    } else {
+      setFlag(false, 'Week Running',
+        'CPR calculated from previous week\'s OHLC — valid for this week\'s trading session.');
+    }
+
+  } else if(activeTF === 'monthly'){
+    // GREEN: after last trading day of month closes
+    // RED:   any time during the current month
+    if(isMonthComplete){
+      setFlag(true, 'Month Closed',
+        'CPR calculated from this month\'s OHLC — valid for next month\'s trading.');
+    } else {
+      setFlag(false, 'Month Running',
+        'CPR calculated from previous month\'s OHLC — valid for this month\'s trading session.');
+    }
   }
 }
 
 checkMarketHours();
-setInterval(checkMarketHours,60000);
+setInterval(checkMarketHours, 60000);
 
 // ─── Download functions ───────────────────────────────────────────────────────
 function getTableHeaders(){
