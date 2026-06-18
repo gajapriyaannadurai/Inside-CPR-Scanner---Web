@@ -414,17 +414,23 @@ def fetch_nse_bhav():
                     if first_row:
                         print(f"  NSE Bhav columns: {list(row.keys())[:15]}")
                         first_row = False
-                    sym = row.get("TckrSymb", row.get("SYMBOL", "")).strip()
+                    # Symbol column — NSE uses SYMBOL in standard bhav copy
+                    sym = row.get("SYMBOL", row.get("TckrSymb", row.get("Symbol", ""))).strip()
                     if not sym: continue
+                    # Only process EQ series (equity), skip BE, BZ, IL etc
+                    series = row.get("SERIES", row.get("Series", "EQ")).strip()
+                    if series not in ("EQ", "BE"):
+                        continue
+                    # Print raw row for key stocks to debug
+                    if sym in ["ALKEM", "JSWSTEEL", "RELIANCE"]:
+                        print(f"  RAW NSE ROW {sym}: {dict(row)}")
                     try:
-                        # NSE new format columns (2024+):
-                        # TckrSymb, OpnPric, HghPric, LwPric, ClsPric, TtlTradgVol
-                        # NSE old format columns:
-                        # SYMBOL, OPEN, HIGH, LOW, CLOSE, TOTTRDQTY
-                        h = float(row.get("HghPric",  row.get("HIGH",  row.get("high",  0))))
-                        l = float(row.get("LwPric",   row.get("LOW",   row.get("low",   0))))
-                        c = float(row.get("ClsPric",  row.get("CLOSE", row.get("close", 0))))
-                        v = int(float(row.get("TtlTradgVol", row.get("TOTTRDQTY", row.get("volume", 0)))))
+                        # NSE Bhav Copy actual column names (confirmed from Excel):
+                        # DATE, SERIES, OPEN, HIGH, LOW, PREV. CLO, LTP, CLOSE, VWAP, 52W H, 52W L, VOLUME, VALUE, NO. OF TRADES
+                        h = float(row.get("HIGH",     row.get("HghPric",  row.get("high",  0))))
+                        l = float(row.get("LOW",      row.get("LwPric",   row.get("low",   0))))
+                        c = float(row.get("CLOSE",    row.get("ClsPric",  row.get("close", 0))))
+                        v = int(float(row.get("VOLUME", row.get("TtlTradgVol", row.get("TOTTRDQTY", 0)))))
                         if h == 0 or l == 0 or c == 0:
                             continue
                         day_data[date_str][sym] = {"h": h, "l": l, "c": c, "v": v}
@@ -477,24 +483,25 @@ def fetch_stock(symbol):
         chg    = 0.0
 
         if symbol in nse_daily_map and len(nse_daily_map[symbol]) >= 2:
-            # NSE Bhav Copy data — most accurate, official EOD
-            # nse_daily_map[symbol] = [yesterday_data, today_data] (sorted oldest→newest)
+            # NSE Bhav Copy data — official EOD, most accurate
             rows   = nse_daily_map[symbol]
-            d_curr = rows[-1]   # today's complete candle (newest = index -1)
-            d_prev = rows[-2]   # yesterday's complete candle (older = index -2)
-            # Verify data is valid — H and L must differ and be non-zero
+            d_curr = rows[-1]   # today's complete candle (newest)
+            d_prev = rows[-2]   # yesterday's complete candle (older)
+            # Validate — H must be > L and both non-zero
             if d_curr["h"] == 0 or d_curr["l"] == 0 or d_curr["h"] == d_curr["l"]:
-                print(f"  WARN {symbol}: NSE data invalid (h={d_curr['h']} l={d_curr['l']} c={d_curr['c']}) — falling back to Yahoo")
-                # Fall through to Yahoo
-            else:
-                price  = round(float(d_curr["c"]), 2)
-                volume = int(d_curr.get("v", 0))
-                chg    = round(((d_curr["c"] - d_prev["c"]) / d_prev["c"]) * 100, 2) if d_prev["c"] else 0
-                if symbol in ["ALKEM", "JSWSTEEL", "BAJFINANCE", "RELIANCE"]:
-                    print(f"  DEBUG {symbol} NSE raw: curr H={d_curr['h']} L={d_curr['l']} C={d_curr['c']} | prev H={d_prev['h']} L={d_prev['l']} C={d_prev['c']}")
-                    dc = calc_cpr(d_curr['h'], d_curr['l'], d_curr['c'])
-                    dp = calc_cpr(d_prev['h'], d_prev['l'], d_prev['c'])
-                    print(f"  DEBUG {symbol} CPR: curr TC={dc['tc']} BC={dc['bc']} | prev TC={dp['tc']} BC={dp['bc']} | inside={is_inside_cpr(dc,dp)}")
+                print(f"  WARN {symbol}: NSE data invalid h={d_curr['h']} l={d_curr['l']}")
+                return None  # Skip rather than use wrong data
+            price  = round(float(d_curr["c"]), 2)
+            volume = int(d_curr.get("v", 0))
+            chg    = round(((d_curr["c"] - d_prev["c"]) / d_prev["c"]) * 100, 2) if d_prev["c"] else 0
+            if symbol in ["ALKEM", "JSWSTEEL", "BAJFINANCE", "MRF"]:
+                print(f"  DEBUG {symbol} NSE raw: curr H={d_curr['h']} L={d_curr['l']} C={d_curr['c']} | prev H={d_prev['h']} L={d_prev['l']} C={d_prev['c']}")
+                dc = calc_cpr(d_curr['h'], d_curr['l'], d_curr['c'])
+                dp = calc_cpr(d_prev['h'], d_prev['l'], d_prev['c'])
+                print(f"  DEBUG {symbol} CPR: curr TC={dc['tc']} BC={dc['bc']} | prev TC={dp['tc']} BC={dp['bc']} | inside={is_inside_cpr(dc,dp)}")
+        else:
+            # NSE Bhav not available for this symbol — use Yahoo Finance as fallback
+            print(f"  INFO {symbol}: not in NSE Bhav, using Yahoo")
 
         # If daily data not set yet (NSE missing or invalid), use Yahoo
         if d_curr is None or d_prev is None:
@@ -560,10 +567,11 @@ def main():
     print(f"\n[Step 2] Processing {len(STOCKS)} stocks...")
 
     output = {
-        "generated_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M IST"),
+        "generated_at":   datetime.datetime.now().strftime("%Y-%m-%d %H:%M IST"),
         "generated_date": datetime.datetime.now().strftime("%d %b %Y"),
-        "total_stocks": len(STOCKS),
-        "stocks": []
+        "scan_logic":     "curr = today OHLC CPR | prev = yesterday OHLC CPR | inside = today CPR fits inside yesterday CPR = valid for tomorrow trading",
+        "total_stocks":   len(STOCKS),
+        "stocks":         []
     }
 
     failed = 0
