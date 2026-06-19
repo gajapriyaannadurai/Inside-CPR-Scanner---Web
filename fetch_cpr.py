@@ -661,14 +661,24 @@ def fetch_stock(symbol):
             now_ist = datetime.datetime.utcnow() + datetime.timedelta(hours=5, minutes=30)
             current_week = pd.Period(now_ist.date(), 'W-FRI')
 
-            # Remove current incomplete week if present
-            if len(weekly) > 0 and weekly.index[-1] == current_week:
+            # Determine if the latest aggregated week has fully closed.
+            # NSE week closes Friday 3:30 PM IST.
+            # current_week.end_time is that week's Friday (23:59:59).
+            # If today is BEFORE that Friday, or it IS that Friday but before 3:30 PM,
+            # the week is still running and its partial candle must be excluded.
+            week_end_date   = current_week.end_time.date()  # the Friday of this period
+            is_week_friday  = now_ist.date() == week_end_date
+            ist_hhmm        = now_ist.hour * 100 + now_ist.minute
+            week_has_closed = (now_ist.date() > week_end_date) or (is_week_friday and ist_hhmm >= 1530)
+
+            # Remove current week from the aggregate ONLY if it hasn't closed yet
+            if len(weekly) > 0 and weekly.index[-1] == current_week and not week_has_closed:
                 weekly = weekly.iloc[:-1]
 
             if len(weekly) >= 2:
                 w_curr = {"h": float(weekly.iloc[-1]["High"]),  "l": float(weekly.iloc[-1]["Low"]),  "c": float(weekly.iloc[-1]["Close"])}
                 w_prev = {"h": float(weekly.iloc[-2]["High"]),  "l": float(weekly.iloc[-2]["Low"]),  "c": float(weekly.iloc[-2]["Close"])}
-                if symbol in ["RELIANCE","HDFCBANK","ITC","WIPRO"]:
+                if symbol in ["RELIANCE","HDFCBANK","ITC","WIPRO","CIPLA"]:
                     wc = calc_cpr(w_curr["h"], w_curr["l"], w_curr["c"])
                     wp = calc_cpr(w_prev["h"], w_prev["l"], w_prev["c"])
                     print(f"  WK {symbol}: curr_wk={weekly.index[-1]} H={w_curr['h']:.2f} L={w_curr['l']:.2f} C={w_curr['c']:.2f} → TC={wc['tc']} BC={wc['bc']}")
@@ -693,8 +703,18 @@ def fetch_stock(symbol):
             now_ist = datetime.datetime.utcnow() + datetime.timedelta(hours=5, minutes=30)
             current_month = pd.Period(now_ist.date(), 'M')
 
-            # Remove current incomplete month
-            if len(monthly) > 0 and monthly.index[-1] == current_month:
+            # Determine if the current month has fully closed.
+            # Month closes on its last calendar day at 3:30 PM IST (approximation —
+            # NSE's actual last trading day can be a day or two earlier on holidays,
+            # but daily bar data naturally won't have a bar past the last trading day,
+            # so the only real risk is the LAST trading day itself, handled by hhmm check).
+            month_end_date  = current_month.end_time.date()  # last calendar day of month
+            is_month_end_day = now_ist.date() == month_end_date
+            ist_hhmm          = now_ist.hour * 100 + now_ist.minute
+            month_has_closed = (now_ist.date() > month_end_date) or (is_month_end_day and ist_hhmm >= 1530)
+
+            # Remove current month from aggregate ONLY if it hasn't closed yet
+            if len(monthly) > 0 and monthly.index[-1] == current_month and not month_has_closed:
                 monthly = monthly.iloc[:-1]
 
             if len(monthly) >= 2:
