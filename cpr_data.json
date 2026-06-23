@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-23 13:47 IST",
+  "generated_at": "2026-06-23 17:28 IST",
   "generated_date": "23 Jun 2026",
   "scan_mode": "AFTER_CLOSE",
   "scan_logic": "AFTER_CLOSE: tomorrow CPR (today OHLC) inside today CPR (yesterday OHLC) | DURING_MARKET: today CPR (yesterday OHLC) inside yesterday CPR (day-before-yesterday OHLC)",
@@ -13038,6 +13038,20 @@
         },
         "inside": false,
         "width_pct": 0.871
+      },
+      "monthly": {
+        "curr_cpr": {
+          "pivot": 187.2,
+          "tc": 189.75,
+          "bc": 184.64
+        },
+        "prev_cpr": {
+          "pivot": 176.73,
+          "tc": 182.13,
+          "bc": 171.32
+        },
+        "inside": false,
+        "width_pct": 2.986
       },
       "cpr_trend": {
         "direction": "bearish",
