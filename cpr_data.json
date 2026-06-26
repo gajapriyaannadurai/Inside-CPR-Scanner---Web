@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-25 17:33 IST",
-  "generated_date": "25 Jun 2026",
+  "generated_at": "2026-06-26 12:27 IST",
+  "generated_date": "26 Jun 2026",
   "scan_mode": "AFTER_CLOSE",
   "scan_logic": "AFTER_CLOSE: tomorrow CPR (today OHLC) inside today CPR (yesterday OHLC) | DURING_MARKET: today CPR (yesterday OHLC) inside yesterday CPR (day-before-yesterday OHLC)",
   "total_stocks": 293,
@@ -29,17 +29,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1320.17,
+          "tc": 1321.2,
+          "bc": 1319.13
+        },
+        "prev_cpr": {
           "pivot": 1317.0,
           "tc": 1320.75,
           "bc": 1313.25
         },
-        "prev_cpr": {
-          "pivot": 1282.23,
-          "tc": 1287.62,
-          "bc": 1276.85
-        },
         "inside": false,
-        "width_pct": 0.569
+        "width_pct": 0.157
       },
       "monthly": {
         "curr_cpr": {
@@ -96,17 +96,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2102.23,
+          "tc": 2106.0,
+          "bc": 2098.47
+        },
+        "prev_cpr": {
           "pivot": 2138.63,
           "tc": 2145.45,
           "bc": 2131.82
         },
-        "prev_cpr": {
-          "pivot": 2150.73,
-          "tc": 2156.07,
-          "bc": 2145.4
-        },
         "inside": false,
-        "width_pct": 0.651
+        "width_pct": 0.359
       },
       "monthly": {
         "curr_cpr": {
@@ -156,24 +156,24 @@
         "prev_cpr": {
           "pivot": 786.92,
           "tc": 790.06,
-          "bc": 783.77
+          "bc": 783.78
         },
         "inside": false,
         "width_pct": 0.276
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 791.1,
+          "tc": 793.7,
+          "bc": 788.5
+        },
+        "prev_cpr": {
           "pivot": 777.56,
           "tc": 778.68,
           "bc": 776.43
         },
-        "prev_cpr": {
-          "pivot": 747.37,
-          "tc": 753.63,
-          "bc": 741.12
-        },
         "inside": false,
-        "width_pct": 0.283
+        "width_pct": 0.653
       },
       "monthly": {
         "curr_cpr": {
@@ -230,17 +230,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1875.47,
+          "tc": 1887.85,
+          "bc": 1863.08
+        },
+        "prev_cpr": {
           "pivot": 1881.43,
           "tc": 1896.12,
           "bc": 1866.75
         },
-        "prev_cpr": {
-          "pivot": 1809.37,
-          "tc": 1815.93,
-          "bc": 1802.8
-        },
         "inside": false,
-        "width_pct": 1.587
+        "width_pct": 1.338
       },
       "monthly": {
         "curr_cpr": {
@@ -297,17 +297,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1374.33,
+          "tc": 1380.92,
+          "bc": 1367.75
+        },
+        "prev_cpr": {
           "pivot": 1344.83,
           "tc": 1345.67,
           "bc": 1344.0
         },
-        "prev_cpr": {
-          "pivot": 1309.4,
-          "tc": 1325.1,
-          "bc": 1293.7
-        },
         "inside": false,
-        "width_pct": 0.12
+        "width_pct": 0.949
       },
       "monthly": {
         "curr_cpr": {
@@ -364,17 +364,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1049.17,
+          "tc": 1053.15,
+          "bc": 1045.18
+        },
+        "prev_cpr": {
           "pivot": 1081.3,
           "tc": 1096.25,
           "bc": 1066.35
         },
-        "prev_cpr": {
-          "pivot": 1133.56,
-          "tc": 1142.13,
-          "bc": 1124.98
-        },
         "inside": false,
-        "width_pct": 2.872
+        "width_pct": 0.765
       },
       "monthly": {
         "curr_cpr": {
@@ -418,7 +418,7 @@
       "daily": {
         "curr_cpr": {
           "pivot": 1046.45,
-          "tc": 1046.97,
+          "tc": 1046.98,
           "bc": 1045.93
         },
         "prev_cpr": {
@@ -427,21 +427,21 @@
           "bc": 1032.5
         },
         "inside": false,
-        "width_pct": 0.099
+        "width_pct": 0.1
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1040.43,
+          "tc": 1042.92,
+          "bc": 1037.95
+        },
+        "prev_cpr": {
           "pivot": 1029.4,
           "tc": 1032.25,
           "bc": 1026.55
         },
-        "prev_cpr": {
-          "pivot": 1000.33,
-          "tc": 1008.74,
-          "bc": 991.93
-        },
         "inside": false,
-        "width_pct": 0.545
+        "width_pct": 0.475
       },
       "monthly": {
         "curr_cpr": {
@@ -498,17 +498,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2171.7,
+          "tc": 2172.95,
+          "bc": 2170.45
+        },
+        "prev_cpr": {
           "pivot": 2167.68,
           "tc": 2170.09,
           "bc": 2165.28
         },
-        "prev_cpr": {
-          "pivot": 2133.37,
-          "tc": 2140.16,
-          "bc": 2126.57
-        },
         "inside": false,
-        "width_pct": 0.221
+        "width_pct": 0.115
       },
       "monthly": {
         "curr_cpr": {
@@ -557,7 +557,7 @@
         },
         "prev_cpr": {
           "pivot": 290.4,
-          "tc": 290.42,
+          "tc": 290.43,
           "bc": 290.38
         },
         "inside": false,
@@ -565,17 +565,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 291.05,
+          "tc": 291.58,
+          "bc": 290.53
+        },
+        "prev_cpr": {
           "pivot": 291.25,
           "tc": 291.88,
           "bc": 290.62
         },
-        "prev_cpr": {
-          "pivot": 282.63,
-          "tc": 283.87,
-          "bc": 281.4
-        },
         "inside": false,
-        "width_pct": 0.434
+        "width_pct": 0.362
       },
       "monthly": {
         "curr_cpr": {
@@ -624,25 +624,25 @@
         },
         "prev_cpr": {
           "pivot": 404.7,
-          "tc": 405.32,
-          "bc": 404.07
+          "tc": 405.33,
+          "bc": 404.08
         },
         "inside": false,
         "width_pct": 0.244
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 406.93,
+          "tc": 407.97,
+          "bc": 405.9
+        },
+        "prev_cpr": {
           "pivot": 402.75,
           "tc": 404.5,
           "bc": 401.0
         },
-        "prev_cpr": {
-          "pivot": 393.5,
-          "tc": 398.4,
-          "bc": 388.6
-        },
         "inside": false,
-        "width_pct": 0.856
+        "width_pct": 0.506
       },
       "monthly": {
         "curr_cpr": {
@@ -699,17 +699,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 4218.23,
+          "tc": 4219.15,
+          "bc": 4217.32
+        },
+        "prev_cpr": {
           "pivot": 4194.77,
           "tc": 4202.08,
           "bc": 4187.45
         },
-        "prev_cpr": {
-          "pivot": 3987.83,
-          "tc": 4018.57,
-          "bc": 3957.1
-        },
         "inside": false,
-        "width_pct": 0.347
+        "width_pct": 0.043
       },
       "monthly": {
         "curr_cpr": {
@@ -766,17 +766,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1377.5,
+          "tc": 1377.65,
+          "bc": 1377.35
+        },
+        "prev_cpr": {
           "pivot": 1360.3,
           "tc": 1361.5,
           "bc": 1359.1
         },
-        "prev_cpr": {
-          "pivot": 1325.6,
-          "tc": 1340.95,
-          "bc": 1310.25
-        },
         "inside": false,
-        "width_pct": 0.174
+        "width_pct": 0.022
       },
       "monthly": {
         "curr_cpr": {
@@ -833,17 +833,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 979.47,
+          "tc": 979.93,
+          "bc": 979.0
+        },
+        "prev_cpr": {
           "pivot": 957.5,
           "tc": 959.65,
           "bc": 955.35
         },
-        "prev_cpr": {
-          "pivot": 901.93,
-          "tc": 910.12,
-          "bc": 893.75
-        },
         "inside": false,
-        "width_pct": 0.439
+        "width_pct": 0.095
       },
       "monthly": {
         "curr_cpr": {
@@ -900,17 +900,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 13621.0,
+          "tc": 13683.0,
+          "bc": 13559.0
+        },
+        "prev_cpr": {
           "pivot": 13569.67,
           "tc": 13657.0,
           "bc": 13482.33
         },
-        "prev_cpr": {
-          "pivot": 13208.33,
-          "tc": 13287.17,
-          "bc": 13129.5
-        },
         "inside": false,
-        "width_pct": 1.271
+        "width_pct": 0.902
       },
       "monthly": {
         "curr_cpr": {
@@ -967,17 +967,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2671.7,
+          "tc": 2684.95,
+          "bc": 2658.45
+        },
+        "prev_cpr": {
           "pivot": 2737.71,
           "tc": 2751.87,
           "bc": 2723.55
         },
-        "prev_cpr": {
-          "pivot": 2686.86,
-          "tc": 2705.31,
-          "bc": 2668.4
-        },
         "inside": false,
-        "width_pct": 1.071
+        "width_pct": 1.002
       },
       "monthly": {
         "curr_cpr": {
@@ -1034,17 +1034,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 4311.23,
+          "tc": 4321.2,
+          "bc": 4301.27
+        },
+        "prev_cpr": {
           "pivot": 4360.63,
           "tc": 4390.27,
           "bc": 4331.0
         },
-        "prev_cpr": {
-          "pivot": 4128.3,
-          "tc": 4156.15,
-          "bc": 4100.45
-        },
         "inside": false,
-        "width_pct": 1.381
+        "width_pct": 0.464
       },
       "monthly": {
         "curr_cpr": {
@@ -1101,17 +1101,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1866.4,
+          "tc": 1868.2,
+          "bc": 1864.6
+        },
+        "prev_cpr": {
           "pivot": 1824.53,
           "tc": 1831.42,
           "bc": 1817.65
         },
-        "prev_cpr": {
-          "pivot": 1796.1,
-          "tc": 1801.9,
-          "bc": 1790.3
-        },
         "inside": false,
-        "width_pct": 0.739
+        "width_pct": 0.193
       },
       "monthly": {
         "curr_cpr": {
@@ -1168,17 +1168,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1404.63,
+          "tc": 1405.65,
+          "bc": 1403.62
+        },
+        "prev_cpr": {
           "pivot": 1402.1,
           "tc": 1408.45,
           "bc": 1395.75
         },
-        "prev_cpr": {
-          "pivot": 1400.4,
-          "tc": 1412.75,
-          "bc": 1388.05
-        },
         "inside": true,
-        "width_pct": 0.905
+        "width_pct": 0.145
       },
       "monthly": {
         "curr_cpr": {
@@ -1235,17 +1235,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 357.23,
+          "tc": 359.25,
+          "bc": 355.22
+        },
+        "prev_cpr": {
           "pivot": 372.01,
           "tc": 378.26,
           "bc": 365.75
         },
-        "prev_cpr": {
-          "pivot": 382.76,
-          "tc": 384.77,
-          "bc": 380.74
-        },
         "inside": false,
-        "width_pct": 3.542
+        "width_pct": 1.141
       },
       "monthly": {
         "curr_cpr": {
@@ -1302,17 +1302,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 421.67,
+          "tc": 426.78,
+          "bc": 416.55
+        },
+        "prev_cpr": {
           "pivot": 408.8,
           "tc": 412.15,
           "bc": 405.45
         },
-        "prev_cpr": {
-          "pivot": 380.45,
-          "tc": 385.38,
-          "bc": 375.53
-        },
         "inside": false,
-        "width_pct": 1.551
+        "width_pct": 2.369
       },
       "monthly": {
         "curr_cpr": {
@@ -1369,17 +1369,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 176.3,
+          "tc": 176.94,
+          "bc": 175.65
+        },
+        "prev_cpr": {
           "pivot": 180.31,
           "tc": 180.56,
           "bc": 180.07
         },
-        "prev_cpr": {
-          "pivot": 183.29,
-          "tc": 184.86,
-          "bc": 181.71
-        },
         "inside": false,
-        "width_pct": 0.28
+        "width_pct": 0.737
       },
       "monthly": {
         "curr_cpr": {
@@ -1418,7 +1418,7 @@
       "sector": "Oil & Gas",
       "fno": true,
       "price": 233.1,
-      "change": -2.88,
+      "change": -2.87,
       "volume": 36085563,
       "daily": {
         "curr_cpr": {
@@ -1436,17 +1436,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 237.65,
+          "tc": 239.93,
+          "bc": 235.38
+        },
+        "prev_cpr": {
           "pivot": 245.95,
           "tc": 246.1,
           "bc": 245.8
         },
-        "prev_cpr": {
-          "pivot": 251.93,
-          "tc": 254.8,
-          "bc": 249.07
-        },
         "inside": false,
-        "width_pct": 0.129
+        "width_pct": 1.952
       },
       "monthly": {
         "curr_cpr": {
@@ -1503,17 +1503,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 357.58,
+          "tc": 360.35,
+          "bc": 354.82
+        },
+        "prev_cpr": {
           "pivot": 360.25,
           "tc": 363.02,
           "bc": 357.48
         },
-        "prev_cpr": {
-          "pivot": 356.02,
-          "tc": 357.07,
-          "bc": 354.96
-        },
         "inside": false,
-        "width_pct": 1.574
+        "width_pct": 1.571
       },
       "monthly": {
         "curr_cpr": {
@@ -1570,17 +1570,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 287.4,
+          "tc": 289.15,
+          "bc": 285.65
+        },
+        "prev_cpr": {
           "pivot": 289.33,
           "tc": 290.79,
           "bc": 287.88
         },
-        "prev_cpr": {
-          "pivot": 286.82,
-          "tc": 287.82,
-          "bc": 285.81
-        },
         "inside": false,
-        "width_pct": 1.025
+        "width_pct": 1.233
       },
       "monthly": {
         "curr_cpr": {
@@ -1637,17 +1637,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 192.33,
+          "tc": 194.14,
+          "bc": 190.52
+        },
+        "prev_cpr": {
           "pivot": 197.74,
           "tc": 198.35,
           "bc": 197.13
         },
-        "prev_cpr": {
-          "pivot": 197.0,
-          "tc": 197.43,
-          "bc": 196.58
-        },
         "inside": false,
-        "width_pct": 0.646
+        "width_pct": 1.918
       },
       "monthly": {
         "curr_cpr": {
@@ -1704,17 +1704,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1437.87,
+          "tc": 1438.25,
+          "bc": 1437.48
+        },
+        "prev_cpr": {
           "pivot": 1410.13,
           "tc": 1410.4,
           "bc": 1409.87
         },
-        "prev_cpr": {
-          "pivot": 1457.53,
-          "tc": 1471.7,
-          "bc": 1443.37
-        },
         "inside": false,
-        "width_pct": 0.037
+        "width_pct": 0.054
       },
       "monthly": {
         "curr_cpr": {
@@ -1771,17 +1771,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1114.2,
+          "tc": 1120.95,
+          "bc": 1107.45
+        },
+        "prev_cpr": {
           "pivot": 1132.23,
           "tc": 1132.5,
           "bc": 1131.97
         },
-        "prev_cpr": {
-          "pivot": 1119.37,
-          "tc": 1124.25,
-          "bc": 1114.48
-        },
         "inside": false,
-        "width_pct": 0.048
+        "width_pct": 1.226
       },
       "monthly": {
         "curr_cpr": {
@@ -1838,17 +1838,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1328.23,
+          "tc": 1339.37,
+          "bc": 1317.1
+        },
+        "prev_cpr": {
           "pivot": 1276.4,
           "tc": 1278.55,
           "bc": 1274.25
         },
-        "prev_cpr": {
-          "pivot": 1276.83,
-          "tc": 1277.55,
-          "bc": 1276.12
-        },
         "inside": false,
-        "width_pct": 0.318
+        "width_pct": 1.649
       },
       "monthly": {
         "curr_cpr": {
@@ -1905,17 +1905,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 6763.33,
+          "tc": 6788.25,
+          "bc": 6738.42
+        },
+        "prev_cpr": {
           "pivot": 6703.0,
           "tc": 6723.0,
           "bc": 6683.0
         },
-        "prev_cpr": {
-          "pivot": 6653.0,
-          "tc": 6660.5,
-          "bc": 6645.5
-        },
         "inside": false,
-        "width_pct": 0.596
+        "width_pct": 0.742
       },
       "monthly": {
         "curr_cpr": {
@@ -1972,17 +1972,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1249.97,
+          "tc": 1259.45,
+          "bc": 1240.48
+        },
+        "prev_cpr": {
           "pivot": 1291.67,
           "tc": 1293.65,
           "bc": 1289.68
         },
-        "prev_cpr": {
-          "pivot": 1285.2,
-          "tc": 1291.4,
-          "bc": 1279.0
-        },
         "inside": false,
-        "width_pct": 0.323
+        "width_pct": 1.541
       },
       "monthly": {
         "curr_cpr": {
@@ -2039,17 +2039,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 3028.83,
+          "tc": 3033.42,
+          "bc": 3024.25
+        },
+        "prev_cpr": {
           "pivot": 3006.2,
           "tc": 3022.3,
           "bc": 2990.1
         },
-        "prev_cpr": {
-          "pivot": 2948.75,
-          "tc": 2962.32,
-          "bc": 2935.17
-        },
         "inside": false,
-        "width_pct": 1.06
+        "width_pct": 0.302
       },
       "monthly": {
         "curr_cpr": {
@@ -2106,17 +2106,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1772.2,
+          "tc": 1776.0,
+          "bc": 1768.4
+        },
+        "prev_cpr": {
           "pivot": 1760.4,
           "tc": 1764.9,
           "bc": 1755.9
         },
-        "prev_cpr": {
-          "pivot": 1676.5,
-          "tc": 1682.8,
-          "bc": 1670.2
-        },
         "inside": false,
-        "width_pct": 0.51
+        "width_pct": 0.431
       },
       "monthly": {
         "curr_cpr": {
@@ -2173,17 +2173,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 11476.33,
+          "tc": 11482.67,
+          "bc": 11470.0
+        },
+        "prev_cpr": {
           "pivot": 11389.0,
           "tc": 11400.0,
           "bc": 11378.0
         },
-        "prev_cpr": {
-          "pivot": 10992.33,
-          "tc": 11054.67,
-          "bc": 10930.0
-        },
         "inside": false,
-        "width_pct": 0.191
+        "width_pct": 0.11
       },
       "monthly": {
         "curr_cpr": {
@@ -2240,17 +2240,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 3136.53,
+          "tc": 3141.5,
+          "bc": 3131.57
+        },
+        "prev_cpr": {
           "pivot": 3152.9,
           "tc": 3154.6,
           "bc": 3151.2
         },
-        "prev_cpr": {
-          "pivot": 3090.8,
-          "tc": 3098.15,
-          "bc": 3083.45
-        },
         "inside": false,
-        "width_pct": 0.109
+        "width_pct": 0.318
       },
       "monthly": {
         "curr_cpr": {
@@ -2289,7 +2289,7 @@
       "sector": "Financial Services",
       "fno": true,
       "price": 918.95,
-      "change": -0.93,
+      "change": -0.77,
       "volume": 1469160,
       "daily": {
         "curr_cpr": {
@@ -2298,26 +2298,26 @@
           "bc": 921.37
         },
         "prev_cpr": {
-          "pivot": 920.55,
-          "tc": 924.08,
-          "bc": 917.02
+          "pivot": 919.06,
+          "tc": 922.58,
+          "bc": 915.54
         },
         "inside": false,
         "width_pct": 0.526
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 921.04,
+          "tc": 922.08,
+          "bc": 919.99
+        },
+        "prev_cpr": {
           "pivot": 938.86,
           "tc": 942.39,
           "bc": 935.34
         },
-        "prev_cpr": {
-          "pivot": 907.31,
-          "tc": 911.59,
-          "bc": 903.04
-        },
         "inside": false,
-        "width_pct": 0.767
+        "width_pct": 0.227
       },
       "monthly": {
         "curr_cpr": {
@@ -2374,17 +2374,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1423.9,
+          "tc": 1432.0,
+          "bc": 1415.8
+        },
+        "prev_cpr": {
           "pivot": 1363.6,
           "tc": 1369.5,
           "bc": 1357.7
         },
-        "prev_cpr": {
-          "pivot": 1388.5,
-          "tc": 1388.95,
-          "bc": 1388.05
-        },
         "inside": false,
-        "width_pct": 0.819
+        "width_pct": 1.125
       },
       "monthly": {
         "curr_cpr": {
@@ -2441,17 +2441,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 7613.33,
+          "tc": 7621.0,
+          "bc": 7605.67
+        },
+        "prev_cpr": {
           "pivot": 7519.67,
           "tc": 7565.33,
           "bc": 7474.0
         },
-        "prev_cpr": {
-          "pivot": 7207.5,
-          "tc": 7259.75,
-          "bc": 7155.25
-        },
         "inside": false,
-        "width_pct": 1.202
+        "width_pct": 0.202
       },
       "monthly": {
         "curr_cpr": {
@@ -2508,17 +2508,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 8573.33,
+          "tc": 8582.67,
+          "bc": 8564.0
+        },
+        "prev_cpr": {
           "pivot": 8468.5,
           "tc": 8479.0,
           "bc": 8458.0
         },
-        "prev_cpr": {
-          "pivot": 8444.33,
-          "tc": 8471.17,
-          "bc": 8417.5
-        },
         "inside": false,
-        "width_pct": 0.244
+        "width_pct": 0.217
       },
       "monthly": {
         "curr_cpr": {
@@ -2563,7 +2563,7 @@
         "curr_cpr": {
           "pivot": 313.2,
           "tc": 314.93,
-          "bc": 311.47
+          "bc": 311.48
         },
         "prev_cpr": {
           "pivot": 313.57,
@@ -2571,21 +2571,21 @@
           "bc": 312.5
         },
         "inside": false,
-        "width_pct": 1.117
+        "width_pct": 1.114
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 312.47,
+          "tc": 313.82,
+          "bc": 311.11
+        },
+        "prev_cpr": {
           "pivot": 311.1,
           "tc": 313.35,
           "bc": 308.85
         },
-        "prev_cpr": {
-          "pivot": 295.47,
-          "tc": 298.91,
-          "bc": 292.02
-        },
         "inside": false,
-        "width_pct": 1.453
+        "width_pct": 0.875
       },
       "monthly": {
         "curr_cpr": {
@@ -2642,17 +2642,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 440.57,
+          "tc": 443.15,
+          "bc": 437.98
+        },
+        "prev_cpr": {
           "pivot": 451.35,
           "tc": 451.38,
           "bc": 451.32
         },
-        "prev_cpr": {
-          "pivot": 451.25,
-          "tc": 455.12,
-          "bc": 447.38
-        },
-        "inside": true,
-        "width_pct": 0.014
+        "inside": false,
+        "width_pct": 1.187
       },
       "monthly": {
         "curr_cpr": {
@@ -2709,17 +2709,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 5240.67,
+          "tc": 5242.5,
+          "bc": 5238.83
+        },
+        "prev_cpr": {
           "pivot": 5207.5,
           "tc": 5213.75,
           "bc": 5201.25
         },
-        "prev_cpr": {
-          "pivot": 5144.67,
-          "tc": 5155.08,
-          "bc": 5134.25
-        },
         "inside": false,
-        "width_pct": 0.239
+        "width_pct": 0.07
       },
       "monthly": {
         "curr_cpr": {
@@ -2776,17 +2776,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1119.53,
+          "tc": 1125.42,
+          "bc": 1113.65
+        },
+        "prev_cpr": {
           "pivot": 1114.93,
           "tc": 1116.65,
           "bc": 1113.22
         },
-        "prev_cpr": {
-          "pivot": 1109.53,
-          "tc": 1113.95,
-          "bc": 1105.12
-        },
         "inside": false,
-        "width_pct": 0.303
+        "width_pct": 1.04
       },
       "monthly": {
         "curr_cpr": {
@@ -2843,17 +2843,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 4939.1,
+          "tc": 4960.6,
+          "bc": 4917.6
+        },
+        "prev_cpr": {
           "pivot": 4993.5,
           "tc": 5002.8,
           "bc": 4984.2
         },
-        "prev_cpr": {
-          "pivot": 4902.73,
-          "tc": 4932.67,
-          "bc": 4872.8
-        },
         "inside": false,
-        "width_pct": 0.38
+        "width_pct": 0.878
       },
       "monthly": {
         "curr_cpr": {
@@ -2910,17 +2910,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 973.83,
+          "tc": 984.15,
+          "bc": 963.52
+        },
+        "prev_cpr": {
           "pivot": 1006.57,
           "tc": 1008.28,
           "bc": 1004.85
         },
-        "prev_cpr": {
-          "pivot": 1039.8,
-          "tc": 1048.9,
-          "bc": 1030.7
-        },
         "inside": false,
-        "width_pct": 0.36
+        "width_pct": 2.164
       },
       "monthly": {
         "curr_cpr": {
@@ -2977,17 +2977,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1768.3,
+          "tc": 1780.0,
+          "bc": 1756.6
+        },
+        "prev_cpr": {
           "pivot": 1775.53,
           "tc": 1787.87,
           "bc": 1763.2
         },
-        "prev_cpr": {
-          "pivot": 1730.93,
-          "tc": 1743.4,
-          "bc": 1718.47
-        },
         "inside": false,
-        "width_pct": 1.414
+        "width_pct": 1.341
       },
       "monthly": {
         "curr_cpr": {
@@ -3044,17 +3044,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 591.18,
+          "tc": 594.05,
+          "bc": 588.32
+        },
+        "prev_cpr": {
           "pivot": 581.55,
           "tc": 586.7,
           "bc": 576.4
         },
-        "prev_cpr": {
-          "pivot": 555.1,
-          "tc": 555.97,
-          "bc": 554.24
-        },
         "inside": false,
-        "width_pct": 1.759
+        "width_pct": 0.979
       },
       "monthly": {
         "curr_cpr": {
@@ -3111,17 +3111,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 9947.67,
+          "tc": 10000.0,
+          "bc": 9895.33
+        },
+        "prev_cpr": {
           "pivot": 10048.67,
           "tc": 10057.33,
           "bc": 10040.0
         },
-        "prev_cpr": {
-          "pivot": 10109.67,
-          "tc": 10133.0,
-          "bc": 10086.33
-        },
         "inside": false,
-        "width_pct": 0.176
+        "width_pct": 1.063
       },
       "monthly": {
         "curr_cpr": {
@@ -3178,17 +3178,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 3138.57,
+          "tc": 3160.38,
+          "bc": 3116.75
+        },
+        "prev_cpr": {
           "pivot": 3100.27,
           "tc": 3113.0,
           "bc": 3087.53
         },
-        "prev_cpr": {
-          "pivot": 2997.77,
-          "tc": 3020.33,
-          "bc": 2975.2
-        },
         "inside": false,
-        "width_pct": 0.8
+        "width_pct": 1.371
       },
       "monthly": {
         "curr_cpr": {
@@ -3245,17 +3245,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1021.45,
+          "tc": 1026.63,
+          "bc": 1016.27
+        },
+        "prev_cpr": {
           "pivot": 1002.4,
           "tc": 1002.65,
           "bc": 1002.15
         },
-        "prev_cpr": {
-          "pivot": 931.05,
-          "tc": 943.0,
-          "bc": 919.1
-        },
         "inside": false,
-        "width_pct": 0.048
+        "width_pct": 1.004
       },
       "monthly": {
         "curr_cpr": {
@@ -3312,17 +3312,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 3220.8,
+          "tc": 3223.1,
+          "bc": 3218.5
+        },
+        "prev_cpr": {
           "pivot": 3071.97,
           "tc": 3138.88,
           "bc": 3005.05
         },
-        "prev_cpr": {
-          "pivot": 2757.55,
-          "tc": 2758.67,
-          "bc": 2756.42
-        },
         "inside": false,
-        "width_pct": 4.161
+        "width_pct": 0.143
       },
       "monthly": {
         "curr_cpr": {
@@ -3371,25 +3371,25 @@
         },
         "prev_cpr": {
           "pivot": 416.3,
-          "tc": 417.68,
-          "bc": 414.93
+          "tc": 417.67,
+          "bc": 414.92
         },
         "inside": false,
         "width_pct": 0.543
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 416.07,
+          "tc": 420.5,
+          "bc": 411.63
+        },
+        "prev_cpr": {
           "pivot": 421.5,
           "tc": 424.2,
           "bc": 418.8
         },
-        "prev_cpr": {
-          "pivot": 407.5,
-          "tc": 408.0,
-          "bc": 407.0
-        },
         "inside": false,
-        "width_pct": 1.326
+        "width_pct": 2.178
       },
       "monthly": {
         "curr_cpr": {
@@ -3433,7 +3433,7 @@
       "daily": {
         "curr_cpr": {
           "pivot": 204.28,
-          "tc": 205.55,
+          "tc": 205.54,
           "bc": 203.02
         },
         "prev_cpr": {
@@ -3442,21 +3442,21 @@
           "bc": 209.16
         },
         "inside": false,
-        "width_pct": 1.254
+        "width_pct": 1.249
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 204.49,
+          "tc": 205.86,
+          "bc": 203.13
+        },
+        "prev_cpr": {
           "pivot": 211.08,
           "tc": 212.57,
           "bc": 209.58
         },
-        "prev_cpr": {
-          "pivot": 202.35,
-          "tc": 203.48,
-          "bc": 201.22
-        },
         "inside": false,
-        "width_pct": 1.482
+        "width_pct": 1.353
       },
       "monthly": {
         "curr_cpr": {
@@ -3500,7 +3500,7 @@
       "daily": {
         "curr_cpr": {
           "pivot": 324.47,
-          "tc": 324.67,
+          "tc": 324.68,
           "bc": 324.26
         },
         "prev_cpr": {
@@ -3509,21 +3509,21 @@
           "bc": 322.6
         },
         "inside": false,
-        "width_pct": 0.127
+        "width_pct": 0.13
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 323.08,
+          "tc": 323.57,
+          "bc": 322.6
+        },
+        "prev_cpr": {
           "pivot": 320.53,
           "tc": 322.24,
           "bc": 318.82
         },
-        "prev_cpr": {
-          "pivot": 311.78,
-          "tc": 313.74,
-          "bc": 309.82
-        },
         "inside": false,
-        "width_pct": 1.055
+        "width_pct": 0.299
       },
       "monthly": {
         "curr_cpr": {
@@ -3580,17 +3580,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 79.61,
+          "tc": 79.81,
+          "bc": 79.42
+        },
+        "prev_cpr": {
           "pivot": 78.22,
           "tc": 78.45,
           "bc": 77.99
         },
-        "prev_cpr": {
-          "pivot": 75.0,
-          "tc": 75.75,
-          "bc": 74.24
-        },
         "inside": false,
-        "width_pct": 0.581
+        "width_pct": 0.492
       },
       "monthly": {
         "curr_cpr": {
@@ -3629,7 +3629,7 @@
       "sector": "Financial Services",
       "fno": true,
       "price": 1033.85,
-      "change": -3.13,
+      "change": -3.12,
       "volume": 2267362,
       "daily": {
         "curr_cpr": {
@@ -3647,17 +3647,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1044.68,
+          "tc": 1050.1,
+          "bc": 1039.27
+        },
+        "prev_cpr": {
           "pivot": 1033.02,
           "tc": 1033.03,
           "bc": 1033.0
         },
-        "prev_cpr": {
-          "pivot": 994.07,
-          "tc": 1004.78,
-          "bc": 983.35
-        },
         "inside": false,
-        "width_pct": 0.003
+        "width_pct": 1.048
       },
       "monthly": {
         "curr_cpr": {
@@ -3714,17 +3714,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 108.12,
+          "tc": 108.24,
+          "bc": 107.99
+        },
+        "prev_cpr": {
           "pivot": 108.62,
           "tc": 108.7,
           "bc": 108.55
         },
-        "prev_cpr": {
-          "pivot": 105.48,
-          "tc": 106.18,
-          "bc": 104.78
-        },
         "inside": false,
-        "width_pct": 0.139
+        "width_pct": 0.232
       },
       "monthly": {
         "curr_cpr": {
@@ -3781,17 +3781,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 280.12,
+          "tc": 280.6,
+          "bc": 279.63
+        },
+        "prev_cpr": {
           "pivot": 280.42,
           "tc": 280.73,
           "bc": 280.1
         },
-        "prev_cpr": {
-          "pivot": 269.62,
-          "tc": 272.18,
-          "bc": 267.05
-        },
         "inside": false,
-        "width_pct": 0.226
+        "width_pct": 0.347
       },
       "monthly": {
         "curr_cpr": {
@@ -3848,17 +3848,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2264.2,
+          "tc": 2264.6,
+          "bc": 2263.8
+        },
+        "prev_cpr": {
           "pivot": 2259.77,
           "tc": 2263.63,
           "bc": 2255.9
         },
-        "prev_cpr": {
-          "pivot": 2289.47,
-          "tc": 2299.0,
-          "bc": 2279.93
-        },
         "inside": false,
-        "width_pct": 0.342
+        "width_pct": 0.035
       },
       "monthly": {
         "curr_cpr": {
@@ -3915,17 +3915,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1494.97,
+          "tc": 1496.0,
+          "bc": 1493.93
+        },
+        "prev_cpr": {
           "pivot": 1446.37,
           "tc": 1454.83,
           "bc": 1437.9
         },
-        "prev_cpr": {
-          "pivot": 1390.13,
-          "tc": 1401.6,
-          "bc": 1378.67
-        },
         "inside": false,
-        "width_pct": 1.134
+        "width_pct": 0.139
       },
       "monthly": {
         "curr_cpr": {
@@ -3982,17 +3982,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 4860.33,
+          "tc": 4869.75,
+          "bc": 4850.92
+        },
+        "prev_cpr": {
           "pivot": 4845.33,
           "tc": 4853.5,
           "bc": 4837.17
         },
-        "prev_cpr": {
-          "pivot": 4896.17,
-          "tc": 4938.75,
-          "bc": 4853.58
-        },
         "inside": false,
-        "width_pct": 0.337
+        "width_pct": 0.389
       },
       "monthly": {
         "curr_cpr": {
@@ -4049,17 +4049,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 10541.17,
+          "tc": 10757.83,
+          "bc": 10324.5
+        },
+        "prev_cpr": {
           "pivot": 9487.0,
           "tc": 9562.75,
           "bc": 9411.25
         },
-        "prev_cpr": {
-          "pivot": 9459.17,
-          "tc": 9525.0,
-          "bc": 9393.33
-        },
         "inside": false,
-        "width_pct": 1.38
+        "width_pct": 3.949
       },
       "monthly": {
         "curr_cpr": {
@@ -4116,17 +4116,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 3326.5,
+          "tc": 3328.55,
+          "bc": 3324.45
+        },
+        "prev_cpr": {
           "pivot": 3370.33,
           "tc": 3389.9,
           "bc": 3350.77
         },
-        "prev_cpr": {
-          "pivot": 3317.03,
-          "tc": 3334.07,
-          "bc": 3300.0
-        },
         "inside": false,
-        "width_pct": 1.178
+        "width_pct": 0.123
       },
       "monthly": {
         "curr_cpr": {
@@ -4183,17 +4183,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1804.33,
+          "tc": 1808.5,
+          "bc": 1800.17
+        },
+        "prev_cpr": {
           "pivot": 1827.3,
           "tc": 1831.3,
           "bc": 1823.3
         },
-        "prev_cpr": {
-          "pivot": 1812.38,
-          "tc": 1812.64,
-          "bc": 1812.11
-        },
         "inside": false,
-        "width_pct": 0.445
+        "width_pct": 0.464
       },
       "monthly": {
         "curr_cpr": {
@@ -4242,7 +4242,7 @@
         },
         "prev_cpr": {
           "pivot": 230.77,
-          "tc": 231.27,
+          "tc": 231.28,
           "bc": 230.26
         },
         "inside": false,
@@ -4250,17 +4250,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 230.3,
+          "tc": 230.82,
+          "bc": 229.79
+        },
+        "prev_cpr": {
           "pivot": 228.2,
           "tc": 229.98,
           "bc": 226.42
         },
-        "prev_cpr": {
-          "pivot": 224.07,
-          "tc": 224.58,
-          "bc": 223.57
-        },
         "inside": false,
-        "width_pct": 1.553
+        "width_pct": 0.449
       },
       "monthly": {
         "curr_cpr": {
@@ -4317,17 +4317,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1523.37,
+          "tc": 1524.73,
+          "bc": 1522.0
+        },
+        "prev_cpr": {
           "pivot": 1495.23,
           "tc": 1498.82,
           "bc": 1491.65
         },
-        "prev_cpr": {
-          "pivot": 1493.63,
-          "tc": 1497.6,
-          "bc": 1489.67
-        },
         "inside": false,
-        "width_pct": 0.47
+        "width_pct": 0.179
       },
       "monthly": {
         "curr_cpr": {
@@ -4384,17 +4384,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 4404.27,
+          "tc": 4422.05,
+          "bc": 4386.48
+        },
+        "prev_cpr": {
           "pivot": 4365.23,
           "tc": 4386.67,
           "bc": 4343.8
         },
-        "prev_cpr": {
-          "pivot": 4220.7,
-          "tc": 4234.9,
-          "bc": 4206.5
-        },
         "inside": false,
-        "width_pct": 0.981
+        "width_pct": 0.814
       },
       "monthly": {
         "curr_cpr": {
@@ -4444,24 +4444,24 @@
         "prev_cpr": {
           "pivot": 238.88,
           "tc": 239.41,
-          "bc": 238.34
+          "bc": 238.35
         },
         "inside": false,
         "width_pct": 0.519
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 242.4,
+          "tc": 243.17,
+          "bc": 241.62
+        },
+        "prev_cpr": {
           "pivot": 244.79,
           "tc": 245.19,
           "bc": 244.39
         },
-        "prev_cpr": {
-          "pivot": 230.4,
-          "tc": 231.83,
-          "bc": 228.97
-        },
         "inside": false,
-        "width_pct": 0.332
+        "width_pct": 0.644
       },
       "monthly": {
         "curr_cpr": {
@@ -4518,17 +4518,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 94.66,
+          "tc": 96.1,
+          "bc": 93.21
+        },
+        "prev_cpr": {
           "pivot": 99.11,
           "tc": 99.31,
           "bc": 98.91
         },
-        "prev_cpr": {
-          "pivot": 95.52,
-          "tc": 95.7,
-          "bc": 95.33
-        },
         "inside": false,
-        "width_pct": 0.436
+        "width_pct": 3.149
       },
       "monthly": {
         "curr_cpr": {
@@ -4585,17 +4585,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 78.51,
+          "tc": 78.96,
+          "bc": 78.07
+        },
+        "prev_cpr": {
           "pivot": 75.4,
           "tc": 75.61,
           "bc": 75.2
         },
-        "prev_cpr": {
-          "pivot": 73.4,
-          "tc": 73.6,
-          "bc": 73.21
-        },
         "inside": false,
-        "width_pct": 0.516
+        "width_pct": 1.121
       },
       "monthly": {
         "curr_cpr": {
@@ -4652,17 +4652,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 363.77,
+          "tc": 364.21,
+          "bc": 363.32
+        },
+        "prev_cpr": {
           "pivot": 356.9,
           "tc": 357.68,
           "bc": 356.13
         },
-        "prev_cpr": {
-          "pivot": 346.18,
-          "tc": 347.12,
-          "bc": 345.25
-        },
         "inside": false,
-        "width_pct": 0.425
+        "width_pct": 0.244
       },
       "monthly": {
         "curr_cpr": {
@@ -4719,17 +4719,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 435.7,
+          "tc": 437.22,
+          "bc": 434.17
+        },
+        "prev_cpr": {
           "pivot": 430.1,
           "tc": 430.55,
           "bc": 429.65
         },
-        "prev_cpr": {
-          "pivot": 424.73,
-          "tc": 426.57,
-          "bc": 422.89
-        },
         "inside": false,
-        "width_pct": 0.208
+        "width_pct": 0.705
       },
       "monthly": {
         "curr_cpr": {
@@ -4769,7 +4769,7 @@
       "fno": true,
       "price": 239.43,
       "change": 0.23,
-      "volume": 8662126,
+      "volume": 8663156,
       "daily": {
         "curr_cpr": {
           "pivot": 239.95,
@@ -4786,17 +4786,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 240.38,
+          "tc": 240.85,
+          "bc": 239.9
+        },
+        "prev_cpr": {
           "pivot": 243.45,
           "tc": 243.95,
           "bc": 242.94
         },
-        "prev_cpr": {
-          "pivot": 233.13,
-          "tc": 234.51,
-          "bc": 231.75
-        },
         "inside": false,
-        "width_pct": 0.422
+        "width_pct": 0.397
       },
       "monthly": {
         "curr_cpr": {
@@ -4853,17 +4853,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 303.82,
+          "tc": 305.05,
+          "bc": 302.58
+        },
+        "prev_cpr": {
           "pivot": 292.1,
           "tc": 297.2,
           "bc": 287.0
         },
-        "prev_cpr": {
-          "pivot": 268.98,
-          "tc": 271.24,
-          "bc": 266.72
-        },
         "inside": false,
-        "width_pct": 3.385
+        "width_pct": 0.82
       },
       "monthly": {
         "curr_cpr": {
@@ -4920,17 +4920,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 4336.33,
+          "tc": 4357.2,
+          "bc": 4315.47
+        },
+        "prev_cpr": {
           "pivot": 4216.67,
           "tc": 4251.78,
           "bc": 4181.55
         },
-        "prev_cpr": {
-          "pivot": 4052.47,
-          "tc": 4081.9,
-          "bc": 4023.03
-        },
         "inside": false,
-        "width_pct": 1.635
+        "width_pct": 0.972
       },
       "monthly": {
         "curr_cpr": {
@@ -4979,7 +4979,7 @@
         },
         "prev_cpr": {
           "pivot": 515.73,
-          "tc": 515.97,
+          "tc": 515.98,
           "bc": 515.49
         },
         "inside": false,
@@ -4987,17 +4987,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 517.32,
+          "tc": 518.93,
+          "bc": 515.71
+        },
+        "prev_cpr": {
           "pivot": 522.15,
           "tc": 523.42,
           "bc": 520.87
         },
-        "prev_cpr": {
-          "pivot": 520.15,
-          "tc": 520.75,
-          "bc": 519.55
-        },
         "inside": false,
-        "width_pct": 0.496
+        "width_pct": 0.626
       },
       "monthly": {
         "curr_cpr": {
@@ -5054,17 +5054,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 993.32,
+          "tc": 1000.55,
+          "bc": 986.08
+        },
+        "prev_cpr": {
           "pivot": 989.42,
           "tc": 992.0,
           "bc": 986.83
         },
-        "prev_cpr": {
-          "pivot": 977.7,
-          "tc": 980.45,
-          "bc": 974.95
-        },
         "inside": false,
-        "width_pct": 0.528
+        "width_pct": 1.478
       },
       "monthly": {
         "curr_cpr": {
@@ -5121,17 +5121,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2667.87,
+          "tc": 2676.95,
+          "bc": 2658.78
+        },
+        "prev_cpr": {
           "pivot": 2651.0,
           "tc": 2685.0,
           "bc": 2617.0
         },
-        "prev_cpr": {
-          "pivot": 2449.03,
-          "tc": 2452.47,
-          "bc": 2445.6
-        },
-        "inside": false,
-        "width_pct": 2.566
+        "inside": true,
+        "width_pct": 0.686
       },
       "monthly": {
         "curr_cpr": {
@@ -5188,17 +5188,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1838.7,
+          "tc": 1851.25,
+          "bc": 1826.15
+        },
+        "prev_cpr": {
           "pivot": 1823.07,
           "tc": 1846.58,
           "bc": 1799.55
         },
-        "prev_cpr": {
-          "pivot": 1723.3,
-          "tc": 1737.1,
-          "bc": 1709.5
-        },
         "inside": false,
-        "width_pct": 2.593
+        "width_pct": 1.384
       },
       "monthly": {
         "curr_cpr": {
@@ -5247,7 +5247,7 @@
         },
         "prev_cpr": {
           "pivot": 496.8,
-          "tc": 497.02,
+          "tc": 497.03,
           "bc": 496.58
         },
         "inside": false,
@@ -5255,17 +5255,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 498.28,
+          "tc": 501.9,
+          "bc": 494.67
+        },
+        "prev_cpr": {
           "pivot": 499.95,
           "tc": 500.12,
           "bc": 499.78
         },
-        "prev_cpr": {
-          "pivot": 470.13,
-          "tc": 471.12,
-          "bc": 469.14
-        },
         "inside": false,
-        "width_pct": 0.069
+        "width_pct": 1.472
       },
       "monthly": {
         "curr_cpr": {
@@ -5322,17 +5322,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 621.35,
+          "tc": 623.1,
+          "bc": 619.6
+        },
+        "prev_cpr": {
           "pivot": 614.62,
           "tc": 615.76,
           "bc": 613.48
         },
-        "prev_cpr": {
-          "pivot": 582.13,
-          "tc": 585.79,
-          "bc": 578.48
-        },
         "inside": false,
-        "width_pct": 0.365
+        "width_pct": 0.56
       },
       "monthly": {
         "curr_cpr": {
@@ -5377,29 +5377,29 @@
         "curr_cpr": {
           "pivot": 576.68,
           "tc": 576.89,
-          "bc": 576.47
+          "bc": 576.48
         },
         "prev_cpr": {
           "pivot": 578.65,
           "tc": 580.83,
           "bc": 576.47
         },
-        "inside": false,
-        "width_pct": 0.073
+        "inside": true,
+        "width_pct": 0.071
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 581.18,
+          "tc": 583.23,
+          "bc": 579.14
+        },
+        "prev_cpr": {
           "pivot": 565.35,
           "tc": 572.8,
           "bc": 557.9
         },
-        "prev_cpr": {
-          "pivot": 522.53,
-          "tc": 524.0,
-          "bc": 521.07
-        },
         "inside": false,
-        "width_pct": 2.582
+        "width_pct": 0.709
       },
       "monthly": {
         "curr_cpr": {
@@ -5456,17 +5456,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1644.33,
+          "tc": 1660.8,
+          "bc": 1627.87
+        },
+        "prev_cpr": {
           "pivot": 1653.73,
           "tc": 1661.52,
           "bc": 1645.95
         },
-        "prev_cpr": {
-          "pivot": 1584.7,
-          "tc": 1587.55,
-          "bc": 1581.85
-        },
         "inside": false,
-        "width_pct": 0.966
+        "width_pct": 2.044
       },
       "monthly": {
         "curr_cpr": {
@@ -5523,17 +5523,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 174.54,
+          "tc": 175.38,
+          "bc": 173.69
+        },
+        "prev_cpr": {
           "pivot": 174.74,
           "tc": 175.15,
           "bc": 174.32
         },
-        "prev_cpr": {
-          "pivot": 168.9,
-          "tc": 169.7,
-          "bc": 168.1
-        },
         "inside": false,
-        "width_pct": 0.48
+        "width_pct": 0.978
       },
       "monthly": {
         "curr_cpr": {
@@ -5590,17 +5590,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 144.98,
+          "tc": 145.52,
+          "bc": 144.43
+        },
+        "prev_cpr": {
           "pivot": 144.86,
           "tc": 145.57,
           "bc": 144.14
         },
-        "prev_cpr": {
-          "pivot": 138.65,
-          "tc": 139.79,
-          "bc": 137.5
-        },
-        "inside": false,
-        "width_pct": 0.994
+        "inside": true,
+        "width_pct": 0.758
       },
       "monthly": {
         "curr_cpr": {
@@ -5657,17 +5657,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 407.08,
+          "tc": 408.17,
+          "bc": 406.0
+        },
+        "prev_cpr": {
           "pivot": 397.53,
           "tc": 400.25,
           "bc": 394.82
         },
-        "prev_cpr": {
-          "pivot": 380.37,
-          "tc": 384.63,
-          "bc": 376.1
-        },
         "inside": false,
-        "width_pct": 1.327
+        "width_pct": 0.53
       },
       "monthly": {
         "curr_cpr": {
@@ -5716,7 +5716,7 @@
         },
         "prev_cpr": {
           "pivot": 497.8,
-          "tc": 500.03,
+          "tc": 500.02,
           "bc": 495.57
         },
         "inside": false,
@@ -5724,17 +5724,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 497.12,
+          "tc": 499.97,
+          "bc": 494.26
+        },
+        "prev_cpr": {
           "pivot": 514.75,
           "tc": 516.55,
           "bc": 512.95
         },
-        "prev_cpr": {
-          "pivot": 509.9,
-          "tc": 509.95,
-          "bc": 509.85
-        },
         "inside": false,
-        "width_pct": 0.733
+        "width_pct": 1.162
       },
       "monthly": {
         "curr_cpr": {
@@ -5778,7 +5778,7 @@
       "daily": {
         "curr_cpr": {
           "pivot": 522.0,
-          "tc": 523.98,
+          "tc": 523.97,
           "bc": 520.02
         },
         "prev_cpr": {
@@ -5787,21 +5787,21 @@
           "bc": 541.05
         },
         "inside": false,
-        "width_pct": 0.764
+        "width_pct": 0.762
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 537.02,
+          "tc": 546.5,
+          "bc": 527.53
+        },
+        "prev_cpr": {
           "pivot": 565.15,
           "tc": 565.95,
           "bc": 564.35
         },
-        "prev_cpr": {
-          "pivot": 555.7,
-          "tc": 557.8,
-          "bc": 553.6
-        },
         "inside": false,
-        "width_pct": 0.309
+        "width_pct": 3.662
       },
       "monthly": {
         "curr_cpr": {
@@ -5858,17 +5858,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 86.01,
+          "tc": 86.55,
+          "bc": 85.48
+        },
+        "prev_cpr": {
           "pivot": 89.16,
           "tc": 89.53,
           "bc": 88.79
         },
-        "prev_cpr": {
-          "pivot": 90.13,
-          "tc": 90.53,
-          "bc": 89.73
-        },
         "inside": false,
-        "width_pct": 0.871
+        "width_pct": 1.26
       },
       "monthly": {
         "curr_cpr": {
@@ -5912,7 +5912,7 @@
       "daily": {
         "curr_cpr": {
           "pivot": 170.8,
-          "tc": 170.81,
+          "tc": 170.8,
           "bc": 170.79
         },
         "prev_cpr": {
@@ -5921,21 +5921,21 @@
           "bc": 169.84
         },
         "inside": true,
-        "width_pct": 0.012
+        "width_pct": 0.006
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 172.31,
+          "tc": 173.07,
+          "bc": 171.55
+        },
+        "prev_cpr": {
           "pivot": 181.86,
           "tc": 182.77,
           "bc": 180.96
         },
-        "prev_cpr": {
-          "pivot": 183.59,
-          "tc": 183.84,
-          "bc": 183.34
-        },
         "inside": false,
-        "width_pct": 1.06
+        "width_pct": 0.89
       },
       "monthly": {
         "curr_cpr": {
@@ -5992,17 +5992,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 283.88,
+          "tc": 289.1,
+          "bc": 278.67
+        },
+        "prev_cpr": {
           "pivot": 304.95,
           "tc": 307.03,
           "bc": 302.87
         },
-        "prev_cpr": {
-          "pivot": 305.75,
-          "tc": 307.7,
-          "bc": 303.8
-        },
         "inside": false,
-        "width_pct": 1.521
+        "width_pct": 3.814
       },
       "monthly": {
         "curr_cpr": {
@@ -6059,17 +6059,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1088.6,
+          "tc": 1103.15,
+          "bc": 1074.05
+        },
+        "prev_cpr": {
           "pivot": 1142.23,
           "tc": 1144.5,
           "bc": 1139.97
         },
-        "prev_cpr": {
-          "pivot": 1146.63,
-          "tc": 1147.57,
-          "bc": 1145.7
-        },
         "inside": false,
-        "width_pct": 0.428
+        "width_pct": 2.747
       },
       "monthly": {
         "curr_cpr": {
@@ -6126,17 +6126,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 347.75,
+          "tc": 355.55,
+          "bc": 339.95
+        },
+        "prev_cpr": {
           "pivot": 373.8,
           "tc": 374.9,
           "bc": 372.7
         },
-        "prev_cpr": {
-          "pivot": 378.25,
-          "tc": 378.95,
-          "bc": 377.55
-        },
         "inside": false,
-        "width_pct": 0.662
+        "width_pct": 4.697
       },
       "monthly": {
         "curr_cpr": {
@@ -6181,7 +6181,7 @@
         "curr_cpr": {
           "pivot": 426.05,
           "tc": 427.12,
-          "bc": 424.98
+          "bc": 424.97
         },
         "prev_cpr": {
           "pivot": 422.2,
@@ -6189,21 +6189,21 @@
           "bc": 421.25
         },
         "inside": false,
-        "width_pct": 0.505
+        "width_pct": 0.507
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 424.27,
+          "tc": 424.45,
+          "bc": 424.08
+        },
+        "prev_cpr": {
           "pivot": 427.47,
           "tc": 429.45,
           "bc": 425.48
         },
-        "prev_cpr": {
-          "pivot": 427.77,
-          "tc": 428.45,
-          "bc": 427.08
-        },
         "inside": false,
-        "width_pct": 0.937
+        "width_pct": 0.087
       },
       "monthly": {
         "curr_cpr": {
@@ -6260,17 +6260,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 821.9,
+          "tc": 823.85,
+          "bc": 819.95
+        },
+        "prev_cpr": {
           "pivot": 814.68,
           "tc": 815.87,
           "bc": 813.5
         },
-        "prev_cpr": {
-          "pivot": 817.42,
-          "tc": 818.23,
-          "bc": 816.6
-        },
         "inside": false,
-        "width_pct": 0.287
+        "width_pct": 0.472
       },
       "monthly": {
         "curr_cpr": {
@@ -6327,17 +6327,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1990.23,
+          "tc": 1991.62,
+          "bc": 1988.85
+        },
+        "prev_cpr": {
           "pivot": 2041.43,
           "tc": 2063.25,
           "bc": 2019.62
         },
-        "prev_cpr": {
-          "pivot": 2050.6,
-          "tc": 2064.8,
-          "bc": 2036.4
-        },
         "inside": false,
-        "width_pct": 2.189
+        "width_pct": 0.139
       },
       "monthly": {
         "curr_cpr": {
@@ -6394,17 +6394,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1024.8,
+          "tc": 1029.7,
+          "bc": 1019.9
+        },
+        "prev_cpr": {
           "pivot": 1017.37,
           "tc": 1025.75,
           "bc": 1008.98
         },
-        "prev_cpr": {
-          "pivot": 1017.87,
-          "tc": 1025.58,
-          "bc": 1010.15
-        },
         "inside": false,
-        "width_pct": 1.621
+        "width_pct": 0.947
       },
       "monthly": {
         "curr_cpr": {
@@ -6461,17 +6461,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 394.48,
+          "tc": 397.25,
+          "bc": 391.72
+        },
+        "prev_cpr": {
           "pivot": 398.7,
           "tc": 399.28,
           "bc": 398.11
         },
-        "prev_cpr": {
-          "pivot": 394.44,
-          "tc": 396.1,
-          "bc": 392.78
-        },
         "inside": false,
-        "width_pct": 0.301
+        "width_pct": 1.422
       },
       "monthly": {
         "curr_cpr": {
@@ -6528,17 +6528,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 748.28,
+          "tc": 749.33,
+          "bc": 747.24
+        },
+        "prev_cpr": {
           "pivot": 735.48,
           "tc": 738.65,
           "bc": 732.32
         },
-        "prev_cpr": {
-          "pivot": 735.38,
-          "tc": 740.66,
-          "bc": 730.09
-        },
-        "inside": true,
-        "width_pct": 0.848
+        "inside": false,
+        "width_pct": 0.28
       },
       "monthly": {
         "curr_cpr": {
@@ -6595,17 +6595,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2026.67,
+          "tc": 2044.05,
+          "bc": 2009.28
+        },
+        "prev_cpr": {
           "pivot": 1959.49,
           "tc": 1974.14,
           "bc": 1944.83
         },
-        "prev_cpr": {
-          "pivot": 1922.25,
-          "tc": 1935.57,
-          "bc": 1908.94
-        },
         "inside": false,
-        "width_pct": 1.471
+        "width_pct": 1.746
       },
       "monthly": {
         "curr_cpr": {
@@ -6662,17 +6662,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 4059.57,
+          "tc": 4075.2,
+          "bc": 4043.93
+        },
+        "prev_cpr": {
           "pivot": 4049.53,
           "tc": 4057.52,
           "bc": 4041.55
         },
-        "prev_cpr": {
-          "pivot": 4090.38,
-          "tc": 4103.11,
-          "bc": 4077.64
-        },
         "inside": false,
-        "width_pct": 0.396
+        "width_pct": 0.776
       },
       "monthly": {
         "curr_cpr": {
@@ -6729,17 +6729,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2358.07,
+          "tc": 2365.35,
+          "bc": 2350.78
+        },
+        "prev_cpr": {
           "pivot": 2320.33,
           "tc": 2335.97,
           "bc": 2304.7
         },
-        "prev_cpr": {
-          "pivot": 2274.2,
-          "tc": 2283.75,
-          "bc": 2264.65
-        },
         "inside": false,
-        "width_pct": 1.334
+        "width_pct": 0.622
       },
       "monthly": {
         "curr_cpr": {
@@ -6796,17 +6796,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 4486.67,
+          "tc": 4501.43,
+          "bc": 4471.9
+        },
+        "prev_cpr": {
           "pivot": 4481.53,
           "tc": 4507.4,
           "bc": 4455.67
         },
-        "prev_cpr": {
-          "pivot": 4529.07,
-          "tc": 4550.13,
-          "bc": 4508.0
-        },
-        "inside": false,
-        "width_pct": 1.145
+        "inside": true,
+        "width_pct": 0.654
       },
       "monthly": {
         "curr_cpr": {
@@ -6863,17 +6863,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1097.33,
+          "tc": 1099.37,
+          "bc": 1095.3
+        },
+        "prev_cpr": {
           "pivot": 1078.9,
           "tc": 1082.95,
           "bc": 1074.85
         },
-        "prev_cpr": {
-          "pivot": 1100.23,
-          "tc": 1102.47,
-          "bc": 1098.0
-        },
         "inside": false,
-        "width_pct": 0.735
+        "width_pct": 0.37
       },
       "monthly": {
         "curr_cpr": {
@@ -6912,7 +6912,7 @@
       "sector": "Healthcare",
       "fno": true,
       "price": 436.5,
-      "change": -1.46,
+      "change": -1.18,
       "volume": 880472,
       "daily": {
         "curr_cpr": {
@@ -6921,26 +6921,26 @@
           "bc": 438.0
         },
         "prev_cpr": {
-          "pivot": 440.95,
-          "tc": 441.95,
-          "bc": 439.95
+          "pivot": 439.71,
+          "tc": 440.7,
+          "bc": 438.71
         },
         "inside": false,
         "width_pct": 0.687
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 440.88,
+          "tc": 443.07,
+          "bc": 438.69
+        },
+        "prev_cpr": {
           "pivot": 445.69,
           "tc": 448.78,
           "bc": 442.6
         },
-        "prev_cpr": {
-          "pivot": 449.81,
-          "tc": 453.53,
-          "bc": 446.09
-        },
         "inside": false,
-        "width_pct": 1.416
+        "width_pct": 1.003
       },
       "monthly": {
         "curr_cpr": {
@@ -6997,17 +6997,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2288.07,
+          "tc": 2301.43,
+          "bc": 2274.7
+        },
+        "prev_cpr": {
           "pivot": 2226.67,
           "tc": 2240.5,
           "bc": 2212.83
         },
-        "prev_cpr": {
-          "pivot": 2290.87,
-          "tc": 2305.2,
-          "bc": 2276.53
-        },
         "inside": false,
-        "width_pct": 1.195
+        "width_pct": 1.155
       },
       "monthly": {
         "curr_cpr": {
@@ -7064,17 +7064,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 964.27,
+          "tc": 969.0,
+          "bc": 959.53
+        },
+        "prev_cpr": {
           "pivot": 969.25,
           "tc": 972.4,
           "bc": 966.1
         },
-        "prev_cpr": {
-          "pivot": 984.87,
-          "tc": 987.61,
-          "bc": 982.12
-        },
         "inside": false,
-        "width_pct": 0.66
+        "width_pct": 0.992
       },
       "monthly": {
         "curr_cpr": {
@@ -7131,17 +7131,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 420.47,
+          "tc": 422.62,
+          "bc": 418.31
+        },
+        "prev_cpr": {
           "pivot": 415.27,
           "tc": 415.38,
           "bc": 415.15
         },
-        "prev_cpr": {
-          "pivot": 415.65,
-          "tc": 417.32,
-          "bc": 413.97
-        },
-        "inside": true,
-        "width_pct": 0.055
+        "inside": false,
+        "width_pct": 1.036
       },
       "monthly": {
         "curr_cpr": {
@@ -7198,17 +7198,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1532.23,
+          "tc": 1543.72,
+          "bc": 1520.75
+        },
+        "prev_cpr": {
           "pivot": 1463.97,
           "tc": 1480.88,
           "bc": 1447.05
         },
-        "prev_cpr": {
-          "pivot": 1463.63,
-          "tc": 1468.22,
-          "bc": 1459.05
-        },
         "inside": false,
-        "width_pct": 2.175
+        "width_pct": 1.477
       },
       "monthly": {
         "curr_cpr": {
@@ -7258,24 +7258,24 @@
         "prev_cpr": {
           "pivot": 616.73,
           "tc": 617.44,
-          "bc": 616.02
+          "bc": 616.03
         },
         "inside": false,
         "width_pct": 0.486
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 622.38,
+          "tc": 622.9,
+          "bc": 621.87
+        },
+        "prev_cpr": {
           "pivot": 622.27,
           "tc": 623.38,
           "bc": 621.15
         },
-        "prev_cpr": {
-          "pivot": 577.25,
-          "tc": 582.15,
-          "bc": 572.35
-        },
-        "inside": false,
-        "width_pct": 0.359
+        "inside": true,
+        "width_pct": 0.166
       },
       "monthly": {
         "curr_cpr": {
@@ -7332,17 +7332,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1838.2,
+          "tc": 1844.4,
+          "bc": 1832.0
+        },
+        "prev_cpr": {
           "pivot": 1781.27,
           "tc": 1788.58,
           "bc": 1773.95
         },
-        "prev_cpr": {
-          "pivot": 1666.13,
-          "tc": 1678.77,
-          "bc": 1653.5
-        },
         "inside": false,
-        "width_pct": 0.791
+        "width_pct": 0.67
       },
       "monthly": {
         "curr_cpr": {
@@ -7399,17 +7399,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1718.93,
+          "tc": 1719.67,
+          "bc": 1718.2
+        },
+        "prev_cpr": {
           "pivot": 1710.25,
           "tc": 1711.22,
           "bc": 1709.29
         },
-        "prev_cpr": {
-          "pivot": 1644.88,
-          "tc": 1649.62,
-          "bc": 1640.14
-        },
         "inside": false,
-        "width_pct": 0.112
+        "width_pct": 0.085
       },
       "monthly": {
         "curr_cpr": {
@@ -7466,17 +7466,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 25611.67,
+          "tc": 25673.33,
+          "bc": 25550.0
+        },
+        "prev_cpr": {
           "pivot": 25031.67,
           "tc": 25053.33,
           "bc": 25010.0
         },
-        "prev_cpr": {
-          "pivot": 23926.67,
-          "tc": 24050.83,
-          "bc": 23802.5
-        },
         "inside": false,
-        "width_pct": 0.168
+        "width_pct": 0.479
       },
       "monthly": {
         "curr_cpr": {
@@ -7520,7 +7520,7 @@
       "daily": {
         "curr_cpr": {
           "pivot": 426.87,
-          "tc": 428.43,
+          "tc": 428.42,
           "bc": 425.31
         },
         "prev_cpr": {
@@ -7529,21 +7529,21 @@
           "bc": 421.57
         },
         "inside": false,
-        "width_pct": 0.736
+        "width_pct": 0.734
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 424.02,
+          "tc": 424.15,
+          "bc": 423.88
+        },
+        "prev_cpr": {
           "pivot": 427.22,
           "tc": 428.85,
           "bc": 425.58
         },
-        "prev_cpr": {
-          "pivot": 417.32,
-          "tc": 420.21,
-          "bc": 414.43
-        },
         "inside": false,
-        "width_pct": 0.772
+        "width_pct": 0.064
       },
       "monthly": {
         "curr_cpr": {
@@ -7600,17 +7600,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1343.53,
+          "tc": 1346.35,
+          "bc": 1340.72
+        },
+        "prev_cpr": {
           "pivot": 1352.53,
           "tc": 1357.15,
           "bc": 1347.92
         },
-        "prev_cpr": {
-          "pivot": 1323.31,
-          "tc": 1329.96,
-          "bc": 1316.67
-        },
         "inside": false,
-        "width_pct": 0.69
+        "width_pct": 0.421
       },
       "monthly": {
         "curr_cpr": {
@@ -7667,17 +7667,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 3661.9,
+          "tc": 3678.9,
+          "bc": 3644.9
+        },
+        "prev_cpr": {
           "pivot": 3706.13,
           "tc": 3732.87,
           "bc": 3679.4
         },
-        "prev_cpr": {
-          "pivot": 3581.87,
-          "tc": 3588.0,
-          "bc": 3575.73
-        },
         "inside": false,
-        "width_pct": 1.474
+        "width_pct": 0.937
       },
       "monthly": {
         "curr_cpr": {
@@ -7734,17 +7734,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 7072.83,
+          "tc": 7112.75,
+          "bc": 7032.92
+        },
+        "prev_cpr": {
           "pivot": 7124.33,
           "tc": 7186.17,
           "bc": 7062.5
         },
-        "prev_cpr": {
-          "pivot": 6851.0,
-          "tc": 6891.25,
-          "bc": 6810.75
-        },
         "inside": false,
-        "width_pct": 1.768
+        "width_pct": 1.142
       },
       "monthly": {
         "curr_cpr": {
@@ -7801,17 +7801,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 9724.5,
+          "tc": 9821.25,
+          "bc": 9627.75
+        },
+        "prev_cpr": {
           "pivot": 9877.75,
           "tc": 9980.38,
           "bc": 9775.13
         },
-        "prev_cpr": {
-          "pivot": 9490.14,
-          "tc": 9499.51,
-          "bc": 9480.77
-        },
         "inside": false,
-        "width_pct": 2.153
+        "width_pct": 2.03
       },
       "monthly": {
         "curr_cpr": {
@@ -7868,17 +7868,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 407.03,
+          "tc": 409.2,
+          "bc": 404.87
+        },
+        "prev_cpr": {
           "pivot": 406.37,
           "tc": 410.36,
           "bc": 402.38
         },
-        "prev_cpr": {
-          "pivot": 381.25,
-          "tc": 382.5,
-          "bc": 380.0
-        },
-        "inside": false,
-        "width_pct": 1.982
+        "inside": true,
+        "width_pct": 1.075
       },
       "monthly": {
         "curr_cpr": {
@@ -7935,17 +7935,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 5671.83,
+          "tc": 5686.75,
+          "bc": 5656.92
+        },
+        "prev_cpr": {
           "pivot": 5801.0,
           "tc": 5833.0,
           "bc": 5769.0
         },
-        "prev_cpr": {
-          "pivot": 5634.33,
-          "tc": 5640.75,
-          "bc": 5627.92
-        },
         "inside": false,
-        "width_pct": 1.134
+        "width_pct": 0.529
       },
       "monthly": {
         "curr_cpr": {
@@ -7994,7 +7994,7 @@
         },
         "prev_cpr": {
           "pivot": 153.78,
-          "tc": 154.34,
+          "tc": 154.35,
           "bc": 153.22
         },
         "inside": false,
@@ -8002,17 +8002,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 157.73,
+          "tc": 159.2,
+          "bc": 156.25
+        },
+        "prev_cpr": {
           "pivot": 157.69,
           "tc": 158.21,
           "bc": 157.18
         },
-        "prev_cpr": {
-          "pivot": 147.98,
-          "tc": 150.21,
-          "bc": 145.74
-        },
         "inside": false,
-        "width_pct": 0.641
+        "width_pct": 1.836
       },
       "monthly": {
         "curr_cpr": {
@@ -8069,17 +8069,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2932.33,
+          "tc": 2941.02,
+          "bc": 2923.65
+        },
+        "prev_cpr": {
           "pivot": 2836.3,
           "tc": 2843.85,
           "bc": 2828.75
         },
-        "prev_cpr": {
-          "pivot": 2767.2,
-          "tc": 2770.1,
-          "bc": 2764.3
-        },
         "inside": false,
-        "width_pct": 0.512
+        "width_pct": 0.589
       },
       "monthly": {
         "curr_cpr": {
@@ -8136,17 +8136,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2118.17,
+          "tc": 2131.73,
+          "bc": 2104.6
+        },
+        "prev_cpr": {
           "pivot": 2018.57,
           "tc": 2029.98,
           "bc": 2007.15
         },
-        "prev_cpr": {
-          "pivot": 1934.93,
-          "tc": 1940.02,
-          "bc": 1929.85
-        },
         "inside": false,
-        "width_pct": 1.064
+        "width_pct": 1.265
       },
       "monthly": {
         "curr_cpr": {
@@ -8203,17 +8203,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2240.2,
+          "tc": 2243.5,
+          "bc": 2236.9
+        },
+        "prev_cpr": {
           "pivot": 2187.57,
           "tc": 2215.63,
           "bc": 2159.5
         },
-        "prev_cpr": {
-          "pivot": 2054.37,
-          "tc": 2075.0,
-          "bc": 2033.73
-        },
         "inside": false,
-        "width_pct": 2.513
+        "width_pct": 0.295
       },
       "monthly": {
         "curr_cpr": {
@@ -8270,17 +8270,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 429.48,
+          "tc": 430.07,
+          "bc": 428.9
+        },
+        "prev_cpr": {
           "pivot": 424.87,
           "tc": 425.18,
           "bc": 424.55
         },
-        "prev_cpr": {
-          "pivot": 390.57,
-          "tc": 393.43,
-          "bc": 387.7
-        },
         "inside": false,
-        "width_pct": 0.146
+        "width_pct": 0.272
       },
       "monthly": {
         "curr_cpr": {
@@ -8337,17 +8337,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 130360.0,
+          "tc": 130765.0,
+          "bc": 129955.0
+        },
+        "prev_cpr": {
           "pivot": 129148.33,
           "tc": 129400.0,
           "bc": 128896.67
         },
-        "prev_cpr": {
-          "pivot": 124421.67,
-          "tc": 124968.33,
-          "bc": 123875.0
-        },
         "inside": false,
-        "width_pct": 0.389
+        "width_pct": 0.625
       },
       "monthly": {
         "curr_cpr": {
@@ -8404,17 +8404,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 3515.9,
+          "tc": 3542.8,
+          "bc": 3489.0
+        },
+        "prev_cpr": {
           "pivot": 3419.2,
           "tc": 3431.05,
           "bc": 3407.35
         },
-        "prev_cpr": {
-          "pivot": 3319.87,
-          "tc": 3323.4,
-          "bc": 3316.33
-        },
         "inside": false,
-        "width_pct": 0.664
+        "width_pct": 1.507
       },
       "monthly": {
         "curr_cpr": {
@@ -8471,17 +8471,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 40631.67,
+          "tc": 40727.5,
+          "bc": 40535.83
+        },
+        "prev_cpr": {
           "pivot": 39855.0,
           "tc": 40025.0,
           "bc": 39685.0
         },
-        "prev_cpr": {
-          "pivot": 38281.67,
-          "tc": 38670.83,
-          "bc": 37892.5
-        },
         "inside": false,
-        "width_pct": 0.841
+        "width_pct": 0.474
       },
       "monthly": {
         "curr_cpr": {
@@ -8538,17 +8538,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 3090.27,
+          "tc": 3122.6,
+          "bc": 3057.93
+        },
+        "prev_cpr": {
           "pivot": 3139.97,
           "tc": 3146.9,
           "bc": 3133.03
         },
-        "prev_cpr": {
-          "pivot": 2992.9,
-          "tc": 3017.55,
-          "bc": 2968.25
-        },
         "inside": false,
-        "width_pct": 0.458
+        "width_pct": 2.137
       },
       "monthly": {
         "curr_cpr": {
@@ -8605,17 +8605,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 319.58,
+          "tc": 320.12,
+          "bc": 319.04
+        },
+        "prev_cpr": {
           "pivot": 315.67,
           "tc": 317.16,
           "bc": 314.18
         },
-        "prev_cpr": {
-          "pivot": 298.75,
-          "tc": 301.98,
-          "bc": 295.52
-        },
         "inside": false,
-        "width_pct": 0.936
+        "width_pct": 0.339
       },
       "monthly": {
         "curr_cpr": {
@@ -8672,17 +8672,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1770.23,
+          "tc": 1784.72,
+          "bc": 1755.75
+        },
+        "prev_cpr": {
           "pivot": 1668.27,
           "tc": 1680.83,
           "bc": 1655.7
         },
-        "prev_cpr": {
-          "pivot": 1531.67,
-          "tc": 1549.88,
-          "bc": 1513.45
-        },
         "inside": false,
-        "width_pct": 1.397
+        "width_pct": 1.61
       },
       "monthly": {
         "curr_cpr": {
@@ -8726,8 +8726,8 @@
       "daily": {
         "curr_cpr": {
           "pivot": 323.4,
-          "tc": 325.98,
-          "bc": 320.82
+          "tc": 325.97,
+          "bc": 320.83
         },
         "prev_cpr": {
           "pivot": 304.58,
@@ -8735,21 +8735,21 @@
           "bc": 301.45
         },
         "inside": false,
-        "width_pct": 1.571
+        "width_pct": 1.564
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 316.07,
+          "tc": 322.31,
+          "bc": 309.83
+        },
+        "prev_cpr": {
           "pivot": 295.88,
           "tc": 296.77,
           "bc": 294.99
         },
-        "prev_cpr": {
-          "pivot": 285.77,
-          "tc": 288.41,
-          "bc": 283.12
-        },
         "inside": false,
-        "width_pct": 0.542
+        "width_pct": 3.799
       },
       "monthly": {
         "curr_cpr": {
@@ -8779,7 +8779,7 @@
       "virgin_cpr": {
         "is_virgin": true,
         "position": "above",
-        "dist_pct": 0.78
+        "dist_pct": 0.79
       }
     },
     {
@@ -8798,7 +8798,7 @@
         },
         "prev_cpr": {
           "pivot": 130.17,
-          "tc": 130.19,
+          "tc": 130.18,
           "bc": 130.16
         },
         "inside": false,
@@ -8806,17 +8806,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 130.78,
+          "tc": 131.7,
+          "bc": 129.87
+        },
+        "prev_cpr": {
           "pivot": 133.9,
           "tc": 133.99,
           "bc": 133.82
         },
-        "prev_cpr": {
-          "pivot": 130.65,
-          "tc": 131.16,
-          "bc": 130.14
-        },
         "inside": false,
-        "width_pct": 0.132
+        "width_pct": 1.419
       },
       "monthly": {
         "curr_cpr": {
@@ -8860,7 +8860,7 @@
       "daily": {
         "curr_cpr": {
           "pivot": 145.0,
-          "tc": 145.13,
+          "tc": 145.14,
           "bc": 144.86
         },
         "prev_cpr": {
@@ -8869,21 +8869,21 @@
           "bc": 144.28
         },
         "inside": false,
-        "width_pct": 0.187
+        "width_pct": 0.193
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 145.1,
+          "tc": 145.29,
+          "bc": 144.91
+        },
+        "prev_cpr": {
           "pivot": 147.23,
           "tc": 147.56,
           "bc": 146.9
         },
-        "prev_cpr": {
-          "pivot": 144.65,
-          "tc": 145.17,
-          "bc": 144.14
-        },
         "inside": false,
-        "width_pct": 0.456
+        "width_pct": 0.263
       },
       "monthly": {
         "curr_cpr": {
@@ -8940,17 +8940,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 175.17,
+          "tc": 175.4,
+          "bc": 174.94
+        },
+        "prev_cpr": {
           "pivot": 173.97,
           "tc": 174.86,
           "bc": 173.07
         },
-        "prev_cpr": {
-          "pivot": 167.98,
-          "tc": 169.01,
-          "bc": 166.94
-        },
         "inside": false,
-        "width_pct": 1.025
+        "width_pct": 0.263
       },
       "monthly": {
         "curr_cpr": {
@@ -9007,17 +9007,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 125.48,
+          "tc": 125.71,
+          "bc": 125.24
+        },
+        "prev_cpr": {
           "pivot": 123.54,
           "tc": 123.92,
           "bc": 123.16
         },
-        "prev_cpr": {
-          "pivot": 119.85,
-          "tc": 120.34,
-          "bc": 119.35
-        },
         "inside": false,
-        "width_pct": 0.608
+        "width_pct": 0.376
       },
       "monthly": {
         "curr_cpr": {
@@ -9074,17 +9074,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2838.83,
+          "tc": 2842.4,
+          "bc": 2835.27
+        },
+        "prev_cpr": {
           "pivot": 2825.17,
           "tc": 2835.85,
           "bc": 2814.48
         },
-        "prev_cpr": {
-          "pivot": 2825.0,
-          "tc": 2839.0,
-          "bc": 2811.0
-        },
-        "inside": true,
-        "width_pct": 0.755
+        "inside": false,
+        "width_pct": 0.252
       },
       "monthly": {
         "curr_cpr": {
@@ -9141,17 +9141,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 3930.37,
+          "tc": 3959.5,
+          "bc": 3901.23
+        },
+        "prev_cpr": {
           "pivot": 4067.03,
           "tc": 4090.45,
           "bc": 4043.62
         },
-        "prev_cpr": {
-          "pivot": 3960.47,
-          "tc": 4000.78,
-          "bc": 3920.15
-        },
         "inside": false,
-        "width_pct": 1.209
+        "width_pct": 1.505
       },
       "monthly": {
         "curr_cpr": {
@@ -9208,17 +9208,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1342.57,
+          "tc": 1355.35,
+          "bc": 1329.78
+        },
+        "prev_cpr": {
           "pivot": 1338.07,
           "tc": 1354.18,
           "bc": 1321.95
         },
-        "prev_cpr": {
-          "pivot": 1213.77,
-          "tc": 1220.83,
-          "bc": 1206.7
-        },
         "inside": false,
-        "width_pct": 2.447
+        "width_pct": 1.942
       },
       "monthly": {
         "curr_cpr": {
@@ -9275,17 +9275,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 342.05,
+          "tc": 345.45,
+          "bc": 338.65
+        },
+        "prev_cpr": {
           "pivot": 352.33,
           "tc": 353.02,
           "bc": 351.65
         },
-        "prev_cpr": {
-          "pivot": 333.82,
-          "tc": 336.66,
-          "bc": 330.97
-        },
         "inside": false,
-        "width_pct": 0.409
+        "width_pct": 2.028
       },
       "monthly": {
         "curr_cpr": {
@@ -9342,17 +9342,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 373.67,
+          "tc": 374.98,
+          "bc": 372.36
+        },
+        "prev_cpr": {
           "pivot": 374.37,
           "tc": 376.61,
           "bc": 372.12
         },
-        "prev_cpr": {
-          "pivot": 359.2,
-          "tc": 362.53,
-          "bc": 355.88
-        },
-        "inside": false,
-        "width_pct": 1.21
+        "inside": true,
+        "width_pct": 0.706
       },
       "monthly": {
         "curr_cpr": {
@@ -9409,17 +9409,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2735.73,
+          "tc": 2737.15,
+          "bc": 2734.32
+        },
+        "prev_cpr": {
           "pivot": 2715.0,
           "tc": 2717.6,
           "bc": 2712.4
         },
-        "prev_cpr": {
-          "pivot": 2702.73,
-          "tc": 2722.87,
-          "bc": 2682.6
-        },
-        "inside": true,
-        "width_pct": 0.19
+        "inside": false,
+        "width_pct": 0.104
       },
       "monthly": {
         "curr_cpr": {
@@ -9476,17 +9476,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1642.47,
+          "tc": 1652.5,
+          "bc": 1632.43
+        },
+        "prev_cpr": {
           "pivot": 1653.1,
           "tc": 1657.45,
           "bc": 1648.75
         },
-        "prev_cpr": {
-          "pivot": 1659.97,
-          "tc": 1664.93,
-          "bc": 1655.0
-        },
         "inside": false,
-        "width_pct": 0.536
+        "width_pct": 1.237
       },
       "monthly": {
         "curr_cpr": {
@@ -9543,17 +9543,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2732.53,
+          "tc": 2756.35,
+          "bc": 2708.72
+        },
+        "prev_cpr": {
           "pivot": 2835.73,
           "tc": 2851.8,
           "bc": 2819.67
         },
-        "prev_cpr": {
-          "pivot": 2795.03,
-          "tc": 2818.37,
-          "bc": 2771.7
-        },
         "inside": false,
-        "width_pct": 1.197
+        "width_pct": 1.774
       },
       "monthly": {
         "curr_cpr": {
@@ -9610,17 +9610,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 3883.03,
+          "tc": 3896.12,
+          "bc": 3869.95
+        },
+        "prev_cpr": {
           "pivot": 3795.8,
           "tc": 3817.85,
           "bc": 3773.75
         },
-        "prev_cpr": {
-          "pivot": 3603.67,
-          "tc": 3629.48,
-          "bc": 3577.85
-        },
         "inside": false,
-        "width_pct": 1.128
+        "width_pct": 0.669
       },
       "monthly": {
         "curr_cpr": {
@@ -9677,17 +9677,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 474.02,
+          "tc": 478.0,
+          "bc": 470.03
+        },
+        "prev_cpr": {
           "pivot": 479.13,
           "tc": 481.82,
           "bc": 476.45
         },
-        "prev_cpr": {
-          "pivot": 439.85,
-          "tc": 440.23,
-          "bc": 439.48
-        },
         "inside": false,
-        "width_pct": 1.152
+        "width_pct": 1.71
       },
       "monthly": {
         "curr_cpr": {
@@ -9744,17 +9744,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 597.43,
+          "tc": 600.9,
+          "bc": 593.97
+        },
+        "prev_cpr": {
           "pivot": 613.22,
           "tc": 615.5,
           "bc": 610.93
         },
-        "prev_cpr": {
-          "pivot": 612.85,
-          "tc": 614.23,
-          "bc": 611.47
-        },
         "inside": false,
-        "width_pct": 0.774
+        "width_pct": 1.174
       },
       "monthly": {
         "curr_cpr": {
@@ -9811,17 +9811,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 12126.33,
+          "tc": 12183.0,
+          "bc": 12069.67
+        },
+        "prev_cpr": {
           "pivot": 12367.67,
           "tc": 12442.33,
           "bc": 12293.0
         },
-        "prev_cpr": {
-          "pivot": 11575.0,
-          "tc": 11589.5,
-          "bc": 11560.5
-        },
         "inside": false,
-        "width_pct": 1.243
+        "width_pct": 0.943
       },
       "monthly": {
         "curr_cpr": {
@@ -9878,17 +9878,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1336.8,
+          "tc": 1354.0,
+          "bc": 1319.6
+        },
+        "prev_cpr": {
           "pivot": 1342.07,
           "tc": 1342.73,
           "bc": 1341.4
         },
-        "prev_cpr": {
-          "pivot": 1291.02,
-          "tc": 1293.84,
-          "bc": 1288.21
-        },
         "inside": false,
-        "width_pct": 0.102
+        "width_pct": 2.641
       },
       "monthly": {
         "curr_cpr": {
@@ -9932,7 +9932,7 @@
       "daily": {
         "curr_cpr": {
           "pivot": 275.82,
-          "tc": 276.08,
+          "tc": 276.07,
           "bc": 275.56
         },
         "prev_cpr": {
@@ -9941,21 +9941,21 @@
           "bc": 273.38
         },
         "inside": false,
-        "width_pct": 0.189
+        "width_pct": 0.185
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 275.6,
+          "tc": 275.75,
+          "bc": 275.45
+        },
+        "prev_cpr": {
           "pivot": 270.95,
           "tc": 273.1,
           "bc": 268.8
         },
-        "prev_cpr": {
-          "pivot": 257.57,
-          "tc": 258.25,
-          "bc": 256.88
-        },
         "inside": false,
-        "width_pct": 1.562
+        "width_pct": 0.109
       },
       "monthly": {
         "curr_cpr": {
@@ -10012,17 +10012,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 40685.0,
+          "tc": 40817.5,
+          "bc": 40552.5
+        },
+        "prev_cpr": {
           "pivot": 39776.67,
           "tc": 39875.83,
           "bc": 39677.5
         },
-        "prev_cpr": {
-          "pivot": 38513.33,
-          "tc": 38569.17,
-          "bc": 38457.5
-        },
         "inside": false,
-        "width_pct": 0.484
+        "width_pct": 0.647
       },
       "monthly": {
         "curr_cpr": {
@@ -10079,17 +10079,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1194.17,
+          "tc": 1195.38,
+          "bc": 1192.95
+        },
+        "prev_cpr": {
           "pivot": 1146.43,
           "tc": 1158.42,
           "bc": 1134.45
         },
-        "prev_cpr": {
-          "pivot": 1080.8,
-          "tc": 1081.55,
-          "bc": 1080.05
-        },
         "inside": false,
-        "width_pct": 2.003
+        "width_pct": 0.203
       },
       "monthly": {
         "curr_cpr": {
@@ -10146,17 +10146,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1999.5,
+          "tc": 2021.55,
+          "bc": 1977.45
+        },
+        "prev_cpr": {
           "pivot": 2056.16,
           "tc": 2072.78,
           "bc": 2039.54
         },
-        "prev_cpr": {
-          "pivot": 1943.77,
-          "tc": 1951.79,
-          "bc": 1935.75
-        },
         "inside": false,
-        "width_pct": 1.7
+        "width_pct": 2.255
       },
       "monthly": {
         "curr_cpr": {
@@ -10206,24 +10206,24 @@
         "prev_cpr": {
           "pivot": 473.43,
           "tc": 473.69,
-          "bc": 473.17
+          "bc": 473.18
         },
         "inside": false,
         "width_pct": 0.724
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 474.3,
+          "tc": 476.55,
+          "bc": 472.05
+        },
+        "prev_cpr": {
           "pivot": 466.2,
           "tc": 468.98,
           "bc": 463.43
         },
-        "prev_cpr": {
-          "pivot": 447.28,
-          "tc": 448.74,
-          "bc": 445.83
-        },
         "inside": false,
-        "width_pct": 1.181
+        "width_pct": 0.958
       },
       "monthly": {
         "curr_cpr": {
@@ -10280,17 +10280,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 400.48,
+          "tc": 403.95,
+          "bc": 397.02
+        },
+        "prev_cpr": {
           "pivot": 415.57,
           "tc": 417.75,
           "bc": 413.38
         },
-        "prev_cpr": {
-          "pivot": 420.6,
-          "tc": 420.9,
-          "bc": 420.3
-        },
         "inside": false,
-        "width_pct": 1.11
+        "width_pct": 1.761
       },
       "monthly": {
         "curr_cpr": {
@@ -10347,17 +10347,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1199.57,
+          "tc": 1212.05,
+          "bc": 1187.08
+        },
+        "prev_cpr": {
           "pivot": 1182.63,
           "tc": 1195.82,
           "bc": 1169.45
         },
-        "prev_cpr": {
-          "pivot": 1081.13,
-          "tc": 1088.02,
-          "bc": 1074.25
-        },
         "inside": false,
-        "width_pct": 2.245
+        "width_pct": 2.126
       },
       "monthly": {
         "curr_cpr": {
@@ -10406,25 +10406,25 @@
         },
         "prev_cpr": {
           "pivot": 287.4,
-          "tc": 287.63,
-          "bc": 287.18
+          "tc": 287.62,
+          "bc": 287.17
         },
         "inside": false,
         "width_pct": 0.889
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 284.8,
+          "tc": 286.07,
+          "bc": 283.52
+        },
+        "prev_cpr": {
           "pivot": 287.68,
           "tc": 288.19,
           "bc": 287.18
         },
-        "prev_cpr": {
-          "pivot": 269.37,
-          "tc": 272.06,
-          "bc": 266.69
-        },
         "inside": false,
-        "width_pct": 0.358
+        "width_pct": 0.903
       },
       "monthly": {
         "curr_cpr": {
@@ -10481,17 +10481,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 427.4,
+          "tc": 429.5,
+          "bc": 425.3
+        },
+        "prev_cpr": {
           "pivot": 423.02,
           "tc": 425.02,
           "bc": 421.01
         },
-        "prev_cpr": {
-          "pivot": 420.15,
-          "tc": 420.55,
-          "bc": 419.75
-        },
         "inside": false,
-        "width_pct": 0.948
+        "width_pct": 0.992
       },
       "monthly": {
         "curr_cpr": {
@@ -10535,7 +10535,7 @@
       "daily": {
         "curr_cpr": {
           "pivot": 723.73,
-          "tc": 725.28,
+          "tc": 725.27,
           "bc": 722.19
         },
         "prev_cpr": {
@@ -10544,21 +10544,21 @@
           "bc": 725.79
         },
         "inside": false,
-        "width_pct": 0.429
+        "width_pct": 0.427
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 724.96,
+          "tc": 727.11,
+          "bc": 722.8
+        },
+        "prev_cpr": {
           "pivot": 709.72,
           "tc": 715.63,
           "bc": 703.82
         },
-        "prev_cpr": {
-          "pivot": 666.03,
-          "tc": 671.24,
-          "bc": 660.83
-        },
         "inside": false,
-        "width_pct": 1.639
+        "width_pct": 0.598
       },
       "monthly": {
         "curr_cpr": {
@@ -10615,17 +10615,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 883.4,
+          "tc": 884.83,
+          "bc": 881.98
+        },
+        "prev_cpr": {
           "pivot": 875.15,
           "tc": 883.2,
           "bc": 867.1
         },
-        "prev_cpr": {
-          "pivot": 867.38,
-          "tc": 872.67,
-          "bc": 862.1
-        },
         "inside": false,
-        "width_pct": 1.817
+        "width_pct": 0.322
       },
       "monthly": {
         "curr_cpr": {
@@ -10675,24 +10675,24 @@
         "prev_cpr": {
           "pivot": 753.77,
           "tc": 754.56,
-          "bc": 752.97
+          "bc": 752.98
         },
         "inside": false,
         "width_pct": 0.74
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 749.85,
+          "tc": 751.25,
+          "bc": 748.45
+        },
+        "prev_cpr": {
           "pivot": 751.95,
           "tc": 754.58,
           "bc": 749.33
         },
-        "prev_cpr": {
-          "pivot": 750.13,
-          "tc": 753.68,
-          "bc": 746.59
-        },
         "inside": false,
-        "width_pct": 0.703
+        "width_pct": 0.375
       },
       "monthly": {
         "curr_cpr": {
@@ -10749,17 +10749,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1451.03,
+          "tc": 1451.55,
+          "bc": 1450.52
+        },
+        "prev_cpr": {
           "pivot": 1393.47,
           "tc": 1403.18,
           "bc": 1383.75
         },
-        "prev_cpr": {
-          "pivot": 1408.37,
-          "tc": 1415.4,
-          "bc": 1401.33
-        },
         "inside": false,
-        "width_pct": 1.34
+        "width_pct": 0.071
       },
       "monthly": {
         "curr_cpr": {
@@ -10798,7 +10798,7 @@
       "sector": "Healthcare",
       "fno": false,
       "price": 1689.2,
-      "change": 1.76,
+      "change": 2.0,
       "volume": 262380,
       "daily": {
         "curr_cpr": {
@@ -10807,26 +10807,26 @@
           "bc": 1679.3
         },
         "prev_cpr": {
-          "pivot": 1661.63,
-          "tc": 1662.45,
-          "bc": 1660.82
+          "pivot": 1657.63,
+          "tc": 1658.44,
+          "bc": 1656.81
         },
         "inside": false,
         "width_pct": 0.391
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1674.62,
+          "tc": 1681.91,
+          "bc": 1667.32
+        },
+        "prev_cpr": {
           "pivot": 1668.64,
           "tc": 1687.03,
           "bc": 1650.25
         },
-        "prev_cpr": {
-          "pivot": 1574.73,
-          "tc": 1586.19,
-          "bc": 1563.27
-        },
-        "inside": false,
-        "width_pct": 2.177
+        "inside": true,
+        "width_pct": 0.864
       },
       "monthly": {
         "curr_cpr": {
@@ -10883,17 +10883,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 941.0,
+          "tc": 941.55,
+          "bc": 940.45
+        },
+        "prev_cpr": {
           "pivot": 950.05,
           "tc": 956.88,
           "bc": 943.23
         },
-        "prev_cpr": {
-          "pivot": 916.08,
-          "tc": 916.9,
-          "bc": 915.27
-        },
         "inside": false,
-        "width_pct": 1.449
+        "width_pct": 0.117
       },
       "monthly": {
         "curr_cpr": {
@@ -10950,17 +10950,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1514.73,
+          "tc": 1528.65,
+          "bc": 1500.82
+        },
+        "prev_cpr": {
           "pivot": 1547.8,
           "tc": 1550.65,
           "bc": 1544.95
         },
-        "prev_cpr": {
-          "pivot": 1516.03,
-          "tc": 1519.75,
-          "bc": 1512.32
-        },
         "inside": false,
-        "width_pct": 0.383
+        "width_pct": 1.872
       },
       "monthly": {
         "curr_cpr": {
@@ -11017,17 +11017,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2002.1,
+          "tc": 2002.95,
+          "bc": 2001.25
+        },
+        "prev_cpr": {
           "pivot": 2004.4,
           "tc": 2009.8,
           "bc": 1999.0
         },
-        "prev_cpr": {
-          "pivot": 1851.9,
-          "tc": 1884.3,
-          "bc": 1819.5
-        },
-        "inside": false,
-        "width_pct": 0.54
+        "inside": true,
+        "width_pct": 0.085
       },
       "monthly": {
         "curr_cpr": {
@@ -11084,17 +11084,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 886.67,
+          "tc": 886.9,
+          "bc": 886.43
+        },
+        "prev_cpr": {
           "pivot": 878.77,
           "tc": 882.06,
           "bc": 875.48
         },
-        "prev_cpr": {
-          "pivot": 840.38,
-          "tc": 851.34,
-          "bc": 829.43
-        },
         "inside": false,
-        "width_pct": 0.742
+        "width_pct": 0.053
       },
       "monthly": {
         "curr_cpr": {
@@ -11151,17 +11151,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 809.73,
+          "tc": 815.45,
+          "bc": 804.02
+        },
+        "prev_cpr": {
           "pivot": 809.05,
           "tc": 816.1,
           "bc": 802.0
         },
-        "prev_cpr": {
-          "pivot": 745.85,
-          "tc": 751.7,
-          "bc": 740.0
-        },
-        "inside": false,
-        "width_pct": 1.766
+        "inside": true,
+        "width_pct": 1.432
       },
       "monthly": {
         "curr_cpr": {
@@ -11218,17 +11218,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2490.13,
+          "tc": 2504.05,
+          "bc": 2476.22
+        },
+        "prev_cpr": {
           "pivot": 2394.97,
           "tc": 2404.58,
           "bc": 2385.35
         },
-        "prev_cpr": {
-          "pivot": 2366.37,
-          "tc": 2373.73,
-          "bc": 2359.0
-        },
         "inside": false,
-        "width_pct": 0.781
+        "width_pct": 1.13
       },
       "monthly": {
         "curr_cpr": {
@@ -11285,17 +11285,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1642.27,
+          "tc": 1655.8,
+          "bc": 1628.73
+        },
+        "prev_cpr": {
           "pivot": 1611.07,
           "tc": 1623.88,
           "bc": 1598.25
         },
-        "prev_cpr": {
-          "pivot": 1526.0,
-          "tc": 1536.9,
-          "bc": 1515.1
-        },
         "inside": false,
-        "width_pct": 1.587
+        "width_pct": 1.676
       },
       "monthly": {
         "curr_cpr": {
@@ -11352,17 +11352,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2501.57,
+          "tc": 2516.1,
+          "bc": 2487.03
+        },
+        "prev_cpr": {
           "pivot": 2507.57,
           "tc": 2513.13,
           "bc": 2502.0
         },
-        "prev_cpr": {
-          "pivot": 2391.73,
-          "tc": 2400.92,
-          "bc": 2382.55
-        },
         "inside": false,
-        "width_pct": 0.45
+        "width_pct": 1.176
       },
       "monthly": {
         "curr_cpr": {
@@ -11419,17 +11419,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 16367.67,
+          "tc": 16540.5,
+          "bc": 16194.83
+        },
+        "prev_cpr": {
           "pivot": 16113.0,
           "tc": 16196.5,
           "bc": 16029.5
         },
-        "prev_cpr": {
-          "pivot": 14589.67,
-          "tc": 14905.33,
-          "bc": 14274.0
-        },
         "inside": false,
-        "width_pct": 1.042
+        "width_pct": 2.157
       },
       "monthly": {
         "curr_cpr": {
@@ -11486,17 +11486,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 3276.93,
+          "tc": 3283.05,
+          "bc": 3270.82
+        },
+        "prev_cpr": {
           "pivot": 3240.77,
           "tc": 3246.93,
           "bc": 3234.6
         },
-        "prev_cpr": {
-          "pivot": 3068.2,
-          "tc": 3072.55,
-          "bc": 3063.85
-        },
         "inside": false,
-        "width_pct": 0.378
+        "width_pct": 0.375
       },
       "monthly": {
         "curr_cpr": {
@@ -11553,17 +11553,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 750.2,
+          "tc": 751.12,
+          "bc": 749.27
+        },
+        "prev_cpr": {
           "pivot": 747.39,
           "tc": 749.96,
           "bc": 744.82
         },
-        "prev_cpr": {
-          "pivot": 745.5,
-          "tc": 747.5,
-          "bc": 743.51
-        },
         "inside": false,
-        "width_pct": 0.687
+        "width_pct": 0.247
       },
       "monthly": {
         "curr_cpr": {
@@ -11620,17 +11620,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1746.17,
+          "tc": 1747.38,
+          "bc": 1744.95
+        },
+        "prev_cpr": {
           "pivot": 1711.47,
           "tc": 1725.53,
           "bc": 1697.4
         },
-        "prev_cpr": {
-          "pivot": 1561.9,
-          "tc": 1575.0,
-          "bc": 1548.8
-        },
         "inside": false,
-        "width_pct": 1.609
+        "width_pct": 0.139
       },
       "monthly": {
         "curr_cpr": {
@@ -11680,24 +11680,24 @@
         "prev_cpr": {
           "pivot": 244.65,
           "tc": 244.88,
-          "bc": 244.43
+          "bc": 244.42
         },
         "inside": false,
         "width_pct": 0.636
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 246.22,
+          "tc": 248.95,
+          "bc": 243.48
+        },
+        "prev_cpr": {
           "pivot": 258.68,
           "tc": 261.0,
           "bc": 256.37
         },
-        "prev_cpr": {
-          "pivot": 246.35,
-          "tc": 248.12,
-          "bc": 244.58
-        },
         "inside": false,
-        "width_pct": 1.923
+        "width_pct": 2.272
       },
       "monthly": {
         "curr_cpr": {
@@ -11741,7 +11741,7 @@
       "daily": {
         "curr_cpr": {
           "pivot": 332.08,
-          "tc": 333.18,
+          "tc": 333.17,
           "bc": 330.99
         },
         "prev_cpr": {
@@ -11750,21 +11750,21 @@
           "bc": 329.98
         },
         "inside": true,
-        "width_pct": 0.664
+        "width_pct": 0.661
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 324.45,
+          "tc": 327.17,
+          "bc": 321.73
+        },
+        "prev_cpr": {
           "pivot": 303.58,
           "tc": 305.86,
           "bc": 301.29
         },
-        "prev_cpr": {
-          "pivot": 283.36,
-          "tc": 286.74,
-          "bc": 279.98
-        },
         "inside": false,
-        "width_pct": 1.385
+        "width_pct": 1.649
       },
       "monthly": {
         "curr_cpr": {
@@ -11821,17 +11821,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 472.12,
+          "tc": 475.78,
+          "bc": 468.46
+        },
+        "prev_cpr": {
           "pivot": 456.45,
           "tc": 458.78,
           "bc": 454.12
         },
-        "prev_cpr": {
-          "pivot": 437.87,
-          "tc": 439.18,
-          "bc": 436.55
-        },
         "inside": false,
-        "width_pct": 1.003
+        "width_pct": 1.575
       },
       "monthly": {
         "curr_cpr": {
@@ -11888,17 +11888,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1753.37,
+          "tc": 1754.9,
+          "bc": 1751.83
+        },
+        "prev_cpr": {
           "pivot": 1744.47,
           "tc": 1744.53,
           "bc": 1744.4
         },
-        "prev_cpr": {
-          "pivot": 1630.93,
-          "tc": 1658.97,
-          "bc": 1602.9
-        },
         "inside": false,
-        "width_pct": 0.007
+        "width_pct": 0.175
       },
       "monthly": {
         "curr_cpr": {
@@ -11955,17 +11955,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 329.52,
+          "tc": 332.5,
+          "bc": 326.53
+        },
+        "prev_cpr": {
           "pivot": 345.03,
           "tc": 347.35,
           "bc": 342.72
         },
-        "prev_cpr": {
-          "pivot": 341.12,
-          "tc": 342.5,
-          "bc": 339.73
-        },
         "inside": false,
-        "width_pct": 1.431
+        "width_pct": 1.845
       },
       "monthly": {
         "curr_cpr": {
@@ -12010,7 +12010,7 @@
         "curr_cpr": {
           "pivot": 2.92,
           "tc": 2.95,
-          "bc": 2.9
+          "bc": 2.89
         },
         "prev_cpr": {
           "pivot": 2.85,
@@ -12018,21 +12018,21 @@
           "bc": 2.84
         },
         "inside": false,
-        "width_pct": 1.678
+        "width_pct": 2.013
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2.94,
+          "tc": 2.96,
+          "bc": 2.92
+        },
+        "prev_cpr": {
           "pivot": 2.97,
           "tc": 2.97,
           "bc": 2.96
         },
-        "prev_cpr": {
-          "pivot": 2.96,
-          "tc": 2.97,
-          "bc": 2.96
-        },
         "inside": false,
-        "width_pct": 0.336
+        "width_pct": 1.342
       },
       "monthly": {
         "curr_cpr": {
@@ -12089,17 +12089,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1967.23,
+          "tc": 1968.32,
+          "bc": 1966.15
+        },
+        "prev_cpr": {
           "pivot": 1996.43,
           "tc": 2008.05,
           "bc": 1984.82
         },
-        "prev_cpr": {
-          "pivot": 1950.3,
-          "tc": 1970.2,
-          "bc": 1930.4
-        },
         "inside": false,
-        "width_pct": 1.18
+        "width_pct": 0.11
       },
       "monthly": {
         "curr_cpr": {
@@ -12148,7 +12148,7 @@
         },
         "prev_cpr": {
           "pivot": 391.05,
-          "tc": 392.93,
+          "tc": 392.92,
           "bc": 389.18
         },
         "inside": false,
@@ -12156,17 +12156,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 388.4,
+          "tc": 389.6,
+          "bc": 387.2
+        },
+        "prev_cpr": {
           "pivot": 372.1,
           "tc": 374.0,
           "bc": 370.2
         },
-        "prev_cpr": {
-          "pivot": 350.73,
-          "tc": 354.42,
-          "bc": 347.05
-        },
         "inside": false,
-        "width_pct": 0.972
+        "width_pct": 0.614
       },
       "monthly": {
         "curr_cpr": {
@@ -12205,7 +12205,7 @@
       "sector": "Chemicals",
       "fno": true,
       "price": 1788.7,
-      "change": 0.4,
+      "change": 0.97,
       "volume": 28526,
       "daily": {
         "curr_cpr": {
@@ -12214,26 +12214,26 @@
           "bc": 1787.5
         },
         "prev_cpr": {
-          "pivot": 1793.87,
-          "tc": 1800.05,
-          "bc": 1787.68
+          "pivot": 1783.8,
+          "tc": 1789.95,
+          "bc": 1777.65
         },
-        "inside": false,
+        "inside": true,
         "width_pct": 0.045
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1812.73,
+          "tc": 1824.75,
+          "bc": 1800.72
+        },
+        "prev_cpr": {
           "pivot": 1817.44,
           "tc": 1826.24,
           "bc": 1808.64
         },
-        "prev_cpr": {
-          "pivot": 1797.95,
-          "tc": 1809.73,
-          "bc": 1786.17
-        },
         "inside": false,
-        "width_pct": 0.984
+        "width_pct": 1.343
       },
       "monthly": {
         "curr_cpr": {
@@ -12290,17 +12290,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1820.03,
+          "tc": 1833.3,
+          "bc": 1806.77
+        },
+        "prev_cpr": {
           "pivot": 1855.9,
           "tc": 1863.75,
           "bc": 1848.05
         },
-        "prev_cpr": {
-          "pivot": 1798.57,
-          "tc": 1808.08,
-          "bc": 1789.05
-        },
         "inside": false,
-        "width_pct": 0.875
+        "width_pct": 1.479
       },
       "monthly": {
         "curr_cpr": {
@@ -12357,17 +12357,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 7802.83,
+          "tc": 7874.75,
+          "bc": 7730.92
+        },
+        "prev_cpr": {
           "pivot": 7839.33,
           "tc": 7864.17,
           "bc": 7814.5
         },
-        "prev_cpr": {
-          "pivot": 7451.67,
-          "tc": 7467.5,
-          "bc": 7435.83
-        },
         "inside": false,
-        "width_pct": 0.649
+        "width_pct": 1.878
       },
       "monthly": {
         "curr_cpr": {
@@ -12424,17 +12424,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1106.67,
+          "tc": 1117.3,
+          "bc": 1096.03
+        },
+        "prev_cpr": {
           "pivot": 1138.73,
           "tc": 1141.92,
           "bc": 1135.55
         },
-        "prev_cpr": {
-          "pivot": 1075.7,
-          "tc": 1086.25,
-          "bc": 1065.15
-        },
         "inside": false,
-        "width_pct": 0.587
+        "width_pct": 1.96
       },
       "monthly": {
         "curr_cpr": {
@@ -12491,17 +12491,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 73.19,
+          "tc": 73.74,
+          "bc": 72.64
+        },
+        "prev_cpr": {
           "pivot": 73.6,
           "tc": 73.97,
           "bc": 73.24
         },
-        "prev_cpr": {
-          "pivot": 71.95,
-          "tc": 72.28,
-          "bc": 71.62
-        },
         "inside": false,
-        "width_pct": 1.013
+        "width_pct": 1.526
       },
       "monthly": {
         "curr_cpr": {
@@ -12551,24 +12551,24 @@
         "prev_cpr": {
           "pivot": 207.56,
           "tc": 207.77,
-          "bc": 207.34
+          "bc": 207.35
         },
         "inside": false,
         "width_pct": 0.84
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 209.64,
+          "tc": 210.32,
+          "bc": 208.96
+        },
+        "prev_cpr": {
           "pivot": 211.22,
           "tc": 212.5,
           "bc": 209.93
         },
-        "prev_cpr": {
-          "pivot": 204.83,
-          "tc": 205.26,
-          "bc": 204.41
-        },
         "inside": false,
-        "width_pct": 1.234
+        "width_pct": 0.653
       },
       "monthly": {
         "curr_cpr": {
@@ -12625,17 +12625,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2791.5,
+          "tc": 2824.85,
+          "bc": 2758.15
+        },
+        "prev_cpr": {
           "pivot": 2767.93,
           "tc": 2783.12,
           "bc": 2752.75
         },
-        "prev_cpr": {
-          "pivot": 2624.03,
-          "tc": 2636.37,
-          "bc": 2611.7
-        },
         "inside": false,
-        "width_pct": 1.115
+        "width_pct": 2.448
       },
       "monthly": {
         "curr_cpr": {
@@ -12692,17 +12692,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1388.97,
+          "tc": 1399.25,
+          "bc": 1378.68
+        },
+        "prev_cpr": {
           "pivot": 1319.07,
           "tc": 1346.23,
           "bc": 1291.9
         },
-        "prev_cpr": {
-          "pivot": 1189.1,
-          "tc": 1194.65,
-          "bc": 1183.55
-        },
         "inside": false,
-        "width_pct": 3.97
+        "width_pct": 1.503
       },
       "monthly": {
         "curr_cpr": {
@@ -12759,17 +12759,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 909.5,
+          "tc": 914.3,
+          "bc": 904.7
+        },
+        "prev_cpr": {
           "pivot": 894.23,
           "tc": 898.7,
           "bc": 889.77
         },
-        "prev_cpr": {
-          "pivot": 868.47,
-          "tc": 874.53,
-          "bc": 862.4
-        },
         "inside": false,
-        "width_pct": 0.972
+        "width_pct": 1.045
       },
       "monthly": {
         "curr_cpr": {
@@ -12818,7 +12818,7 @@
         },
         "prev_cpr": {
           "pivot": 516.3,
-          "tc": 516.58,
+          "tc": 516.57,
           "bc": 516.02
         },
         "inside": false,
@@ -12826,17 +12826,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 517.85,
+          "tc": 520.02,
+          "bc": 515.67
+        },
+        "prev_cpr": {
           "pivot": 522.35,
           "tc": 523.1,
           "bc": 521.6
         },
-        "prev_cpr": {
-          "pivot": 511.05,
-          "tc": 512.88,
-          "bc": 509.23
-        },
         "inside": false,
-        "width_pct": 0.292
+        "width_pct": 0.847
       },
       "monthly": {
         "curr_cpr": {
@@ -12893,17 +12893,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1436.23,
+          "tc": 1447.5,
+          "bc": 1424.97
+        },
+        "prev_cpr": {
           "pivot": 1424.54,
           "tc": 1431.47,
           "bc": 1417.61
         },
-        "prev_cpr": {
-          "pivot": 1405.13,
-          "tc": 1414.1,
-          "bc": 1396.16
-        },
         "inside": false,
-        "width_pct": 0.98
+        "width_pct": 1.594
       },
       "monthly": {
         "curr_cpr": {
@@ -12953,24 +12953,24 @@
         "prev_cpr": {
           "pivot": 572.48,
           "tc": 573.44,
-          "bc": 571.52
+          "bc": 571.53
         },
         "inside": false,
         "width_pct": 0.532
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 575.33,
+          "tc": 576.25,
+          "bc": 574.42
+        },
+        "prev_cpr": {
           "pivot": 569.1,
           "tc": 569.6,
           "bc": 568.6
         },
-        "prev_cpr": {
-          "pivot": 564.77,
-          "tc": 567.48,
-          "bc": 562.06
-        },
         "inside": false,
-        "width_pct": 0.174
+        "width_pct": 0.319
       },
       "monthly": {
         "curr_cpr": {
@@ -13014,7 +13014,7 @@
       "daily": {
         "curr_cpr": {
           "pivot": 169.16,
-          "tc": 169.73,
+          "tc": 169.72,
           "bc": 168.59
         },
         "prev_cpr": {
@@ -13023,21 +13023,21 @@
           "bc": 169.65
         },
         "inside": false,
-        "width_pct": 0.678
+        "width_pct": 0.672
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 171.02,
+          "tc": 172.51,
+          "bc": 169.52
+        },
+        "prev_cpr": {
           "pivot": 170.39,
           "tc": 171.14,
           "bc": 169.65
         },
-        "prev_cpr": {
-          "pivot": 171.25,
-          "tc": 172.8,
-          "bc": 169.7
-        },
         "inside": false,
-        "width_pct": 0.887
+        "width_pct": 1.779
       },
       "monthly": {
         "curr_cpr": {
@@ -13094,17 +13094,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1179.2,
+          "tc": 1179.65,
+          "bc": 1178.75
+        },
+        "prev_cpr": {
           "pivot": 1183.53,
           "tc": 1187.15,
           "bc": 1179.92
         },
-        "prev_cpr": {
-          "pivot": 1148.5,
-          "tc": 1151.3,
-          "bc": 1145.7
-        },
         "inside": false,
-        "width_pct": 0.614
+        "width_pct": 0.076
       },
       "monthly": {
         "curr_cpr": {
@@ -13161,17 +13161,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 541.37,
+          "tc": 542.73,
+          "bc": 540.01
+        },
+        "prev_cpr": {
           "pivot": 538.17,
           "tc": 544.43,
           "bc": 531.9
         },
-        "prev_cpr": {
-          "pivot": 506.52,
-          "tc": 510.83,
-          "bc": 502.2
-        },
-        "inside": false,
-        "width_pct": 2.326
+        "inside": true,
+        "width_pct": 0.505
       },
       "monthly": {
         "curr_cpr": {
@@ -13228,17 +13228,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 5424.0,
+          "tc": 5424.5,
+          "bc": 5423.5
+        },
+        "prev_cpr": {
           "pivot": 5361.17,
           "tc": 5367.33,
           "bc": 5355.0
         },
-        "prev_cpr": {
-          "pivot": 5314.5,
-          "tc": 5322.75,
-          "bc": 5306.25
-        },
         "inside": false,
-        "width_pct": 0.227
+        "width_pct": 0.018
       },
       "monthly": {
         "curr_cpr": {
@@ -13295,17 +13295,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1618.57,
+          "tc": 1618.7,
+          "bc": 1618.43
+        },
+        "prev_cpr": {
           "pivot": 1576.27,
           "tc": 1581.03,
           "bc": 1571.5
         },
-        "prev_cpr": {
-          "pivot": 1607.2,
-          "tc": 1619.3,
-          "bc": 1595.1
-        },
         "inside": false,
-        "width_pct": 0.589
+        "width_pct": 0.017
       },
       "monthly": {
         "curr_cpr": {
@@ -13362,17 +13362,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 900.77,
+          "tc": 902.23,
+          "bc": 899.3
+        },
+        "prev_cpr": {
           "pivot": 879.5,
           "tc": 884.25,
           "bc": 874.75
         },
-        "prev_cpr": {
-          "pivot": 870.4,
-          "tc": 873.65,
-          "bc": 867.15
-        },
         "inside": false,
-        "width_pct": 1.051
+        "width_pct": 0.324
       },
       "monthly": {
         "curr_cpr": {
@@ -13429,17 +13429,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 544.28,
+          "tc": 544.75,
+          "bc": 543.82
+        },
+        "prev_cpr": {
           "pivot": 545.28,
           "tc": 549.02,
           "bc": 541.55
         },
-        "prev_cpr": {
-          "pivot": 528.45,
-          "tc": 529.58,
-          "bc": 527.33
-        },
-        "inside": false,
-        "width_pct": 1.375
+        "inside": true,
+        "width_pct": 0.171
       },
       "monthly": {
         "curr_cpr": {
@@ -13496,17 +13496,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1112.02,
+          "tc": 1117.68,
+          "bc": 1106.35
+        },
+        "prev_cpr": {
           "pivot": 1069.52,
           "tc": 1082.13,
           "bc": 1056.9
         },
-        "prev_cpr": {
-          "pivot": 999.28,
-          "tc": 1005.87,
-          "bc": 992.7
-        },
         "inside": false,
-        "width_pct": 2.246
+        "width_pct": 1.009
       },
       "monthly": {
         "curr_cpr": {
@@ -13550,7 +13550,7 @@
       "daily": {
         "curr_cpr": {
           "pivot": 772.8,
-          "tc": 774.67,
+          "tc": 774.68,
           "bc": 770.92
         },
         "prev_cpr": {
@@ -13559,21 +13559,21 @@
           "bc": 769.94
         },
         "inside": false,
-        "width_pct": 0.488
+        "width_pct": 0.489
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 783.33,
+          "tc": 790.48,
+          "bc": 776.19
+        },
+        "prev_cpr": {
           "pivot": 801.25,
           "tc": 805.33,
           "bc": 797.17
         },
-        "prev_cpr": {
-          "pivot": 797.9,
-          "tc": 806.43,
-          "bc": 789.38
-        },
-        "inside": true,
-        "width_pct": 1.061
+        "inside": false,
+        "width_pct": 1.858
       },
       "monthly": {
         "curr_cpr": {
@@ -13618,7 +13618,7 @@
         "curr_cpr": {
           "pivot": 57.49,
           "tc": 57.66,
-          "bc": 57.32
+          "bc": 57.31
         },
         "prev_cpr": {
           "pivot": 58.1,
@@ -13626,21 +13626,21 @@
           "bc": 58.01
         },
         "inside": false,
-        "width_pct": 0.595
+        "width_pct": 0.613
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 57.92,
+          "tc": 58.31,
+          "bc": 57.53
+        },
+        "prev_cpr": {
           "pivot": 57.85,
           "tc": 58.53,
           "bc": 57.18
         },
-        "prev_cpr": {
-          "pivot": 54.68,
-          "tc": 54.88,
-          "bc": 54.48
-        },
-        "inside": false,
-        "width_pct": 2.363
+        "inside": true,
+        "width_pct": 1.365
       },
       "monthly": {
         "curr_cpr": {
@@ -13670,7 +13670,7 @@
       "virgin_cpr": {
         "is_virgin": true,
         "position": "below",
-        "dist_pct": 0.32
+        "dist_pct": 0.3
       }
     },
     {
@@ -13697,17 +13697,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 24.98,
+          "tc": 25.03,
+          "bc": 24.92
+        },
+        "prev_cpr": {
           "pivot": 24.81,
           "tc": 25.11,
           "bc": 24.52
         },
-        "prev_cpr": {
-          "pivot": 22.92,
-          "tc": 22.97,
-          "bc": 22.86
-        },
-        "inside": false,
-        "width_pct": 2.372
+        "inside": true,
+        "width_pct": 0.442
       },
       "monthly": {
         "curr_cpr": {
@@ -13764,17 +13764,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1736.2,
+          "tc": 1742.7,
+          "bc": 1729.7
+        },
+        "prev_cpr": {
           "pivot": 1682.17,
           "tc": 1682.83,
           "bc": 1681.5
         },
-        "prev_cpr": {
-          "pivot": 1612.73,
-          "tc": 1617.77,
-          "bc": 1607.7
-        },
         "inside": false,
-        "width_pct": 0.076
+        "width_pct": 0.743
       },
       "monthly": {
         "curr_cpr": {
@@ -13831,17 +13831,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1543.5,
+          "tc": 1549.9,
+          "bc": 1537.1
+        },
+        "prev_cpr": {
           "pivot": 1475.73,
           "tc": 1486.52,
           "bc": 1464.95
         },
-        "prev_cpr": {
-          "pivot": 1364.1,
-          "tc": 1375.7,
-          "bc": 1352.5
-        },
         "inside": false,
-        "width_pct": 1.386
+        "width_pct": 0.822
       },
       "monthly": {
         "curr_cpr": {
@@ -13898,17 +13898,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 532.55,
+          "tc": 536.23,
+          "bc": 528.88
+        },
+        "prev_cpr": {
           "pivot": 549.44,
           "tc": 551.44,
           "bc": 547.45
         },
-        "prev_cpr": {
-          "pivot": 499.28,
-          "tc": 504.11,
-          "bc": 494.44
-        },
         "inside": false,
-        "width_pct": 0.76
+        "width_pct": 1.399
       },
       "monthly": {
         "curr_cpr": {
@@ -13965,17 +13965,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 344.83,
+          "tc": 346.03,
+          "bc": 343.64
+        },
+        "prev_cpr": {
           "pivot": 349.55,
           "tc": 351.65,
           "bc": 347.45
         },
-        "prev_cpr": {
-          "pivot": 351.18,
-          "tc": 351.8,
-          "bc": 350.57
-        },
         "inside": false,
-        "width_pct": 1.226
+        "width_pct": 0.698
       },
       "monthly": {
         "curr_cpr": {
@@ -14032,17 +14032,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 748.85,
+          "tc": 751.98,
+          "bc": 745.72
+        },
+        "prev_cpr": {
           "pivot": 748.38,
           "tc": 754.22,
           "bc": 742.55
         },
-        "prev_cpr": {
-          "pivot": 746.73,
-          "tc": 747.87,
-          "bc": 745.6
-        },
-        "inside": false,
-        "width_pct": 1.572
+        "inside": true,
+        "width_pct": 0.843
       },
       "monthly": {
         "curr_cpr": {
@@ -14099,17 +14099,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 859.87,
+          "tc": 869.48,
+          "bc": 850.26
+        },
+        "prev_cpr": {
           "pivot": 892.6,
           "tc": 894.22,
           "bc": 890.97
         },
-        "prev_cpr": {
-          "pivot": 859.57,
-          "tc": 868.25,
-          "bc": 850.88
-        },
         "inside": false,
-        "width_pct": 0.387
+        "width_pct": 2.286
       },
       "monthly": {
         "curr_cpr": {
@@ -14166,17 +14166,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 418.38,
+          "tc": 418.72,
+          "bc": 418.04
+        },
+        "prev_cpr": {
           "pivot": 411.77,
           "tc": 414.58,
           "bc": 408.95
         },
-        "prev_cpr": {
-          "pivot": 418.82,
-          "tc": 421.4,
-          "bc": 416.23
-        },
         "inside": false,
-        "width_pct": 1.348
+        "width_pct": 0.163
       },
       "monthly": {
         "curr_cpr": {
@@ -14233,17 +14233,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 648.35,
+          "tc": 652.23,
+          "bc": 644.47
+        },
+        "prev_cpr": {
           "pivot": 664.1,
           "tc": 666.05,
           "bc": 662.15
         },
-        "prev_cpr": {
-          "pivot": 664.63,
-          "tc": 669.22,
-          "bc": 660.05
-        },
-        "inside": true,
-        "width_pct": 0.609
+        "inside": false,
+        "width_pct": 1.211
       },
       "monthly": {
         "curr_cpr": {
@@ -14300,17 +14300,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 115.04,
+          "tc": 116.15,
+          "bc": 113.94
+        },
+        "prev_cpr": {
           "pivot": 116.06,
           "tc": 116.48,
           "bc": 115.63
         },
-        "prev_cpr": {
-          "pivot": 109.74,
-          "tc": 109.9,
-          "bc": 109.58
-        },
         "inside": false,
-        "width_pct": 0.753
+        "width_pct": 1.959
       },
       "monthly": {
         "curr_cpr": {
@@ -14367,17 +14367,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 375.72,
+          "tc": 376.76,
+          "bc": 374.68
+        },
+        "prev_cpr": {
           "pivot": 373.72,
           "tc": 378.61,
           "bc": 368.83
         },
-        "prev_cpr": {
-          "pivot": 347.12,
-          "tc": 348.3,
-          "bc": 345.93
-        },
-        "inside": false,
-        "width_pct": 2.589
+        "inside": true,
+        "width_pct": 0.551
       },
       "monthly": {
         "curr_cpr": {
@@ -14421,7 +14421,7 @@
       "daily": {
         "curr_cpr": {
           "pivot": 756.67,
-          "tc": 757.72,
+          "tc": 757.73,
           "bc": 755.61
         },
         "prev_cpr": {
@@ -14430,21 +14430,21 @@
           "bc": 750.85
         },
         "inside": false,
-        "width_pct": 0.28
+        "width_pct": 0.281
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 757.23,
+          "tc": 758.58,
+          "bc": 755.89
+        },
+        "prev_cpr": {
           "pivot": 753.8,
           "tc": 756.15,
           "bc": 751.45
         },
-        "prev_cpr": {
-          "pivot": 735.12,
-          "tc": 740.38,
-          "bc": 729.86
-        },
         "inside": false,
-        "width_pct": 0.623
+        "width_pct": 0.357
       },
       "monthly": {
         "curr_cpr": {
@@ -14489,29 +14489,29 @@
         "curr_cpr": {
           "pivot": 784.1,
           "tc": 786.62,
-          "bc": 781.58
+          "bc": 781.57
         },
         "prev_cpr": {
           "pivot": 792.15,
           "tc": 793.92,
-          "bc": 790.38
+          "bc": 790.37
         },
         "inside": false,
-        "width_pct": 0.647
+        "width_pct": 0.648
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 800.1,
+          "tc": 810.62,
+          "bc": 789.57
+        },
+        "prev_cpr": {
           "pivot": 791.02,
           "tc": 795.45,
           "bc": 786.58
         },
-        "prev_cpr": {
-          "pivot": 765.17,
-          "tc": 767.38,
-          "bc": 762.95
-        },
         "inside": false,
-        "width_pct": 1.139
+        "width_pct": 2.702
       },
       "monthly": {
         "curr_cpr": {
@@ -14568,17 +14568,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1582.8,
+          "tc": 1591.0,
+          "bc": 1574.6
+        },
+        "prev_cpr": {
           "pivot": 1553.07,
           "tc": 1558.18,
           "bc": 1547.95
         },
-        "prev_cpr": {
-          "pivot": 1512.4,
-          "tc": 1533.5,
-          "bc": 1491.3
-        },
         "inside": false,
-        "width_pct": 0.653
+        "width_pct": 1.047
       },
       "monthly": {
         "curr_cpr": {
@@ -14635,17 +14635,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 475.72,
+          "tc": 479.05,
+          "bc": 472.38
+        },
+        "prev_cpr": {
           "pivot": 485.0,
           "tc": 485.4,
           "bc": 484.6
         },
-        "prev_cpr": {
-          "pivot": 465.08,
-          "tc": 467.64,
-          "bc": 462.52
-        },
         "inside": false,
-        "width_pct": 0.171
+        "width_pct": 1.422
       },
       "monthly": {
         "curr_cpr": {
@@ -14702,17 +14702,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 568.35,
+          "tc": 579.1,
+          "bc": 557.6
+        },
+        "prev_cpr": {
           "pivot": 552.42,
           "tc": 560.03,
           "bc": 544.8
         },
-        "prev_cpr": {
-          "pivot": 499.95,
-          "tc": 501.9,
-          "bc": 498.0
-        },
         "inside": false,
-        "width_pct": 2.785
+        "width_pct": 3.932
       },
       "monthly": {
         "curr_cpr": {
@@ -14769,17 +14769,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 521.02,
+          "tc": 526.68,
+          "bc": 515.36
+        },
+        "prev_cpr": {
           "pivot": 531.13,
           "tc": 531.87,
           "bc": 530.4
         },
-        "prev_cpr": {
-          "pivot": 508.58,
-          "tc": 513.74,
-          "bc": 503.43
-        },
         "inside": false,
-        "width_pct": 0.288
+        "width_pct": 2.221
       },
       "monthly": {
         "curr_cpr": {
@@ -14836,17 +14836,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1433.33,
+          "tc": 1447.82,
+          "bc": 1418.85
+        },
+        "prev_cpr": {
           "pivot": 1390.2,
           "tc": 1398.3,
           "bc": 1382.1
         },
-        "prev_cpr": {
-          "pivot": 1285.07,
-          "tc": 1297.73,
-          "bc": 1272.4
-        },
         "inside": false,
-        "width_pct": 1.108
+        "width_pct": 1.981
       },
       "monthly": {
         "curr_cpr": {
@@ -14903,17 +14903,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 502.18,
+          "tc": 504.77,
+          "bc": 499.59
+        },
+        "prev_cpr": {
           "pivot": 499.18,
           "tc": 509.32,
           "bc": 489.05
         },
-        "prev_cpr": {
-          "pivot": 434.17,
-          "tc": 436.66,
-          "bc": 431.68
-        },
-        "inside": false,
-        "width_pct": 4.078
+        "inside": true,
+        "width_pct": 1.042
       },
       "monthly": {
         "curr_cpr": {
@@ -14970,17 +14970,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 4581.0,
+          "tc": 4604.05,
+          "bc": 4557.95
+        },
+        "prev_cpr": {
           "pivot": 4418.37,
           "tc": 4446.93,
           "bc": 4389.8
         },
-        "prev_cpr": {
-          "pivot": 4153.67,
-          "tc": 4156.33,
-          "bc": 4151.0
-        },
         "inside": false,
-        "width_pct": 1.235
+        "width_pct": 0.996
       },
       "monthly": {
         "curr_cpr": {
@@ -15037,17 +15037,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 548.42,
+          "tc": 549.13,
+          "bc": 547.7
+        },
+        "prev_cpr": {
           "pivot": 555.27,
           "tc": 557.95,
           "bc": 552.58
         },
-        "prev_cpr": {
-          "pivot": 551.38,
-          "tc": 555.44,
-          "bc": 547.33
-        },
         "inside": false,
-        "width_pct": 0.977
+        "width_pct": 0.26
       },
       "monthly": {
         "curr_cpr": {
@@ -15104,17 +15104,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1041.6,
+          "tc": 1043.2,
+          "bc": 1040.0
+        },
+        "prev_cpr": {
           "pivot": 1008.2,
           "tc": 1010.8,
           "bc": 1005.6
         },
-        "prev_cpr": {
-          "pivot": 979.47,
-          "tc": 984.68,
-          "bc": 974.25
-        },
         "inside": false,
-        "width_pct": 0.498
+        "width_pct": 0.306
       },
       "monthly": {
         "curr_cpr": {
@@ -15163,25 +15163,25 @@
         },
         "prev_cpr": {
           "pivot": 364.35,
-          "tc": 364.67,
-          "bc": 364.02
+          "tc": 364.68,
+          "bc": 364.03
         },
         "inside": false,
         "width_pct": 0.573
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 365.35,
+          "tc": 367.55,
+          "bc": 363.15
+        },
+        "prev_cpr": {
           "pivot": 369.8,
           "tc": 370.35,
           "bc": 369.25
         },
-        "prev_cpr": {
-          "pivot": 381.12,
-          "tc": 382.05,
-          "bc": 380.18
-        },
         "inside": false,
-        "width_pct": 0.305
+        "width_pct": 1.219
       },
       "monthly": {
         "curr_cpr": {
@@ -15238,17 +15238,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 243.93,
+          "tc": 244.18,
+          "bc": 243.69
+        },
+        "prev_cpr": {
           "pivot": 244.08,
           "tc": 244.39,
           "bc": 243.77
         },
-        "prev_cpr": {
-          "pivot": 251.63,
-          "tc": 253.68,
-          "bc": 249.59
-        },
         "inside": false,
-        "width_pct": 0.255
+        "width_pct": 0.201
       },
       "monthly": {
         "curr_cpr": {
@@ -15305,17 +15305,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1457.47,
+          "tc": 1457.93,
+          "bc": 1457.0
+        },
+        "prev_cpr": {
           "pivot": 1462.37,
           "tc": 1464.55,
           "bc": 1460.18
         },
-        "prev_cpr": {
-          "pivot": 1413.83,
-          "tc": 1419.07,
-          "bc": 1408.6
-        },
         "inside": false,
-        "width_pct": 0.3
+        "width_pct": 0.064
       },
       "monthly": {
         "curr_cpr": {
@@ -15372,17 +15372,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1286.9,
+          "tc": 1306.0,
+          "bc": 1267.8
+        },
+        "prev_cpr": {
           "pivot": 1163.7,
           "tc": 1164.4,
           "bc": 1163.0
         },
-        "prev_cpr": {
-          "pivot": 1142.17,
-          "tc": 1142.53,
-          "bc": 1141.8
-        },
         "inside": false,
-        "width_pct": 0.106
+        "width_pct": 2.883
       },
       "monthly": {
         "curr_cpr": {
@@ -15439,17 +15439,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 664.65,
+          "tc": 671.37,
+          "bc": 657.92
+        },
+        "prev_cpr": {
           "pivot": 684.07,
           "tc": 690.58,
           "bc": 677.56
         },
-        "prev_cpr": {
-          "pivot": 673.92,
-          "tc": 677.21,
-          "bc": 670.62
-        },
         "inside": false,
-        "width_pct": 1.92
+        "width_pct": 1.983
       },
       "monthly": {
         "curr_cpr": {
@@ -15506,17 +15506,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 7568.33,
+          "tc": 7588.67,
+          "bc": 7548.0
+        },
+        "prev_cpr": {
           "pivot": 7410.33,
           "tc": 7451.92,
           "bc": 7368.75
         },
-        "prev_cpr": {
-          "pivot": 7136.95,
-          "tc": 7219.97,
-          "bc": 7053.92
-        },
         "inside": false,
-        "width_pct": 1.093
+        "width_pct": 0.534
       },
       "monthly": {
         "curr_cpr": {
@@ -15573,17 +15573,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1046.77,
+          "tc": 1047.35,
+          "bc": 1046.18
+        },
+        "prev_cpr": {
           "pivot": 1057.13,
           "tc": 1058.85,
           "bc": 1055.42
         },
-        "prev_cpr": {
-          "pivot": 1022.2,
-          "tc": 1025.0,
-          "bc": 1019.4
-        },
         "inside": false,
-        "width_pct": 0.328
+        "width_pct": 0.112
       },
       "monthly": {
         "curr_cpr": {
@@ -15640,17 +15640,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1145.43,
+          "tc": 1153.07,
+          "bc": 1137.8
+        },
+        "prev_cpr": {
           "pivot": 1100.5,
           "tc": 1106.45,
           "bc": 1094.55
         },
-        "prev_cpr": {
-          "pivot": 1037.9,
-          "tc": 1037.9,
-          "bc": 1037.9
-        },
         "inside": false,
-        "width_pct": 1.025
+        "width_pct": 1.316
       },
       "monthly": {
         "curr_cpr": {
@@ -15707,17 +15707,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 33595.0,
+          "tc": 33702.5,
+          "bc": 33487.5
+        },
+        "prev_cpr": {
           "pivot": 32655.0,
           "tc": 32890.0,
           "bc": 32420.0
         },
-        "prev_cpr": {
-          "pivot": 31551.67,
-          "tc": 31552.5,
-          "bc": 31550.83
-        },
         "inside": false,
-        "width_pct": 1.408
+        "width_pct": 0.644
       },
       "monthly": {
         "curr_cpr": {
@@ -15774,17 +15774,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 4865.0,
+          "tc": 4882.55,
+          "bc": 4847.45
+        },
+        "prev_cpr": {
           "pivot": 4605.7,
           "tc": 4646.35,
           "bc": 4565.05
         },
-        "prev_cpr": {
-          "pivot": 4409.67,
-          "tc": 4447.65,
-          "bc": 4371.68
-        },
         "inside": false,
-        "width_pct": 1.683
+        "width_pct": 0.727
       },
       "monthly": {
         "curr_cpr": {
@@ -15841,17 +15841,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 25803.33,
+          "tc": 25912.5,
+          "bc": 25694.17
+        },
+        "prev_cpr": {
           "pivot": 26208.33,
           "tc": 26211.67,
           "bc": 26205.0
         },
-        "prev_cpr": {
-          "pivot": 26240.0,
-          "tc": 26260.0,
-          "bc": 26220.0
-        },
         "inside": false,
-        "width_pct": 0.026
+        "width_pct": 0.853
       },
       "monthly": {
         "curr_cpr": {
@@ -15895,7 +15895,7 @@
       "daily": {
         "curr_cpr": {
           "pivot": 60.72,
-          "tc": 61.03,
+          "tc": 61.02,
           "bc": 60.42
         },
         "prev_cpr": {
@@ -15904,21 +15904,21 @@
           "bc": 60.69
         },
         "inside": false,
-        "width_pct": 1.015
+        "width_pct": 0.998
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 60.44,
+          "tc": 60.6,
+          "bc": 60.28
+        },
+        "prev_cpr": {
           "pivot": 61.14,
           "tc": 61.39,
           "bc": 60.89
         },
-        "prev_cpr": {
-          "pivot": 59.72,
-          "tc": 59.81,
-          "bc": 59.63
-        },
         "inside": false,
-        "width_pct": 0.832
+        "width_pct": 0.532
       },
       "monthly": {
         "curr_cpr": {
@@ -15975,17 +15975,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 721.9,
+          "tc": 722.95,
+          "bc": 720.85
+        },
+        "prev_cpr": {
           "pivot": 720.88,
           "tc": 724.09,
           "bc": 717.68
         },
-        "prev_cpr": {
-          "pivot": 734.99,
-          "tc": 738.24,
-          "bc": 731.75
-        },
-        "inside": false,
-        "width_pct": 0.891
+        "inside": true,
+        "width_pct": 0.292
       },
       "monthly": {
         "curr_cpr": {
@@ -16042,17 +16042,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 184.62,
+          "tc": 185.92,
+          "bc": 183.32
+        },
+        "prev_cpr": {
           "pivot": 188.45,
           "tc": 190.52,
           "bc": 186.38
         },
-        "prev_cpr": {
-          "pivot": 188.39,
-          "tc": 189.11,
-          "bc": 187.67
-        },
         "inside": false,
-        "width_pct": 2.274
+        "width_pct": 1.428
       },
       "monthly": {
         "curr_cpr": {
@@ -16109,17 +16109,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1512.93,
+          "tc": 1515.5,
+          "bc": 1510.37
+        },
+        "prev_cpr": {
           "pivot": 1505.8,
           "tc": 1506.6,
           "bc": 1505.0
         },
-        "prev_cpr": {
-          "pivot": 1521.73,
-          "tc": 1537.8,
-          "bc": 1505.67
-        },
         "inside": false,
-        "width_pct": 0.106
+        "width_pct": 0.34
       },
       "monthly": {
         "curr_cpr": {
@@ -16164,7 +16164,7 @@
         "curr_cpr": {
           "pivot": 1117.5,
           "tc": 1129.08,
-          "bc": 1105.93
+          "bc": 1105.92
         },
         "prev_cpr": {
           "pivot": 1063.67,
@@ -16176,17 +16176,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1101.48,
+          "tc": 1121.07,
+          "bc": 1081.9
+        },
+        "prev_cpr": {
           "pivot": 981.35,
           "tc": 994.57,
           "bc": 968.12
         },
-        "prev_cpr": {
-          "pivot": 890.33,
-          "tc": 917.37,
-          "bc": 863.3
-        },
         "inside": false,
-        "width_pct": 2.319
+        "width_pct": 3.434
       },
       "monthly": {
         "curr_cpr": {
@@ -16243,17 +16243,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1463.67,
+          "tc": 1470.65,
+          "bc": 1456.68
+        },
+        "prev_cpr": {
           "pivot": 1483.33,
           "tc": 1493.15,
           "bc": 1473.52
         },
-        "prev_cpr": {
-          "pivot": 1455.33,
-          "tc": 1459.85,
-          "bc": 1450.82
-        },
         "inside": false,
-        "width_pct": 1.354
+        "width_pct": 0.964
       },
       "monthly": {
         "curr_cpr": {
@@ -16310,17 +16310,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 3172.53,
+          "tc": 3176.47,
+          "bc": 3168.6
+        },
+        "prev_cpr": {
           "pivot": 3089.9,
           "tc": 3102.25,
           "bc": 3077.55
         },
-        "prev_cpr": {
-          "pivot": 3084.97,
-          "tc": 3107.98,
-          "bc": 3061.95
-        },
-        "inside": true,
-        "width_pct": 0.777
+        "inside": false,
+        "width_pct": 0.247
       },
       "monthly": {
         "curr_cpr": {
@@ -16377,17 +16377,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1911.37,
+          "tc": 1921.93,
+          "bc": 1900.8
+        },
+        "prev_cpr": {
           "pivot": 1835.83,
           "tc": 1851.67,
           "bc": 1820.0
         },
-        "prev_cpr": {
-          "pivot": 1748.53,
-          "tc": 1756.92,
-          "bc": 1740.15
-        },
         "inside": false,
-        "width_pct": 1.639
+        "width_pct": 1.093
       },
       "monthly": {
         "curr_cpr": {
@@ -16444,17 +16444,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1754.73,
+          "tc": 1757.75,
+          "bc": 1751.72
+        },
+        "prev_cpr": {
           "pivot": 1762.27,
           "tc": 1768.75,
           "bc": 1755.78
         },
-        "prev_cpr": {
-          "pivot": 1767.9,
-          "tc": 1771.8,
-          "bc": 1764.0
-        },
         "inside": false,
-        "width_pct": 0.742
+        "width_pct": 0.345
       },
       "monthly": {
         "curr_cpr": {
@@ -16511,17 +16511,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 10705.67,
+          "tc": 10759.0,
+          "bc": 10652.33
+        },
+        "prev_cpr": {
           "pivot": 10591.67,
           "tc": 10634.33,
           "bc": 10549.0
         },
-        "prev_cpr": {
-          "pivot": 10086.67,
-          "tc": 10123.83,
-          "bc": 10049.5
-        },
         "inside": false,
-        "width_pct": 0.805
+        "width_pct": 1.006
       },
       "monthly": {
         "curr_cpr": {
@@ -16578,17 +16578,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 88.87,
+          "tc": 88.96,
+          "bc": 88.79
+        },
+        "prev_cpr": {
           "pivot": 89.5,
           "tc": 89.84,
           "bc": 89.15
         },
-        "prev_cpr": {
-          "pivot": 84.24,
-          "tc": 85.77,
-          "bc": 82.71
-        },
         "inside": false,
-        "width_pct": 0.778
+        "width_pct": 0.192
       },
       "monthly": {
         "curr_cpr": {
@@ -16645,17 +16645,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 726.62,
+          "tc": 732.38,
+          "bc": 720.86
+        },
+        "prev_cpr": {
           "pivot": 742.03,
           "tc": 744.87,
           "bc": 739.2
         },
-        "prev_cpr": {
-          "pivot": 667.18,
-          "tc": 668.14,
-          "bc": 666.23
-        },
         "inside": false,
-        "width_pct": 0.793
+        "width_pct": 1.611
       },
       "monthly": {
         "curr_cpr": {
@@ -16712,17 +16712,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 4995.97,
+          "tc": 5002.8,
+          "bc": 4989.13
+        },
+        "prev_cpr": {
           "pivot": 4921.27,
           "tc": 4945.03,
           "bc": 4897.5
         },
-        "prev_cpr": {
-          "pivot": 4752.3,
-          "tc": 4755.45,
-          "bc": 4749.15
-        },
         "inside": false,
-        "width_pct": 0.954
+        "width_pct": 0.274
       },
       "monthly": {
         "curr_cpr": {
@@ -16779,17 +16779,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1662.5,
+          "tc": 1675.15,
+          "bc": 1649.85
+        },
+        "prev_cpr": {
           "pivot": 1656.6,
           "tc": 1662.45,
           "bc": 1650.75
         },
-        "prev_cpr": {
-          "pivot": 1579.47,
-          "tc": 1581.63,
-          "bc": 1577.3
-        },
         "inside": false,
-        "width_pct": 0.715
+        "width_pct": 1.545
       },
       "monthly": {
         "curr_cpr": {
@@ -16846,17 +16846,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 3493.4,
+          "tc": 3495.1,
+          "bc": 3491.7
+        },
+        "prev_cpr": {
           "pivot": 3448.33,
           "tc": 3449.17,
           "bc": 3447.5
         },
-        "prev_cpr": {
-          "pivot": 3249.83,
-          "tc": 3292.07,
-          "bc": 3207.6
-        },
         "inside": false,
-        "width_pct": 0.048
+        "width_pct": 0.097
       },
       "monthly": {
         "curr_cpr": {
@@ -16913,17 +16913,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 392.67,
+          "tc": 394.1,
+          "bc": 391.23
+        },
+        "prev_cpr": {
           "pivot": 386.5,
           "tc": 389.38,
           "bc": 383.62
         },
-        "prev_cpr": {
-          "pivot": 388.77,
-          "tc": 390.36,
-          "bc": 387.18
-        },
         "inside": false,
-        "width_pct": 1.478
+        "width_pct": 0.736
       },
       "monthly": {
         "curr_cpr": {
@@ -16980,17 +16980,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1143.27,
+          "tc": 1156.65,
+          "bc": 1129.88
+        },
+        "prev_cpr": {
           "pivot": 1126.43,
           "tc": 1145.37,
           "bc": 1107.5
         },
-        "prev_cpr": {
-          "pivot": 1021.97,
-          "tc": 1028.88,
-          "bc": 1015.05
-        },
         "inside": false,
-        "width_pct": 3.392
+        "width_pct": 2.398
       },
       "monthly": {
         "curr_cpr": {
@@ -17047,17 +17047,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2179.03,
+          "tc": 2191.35,
+          "bc": 2166.72
+        },
+        "prev_cpr": {
           "pivot": 2178.73,
           "tc": 2196.17,
           "bc": 2161.3
         },
-        "prev_cpr": {
-          "pivot": 2181.1,
-          "tc": 2184.75,
-          "bc": 2177.45
-        },
-        "inside": false,
-        "width_pct": 1.619
+        "inside": true,
+        "width_pct": 1.143
       },
       "monthly": {
         "curr_cpr": {
@@ -17114,17 +17114,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 775.53,
+          "tc": 781.2,
+          "bc": 769.87
+        },
+        "prev_cpr": {
           "pivot": 773.0,
           "tc": 779.95,
           "bc": 766.05
         },
-        "prev_cpr": {
-          "pivot": 771.65,
-          "tc": 774.25,
-          "bc": 769.05
-        },
         "inside": false,
-        "width_pct": 1.819
+        "width_pct": 1.483
       },
       "monthly": {
         "curr_cpr": {
@@ -17181,17 +17181,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 358.63,
+          "tc": 365.95,
+          "bc": 351.32
+        },
+        "prev_cpr": {
           "pivot": 393.1,
           "tc": 395.42,
           "bc": 390.78
         },
-        "prev_cpr": {
-          "pivot": 389.1,
-          "tc": 389.65,
-          "bc": 388.55
-        },
         "inside": false,
-        "width_pct": 1.349
+        "width_pct": 4.253
       },
       "monthly": {
         "curr_cpr": {
@@ -17248,17 +17248,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1303.1,
+          "tc": 1307.75,
+          "bc": 1298.45
+        },
+        "prev_cpr": {
           "pivot": 1252.8,
           "tc": 1259.3,
           "bc": 1246.3
         },
-        "prev_cpr": {
-          "pivot": 1232.47,
-          "tc": 1233.78,
-          "bc": 1231.15
-        },
         "inside": false,
-        "width_pct": 0.991
+        "width_pct": 0.709
       },
       "monthly": {
         "curr_cpr": {
@@ -17315,17 +17315,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1335.57,
+          "tc": 1338.95,
+          "bc": 1332.18
+        },
+        "prev_cpr": {
           "pivot": 1345.97,
           "tc": 1348.0,
           "bc": 1343.93
         },
-        "prev_cpr": {
-          "pivot": 1338.1,
-          "tc": 1345.7,
-          "bc": 1330.5
-        },
         "inside": false,
-        "width_pct": 0.306
+        "width_pct": 0.509
       },
       "monthly": {
         "curr_cpr": {
@@ -17382,17 +17382,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 2278.97,
+          "tc": 2292.4,
+          "bc": 2265.53
+        },
+        "prev_cpr": {
           "pivot": 2285.3,
           "tc": 2290.9,
           "bc": 2279.7
         },
-        "prev_cpr": {
-          "pivot": 2224.17,
-          "tc": 2257.58,
-          "bc": 2190.75
-        },
         "inside": false,
-        "width_pct": 0.497
+        "width_pct": 1.193
       },
       "monthly": {
         "curr_cpr": {
@@ -17449,17 +17449,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1628.67,
+          "tc": 1641.03,
+          "bc": 1616.3
+        },
+        "prev_cpr": {
           "pivot": 1579.37,
           "tc": 1581.63,
           "bc": 1577.1
         },
-        "prev_cpr": {
-          "pivot": 1486.77,
-          "tc": 1505.48,
-          "bc": 1468.05
-        },
         "inside": false,
-        "width_pct": 0.274
+        "width_pct": 1.496
       },
       "monthly": {
         "curr_cpr": {
@@ -17504,29 +17504,29 @@
         "curr_cpr": {
           "pivot": 258.67,
           "tc": 259.7,
-          "bc": 257.64
+          "bc": 257.65
         },
         "prev_cpr": {
           "pivot": 256.76,
           "tc": 257.42,
-          "bc": 256.11
+          "bc": 256.1
         },
         "inside": false,
-        "width_pct": 0.79
+        "width_pct": 0.786
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 258.68,
+          "tc": 259.7,
+          "bc": 257.65
+        },
+        "prev_cpr": {
           "pivot": 257.76,
           "tc": 259.32,
           "bc": 256.21
         },
-        "prev_cpr": {
-          "pivot": 236.07,
-          "tc": 237.28,
-          "bc": 234.85
-        },
         "inside": false,
-        "width_pct": 1.193
+        "width_pct": 0.786
       },
       "monthly": {
         "curr_cpr": {
@@ -17583,17 +17583,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 7200.5,
+          "tc": 7290.0,
+          "bc": 7111.0
+        },
+        "prev_cpr": {
           "pivot": 7313.5,
           "tc": 7387.0,
           "bc": 7240.0
         },
-        "prev_cpr": {
-          "pivot": 6867.17,
-          "tc": 6891.58,
-          "bc": 6842.75
-        },
         "inside": false,
-        "width_pct": 2.094
+        "width_pct": 2.549
       },
       "monthly": {
         "curr_cpr": {
@@ -17650,17 +17650,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 309.7,
+          "tc": 311.45,
+          "bc": 307.95
+        },
+        "prev_cpr": {
           "pivot": 315.17,
           "tc": 316.38,
           "bc": 313.96
         },
-        "prev_cpr": {
-          "pivot": 310.98,
-          "tc": 311.2,
-          "bc": 310.77
-        },
         "inside": false,
-        "width_pct": 0.79
+        "width_pct": 1.143
       },
       "monthly": {
         "curr_cpr": {
@@ -17704,7 +17704,7 @@
       "daily": {
         "curr_cpr": {
           "pivot": 409.78,
-          "tc": 411.27,
+          "tc": 411.28,
           "bc": 408.29
         },
         "prev_cpr": {
@@ -17713,21 +17713,21 @@
           "bc": 416.23
         },
         "inside": false,
-        "width_pct": 0.733
+        "width_pct": 0.735
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 411.97,
+          "tc": 414.55,
+          "bc": 409.38
+        },
+        "prev_cpr": {
           "pivot": 417.15,
           "tc": 417.65,
           "bc": 416.65
         },
-        "prev_cpr": {
-          "pivot": 442.0,
-          "tc": 454.1,
-          "bc": 429.9
-        },
         "inside": false,
-        "width_pct": 0.246
+        "width_pct": 1.271
       },
       "monthly": {
         "curr_cpr": {
@@ -17777,24 +17777,24 @@
         "prev_cpr": {
           "pivot": 177.61,
           "tc": 177.69,
-          "bc": 177.52
+          "bc": 177.53
         },
         "inside": false,
         "width_pct": 0.073
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 178.69,
+          "tc": 179.06,
+          "bc": 178.32
+        },
+        "prev_cpr": {
           "pivot": 181.71,
           "tc": 182.3,
           "bc": 181.12
         },
-        "prev_cpr": {
-          "pivot": 175.26,
-          "tc": 175.55,
-          "bc": 174.96
-        },
         "inside": false,
-        "width_pct": 0.663
+        "width_pct": 0.416
       },
       "monthly": {
         "curr_cpr": {
@@ -17851,17 +17851,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 9146.83,
+          "tc": 9210.0,
+          "bc": 9083.67
+        },
+        "prev_cpr": {
           "pivot": 9182.5,
           "tc": 9228.5,
           "bc": 9136.5
         },
-        "prev_cpr": {
-          "pivot": 9116.17,
-          "tc": 9177.5,
-          "bc": 9054.83
-        },
         "inside": false,
-        "width_pct": 1.02
+        "width_pct": 1.4
       },
       "monthly": {
         "curr_cpr": {
@@ -17911,24 +17911,24 @@
         "prev_cpr": {
           "pivot": 981.18,
           "tc": 985.39,
-          "bc": 976.97
+          "bc": 976.98
         },
         "inside": false,
         "width_pct": 0.428
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 979.58,
+          "tc": 982.99,
+          "bc": 976.18
+        },
+        "prev_cpr": {
           "pivot": 951.72,
           "tc": 953.12,
           "bc": 950.31
         },
-        "prev_cpr": {
-          "pivot": 955.73,
-          "tc": 961.85,
-          "bc": 949.62
-        },
-        "inside": true,
-        "width_pct": 0.285
+        "inside": false,
+        "width_pct": 0.69
       },
       "monthly": {
         "curr_cpr": {
@@ -17985,17 +17985,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 4241.63,
+          "tc": 4283.65,
+          "bc": 4199.62
+        },
+        "prev_cpr": {
           "pivot": 4241.3,
           "tc": 4285.6,
           "bc": 4197.0
         },
-        "prev_cpr": {
-          "pivot": 4003.9,
-          "tc": 4029.8,
-          "bc": 3978.0
-        },
-        "inside": false,
-        "width_pct": 2.131
+        "inside": true,
+        "width_pct": 2.021
       },
       "monthly": {
         "curr_cpr": {
@@ -18052,17 +18052,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1662.43,
+          "tc": 1664.65,
+          "bc": 1660.22
+        },
+        "prev_cpr": {
           "pivot": 1647.8,
           "tc": 1652.55,
           "bc": 1643.05
         },
-        "prev_cpr": {
-          "pivot": 1583.7,
-          "tc": 1586.5,
-          "bc": 1580.9
-        },
         "inside": false,
-        "width_pct": 0.573
+        "width_pct": 0.267
       },
       "monthly": {
         "curr_cpr": {
@@ -18101,7 +18101,7 @@
       "sector": "Capital Goods",
       "fno": false,
       "price": 3421.9,
-      "change": -3.89,
+      "change": -3.21,
       "volume": 546323,
       "daily": {
         "curr_cpr": {
@@ -18110,26 +18110,26 @@
           "bc": 3440.7
         },
         "prev_cpr": {
-          "pivot": 3551.57,
-          "tc": 3555.98,
-          "bc": 3547.15
+          "pivot": 3526.63,
+          "tc": 3531.01,
+          "bc": 3522.24
         },
         "inside": false,
         "width_pct": 1.099
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 3483.07,
+          "tc": 3513.65,
+          "bc": 3452.48
+        },
+        "prev_cpr": {
           "pivot": 3511.47,
           "tc": 3516.83,
           "bc": 3506.11
         },
-        "prev_cpr": {
-          "pivot": 3473.5,
-          "tc": 3479.99,
-          "bc": 3467.02
-        },
         "inside": false,
-        "width_pct": 0.313
+        "width_pct": 1.788
       },
       "monthly": {
         "curr_cpr": {
@@ -18186,17 +18186,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 3142.6,
+          "tc": 3186.9,
+          "bc": 3098.3
+        },
+        "prev_cpr": {
           "pivot": 3256.1,
           "tc": 3270.85,
           "bc": 3241.35
         },
-        "prev_cpr": {
-          "pivot": 3092.0,
-          "tc": 3116.9,
-          "bc": 3067.1
-        },
         "inside": false,
-        "width_pct": 0.966
+        "width_pct": 2.901
       },
       "monthly": {
         "curr_cpr": {
@@ -18240,7 +18240,7 @@
       "daily": {
         "curr_cpr": {
           "pivot": 26.65,
-          "tc": 26.75,
+          "tc": 26.76,
           "bc": 26.55
         },
         "prev_cpr": {
@@ -18249,21 +18249,21 @@
           "bc": 26.45
         },
         "inside": false,
-        "width_pct": 0.756
+        "width_pct": 0.794
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 26.45,
+          "tc": 26.45,
+          "bc": 26.45
+        },
+        "prev_cpr": {
           "pivot": 25.56,
           "tc": 25.74,
           "bc": 25.37
         },
-        "prev_cpr": {
-          "pivot": 24.1,
-          "tc": 24.14,
-          "bc": 24.05
-        },
         "inside": false,
-        "width_pct": 1.399
+        "width_pct": 0.0
       },
       "monthly": {
         "curr_cpr": {
@@ -18320,17 +18320,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 561.45,
+          "tc": 566.0,
+          "bc": 556.9
+        },
+        "prev_cpr": {
           "pivot": 540.37,
           "tc": 540.83,
           "bc": 539.9
         },
-        "prev_cpr": {
-          "pivot": 535.6,
-          "tc": 536.35,
-          "bc": 534.85
-        },
         "inside": false,
-        "width_pct": 0.163
+        "width_pct": 1.595
       },
       "monthly": {
         "curr_cpr": {
@@ -18387,17 +18387,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 27.25,
+          "tc": 27.3,
+          "bc": 27.2
+        },
+        "prev_cpr": {
           "pivot": 27.91,
           "tc": 28.07,
           "bc": 27.74
         },
-        "prev_cpr": {
-          "pivot": 25.74,
-          "tc": 25.86,
-          "bc": 25.61
-        },
         "inside": false,
-        "width_pct": 1.215
+        "width_pct": 0.368
       },
       "monthly": {
         "curr_cpr": {
@@ -18454,17 +18454,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 308.9,
+          "tc": 310.25,
+          "bc": 307.55
+        },
+        "prev_cpr": {
           "pivot": 309.88,
           "tc": 310.57,
           "bc": 309.2
         },
-        "prev_cpr": {
-          "pivot": 300.43,
-          "tc": 301.07,
-          "bc": 299.79
-        },
         "inside": false,
-        "width_pct": 0.447
+        "width_pct": 0.882
       },
       "monthly": {
         "curr_cpr": {
@@ -18508,7 +18508,7 @@
       "daily": {
         "curr_cpr": {
           "pivot": 805.62,
-          "tc": 807.03,
+          "tc": 807.02,
           "bc": 804.21
         },
         "prev_cpr": {
@@ -18517,21 +18517,21 @@
           "bc": 804.54
         },
         "inside": false,
-        "width_pct": 0.351
+        "width_pct": 0.35
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 805.97,
+          "tc": 807.55,
+          "bc": 804.38
+        },
+        "prev_cpr": {
           "pivot": 796.62,
           "tc": 797.45,
           "bc": 795.78
         },
-        "prev_cpr": {
-          "pivot": 776.53,
-          "tc": 779.83,
-          "bc": 773.24
-        },
         "inside": false,
-        "width_pct": 0.208
+        "width_pct": 0.395
       },
       "monthly": {
         "curr_cpr": {
@@ -18588,17 +18588,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 850.97,
+          "tc": 854.98,
+          "bc": 846.95
+        },
+        "prev_cpr": {
           "pivot": 819.35,
           "tc": 821.02,
           "bc": 817.67
         },
-        "prev_cpr": {
-          "pivot": 822.15,
-          "tc": 823.22,
-          "bc": 821.08
-        },
         "inside": false,
-        "width_pct": 0.39
+        "width_pct": 0.935
       },
       "monthly": {
         "curr_cpr": {
@@ -18655,17 +18655,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 218.26,
+          "tc": 218.67,
+          "bc": 217.85
+        },
+        "prev_cpr": {
           "pivot": 218.55,
           "tc": 219.75,
           "bc": 217.34
         },
-        "prev_cpr": {
-          "pivot": 205.19,
-          "tc": 206.84,
-          "bc": 203.55
-        },
-        "inside": false,
-        "width_pct": 1.108
+        "inside": true,
+        "width_pct": 0.377
       },
       "monthly": {
         "curr_cpr": {
@@ -18709,30 +18709,30 @@
       "daily": {
         "curr_cpr": {
           "pivot": 178.47,
-          "tc": 179.58,
+          "tc": 179.59,
           "bc": 177.36
         },
         "prev_cpr": {
           "pivot": 182.7,
-          "tc": 183.18,
+          "tc": 183.17,
           "bc": 182.22
         },
         "inside": false,
-        "width_pct": 1.26
+        "width_pct": 1.265
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 179.32,
+          "tc": 180.85,
+          "bc": 177.78
+        },
+        "prev_cpr": {
           "pivot": 174.41,
           "tc": 175.0,
           "bc": 173.83
         },
-        "prev_cpr": {
-          "pivot": 171.95,
-          "tc": 172.49,
-          "bc": 171.42
-        },
         "inside": false,
-        "width_pct": 0.664
+        "width_pct": 1.742
       },
       "monthly": {
         "curr_cpr": {
@@ -18789,17 +18789,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 160.01,
+          "tc": 160.88,
+          "bc": 159.14
+        },
+        "prev_cpr": {
           "pivot": 159.09,
           "tc": 159.54,
           "bc": 158.65
         },
-        "prev_cpr": {
-          "pivot": 158.16,
-          "tc": 158.32,
-          "bc": 157.99
-        },
         "inside": false,
-        "width_pct": 0.562
+        "width_pct": 1.099
       },
       "monthly": {
         "curr_cpr": {
@@ -18856,17 +18856,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 1486.67,
+          "tc": 1492.83,
+          "bc": 1480.5
+        },
+        "prev_cpr": {
           "pivot": 1423.57,
           "tc": 1430.63,
           "bc": 1416.5
         },
-        "prev_cpr": {
-          "pivot": 1408.87,
-          "tc": 1418.75,
-          "bc": 1398.98
-        },
         "inside": false,
-        "width_pct": 0.943
+        "width_pct": 0.823
       },
       "monthly": {
         "curr_cpr": {
@@ -18923,17 +18923,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 269.62,
+          "tc": 271.73,
+          "bc": 267.51
+        },
+        "prev_cpr": {
           "pivot": 272.27,
           "tc": 273.85,
           "bc": 270.68
         },
-        "prev_cpr": {
-          "pivot": 278.22,
-          "tc": 278.75,
-          "bc": 277.68
-        },
         "inside": false,
-        "width_pct": 1.194
+        "width_pct": 1.59
       },
       "monthly": {
         "curr_cpr": {
@@ -18990,17 +18990,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 165.41,
+          "tc": 166.55,
+          "bc": 164.27
+        },
+        "prev_cpr": {
           "pivot": 167.01,
           "tc": 167.8,
           "bc": 166.23
         },
-        "prev_cpr": {
-          "pivot": 163.93,
-          "tc": 164.13,
-          "bc": 163.72
-        },
         "inside": false,
-        "width_pct": 0.962
+        "width_pct": 1.398
       },
       "monthly": {
         "curr_cpr": {
@@ -19057,17 +19057,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 523.65,
+          "tc": 525.45,
+          "bc": 521.85
+        },
+        "prev_cpr": {
           "pivot": 537.92,
           "tc": 540.95,
           "bc": 534.88
         },
-        "prev_cpr": {
-          "pivot": 522.68,
-          "tc": 524.49,
-          "bc": 520.88
-        },
         "inside": false,
-        "width_pct": 1.167
+        "width_pct": 0.692
       },
       "monthly": {
         "curr_cpr": {
@@ -19124,17 +19124,17 @@
       },
       "weekly": {
         "curr_cpr": {
+          "pivot": 210.03,
+          "tc": 212.51,
+          "bc": 207.54
+        },
+        "prev_cpr": {
           "pivot": 199.89,
           "tc": 204.75,
           "bc": 195.03
         },
-        "prev_cpr": {
-          "pivot": 172.41,
-          "tc": 172.68,
-          "bc": 172.13
-        },
         "inside": false,
-        "width_pct": 4.521
+        "width_pct": 2.312
       },
       "monthly": {
         "curr_cpr": {
@@ -19202,7 +19202,7 @@
       "curr_tc": 799.6,
       "curr_bc": 797.4,
       "prev_tc": 790.06,
-      "prev_bc": 783.77,
+      "prev_bc": 783.78,
       "inside": false,
       "curr_tc_lt_prev_tc": false,
       "curr_bc_gt_prev_bc": true
@@ -19232,5 +19232,5 @@
       "curr_bc_gt_prev_bc": true
     }
   ],
-  "inside_count": 11
+  "inside_count": 13
 }
