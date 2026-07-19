@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-07-17 11:38 IST",
-  "generated_date": "17 Jul 2026",
-  "scan_mode": "AFTER_CLOSE",
+  "generated_at": "2026-07-19 03:58 IST",
+  "generated_date": "19 Jul 2026",
+  "scan_mode": "DURING_MARKET",
   "scan_logic": "AFTER_CLOSE: tomorrow CPR (today OHLC) inside today CPR (yesterday OHLC) | DURING_MARKET: today CPR (yesterday OHLC) inside yesterday CPR (day-before-yesterday OHLC)",
   "total_stocks": 293,
   "stocks": [
@@ -4769,7 +4769,7 @@
       "fno": true,
       "price": 242.98,
       "change": 3.11,
-      "volume": 95953136,
+      "volume": 95978862,
       "daily": {
         "curr_cpr": {
           "pivot": 244.98,
@@ -17158,42 +17158,6 @@
       }
     },
     {
-      "symbol": "GUJGASLTD",
-      "name": "Gujarat Gas",
-      "sector": "Oil & Gas",
-      "fno": false,
-      "price": 288.75,
-      "change": 1.09,
-      "volume": 1191883,
-      "daily": {
-        "curr_cpr": {
-          "pivot": 290.05,
-          "tc": 290.7,
-          "bc": 289.4
-        },
-        "prev_cpr": {
-          "pivot": 285.67,
-          "tc": 285.68,
-          "bc": 285.66
-        },
-        "inside": false,
-        "width_pct": 0.45
-      },
-      "cpr_trend": {
-        "direction": "sideways",
-        "pivots": [
-          285.67,
-          290.05
-        ],
-        "pivot_shift": 4.38
-      },
-      "virgin_cpr": {
-        "is_virgin": true,
-        "position": "below",
-        "dist_pct": 0.23
-      }
-    },
-    {
       "symbol": "MEDANTA",
       "name": "Global Health (Medanta)",
       "sector": "Healthcare",
@@ -19137,8 +19101,8 @@
       }
     }
   ],
-  "success_count": 286,
-  "failed_count": 7,
+  "success_count": 285,
+  "failed_count": 8,
   "debug_first5": [
     {
       "symbol": "RELIANCE",
