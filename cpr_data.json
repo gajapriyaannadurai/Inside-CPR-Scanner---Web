@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20 10:44 IST",
+  "generated_at": "2026-08-20 11:06 IST",
   "generated_date": "20 Aug 2026",
   "scan_mode": "AFTER_CLOSE",
   "scan_logic": "AFTER_CLOSE: tomorrow CPR (today OHLC) inside today CPR (yesterday OHLC) | DURING_MARKET: today CPR (yesterday OHLC) inside yesterday CPR (day-before-yesterday OHLC)",
@@ -12,7 +12,7 @@
       "fno": true,
       "price": 1313.2,
       "change": 0.17,
-      "volume": 5527195,
+      "volume": 5546227,
       "daily": {
         "curr_cpr": {
           "pivot": 1312.23,
@@ -79,7 +79,7 @@
       "fno": true,
       "price": 2298.0,
       "change": 0.39,
-      "volume": 2047193,
+      "volume": 2047848,
       "daily": {
         "curr_cpr": {
           "pivot": 2305.03,
@@ -146,7 +146,7 @@
       "fno": true,
       "price": 725.05,
       "change": 0.7,
-      "volume": 17598073,
+      "volume": 17603805,
       "daily": {
         "curr_cpr": {
           "pivot": 725.88,
@@ -213,7 +213,7 @@
       "fno": true,
       "price": 1941.7,
       "change": 1.02,
-      "volume": 4388969,
+      "volume": 4390604,
       "daily": {
         "curr_cpr": {
           "pivot": 1942.3,
@@ -280,7 +280,7 @@
       "fno": true,
       "price": 1411.9,
       "change": 0.71,
-      "volume": 8398019,
+      "volume": 8425049,
       "daily": {
         "curr_cpr": {
           "pivot": 1409.4,
@@ -347,7 +347,7 @@
       "fno": true,
       "price": 1130.0,
       "change": 0.91,
-      "volume": 8559206,
+      "volume": 8559841,
       "daily": {
         "curr_cpr": {
           "pivot": 1133.47,
@@ -364,9 +364,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 1175.67,
+          "pivot": 1173.73,
           "tc": 1176.0,
-          "bc": 1175.33
+          "bc": 1171.47
         },
         "prev_cpr": {
           "pivot": 1166.33,
@@ -374,7 +374,7 @@
           "bc": 1161.95
         },
         "inside": false,
-        "width_pct": 0.059
+        "width_pct": 0.401
       },
       "monthly": {
         "curr_cpr": {
@@ -393,13 +393,13 @@
       "cpr_trend": {
         "direction": "sideways",
         "pivots": [
-          1169.0,
+          1167.4,
           1145.37,
           1119.8,
           1122.77,
           1133.47
         ],
-        "pivot_shift": -35.53
+        "pivot_shift": -33.93
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -414,7 +414,7 @@
       "fno": true,
       "price": 1048.0,
       "change": -0.06,
-      "volume": 5874823,
+      "volume": 5879949,
       "daily": {
         "curr_cpr": {
           "pivot": 1048.87,
@@ -481,7 +481,7 @@
       "fno": true,
       "price": 2028.0,
       "change": 0.36,
-      "volume": 1400626,
+      "volume": 1401471,
       "daily": {
         "curr_cpr": {
           "pivot": 2029.93,
@@ -548,7 +548,7 @@
       "fno": true,
       "price": 271.65,
       "change": 1.72,
-      "volume": 28226089,
+      "volume": 28272797,
       "daily": {
         "curr_cpr": {
           "pivot": 269.43,
@@ -615,7 +615,7 @@
       "fno": true,
       "price": 397.35,
       "change": 1.82,
-      "volume": 9257084,
+      "volume": 9258923,
       "daily": {
         "curr_cpr": {
           "pivot": 396.68,
@@ -682,7 +682,7 @@
       "fno": true,
       "price": 4081.0,
       "change": 0.98,
-      "volume": 1056002,
+      "volume": 1056060,
       "daily": {
         "curr_cpr": {
           "pivot": 4071.4,
@@ -749,7 +749,7 @@
       "fno": true,
       "price": 1251.0,
       "change": 1.3,
-      "volume": 4126720,
+      "volume": 4163816,
       "daily": {
         "curr_cpr": {
           "pivot": 1247.03,
@@ -816,7 +816,7 @@
       "fno": true,
       "price": 1095.0,
       "change": 1.37,
-      "volume": 6740294,
+      "volume": 6741475,
       "daily": {
         "curr_cpr": {
           "pivot": 1094.53,
@@ -883,7 +883,7 @@
       "fno": true,
       "price": 13809.0,
       "change": 0.87,
-      "volume": 186234,
+      "volume": 186272,
       "daily": {
         "curr_cpr": {
           "pivot": 13772.0,
@@ -914,8 +914,8 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 13870.37,
-          "tc": 13981.42,
+          "pivot": 13855.19,
+          "tc": 13951.06,
           "bc": 13759.31
         },
         "prev_cpr": {
@@ -924,7 +924,7 @@
           "bc": 13316.76
         },
         "inside": false,
-        "width_pct": 1.608
+        "width_pct": 1.389
       },
       "cpr_trend": {
         "direction": "bearish",
@@ -950,7 +950,7 @@
       "fno": true,
       "price": 2625.2,
       "change": -0.21,
-      "volume": 476869,
+      "volume": 476939,
       "daily": {
         "curr_cpr": {
           "pivot": 2624.67,
@@ -981,8 +981,8 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 2730.4,
-          "tc": 2738.85,
+          "pivot": 2730.03,
+          "tc": 2738.12,
           "bc": 2721.95
         },
         "prev_cpr": {
@@ -991,7 +991,7 @@
           "bc": 2656.1
         },
         "inside": false,
-        "width_pct": 0.644
+        "width_pct": 0.616
       },
       "cpr_trend": {
         "direction": "bearish",
@@ -1017,7 +1017,7 @@
       "fno": true,
       "price": 5068.0,
       "change": 0.0,
-      "volume": 614408,
+      "volume": 614435,
       "daily": {
         "curr_cpr": {
           "pivot": 5079.37,
@@ -1084,7 +1084,7 @@
       "fno": true,
       "price": 1904.0,
       "change": 0.21,
-      "volume": 893682,
+      "volume": 893691,
       "daily": {
         "curr_cpr": {
           "pivot": 1901.97,
@@ -1151,7 +1151,7 @@
       "fno": true,
       "price": 1458.0,
       "change": -0.48,
-      "volume": 1910077,
+      "volume": 1910719,
       "daily": {
         "curr_cpr": {
           "pivot": 1464.87,
@@ -1218,7 +1218,7 @@
       "fno": true,
       "price": 320.25,
       "change": -0.33,
-      "volume": 10470008,
+      "volume": 10475953,
       "daily": {
         "curr_cpr": {
           "pivot": 321.08,
@@ -1285,7 +1285,7 @@
       "fno": true,
       "price": 477.6,
       "change": -0.15,
-      "volume": 7569383,
+      "volume": 7569561,
       "daily": {
         "curr_cpr": {
           "pivot": 480.47,
@@ -1352,7 +1352,7 @@
       "fno": true,
       "price": 181.0,
       "change": 0.81,
-      "volume": 5357449,
+      "volume": 5364164,
       "daily": {
         "curr_cpr": {
           "pivot": 181.32,
@@ -1419,7 +1419,7 @@
       "fno": true,
       "price": 238.5,
       "change": 0.21,
-      "volume": 11885150,
+      "volume": 11886277,
       "daily": {
         "curr_cpr": {
           "pivot": 237.13,
@@ -1486,12 +1486,12 @@
       "fno": true,
       "price": 337.5,
       "change": 0.28,
-      "volume": 4184096,
+      "volume": 4185077,
       "daily": {
         "curr_cpr": {
           "pivot": 337.15,
-          "tc": 337.32,
-          "bc": 336.97
+          "tc": 337.33,
+          "bc": 336.98
         },
         "prev_cpr": {
           "pivot": 336.33,
@@ -1503,8 +1503,8 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 341.28,
-          "tc": 342.77,
+          "pivot": 339.87,
+          "tc": 339.93,
           "bc": 339.8
         },
         "prev_cpr": {
@@ -1513,7 +1513,7 @@
           "bc": 343.75
         },
         "inside": false,
-        "width_pct": 0.88
+        "width_pct": 0.039
       },
       "monthly": {
         "curr_cpr": {
@@ -1532,13 +1532,13 @@
       "cpr_trend": {
         "direction": "bearish",
         "pivots": [
-          342.17,
+          340.38,
           337.67,
           336.77,
           336.33,
           337.15
         ],
-        "pivot_shift": -5.02
+        "pivot_shift": -3.23
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -1553,7 +1553,7 @@
       "fno": true,
       "price": 264.8,
       "change": 0.49,
-      "volume": 7027212,
+      "volume": 7029993,
       "daily": {
         "curr_cpr": {
           "pivot": 264.9,
@@ -1620,11 +1620,11 @@
       "fno": true,
       "price": 183.5,
       "change": -0.27,
-      "volume": 21779769,
+      "volume": 21782667,
       "daily": {
         "curr_cpr": {
           "pivot": 184.02,
-          "tc": 184.28,
+          "tc": 184.27,
           "bc": 183.76
         },
         "prev_cpr": {
@@ -1633,13 +1633,13 @@
           "bc": 183.72
         },
         "inside": false,
-        "width_pct": 0.283
+        "width_pct": 0.278
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 186.89,
-          "tc": 187.91,
-          "bc": 185.87
+          "pivot": 185.28,
+          "tc": 186.18,
+          "bc": 184.39
         },
         "prev_cpr": {
           "pivot": 189.32,
@@ -1647,7 +1647,7 @@
           "bc": 188.43
         },
         "inside": false,
-        "width_pct": 1.112
+        "width_pct": 0.975
       },
       "monthly": {
         "curr_cpr": {
@@ -1664,15 +1664,15 @@
         "width_pct": 0.888
       },
       "cpr_trend": {
-        "direction": "sideways",
+        "direction": "bullish",
         "pivots": [
-          184.99,
+          182.56,
           184.8,
           185.65,
           183.82,
           184.02
         ],
-        "pivot_shift": -0.97
+        "pivot_shift": 1.46
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -1687,7 +1687,7 @@
       "fno": true,
       "price": 1592.1,
       "change": 0.14,
-      "volume": 1675852,
+      "volume": 1676285,
       "daily": {
         "curr_cpr": {
           "pivot": 1596.93,
@@ -1754,7 +1754,7 @@
       "fno": true,
       "price": 1318.4,
       "change": -0.48,
-      "volume": 1510052,
+      "volume": 1510868,
       "daily": {
         "curr_cpr": {
           "pivot": 1327.37,
@@ -1821,7 +1821,7 @@
       "fno": true,
       "price": 1180.0,
       "change": 0.85,
-      "volume": 1031083,
+      "volume": 1031107,
       "daily": {
         "curr_cpr": {
           "pivot": 1178.33,
@@ -1888,7 +1888,7 @@
       "fno": true,
       "price": 8570.0,
       "change": 0.12,
-      "volume": 198180,
+      "volume": 198190,
       "daily": {
         "curr_cpr": {
           "pivot": 8566.5,
@@ -1955,7 +1955,7 @@
       "fno": true,
       "price": 1299.7,
       "change": 1.08,
-      "volume": 3416190,
+      "volume": 3416352,
       "daily": {
         "curr_cpr": {
           "pivot": 1297.27,
@@ -1972,9 +1972,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 1283.67,
-          "tc": 1288.0,
-          "bc": 1279.33
+          "pivot": 1280.77,
+          "tc": 1286.15,
+          "bc": 1275.38
         },
         "prev_cpr": {
           "pivot": 1301.07,
@@ -1982,7 +1982,7 @@
           "bc": 1300.28
         },
         "inside": false,
-        "width_pct": 0.667
+        "width_pct": 0.829
       },
       "monthly": {
         "curr_cpr": {
@@ -2001,13 +2001,13 @@
       "cpr_trend": {
         "direction": "bullish",
         "pivots": [
-          1271.57,
+          1269.0,
           1275.07,
           1272.8,
           1277.9,
           1297.27
         ],
-        "pivot_shift": 25.7
+        "pivot_shift": 28.27
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -2022,7 +2022,7 @@
       "fno": true,
       "price": 2994.9,
       "change": 0.15,
-      "volume": 713672,
+      "volume": 713687,
       "daily": {
         "curr_cpr": {
           "pivot": 2998.63,
@@ -2089,7 +2089,7 @@
       "fno": true,
       "price": 2016.0,
       "change": 0.2,
-      "volume": 417634,
+      "volume": 417675,
       "daily": {
         "curr_cpr": {
           "pivot": 2019.7,
@@ -2156,7 +2156,7 @@
       "fno": true,
       "price": 11575.0,
       "change": 1.09,
-      "volume": 209907,
+      "volume": 209955,
       "daily": {
         "curr_cpr": {
           "pivot": 11546.67,
@@ -2187,9 +2187,9 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 11658.07,
-          "tc": 11780.53,
-          "bc": 11535.6
+          "pivot": 11612.57,
+          "tc": 11729.79,
+          "bc": 11495.36
         },
         "prev_cpr": {
           "pivot": 10986.74,
@@ -2197,7 +2197,7 @@
           "bc": 10966.16
         },
         "inside": false,
-        "width_pct": 2.116
+        "width_pct": 2.025
       },
       "cpr_trend": {
         "direction": "sideways",
@@ -2223,7 +2223,7 @@
       "fno": true,
       "price": 3300.0,
       "change": 0.92,
-      "volume": 1182174,
+      "volume": 1182213,
       "daily": {
         "curr_cpr": {
           "pivot": 3286.67,
@@ -2254,9 +2254,9 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 3125.86,
+          "pivot": 3127.19,
           "tc": 3143.21,
-          "bc": 3108.52
+          "bc": 3111.17
         },
         "prev_cpr": {
           "pivot": 3101.97,
@@ -2264,7 +2264,7 @@
           "bc": 3096.17
         },
         "inside": false,
-        "width_pct": 1.051
+        "width_pct": 0.971
       },
       "cpr_trend": {
         "direction": "bullish",
@@ -2290,7 +2290,7 @@
       "fno": true,
       "price": 1008.0,
       "change": -0.86,
-      "volume": 857963,
+      "volume": 858064,
       "daily": {
         "curr_cpr": {
           "pivot": 1008.17,
@@ -2307,8 +2307,8 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 1019.23,
-          "tc": 1021.97,
+          "pivot": 1017.93,
+          "tc": 1019.37,
           "bc": 1016.5
         },
         "prev_cpr": {
@@ -2317,13 +2317,13 @@
           "bc": 1021.2
         },
         "inside": false,
-        "width_pct": 0.543
+        "width_pct": 0.285
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 1002.43,
-          "tc": 1006.94,
-          "bc": 997.93
+          "pivot": 1005.45,
+          "tc": 1008.45,
+          "bc": 1002.45
         },
         "prev_cpr": {
           "pivot": 918.58,
@@ -2331,18 +2331,18 @@
           "bc": 915.77
         },
         "inside": false,
-        "width_pct": 0.894
+        "width_pct": 0.595
       },
       "cpr_trend": {
         "direction": "bearish",
         "pivots": [
-          1019.47,
+          1020.53,
           1011.03,
           1013.83,
           1013.67,
           1008.17
         ],
-        "pivot_shift": -11.3
+        "pivot_shift": -12.36
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -2357,7 +2357,7 @@
       "fno": true,
       "price": 1438.0,
       "change": 1.13,
-      "volume": 327737,
+      "volume": 327752,
       "daily": {
         "curr_cpr": {
           "pivot": 1434.97,
@@ -2424,7 +2424,7 @@
       "fno": true,
       "price": 8042.0,
       "change": 0.64,
-      "volume": 323657,
+      "volume": 323672,
       "daily": {
         "curr_cpr": {
           "pivot": 8040.83,
@@ -2558,7 +2558,7 @@
       "fno": true,
       "price": 308.7,
       "change": 0.55,
-      "volume": 5131652,
+      "volume": 5132147,
       "daily": {
         "curr_cpr": {
           "pivot": 308.17,
@@ -2567,8 +2567,8 @@
         },
         "prev_cpr": {
           "pivot": 307.85,
-          "tc": 308.28,
-          "bc": 307.43
+          "tc": 308.27,
+          "bc": 307.42
         },
         "inside": false,
         "width_pct": 0.172
@@ -2625,7 +2625,7 @@
       "fno": true,
       "price": 402.5,
       "change": 0.62,
-      "volume": 5070116,
+      "volume": 5070984,
       "daily": {
         "curr_cpr": {
           "pivot": 400.58,
@@ -2692,7 +2692,7 @@
       "fno": true,
       "price": 5548.0,
       "change": 1.74,
-      "volume": 200058,
+      "volume": 200063,
       "daily": {
         "curr_cpr": {
           "pivot": 5519.17,
@@ -2759,7 +2759,7 @@
       "fno": true,
       "price": 1056.3,
       "change": -1.1,
-      "volume": 1683330,
+      "volume": 1684035,
       "daily": {
         "curr_cpr": {
           "pivot": 1062.43,
@@ -2826,7 +2826,7 @@
       "fno": true,
       "price": 5740.5,
       "change": 0.54,
-      "volume": 298314,
+      "volume": 298317,
       "daily": {
         "curr_cpr": {
           "pivot": 5717.0,
@@ -2843,9 +2843,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 5847.83,
-          "tc": 5848.92,
-          "bc": 5846.75
+          "pivot": 5827.83,
+          "tc": 5846.75,
+          "bc": 5808.92
         },
         "prev_cpr": {
           "pivot": 5637.67,
@@ -2853,7 +2853,7 @@
           "bc": 5594.0
         },
         "inside": false,
-        "width_pct": 0.038
+        "width_pct": 0.659
       },
       "monthly": {
         "curr_cpr": {
@@ -2872,13 +2872,13 @@
       "cpr_trend": {
         "direction": "bearish",
         "pivots": [
-          5862.0,
+          5801.33,
           5765.5,
           5739.33,
           5713.83,
           5717.0
         ],
-        "pivot_shift": -145.0
+        "pivot_shift": -84.33
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -2893,7 +2893,7 @@
       "fno": true,
       "price": 1029.85,
       "change": -0.88,
-      "volume": 4321373,
+      "volume": 4321761,
       "daily": {
         "curr_cpr": {
           "pivot": 1030.28,
@@ -2960,7 +2960,7 @@
       "fno": true,
       "price": 1782.0,
       "change": 0.09,
-      "volume": 687661,
+      "volume": 687833,
       "daily": {
         "curr_cpr": {
           "pivot": 1783.3,
@@ -3027,12 +3027,12 @@
       "fno": true,
       "price": 542.0,
       "change": 1.06,
-      "volume": 1683918,
+      "volume": 1684071,
       "daily": {
         "curr_cpr": {
           "pivot": 540.62,
           "tc": 541.31,
-          "bc": 539.93
+          "bc": 539.92
         },
         "prev_cpr": {
           "pivot": 536.45,
@@ -3040,7 +3040,7 @@
           "bc": 536.37
         },
         "inside": false,
-        "width_pct": 0.255
+        "width_pct": 0.256
       },
       "weekly": {
         "curr_cpr": {
@@ -3094,7 +3094,7 @@
       "fno": true,
       "price": 11793.0,
       "change": 1.27,
-      "volume": 151379,
+      "volume": 151383,
       "daily": {
         "curr_cpr": {
           "pivot": 11735.33,
@@ -3161,7 +3161,7 @@
       "fno": true,
       "price": 3424.8,
       "change": 0.29,
-      "volume": 1275933,
+      "volume": 1279093,
       "daily": {
         "curr_cpr": {
           "pivot": 3427.4,
@@ -3228,7 +3228,7 @@
       "fno": true,
       "price": 1128.2,
       "change": 2.01,
-      "volume": 3313574,
+      "volume": 3313774,
       "daily": {
         "curr_cpr": {
           "pivot": 1126.37,
@@ -3245,9 +3245,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 1129.13,
-          "tc": 1130.72,
-          "bc": 1127.55
+          "pivot": 1125.7,
+          "tc": 1127.55,
+          "bc": 1123.85
         },
         "prev_cpr": {
           "pivot": 1106.77,
@@ -3255,7 +3255,7 @@
           "bc": 1102.65
         },
         "inside": false,
-        "width_pct": 0.281
+        "width_pct": 0.328
       },
       "monthly": {
         "curr_cpr": {
@@ -3274,13 +3274,13 @@
       "cpr_trend": {
         "direction": "bearish",
         "pivots": [
-          1135.2,
+          1124.97,
           1121.3,
           1110.63,
           1105.73,
           1126.37
         ],
-        "pivot_shift": -8.83
+        "pivot_shift": 1.4
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -3295,7 +3295,7 @@
       "fno": true,
       "price": 2970.0,
       "change": 0.58,
-      "volume": 325289,
+      "volume": 325293,
       "daily": {
         "curr_cpr": {
           "pivot": 2965.03,
@@ -3362,7 +3362,7 @@
       "fno": true,
       "price": 409.4,
       "change": 0.05,
-      "volume": 6977328,
+      "volume": 6984638,
       "daily": {
         "curr_cpr": {
           "pivot": 409.3,
@@ -3372,7 +3372,7 @@
         "prev_cpr": {
           "pivot": 409.45,
           "tc": 409.57,
-          "bc": 409.33
+          "bc": 409.32
         },
         "inside": false,
         "width_pct": 0.024
@@ -3429,12 +3429,12 @@
       "fno": true,
       "price": 174.16,
       "change": 2.93,
-      "volume": 8007950,
+      "volume": 8020125,
       "daily": {
         "curr_cpr": {
           "pivot": 173.4,
           "tc": 173.78,
-          "bc": 173.03
+          "bc": 173.02
         },
         "prev_cpr": {
           "pivot": 169.24,
@@ -3442,7 +3442,7 @@
           "bc": 169.22
         },
         "inside": false,
-        "width_pct": 0.431
+        "width_pct": 0.436
       },
       "weekly": {
         "curr_cpr": {
@@ -3496,7 +3496,7 @@
       "fno": true,
       "price": 355.3,
       "change": -0.98,
-      "volume": 4346556,
+      "volume": 4349435,
       "daily": {
         "curr_cpr": {
           "pivot": 358.27,
@@ -3563,7 +3563,7 @@
       "fno": true,
       "price": 85.84,
       "change": 0.41,
-      "volume": 13360354,
+      "volume": 13363445,
       "daily": {
         "curr_cpr": {
           "pivot": 85.98,
@@ -3630,7 +3630,7 @@
       "fno": true,
       "price": 1088.0,
       "change": 1.21,
-      "volume": 3678822,
+      "volume": 3678931,
       "daily": {
         "curr_cpr": {
           "pivot": 1085.5,
@@ -3697,7 +3697,7 @@
       "fno": true,
       "price": 118.0,
       "change": 0.44,
-      "volume": 8548379,
+      "volume": 8551120,
       "daily": {
         "curr_cpr": {
           "pivot": 118.18,
@@ -3764,7 +3764,7 @@
       "fno": true,
       "price": 244.5,
       "change": -0.2,
-      "volume": 5597223,
+      "volume": 5598278,
       "daily": {
         "curr_cpr": {
           "pivot": 245.3,
@@ -3831,7 +3831,7 @@
       "fno": true,
       "price": 2430.0,
       "change": 0.23,
-      "volume": 422874,
+      "volume": 422908,
       "daily": {
         "curr_cpr": {
           "pivot": 2438.0,
@@ -3898,7 +3898,7 @@
       "fno": true,
       "price": 1882.0,
       "change": 3.8,
-      "volume": 4001791,
+      "volume": 4002215,
       "daily": {
         "curr_cpr": {
           "pivot": 1865.67,
@@ -3944,13 +3944,13 @@
       "cpr_trend": {
         "direction": "sideways",
         "pivots": [
-          1815.63,
+          1817.53,
           1808.87,
           1776.73,
           1805.5,
           1865.67
         ],
-        "pivot_shift": 50.04
+        "pivot_shift": 48.14
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -3965,7 +3965,7 @@
       "fno": true,
       "price": 5674.0,
       "change": 2.98,
-      "volume": 701284,
+      "volume": 701333,
       "daily": {
         "curr_cpr": {
           "pivot": 5638.0,
@@ -4032,7 +4032,7 @@
       "fno": true,
       "price": 11826.0,
       "change": 0.44,
-      "volume": 188757,
+      "volume": 188774,
       "daily": {
         "curr_cpr": {
           "pivot": 11807.67,
@@ -4063,9 +4063,9 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 11027.0,
-          "tc": 11106.5,
-          "bc": 10947.5
+          "pivot": 11034.0,
+          "tc": 11110.0,
+          "bc": 10958.0
         },
         "prev_cpr": {
           "pivot": 10293.5,
@@ -4073,7 +4073,7 @@
           "bc": 10052.5
         },
         "inside": false,
-        "width_pct": 1.344
+        "width_pct": 1.285
       },
       "cpr_trend": {
         "direction": "bullish",
@@ -4099,7 +4099,7 @@
       "fno": true,
       "price": 3579.1,
       "change": 1.08,
-      "volume": 157105,
+      "volume": 157113,
       "daily": {
         "curr_cpr": {
           "pivot": 3604.33,
@@ -4166,7 +4166,7 @@
       "fno": true,
       "price": 1696.0,
       "change": 0.84,
-      "volume": 1661575,
+      "volume": 1661649,
       "daily": {
         "curr_cpr": {
           "pivot": 1691.63,
@@ -4183,9 +4183,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 1667.27,
-          "tc": 1671.9,
-          "bc": 1662.63
+          "pivot": 1681.27,
+          "tc": 1690.63,
+          "bc": 1671.9
         },
         "prev_cpr": {
           "pivot": 1695.37,
@@ -4193,7 +4193,7 @@
           "bc": 1694.43
         },
         "inside": false,
-        "width_pct": 0.547
+        "width_pct": 1.104
       },
       "monthly": {
         "curr_cpr": {
@@ -4212,13 +4212,13 @@
       "cpr_trend": {
         "direction": "sideways",
         "pivots": [
-          1656.33,
+          1685.73,
           1691.03,
           1681.03,
           1677.63,
           1691.63
         ],
-        "pivot_shift": 35.3
+        "pivot_shift": 5.9
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -4233,7 +4233,7 @@
       "fno": true,
       "price": 204.0,
       "change": -0.01,
-      "volume": 10828946,
+      "volume": 10829931,
       "daily": {
         "curr_cpr": {
           "pivot": 204.09,
@@ -4242,7 +4242,7 @@
         },
         "prev_cpr": {
           "pivot": 204.2,
-          "tc": 204.29,
+          "tc": 204.3,
           "bc": 204.11
         },
         "inside": false,
@@ -4300,7 +4300,7 @@
       "fno": true,
       "price": 1301.8,
       "change": 0.68,
-      "volume": 1073894,
+      "volume": 1073912,
       "daily": {
         "curr_cpr": {
           "pivot": 1302.03,
@@ -4367,7 +4367,7 @@
       "fno": true,
       "price": 4998.0,
       "change": -0.38,
-      "volume": 421425,
+      "volume": 421506,
       "daily": {
         "curr_cpr": {
           "pivot": 5006.33,
@@ -4434,11 +4434,11 @@
       "fno": true,
       "price": 227.9,
       "change": 1.97,
-      "volume": 4859959,
+      "volume": 4866054,
       "daily": {
         "curr_cpr": {
           "pivot": 227.92,
-          "tc": 227.93,
+          "tc": 227.94,
           "bc": 227.91
         },
         "prev_cpr": {
@@ -4447,7 +4447,7 @@
           "bc": 223.63
         },
         "inside": false,
-        "width_pct": 0.009
+        "width_pct": 0.013
       },
       "weekly": {
         "curr_cpr": {
@@ -4501,7 +4501,7 @@
       "fno": true,
       "price": 86.47,
       "change": 1.51,
-      "volume": 8430011,
+      "volume": 8434193,
       "daily": {
         "curr_cpr": {
           "pivot": 86.32,
@@ -4568,12 +4568,12 @@
       "fno": true,
       "price": 76.35,
       "change": 0.24,
-      "volume": 6141702,
+      "volume": 6144287,
       "daily": {
         "curr_cpr": {
           "pivot": 76.4,
-          "tc": 76.42,
-          "bc": 76.37
+          "tc": 76.43,
+          "bc": 76.38
         },
         "prev_cpr": {
           "pivot": 76.31,
@@ -4625,7 +4625,7 @@
       "virgin_cpr": {
         "is_virgin": true,
         "position": "below",
-        "dist_pct": 0.03
+        "dist_pct": 0.04
       }
     },
     {
@@ -4635,7 +4635,7 @@
       "fno": true,
       "price": 328.1,
       "change": -2.64,
-      "volume": 7838294,
+      "volume": 7840724,
       "daily": {
         "curr_cpr": {
           "pivot": 331.4,
@@ -4702,7 +4702,7 @@
       "fno": true,
       "price": 363.8,
       "change": -2.84,
-      "volume": 13360351,
+      "volume": 13375984,
       "daily": {
         "curr_cpr": {
           "pivot": 367.37,
@@ -4719,9 +4719,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 389.2,
+          "pivot": 388.22,
           "tc": 394.32,
-          "bc": 384.08
+          "bc": 382.11
         },
         "prev_cpr": {
           "pivot": 420.73,
@@ -4729,7 +4729,7 @@
           "bc": 420.37
         },
         "inside": false,
-        "width_pct": 2.815
+        "width_pct": 3.356
       },
       "monthly": {
         "curr_cpr": {
@@ -4748,13 +4748,13 @@
       "cpr_trend": {
         "direction": "bearish",
         "pivots": [
-          377.3,
+          376.92,
           374.52,
           374.87,
           374.0,
           367.37
         ],
-        "pivot_shift": -9.93
+        "pivot_shift": -9.55
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -4836,12 +4836,12 @@
       "fno": true,
       "price": 330.35,
       "change": 0.92,
-      "volume": 6629710,
+      "volume": 6631141,
       "daily": {
         "curr_cpr": {
           "pivot": 329.4,
           "tc": 329.88,
-          "bc": 328.93
+          "bc": 328.92
         },
         "prev_cpr": {
           "pivot": 325.85,
@@ -4849,7 +4849,7 @@
           "bc": 325.1
         },
         "inside": false,
-        "width_pct": 0.288
+        "width_pct": 0.291
       },
       "weekly": {
         "curr_cpr": {
@@ -4867,9 +4867,9 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 325.67,
-          "tc": 329.53,
-          "bc": 321.8
+          "pivot": 324.78,
+          "tc": 329.27,
+          "bc": 320.3
         },
         "prev_cpr": {
           "pivot": 293.85,
@@ -4877,7 +4877,7 @@
           "bc": 285.35
         },
         "inside": false,
-        "width_pct": 2.34
+        "width_pct": 2.715
       },
       "cpr_trend": {
         "direction": "sideways",
@@ -4903,7 +4903,7 @@
       "fno": true,
       "price": 3960.0,
       "change": -0.13,
-      "volume": 399566,
+      "volume": 399620,
       "daily": {
         "curr_cpr": {
           "pivot": 3995.03,
@@ -4970,7 +4970,7 @@
       "fno": true,
       "price": 485.9,
       "change": -0.5,
-      "volume": 1102972,
+      "volume": 1104983,
       "daily": {
         "curr_cpr": {
           "pivot": 488.68,
@@ -5001,9 +5001,9 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 496.33,
+          "pivot": 497.45,
           "tc": 499.6,
-          "bc": 493.07
+          "bc": 495.3
         },
         "prev_cpr": {
           "pivot": 512.97,
@@ -5011,7 +5011,7 @@
           "bc": 507.93
         },
         "inside": false,
-        "width_pct": 1.344
+        "width_pct": 0.885
       },
       "cpr_trend": {
         "direction": "bearish",
@@ -5037,7 +5037,7 @@
       "fno": true,
       "price": 1360.9,
       "change": -1.27,
-      "volume": 1278108,
+      "volume": 1278109,
       "daily": {
         "curr_cpr": {
           "pivot": 1368.77,
@@ -5068,8 +5068,8 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 1155.58,
-          "tc": 1190.92,
+          "pivot": 1161.52,
+          "tc": 1202.78,
           "bc": 1120.25
         },
         "prev_cpr": {
@@ -5078,7 +5078,7 @@
           "bc": 978.65
         },
         "inside": false,
-        "width_pct": 5.193
+        "width_pct": 6.064
       },
       "cpr_trend": {
         "direction": "sideways",
@@ -5104,7 +5104,7 @@
       "fno": true,
       "price": 2624.0,
       "change": 2.83,
-      "volume": 1149090,
+      "volume": 1149185,
       "daily": {
         "curr_cpr": {
           "pivot": 2600.33,
@@ -5171,7 +5171,7 @@
       "fno": true,
       "price": 1625.0,
       "change": 0.58,
-      "volume": 667599,
+      "volume": 667664,
       "daily": {
         "curr_cpr": {
           "pivot": 1630.67,
@@ -5248,7 +5248,7 @@
         "prev_cpr": {
           "pivot": 498.52,
           "tc": 499.01,
-          "bc": 498.03
+          "bc": 498.02
         },
         "inside": false,
         "width_pct": 0.145
@@ -5305,7 +5305,7 @@
       "fno": true,
       "price": 647.05,
       "change": 3.75,
-      "volume": 5397048,
+      "volume": 5399356,
       "daily": {
         "curr_cpr": {
           "pivot": 642.72,
@@ -5372,7 +5372,7 @@
       "fno": true,
       "price": 575.5,
       "change": -1.25,
-      "volume": 268204,
+      "volume": 268454,
       "daily": {
         "curr_cpr": {
           "pivot": 578.98,
@@ -5439,7 +5439,7 @@
       "fno": true,
       "price": 1575.0,
       "change": 1.87,
-      "volume": 434748,
+      "volume": 434782,
       "daily": {
         "curr_cpr": {
           "pivot": 1570.13,
@@ -5506,7 +5506,7 @@
       "fno": true,
       "price": 172.5,
       "change": 0.0,
-      "volume": 3894857,
+      "volume": 3895715,
       "daily": {
         "curr_cpr": {
           "pivot": 172.72,
@@ -5573,7 +5573,7 @@
       "fno": true,
       "price": 135.9,
       "change": -0.29,
-      "volume": 7025627,
+      "volume": 7026471,
       "daily": {
         "curr_cpr": {
           "pivot": 136.1,
@@ -5640,11 +5640,11 @@
       "fno": true,
       "price": 363.2,
       "change": -0.89,
-      "volume": 3115337,
+      "volume": 3121502,
       "daily": {
         "curr_cpr": {
           "pivot": 365.08,
-          "tc": 366.03,
+          "tc": 366.02,
           "bc": 364.14
         },
         "prev_cpr": {
@@ -5653,7 +5653,7 @@
           "bc": 366.3
         },
         "inside": false,
-        "width_pct": 0.52
+        "width_pct": 0.518
       },
       "weekly": {
         "curr_cpr": {
@@ -5707,7 +5707,7 @@
       "fno": true,
       "price": 560.1,
       "change": 0.95,
-      "volume": 9754704,
+      "volume": 9758301,
       "daily": {
         "curr_cpr": {
           "pivot": 562.8,
@@ -5774,7 +5774,7 @@
       "fno": true,
       "price": 573.9,
       "change": 3.03,
-      "volume": 6425612,
+      "volume": 6427834,
       "daily": {
         "curr_cpr": {
           "pivot": 571.88,
@@ -5841,12 +5841,12 @@
       "fno": true,
       "price": 83.95,
       "change": 0.72,
-      "volume": 16533102,
+      "volume": 16534911,
       "daily": {
         "curr_cpr": {
           "pivot": 84.2,
           "tc": 84.33,
-          "bc": 84.07
+          "bc": 84.08
         },
         "prev_cpr": {
           "pivot": 83.42,
@@ -5854,7 +5854,7 @@
           "bc": 83.39
         },
         "inside": false,
-        "width_pct": 0.31
+        "width_pct": 0.298
       },
       "weekly": {
         "curr_cpr": {
@@ -5898,7 +5898,7 @@
       "virgin_cpr": {
         "is_virgin": true,
         "position": "below",
-        "dist_pct": 0.14
+        "dist_pct": 0.15
       }
     },
     {
@@ -5908,7 +5908,7 @@
       "fno": true,
       "price": 174.9,
       "change": 1.24,
-      "volume": 14043847,
+      "volume": 14055438,
       "daily": {
         "curr_cpr": {
           "pivot": 174.91,
@@ -5918,7 +5918,7 @@
         "prev_cpr": {
           "pivot": 172.01,
           "tc": 172.38,
-          "bc": 171.64
+          "bc": 171.63
         },
         "inside": false,
         "width_pct": 0.006
@@ -5975,20 +5975,20 @@
       "fno": true,
       "price": 268.0,
       "change": 2.06,
-      "volume": 9565559,
+      "volume": 9569566,
       "daily": {
         "curr_cpr": {
           "pivot": 268.38,
-          "tc": 268.58,
+          "tc": 268.57,
           "bc": 268.19
         },
         "prev_cpr": {
           "pivot": 262.88,
-          "tc": 263.03,
+          "tc": 263.02,
           "bc": 262.74
         },
         "inside": false,
-        "width_pct": 0.146
+        "width_pct": 0.142
       },
       "weekly": {
         "curr_cpr": {
@@ -6042,7 +6042,7 @@
       "fno": true,
       "price": 1118.9,
       "change": 0.35,
-      "volume": 992889,
+      "volume": 992910,
       "daily": {
         "curr_cpr": {
           "pivot": 1123.1,
@@ -6109,7 +6109,7 @@
       "fno": true,
       "price": 385.6,
       "change": -0.25,
-      "volume": 5344792,
+      "volume": 5349753,
       "daily": {
         "curr_cpr": {
           "pivot": 388.82,
@@ -6126,9 +6126,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 401.27,
-          "tc": 401.65,
-          "bc": 400.88
+          "pivot": 391.07,
+          "tc": 398.6,
+          "bc": 383.53
         },
         "prev_cpr": {
           "pivot": 373.18,
@@ -6136,7 +6136,7 @@
           "bc": 369.27
         },
         "inside": false,
-        "width_pct": 0.2
+        "width_pct": 3.908
       },
       "monthly": {
         "curr_cpr": {
@@ -6153,15 +6153,15 @@
         "width_pct": 0.008
       },
       "cpr_trend": {
-        "direction": "sideways",
+        "direction": "bullish",
         "pivots": [
-          404.72,
+          378.65,
           385.18,
           388.22,
           384.03,
           388.82
         ],
-        "pivot_shift": -15.9
+        "pivot_shift": 10.17
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -6176,7 +6176,7 @@
       "fno": true,
       "price": 400.0,
       "change": 0.06,
-      "volume": 913835,
+      "volume": 913960,
       "daily": {
         "curr_cpr": {
           "pivot": 400.27,
@@ -6243,7 +6243,7 @@
       "fno": true,
       "price": 858.35,
       "change": 0.98,
-      "volume": 970807,
+      "volume": 970867,
       "daily": {
         "curr_cpr": {
           "pivot": 856.38,
@@ -6253,16 +6253,16 @@
         "prev_cpr": {
           "pivot": 848.32,
           "tc": 849.16,
-          "bc": 847.47
+          "bc": 847.48
         },
         "inside": false,
         "width_pct": 0.23
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 855.98,
-          "tc": 860.22,
-          "bc": 851.75
+          "pivot": 857.1,
+          "tc": 861.15,
+          "bc": 853.05
         },
         "prev_cpr": {
           "pivot": 863.4,
@@ -6270,7 +6270,7 @@
           "bc": 862.7
         },
         "inside": false,
-        "width_pct": 0.987
+        "width_pct": 0.944
       },
       "monthly": {
         "curr_cpr": {
@@ -6289,13 +6289,13 @@
       "cpr_trend": {
         "direction": "sideways",
         "pivots": [
-          860.33,
+          863.3,
           857.15,
           846.23,
           848.32,
           856.38
         ],
-        "pivot_shift": -3.95
+        "pivot_shift": -6.92
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -6310,7 +6310,7 @@
       "fno": true,
       "price": 1910.0,
       "change": 1.62,
-      "volume": 555218,
+      "volume": 555231,
       "daily": {
         "curr_cpr": {
           "pivot": 1899.97,
@@ -6377,7 +6377,7 @@
       "fno": true,
       "price": 947.0,
       "change": 1.83,
-      "volume": 1961077,
+      "volume": 1961370,
       "daily": {
         "curr_cpr": {
           "pivot": 943.0,
@@ -6444,7 +6444,7 @@
       "fno": true,
       "price": 375.25,
       "change": -0.96,
-      "volume": 4258965,
+      "volume": 4261349,
       "daily": {
         "curr_cpr": {
           "pivot": 376.72,
@@ -6511,7 +6511,7 @@
       "fno": true,
       "price": 634.5,
       "change": -0.28,
-      "volume": 403205,
+      "volume": 403433,
       "daily": {
         "curr_cpr": {
           "pivot": 637.62,
@@ -6528,9 +6528,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 681.32,
+          "pivot": 680.85,
           "tc": 685.95,
-          "bc": 676.68
+          "bc": 675.75
         },
         "prev_cpr": {
           "pivot": 679.08,
@@ -6538,7 +6538,7 @@
           "bc": 676.32
         },
         "inside": false,
-        "width_pct": 1.461
+        "width_pct": 1.608
       },
       "monthly": {
         "curr_cpr": {
@@ -6578,7 +6578,7 @@
       "fno": true,
       "price": 1677.5,
       "change": 1.05,
-      "volume": 202030,
+      "volume": 202057,
       "daily": {
         "curr_cpr": {
           "pivot": 1684.03,
@@ -6645,7 +6645,7 @@
       "fno": false,
       "price": 3660.0,
       "change": 0.01,
-      "volume": 269839,
+      "volume": 270105,
       "daily": {
         "curr_cpr": {
           "pivot": 3699.2,
@@ -6662,8 +6662,8 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 3773.33,
-          "tc": 3775.67,
+          "pivot": 3771.57,
+          "tc": 3772.13,
           "bc": 3771.0
         },
         "prev_cpr": {
@@ -6671,8 +6671,8 @@
           "tc": 3772.6,
           "bc": 3755.8
         },
-        "inside": false,
-        "width_pct": 0.128
+        "inside": true,
+        "width_pct": 0.031
       },
       "monthly": {
         "curr_cpr": {
@@ -6691,13 +6691,13 @@
       "cpr_trend": {
         "direction": "bearish",
         "pivots": [
-          3753.73,
+          3777.97,
           3745.0,
           3692.33,
           3656.57,
           3699.2
         ],
-        "pivot_shift": -54.53
+        "pivot_shift": -78.77
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -6712,7 +6712,7 @@
       "fno": true,
       "price": 2201.5,
       "change": -1.06,
-      "volume": 531705,
+      "volume": 531963,
       "daily": {
         "curr_cpr": {
           "pivot": 2213.57,
@@ -6729,9 +6729,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 2282.7,
-          "tc": 2298.9,
-          "bc": 2266.5
+          "pivot": 2275.97,
+          "tc": 2296.45,
+          "bc": 2255.48
         },
         "prev_cpr": {
           "pivot": 2383.17,
@@ -6739,7 +6739,7 @@
           "bc": 2373.33
         },
         "inside": false,
-        "width_pct": 1.472
+        "width_pct": 1.861
       },
       "monthly": {
         "curr_cpr": {
@@ -6758,13 +6758,13 @@
       "cpr_trend": {
         "direction": "bearish",
         "pivots": [
-          2259.53,
+          2242.73,
           2248.43,
           2235.83,
           2219.17,
           2213.57
         ],
-        "pivot_shift": -45.96
+        "pivot_shift": -29.16
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -6779,7 +6779,7 @@
       "fno": true,
       "price": 5005.0,
       "change": -0.16,
-      "volume": 244561,
+      "volume": 244562,
       "daily": {
         "curr_cpr": {
           "pivot": 5004.67,
@@ -6846,7 +6846,7 @@
       "fno": true,
       "price": 1107.7,
       "change": 0.29,
-      "volume": 987889,
+      "volume": 987960,
       "daily": {
         "curr_cpr": {
           "pivot": 1112.5,
@@ -6913,7 +6913,7 @@
       "fno": true,
       "price": 395.5,
       "change": -0.34,
-      "volume": 1883481,
+      "volume": 1883583,
       "daily": {
         "curr_cpr": {
           "pivot": 397.75,
@@ -6980,7 +6980,7 @@
       "fno": true,
       "price": 2820.0,
       "change": -0.75,
-      "volume": 563328,
+      "volume": 563338,
       "daily": {
         "curr_cpr": {
           "pivot": 2833.6,
@@ -7011,8 +7011,8 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 2461.4,
-          "tc": 2472.77,
+          "pivot": 2466.07,
+          "tc": 2482.1,
           "bc": 2450.04
         },
         "prev_cpr": {
@@ -7021,7 +7021,7 @@
           "bc": 2330.44
         },
         "inside": false,
-        "width_pct": 0.806
+        "width_pct": 1.137
       },
       "cpr_trend": {
         "direction": "bearish",
@@ -7064,9 +7064,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 921.32,
-          "tc": 928.9,
-          "bc": 913.73
+          "pivot": 928.93,
+          "tc": 928.97,
+          "bc": 928.9
         },
         "prev_cpr": {
           "pivot": 946.03,
@@ -7074,7 +7074,7 @@
           "bc": 941.47
         },
         "inside": false,
-        "width_pct": 1.655
+        "width_pct": 0.008
       },
       "monthly": {
         "curr_cpr": {
@@ -7091,15 +7091,15 @@
         "width_pct": 0.927
       },
       "cpr_trend": {
-        "direction": "bullish",
+        "direction": "sideways",
         "pivots": [
-          899.98,
+          918.53,
           914.28,
           913.43,
           915.2,
           916.27
         ],
-        "pivot_shift": 16.29
+        "pivot_shift": -2.26
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -7114,7 +7114,7 @@
       "fno": true,
       "price": 412.5,
       "change": -0.06,
-      "volume": 1980971,
+      "volume": 1981150,
       "daily": {
         "curr_cpr": {
           "pivot": 413.15,
@@ -7131,9 +7131,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 422.23,
-          "tc": 423.35,
-          "bc": 421.12
+          "pivot": 420.22,
+          "tc": 421.82,
+          "bc": 418.61
         },
         "prev_cpr": {
           "pivot": 430.03,
@@ -7141,7 +7141,7 @@
           "bc": 428.19
         },
         "inside": false,
-        "width_pct": 0.541
+        "width_pct": 0.778
       },
       "monthly": {
         "curr_cpr": {
@@ -7160,13 +7160,13 @@
       "cpr_trend": {
         "direction": "bearish",
         "pivots": [
-          420.5,
+          416.98,
           412.43,
           417.1,
           413.83,
           413.15
         ],
-        "pivot_shift": -7.35
+        "pivot_shift": -3.83
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -7181,7 +7181,7 @@
       "fno": true,
       "price": 1608.0,
       "change": -1.02,
-      "volume": 805517,
+      "volume": 805856,
       "daily": {
         "curr_cpr": {
           "pivot": 1615.37,
@@ -7248,7 +7248,7 @@
       "fno": true,
       "price": 676.15,
       "change": 0.93,
-      "volume": 2370502,
+      "volume": 2371022,
       "daily": {
         "curr_cpr": {
           "pivot": 676.85,
@@ -7258,7 +7258,7 @@
         "prev_cpr": {
           "pivot": 667.62,
           "tc": 668.76,
-          "bc": 666.48
+          "bc": 666.47
         },
         "inside": false,
         "width_pct": 0.104
@@ -7315,7 +7315,7 @@
       "fno": true,
       "price": 2020.0,
       "change": 0.63,
-      "volume": 285775,
+      "volume": 285777,
       "daily": {
         "curr_cpr": {
           "pivot": 2021.07,
@@ -7382,7 +7382,7 @@
       "fno": true,
       "price": 1897.0,
       "change": 1.17,
-      "volume": 582847,
+      "volume": 582875,
       "daily": {
         "curr_cpr": {
           "pivot": 1895.33,
@@ -7516,7 +7516,7 @@
       "fno": true,
       "price": 411.0,
       "change": 0.86,
-      "volume": 3541760,
+      "volume": 3542288,
       "daily": {
         "curr_cpr": {
           "pivot": 411.1,
@@ -7650,7 +7650,7 @@
       "fno": true,
       "price": 3880.0,
       "change": -0.48,
-      "volume": 189180,
+      "volume": 189186,
       "daily": {
         "curr_cpr": {
           "pivot": 3904.93,
@@ -7717,7 +7717,7 @@
       "fno": true,
       "price": 7479.0,
       "change": 0.66,
-      "volume": 195915,
+      "volume": 195920,
       "daily": {
         "curr_cpr": {
           "pivot": 7451.17,
@@ -7734,9 +7734,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 7672.33,
-          "tc": 7691.17,
-          "bc": 7653.5
+          "pivot": 7669.67,
+          "tc": 7680.0,
+          "bc": 7659.33
         },
         "prev_cpr": {
           "pivot": 7520.46,
@@ -7744,7 +7744,7 @@
           "bc": 7480.68
         },
         "inside": false,
-        "width_pct": 0.504
+        "width_pct": 0.276
       },
       "monthly": {
         "curr_cpr": {
@@ -7763,13 +7763,13 @@
       "cpr_trend": {
         "direction": "bearish",
         "pivots": [
-          7713.67,
+          7704.33,
           7682.33,
           7602.83,
           7454.83,
           7451.17
         ],
-        "pivot_shift": -262.5
+        "pivot_shift": -253.16
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -7784,7 +7784,7 @@
       "fno": true,
       "price": 9125.0,
       "change": -0.16,
-      "volume": 270241,
+      "volume": 270245,
       "daily": {
         "curr_cpr": {
           "pivot": 9127.17,
@@ -7815,9 +7815,9 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 9233.83,
-          "tc": 9402.75,
-          "bc": 9064.92
+          "pivot": 9222.17,
+          "tc": 9385.25,
+          "bc": 9059.08
         },
         "prev_cpr": {
           "pivot": 9787.83,
@@ -7825,7 +7825,7 @@
           "bc": 9701.24
         },
         "inside": false,
-        "width_pct": 3.702
+        "width_pct": 3.574
       },
       "cpr_trend": {
         "direction": "sideways",
@@ -7851,20 +7851,20 @@
       "fno": true,
       "price": 413.5,
       "change": -1.5,
-      "volume": 4568480,
+      "volume": 4572719,
       "daily": {
         "curr_cpr": {
           "pivot": 416.55,
           "tc": 418.07,
-          "bc": 415.02
+          "bc": 415.03
         },
         "prev_cpr": {
           "pivot": 419.75,
           "tc": 419.77,
-          "bc": 419.72
+          "bc": 419.73
         },
         "inside": false,
-        "width_pct": 0.738
+        "width_pct": 0.735
       },
       "weekly": {
         "curr_cpr": {
@@ -7918,7 +7918,7 @@
       "fno": true,
       "price": 5205.0,
       "change": -0.29,
-      "volume": 253750,
+      "volume": 253759,
       "daily": {
         "curr_cpr": {
           "pivot": 5216.67,
@@ -7985,7 +7985,7 @@
       "fno": true,
       "price": 173.8,
       "change": 0.4,
-      "volume": 5407601,
+      "volume": 5408765,
       "daily": {
         "curr_cpr": {
           "pivot": 173.99,
@@ -8052,7 +8052,7 @@
       "fno": true,
       "price": 3092.1,
       "change": 1.22,
-      "volume": 76433,
+      "volume": 76434,
       "daily": {
         "curr_cpr": {
           "pivot": 3087.03,
@@ -8119,7 +8119,7 @@
       "fno": true,
       "price": 2062.0,
       "change": -0.34,
-      "volume": 417255,
+      "volume": 417329,
       "daily": {
         "curr_cpr": {
           "pivot": 2063.73,
@@ -8186,7 +8186,7 @@
       "fno": true,
       "price": 2378.0,
       "change": 0.49,
-      "volume": 105036,
+      "volume": 105038,
       "daily": {
         "curr_cpr": {
           "pivot": 2372.43,
@@ -8203,9 +8203,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 2454.83,
-          "tc": 2477.25,
-          "bc": 2432.42
+          "pivot": 2422.73,
+          "tc": 2452.3,
+          "bc": 2393.17
         },
         "prev_cpr": {
           "pivot": 2473.87,
@@ -8213,7 +8213,7 @@
           "bc": 2470.08
         },
         "inside": false,
-        "width_pct": 1.885
+        "width_pct": 2.487
       },
       "monthly": {
         "curr_cpr": {
@@ -8230,15 +8230,15 @@
         "width_pct": 6.349
       },
       "cpr_trend": {
-        "direction": "bearish",
+        "direction": "sideways",
         "pivots": [
-          2446.4,
+          2378.97,
           2397.97,
           2387.23,
           2367.7,
           2372.43
         ],
-        "pivot_shift": -73.97
+        "pivot_shift": -6.54
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -8253,7 +8253,7 @@
       "fno": true,
       "price": 429.3,
       "change": 0.46,
-      "volume": 898968,
+      "volume": 898970,
       "daily": {
         "curr_cpr": {
           "pivot": 430.38,
@@ -8270,9 +8270,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 444.67,
+          "pivot": 445.02,
           "tc": 445.48,
-          "bc": 443.86
+          "bc": 444.56
         },
         "prev_cpr": {
           "pivot": 442.58,
@@ -8280,7 +8280,7 @@
           "bc": 441.38
         },
         "inside": false,
-        "width_pct": 0.377
+        "width_pct": 0.214
       },
       "monthly": {
         "curr_cpr": {
@@ -8299,13 +8299,13 @@
       "cpr_trend": {
         "direction": "bearish",
         "pivots": [
-          443.33,
+          443.88,
           438.73,
           436.4,
           429.63,
           430.38
         ],
-        "pivot_shift": -12.95
+        "pivot_shift": -13.5
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -8387,7 +8387,7 @@
       "fno": true,
       "price": 4390.0,
       "change": 0.66,
-      "volume": 463602,
+      "volume": 463670,
       "daily": {
         "curr_cpr": {
           "pivot": 4384.7,
@@ -8418,9 +8418,9 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 4033.83,
-          "tc": 4173.47,
-          "bc": 3894.2
+          "pivot": 3963.6,
+          "tc": 4086.0,
+          "bc": 3841.2
         },
         "prev_cpr": {
           "pivot": 3442.83,
@@ -8428,7 +8428,7 @@
           "bc": 3433.95
         },
         "inside": false,
-        "width_pct": 6.362
+        "width_pct": 5.576
       },
       "cpr_trend": {
         "direction": "bullish",
@@ -8454,7 +8454,7 @@
       "fno": true,
       "price": 48750.0,
       "change": 0.6,
-      "volume": 47788,
+      "volume": 47793,
       "daily": {
         "curr_cpr": {
           "pivot": 48466.67,
@@ -8521,7 +8521,7 @@
       "fno": true,
       "price": 2970.0,
       "change": 3.88,
-      "volume": 2309837,
+      "volume": 2309964,
       "daily": {
         "curr_cpr": {
           "pivot": 2957.73,
@@ -8588,7 +8588,7 @@
       "fno": true,
       "price": 349.25,
       "change": 2.72,
-      "volume": 8327086,
+      "volume": 8327416,
       "daily": {
         "curr_cpr": {
           "pivot": 348.62,
@@ -8655,7 +8655,7 @@
       "fno": true,
       "price": 1888.9,
       "change": 0.82,
-      "volume": 624846,
+      "volume": 624966,
       "daily": {
         "curr_cpr": {
           "pivot": 1891.03,
@@ -8722,7 +8722,7 @@
       "fno": true,
       "price": 382.45,
       "change": -1.84,
-      "volume": 2120373,
+      "volume": 2120381,
       "daily": {
         "curr_cpr": {
           "pivot": 386.5,
@@ -8753,9 +8753,9 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 363.96,
-          "tc": 374.86,
-          "bc": 353.07
+          "pivot": 365.49,
+          "tc": 379.02,
+          "bc": 351.97
         },
         "prev_cpr": {
           "pivot": 300.75,
@@ -8763,7 +8763,7 @@
           "bc": 296.7
         },
         "inside": false,
-        "width_pct": 5.697
+        "width_pct": 7.073
       },
       "cpr_trend": {
         "direction": "bearish",
@@ -8789,7 +8789,7 @@
       "fno": true,
       "price": 129.6,
       "change": 0.4,
-      "volume": 9573395,
+      "volume": 9575025,
       "daily": {
         "curr_cpr": {
           "pivot": 129.71,
@@ -8856,7 +8856,7 @@
       "fno": true,
       "price": 142.8,
       "change": 0.78,
-      "volume": 6127197,
+      "volume": 6127372,
       "daily": {
         "curr_cpr": {
           "pivot": 142.82,
@@ -8865,7 +8865,7 @@
         },
         "prev_cpr": {
           "pivot": 142.02,
-          "tc": 142.17,
+          "tc": 142.18,
           "bc": 141.86
         },
         "inside": false,
@@ -8923,7 +8923,7 @@
       "fno": true,
       "price": 184.68,
       "change": -1.19,
-      "volume": 9631502,
+      "volume": 9632097,
       "daily": {
         "curr_cpr": {
           "pivot": 186.18,
@@ -8940,9 +8940,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 185.03,
-          "tc": 185.76,
-          "bc": 184.29
+          "pivot": 185.53,
+          "tc": 186.46,
+          "bc": 184.61
         },
         "prev_cpr": {
           "pivot": 179.97,
@@ -8950,7 +8950,7 @@
           "bc": 178.15
         },
         "inside": false,
-        "width_pct": 0.796
+        "width_pct": 1.002
       },
       "monthly": {
         "curr_cpr": {
@@ -8969,13 +8969,13 @@
       "cpr_trend": {
         "direction": "bearish",
         "pivots": [
-          186.84,
+          187.7,
           187.77,
           187.19,
           186.47,
           186.18
         ],
-        "pivot_shift": -0.66
+        "pivot_shift": -1.52
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -8990,7 +8990,7 @@
       "fno": true,
       "price": 123.35,
       "change": 0.28,
-      "volume": 2986679,
+      "volume": 2988591,
       "daily": {
         "curr_cpr": {
           "pivot": 123.63,
@@ -9057,7 +9057,7 @@
       "fno": true,
       "price": 3126.0,
       "change": 5.15,
-      "volume": 3922363,
+      "volume": 3923221,
       "daily": {
         "curr_cpr": {
           "pivot": 3088.4,
@@ -9124,7 +9124,7 @@
       "fno": true,
       "price": 3291.1,
       "change": -1.82,
-      "volume": 5388505,
+      "volume": 5391606,
       "daily": {
         "curr_cpr": {
           "pivot": 3327.7,
@@ -9191,7 +9191,7 @@
       "fno": true,
       "price": 1345.9,
       "change": 1.27,
-      "volume": 1113352,
+      "volume": 1113440,
       "daily": {
         "curr_cpr": {
           "pivot": 1344.67,
@@ -9258,11 +9258,11 @@
       "fno": true,
       "price": 289.5,
       "change": 0.0,
-      "volume": 3675101,
+      "volume": 3677395,
       "daily": {
         "curr_cpr": {
           "pivot": 291.62,
-          "tc": 292.67,
+          "tc": 292.68,
           "bc": 290.56
         },
         "prev_cpr": {
@@ -9271,7 +9271,7 @@
           "bc": 290.21
         },
         "inside": false,
-        "width_pct": 0.729
+        "width_pct": 0.732
       },
       "weekly": {
         "curr_cpr": {
@@ -9325,12 +9325,12 @@
       "fno": true,
       "price": 392.3,
       "change": 2.83,
-      "volume": 2728675,
+      "volume": 2729409,
       "daily": {
         "curr_cpr": {
           "pivot": 389.42,
           "tc": 390.86,
-          "bc": 387.97
+          "bc": 387.98
         },
         "prev_cpr": {
           "pivot": 381.27,
@@ -9338,7 +9338,7 @@
           "bc": 381.15
         },
         "inside": false,
-        "width_pct": 0.737
+        "width_pct": 0.734
       },
       "weekly": {
         "curr_cpr": {
@@ -9392,7 +9392,7 @@
       "fno": true,
       "price": 2574.5,
       "change": -0.16,
-      "volume": 81499,
+      "volume": 81501,
       "daily": {
         "curr_cpr": {
           "pivot": 2579.9,
@@ -9409,8 +9409,8 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 2595.6,
-          "tc": 2602.15,
+          "pivot": 2594.7,
+          "tc": 2600.35,
           "bc": 2589.05
         },
         "prev_cpr": {
@@ -9419,7 +9419,7 @@
           "bc": 2622.17
         },
         "inside": false,
-        "width_pct": 0.509
+        "width_pct": 0.439
       },
       "monthly": {
         "curr_cpr": {
@@ -9438,13 +9438,13 @@
       "cpr_trend": {
         "direction": "sideways",
         "pivots": [
-          2593.7,
+          2603.43,
           2615.9,
           2626.03,
           2589.93,
           2579.9
         ],
-        "pivot_shift": -13.8
+        "pivot_shift": -23.53
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -9459,7 +9459,7 @@
       "fno": true,
       "price": 1750.4,
       "change": -1.01,
-      "volume": 127265,
+      "volume": 127283,
       "daily": {
         "curr_cpr": {
           "pivot": 1758.1,
@@ -9526,7 +9526,7 @@
       "fno": true,
       "price": 2482.5,
       "change": -0.9,
-      "volume": 96127,
+      "volume": 96187,
       "daily": {
         "curr_cpr": {
           "pivot": 2495.83,
@@ -9593,7 +9593,7 @@
       "fno": true,
       "price": 4682.7,
       "change": -0.14,
-      "volume": 263252,
+      "volume": 263293,
       "daily": {
         "curr_cpr": {
           "pivot": 4704.27,
@@ -9660,7 +9660,7 @@
       "fno": true,
       "price": 520.05,
       "change": -1.33,
-      "volume": 749616,
+      "volume": 749736,
       "daily": {
         "curr_cpr": {
           "pivot": 524.72,
@@ -9727,7 +9727,7 @@
       "fno": true,
       "price": 571.9,
       "change": 0.69,
-      "volume": 2830418,
+      "volume": 2830644,
       "daily": {
         "curr_cpr": {
           "pivot": 571.77,
@@ -9737,7 +9737,7 @@
         "prev_cpr": {
           "pivot": 565.78,
           "tc": 566.89,
-          "bc": 564.68
+          "bc": 564.67
         },
         "inside": false,
         "width_pct": 0.023
@@ -9794,7 +9794,7 @@
       "fno": true,
       "price": 14850.0,
       "change": 2.68,
-      "volume": 639737,
+      "volume": 639826,
       "daily": {
         "curr_cpr": {
           "pivot": 14757.67,
@@ -9861,7 +9861,7 @@
       "fno": true,
       "price": 1219.5,
       "change": -0.29,
-      "volume": 1054378,
+      "volume": 1054580,
       "daily": {
         "curr_cpr": {
           "pivot": 1223.67,
@@ -9928,7 +9928,7 @@
       "fno": true,
       "price": 252.0,
       "change": 2.65,
-      "volume": 4142028,
+      "volume": 4143736,
       "daily": {
         "curr_cpr": {
           "pivot": 251.08,
@@ -9938,7 +9938,7 @@
         "prev_cpr": {
           "pivot": 244.88,
           "tc": 245.19,
-          "bc": 244.58
+          "bc": 244.57
         },
         "inside": false,
         "width_pct": 0.365
@@ -9995,7 +9995,7 @@
       "fno": true,
       "price": 35505.0,
       "change": 0.75,
-      "volume": 40731,
+      "volume": 40743,
       "daily": {
         "curr_cpr": {
           "pivot": 35500.0,
@@ -10062,7 +10062,7 @@
       "fno": true,
       "price": 1220.7,
       "change": 0.98,
-      "volume": 87719,
+      "volume": 87721,
       "daily": {
         "curr_cpr": {
           "pivot": 1218.7,
@@ -10196,7 +10196,7 @@
       "fno": true,
       "price": 519.0,
       "change": 0.9,
-      "volume": 696348,
+      "volume": 696568,
       "daily": {
         "curr_cpr": {
           "pivot": 519.07,
@@ -10263,7 +10263,7 @@
       "fno": true,
       "price": 368.8,
       "change": -0.97,
-      "volume": 3257177,
+      "volume": 3258892,
       "daily": {
         "curr_cpr": {
           "pivot": 370.0,
@@ -10330,7 +10330,7 @@
       "fno": true,
       "price": 1137.8,
       "change": 0.87,
-      "volume": 230770,
+      "volume": 230805,
       "daily": {
         "curr_cpr": {
           "pivot": 1140.5,
@@ -10397,7 +10397,7 @@
       "fno": true,
       "price": 291.4,
       "change": 1.13,
-      "volume": 3196537,
+      "volume": 3197045,
       "daily": {
         "curr_cpr": {
           "pivot": 290.58,
@@ -10464,7 +10464,7 @@
       "fno": true,
       "price": 507.3,
       "change": 1.81,
-      "volume": 1576202,
+      "volume": 1576256,
       "daily": {
         "curr_cpr": {
           "pivot": 505.77,
@@ -10531,11 +10531,11 @@
       "fno": true,
       "price": 735.85,
       "change": 1.73,
-      "volume": 1766022,
+      "volume": 1766030,
       "daily": {
         "curr_cpr": {
           "pivot": 732.9,
-          "tc": 734.37,
+          "tc": 734.38,
           "bc": 731.42
         },
         "prev_cpr": {
@@ -10544,13 +10544,13 @@
           "bc": 719.55
         },
         "inside": false,
-        "width_pct": 0.401
+        "width_pct": 0.402
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 723.2,
+          "pivot": 722.62,
           "tc": 723.92,
-          "bc": 722.47
+          "bc": 721.31
         },
         "prev_cpr": {
           "pivot": 737.55,
@@ -10558,7 +10558,7 @@
           "bc": 734.28
         },
         "inside": false,
-        "width_pct": 0.197
+        "width_pct": 0.355
       },
       "monthly": {
         "curr_cpr": {
@@ -10577,13 +10577,13 @@
       "cpr_trend": {
         "direction": "sideways",
         "pivots": [
-          720.28,
+          719.58,
           719.38,
           717.77,
           720.82,
           732.9
         ],
-        "pivot_shift": 12.62
+        "pivot_shift": 13.32
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -10598,7 +10598,7 @@
       "fno": true,
       "price": 903.05,
       "change": 0.96,
-      "volume": 600456,
+      "volume": 600510,
       "daily": {
         "curr_cpr": {
           "pivot": 901.35,
@@ -10665,7 +10665,7 @@
       "fno": true,
       "price": 685.7,
       "change": 1.07,
-      "volume": 252165,
+      "volume": 252166,
       "daily": {
         "curr_cpr": {
           "pivot": 688.53,
@@ -10732,7 +10732,7 @@
       "fno": true,
       "price": 1825.0,
       "change": 1.29,
-      "volume": 1314558,
+      "volume": 1315065,
       "daily": {
         "curr_cpr": {
           "pivot": 1823.6,
@@ -10866,12 +10866,12 @@
       "fno": true,
       "price": 876.3,
       "change": 1.54,
-      "volume": 2197616,
+      "volume": 2197796,
       "daily": {
         "curr_cpr": {
           "pivot": 871.75,
-          "tc": 874.02,
-          "bc": 869.48
+          "tc": 874.03,
+          "bc": 869.47
         },
         "prev_cpr": {
           "pivot": 869.75,
@@ -10879,7 +10879,7 @@
           "bc": 866.4
         },
         "inside": false,
-        "width_pct": 0.518
+        "width_pct": 0.52
       },
       "weekly": {
         "curr_cpr": {
@@ -10933,7 +10933,7 @@
       "fno": true,
       "price": 1532.0,
       "change": -0.84,
-      "volume": 257501,
+      "volume": 257504,
       "daily": {
         "curr_cpr": {
           "pivot": 1538.97,
@@ -11000,7 +11000,7 @@
       "fno": true,
       "price": 2004.8,
       "change": -1.63,
-      "volume": 86357,
+      "volume": 86412,
       "daily": {
         "curr_cpr": {
           "pivot": 2018.27,
@@ -11067,7 +11067,7 @@
       "fno": true,
       "price": 842.9,
       "change": 3.09,
-      "volume": 431402,
+      "volume": 431403,
       "daily": {
         "curr_cpr": {
           "pivot": 837.23,
@@ -11084,8 +11084,8 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 820.25,
-          "tc": 821.05,
+          "pivot": 819.9,
+          "tc": 820.35,
           "bc": 819.45
         },
         "prev_cpr": {
@@ -11094,7 +11094,7 @@
           "bc": 812.29
         },
         "inside": false,
-        "width_pct": 0.19
+        "width_pct": 0.107
       },
       "monthly": {
         "curr_cpr": {
@@ -11113,13 +11113,13 @@
       "cpr_trend": {
         "direction": "sideways",
         "pivots": [
-          821.12,
+          819.68,
           815.43,
           819.73,
           818.93,
           837.23
         ],
-        "pivot_shift": 16.11
+        "pivot_shift": 17.55
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -11134,7 +11134,7 @@
       "fno": true,
       "price": 749.25,
       "change": -0.67,
-      "volume": 1370298,
+      "volume": 1370564,
       "daily": {
         "curr_cpr": {
           "pivot": 752.67,
@@ -11201,7 +11201,7 @@
       "fno": true,
       "price": 2385.0,
       "change": -0.38,
-      "volume": 307616,
+      "volume": 307625,
       "daily": {
         "curr_cpr": {
           "pivot": 2390.47,
@@ -11268,7 +11268,7 @@
       "fno": true,
       "price": 1779.6,
       "change": -0.14,
-      "volume": 1101000,
+      "volume": 1101007,
       "daily": {
         "curr_cpr": {
           "pivot": 1782.33,
@@ -11334,8 +11334,8 @@
       "sector": "Capital Goods",
       "fno": false,
       "price": 2570.0,
-      "change": 0.42,
-      "volume": 467795,
+      "change": 0.24,
+      "volume": 467904,
       "daily": {
         "curr_cpr": {
           "pivot": 2568.4,
@@ -11343,11 +11343,11 @@
           "bc": 2567.6
         },
         "prev_cpr": {
-          "pivot": 2564.14,
-          "tc": 2566.62,
-          "bc": 2561.66
+          "pivot": 2568.77,
+          "tc": 2571.25,
+          "bc": 2566.28
         },
-        "inside": false,
+        "inside": true,
         "width_pct": 0.062
       },
       "weekly": {
@@ -11402,7 +11402,7 @@
       "fno": false,
       "price": 16784.0,
       "change": 1.02,
-      "volume": 122282,
+      "volume": 122284,
       "daily": {
         "curr_cpr": {
           "pivot": 16789.67,
@@ -11469,7 +11469,7 @@
       "fno": false,
       "price": 3815.0,
       "change": -0.22,
-      "volume": 1014673,
+      "volume": 1015464,
       "daily": {
         "curr_cpr": {
           "pivot": 3837.33,
@@ -11536,12 +11536,12 @@
       "fno": false,
       "price": 823.95,
       "change": 1.4,
-      "volume": 978256,
+      "volume": 979044,
       "daily": {
         "curr_cpr": {
           "pivot": 825.4,
           "tc": 826.12,
-          "bc": 824.68
+          "bc": 824.67
         },
         "prev_cpr": {
           "pivot": 821.65,
@@ -11549,7 +11549,7 @@
           "bc": 817.1
         },
         "inside": true,
-        "width_pct": 0.175
+        "width_pct": 0.176
       },
       "weekly": {
         "curr_cpr": {
@@ -11603,7 +11603,7 @@
       "fno": false,
       "price": 1727.9,
       "change": -0.32,
-      "volume": 143617,
+      "volume": 143618,
       "daily": {
         "curr_cpr": {
           "pivot": 1730.97,
@@ -11670,7 +11670,7 @@
       "fno": false,
       "price": 279.0,
       "change": 2.42,
-      "volume": 18241422,
+      "volume": 18244359,
       "daily": {
         "curr_cpr": {
           "pivot": 279.38,
@@ -11737,7 +11737,7 @@
       "fno": false,
       "price": 329.85,
       "change": -0.02,
-      "volume": 1462451,
+      "volume": 1462459,
       "daily": {
         "curr_cpr": {
           "pivot": 331.1,
@@ -11804,7 +11804,7 @@
       "fno": false,
       "price": 450.1,
       "change": 0.02,
-      "volume": 1139726,
+      "volume": 1139987,
       "daily": {
         "curr_cpr": {
           "pivot": 452.15,
@@ -11871,7 +11871,7 @@
       "fno": false,
       "price": 2245.5,
       "change": -0.0,
-      "volume": 774135,
+      "volume": 774181,
       "daily": {
         "curr_cpr": {
           "pivot": 2258.83,
@@ -11938,11 +11938,11 @@
       "fno": false,
       "price": 336.3,
       "change": 1.42,
-      "volume": 867517,
+      "volume": 867529,
       "daily": {
         "curr_cpr": {
           "pivot": 336.58,
-          "tc": 336.72,
+          "tc": 336.73,
           "bc": 336.44
         },
         "prev_cpr": {
@@ -11951,7 +11951,7 @@
           "bc": 332.3
         },
         "inside": false,
-        "width_pct": 0.083
+        "width_pct": 0.086
       },
       "weekly": {
         "curr_cpr": {
@@ -12009,8 +12009,8 @@
       "daily": {
         "curr_cpr": {
           "pivot": 2.75,
-          "tc": 2.76,
-          "bc": 2.74
+          "tc": 2.77,
+          "bc": 2.73
         },
         "prev_cpr": {
           "pivot": 2.77,
@@ -12018,7 +12018,7 @@
           "bc": 2.75
         },
         "inside": false,
-        "width_pct": 0.735
+        "width_pct": 1.471
       },
       "weekly": {
         "curr_cpr": {
@@ -12062,7 +12062,7 @@
       "virgin_cpr": {
         "is_virgin": true,
         "position": "below",
-        "dist_pct": 0.74
+        "dist_pct": 0.37
       }
     },
     {
@@ -12072,7 +12072,7 @@
       "fno": false,
       "price": 2227.0,
       "change": 2.41,
-      "volume": 682781,
+      "volume": 682793,
       "daily": {
         "curr_cpr": {
           "pivot": 2213.7,
@@ -12139,12 +12139,12 @@
       "fno": true,
       "price": 409.0,
       "change": 3.28,
-      "volume": 5466669,
+      "volume": 5467281,
       "daily": {
         "curr_cpr": {
           "pivot": 406.02,
           "tc": 407.51,
-          "bc": 404.53
+          "bc": 404.52
         },
         "prev_cpr": {
           "pivot": 397.43,
@@ -12152,7 +12152,7 @@
           "bc": 396.72
         },
         "inside": false,
-        "width_pct": 0.729
+        "width_pct": 0.731
       },
       "weekly": {
         "curr_cpr": {
@@ -12170,9 +12170,9 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 396.25,
-          "tc": 397.35,
-          "bc": 395.15
+          "pivot": 396.48,
+          "tc": 397.7,
+          "bc": 395.27
         },
         "prev_cpr": {
           "pivot": 375.37,
@@ -12180,7 +12180,7 @@
           "bc": 367.07
         },
         "inside": false,
-        "width_pct": 0.538
+        "width_pct": 0.594
       },
       "cpr_trend": {
         "direction": "sideways",
@@ -12206,7 +12206,7 @@
       "fno": true,
       "price": 1923.8,
       "change": -1.65,
-      "volume": 63406,
+      "volume": 63490,
       "daily": {
         "curr_cpr": {
           "pivot": 1941.6,
@@ -12223,9 +12223,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 1924.43,
+          "pivot": 1922.37,
           "tc": 1925.1,
-          "bc": 1923.77
+          "bc": 1919.63
         },
         "prev_cpr": {
           "pivot": 1892.9,
@@ -12233,7 +12233,7 @@
           "bc": 1892.4
         },
         "inside": false,
-        "width_pct": 0.069
+        "width_pct": 0.284
       },
       "monthly": {
         "curr_cpr": {
@@ -12252,13 +12252,13 @@
       "cpr_trend": {
         "direction": "bullish",
         "pivots": [
-          1914.7,
+          1916.73,
           1925.67,
           1902.83,
           1941.37,
           1941.6
         ],
-        "pivot_shift": 26.9
+        "pivot_shift": 24.87
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -12340,7 +12340,7 @@
       "fno": true,
       "price": 7275.0,
       "change": 0.34,
-      "volume": 181850,
+      "volume": 181909,
       "daily": {
         "curr_cpr": {
           "pivot": 7287.83,
@@ -12407,7 +12407,7 @@
       "fno": true,
       "price": 1203.0,
       "change": 1.91,
-      "volume": 1748384,
+      "volume": 1748431,
       "daily": {
         "curr_cpr": {
           "pivot": 1203.97,
@@ -12438,8 +12438,8 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 1121.97,
-          "tc": 1128.63,
+          "pivot": 1124.5,
+          "tc": 1133.7,
           "bc": 1115.3
         },
         "prev_cpr": {
@@ -12448,7 +12448,7 @@
           "bc": 1082.47
         },
         "inside": false,
-        "width_pct": 1.108
+        "width_pct": 1.53
       },
       "cpr_trend": {
         "direction": "bullish",
@@ -12474,7 +12474,7 @@
       "fno": false,
       "price": 65.91,
       "change": -0.2,
-      "volume": 1682067,
+      "volume": 1684377,
       "daily": {
         "curr_cpr": {
           "pivot": 66.14,
@@ -12541,12 +12541,12 @@
       "fno": false,
       "price": 186.05,
       "change": -1.21,
-      "volume": 1804907,
+      "volume": 1804933,
       "daily": {
         "curr_cpr": {
           "pivot": 186.84,
           "tc": 187.24,
-          "bc": 186.45
+          "bc": 186.44
         },
         "prev_cpr": {
           "pivot": 189.11,
@@ -12554,7 +12554,7 @@
           "bc": 188.71
         },
         "inside": false,
-        "width_pct": 0.425
+        "width_pct": 0.43
       },
       "weekly": {
         "curr_cpr": {
@@ -12608,7 +12608,7 @@
       "fno": false,
       "price": 2617.8,
       "change": -0.78,
-      "volume": 279661,
+      "volume": 279800,
       "daily": {
         "curr_cpr": {
           "pivot": 2628.47,
@@ -12675,7 +12675,7 @@
       "fno": true,
       "price": 1317.0,
       "change": -2.37,
-      "volume": 2092697,
+      "volume": 2094679,
       "daily": {
         "curr_cpr": {
           "pivot": 1327.33,
@@ -12809,7 +12809,7 @@
       "fno": false,
       "price": 477.55,
       "change": -0.7,
-      "volume": 330214,
+      "volume": 330340,
       "daily": {
         "curr_cpr": {
           "pivot": 478.25,
@@ -12876,7 +12876,7 @@
       "fno": false,
       "price": 1248.7,
       "change": 0.4,
-      "volume": 231542,
+      "volume": 231776,
       "daily": {
         "curr_cpr": {
           "pivot": 1247.53,
@@ -12943,7 +12943,7 @@
       "fno": false,
       "price": 542.0,
       "change": -0.36,
-      "volume": 1458757,
+      "volume": 1459729,
       "daily": {
         "curr_cpr": {
           "pivot": 543.03,
@@ -13010,7 +13010,7 @@
       "fno": false,
       "price": 156.61,
       "change": -1.91,
-      "volume": 1961686,
+      "volume": 1965934,
       "daily": {
         "curr_cpr": {
           "pivot": 157.57,
@@ -13077,7 +13077,7 @@
       "fno": false,
       "price": 1278.0,
       "change": -0.7,
-      "volume": 401489,
+      "volume": 401500,
       "daily": {
         "curr_cpr": {
           "pivot": 1278.43,
@@ -13144,7 +13144,7 @@
       "fno": true,
       "price": 528.55,
       "change": -1.37,
-      "volume": 291392,
+      "volume": 291505,
       "daily": {
         "curr_cpr": {
           "pivot": 531.03,
@@ -13161,9 +13161,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 547.68,
+          "pivot": 547.27,
           "tc": 548.35,
-          "bc": 547.02
+          "bc": 546.18
         },
         "prev_cpr": {
           "pivot": 535.31,
@@ -13171,7 +13171,7 @@
           "bc": 532.93
         },
         "inside": false,
-        "width_pct": 0.252
+        "width_pct": 0.411
       },
       "monthly": {
         "curr_cpr": {
@@ -13190,13 +13190,13 @@
       "cpr_trend": {
         "direction": "bearish",
         "pivots": [
-          551.55,
+          549.7,
           548.87,
           542.7,
           537.13,
           531.03
         ],
-        "pivot_shift": -20.52
+        "pivot_shift": -18.67
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -13211,7 +13211,7 @@
       "fno": true,
       "price": 5400.0,
       "change": 0.33,
-      "volume": 85366,
+      "volume": 85369,
       "daily": {
         "curr_cpr": {
           "pivot": 5399.33,
@@ -13344,8 +13344,8 @@
       "sector": "Healthcare",
       "fno": false,
       "price": 877.5,
-      "change": -0.89,
-      "volume": 275977,
+      "change": -1.05,
+      "volume": 275997,
       "daily": {
         "curr_cpr": {
           "pivot": 882.47,
@@ -13353,18 +13353,18 @@
           "bc": 879.98
         },
         "prev_cpr": {
-          "pivot": 893.77,
-          "tc": 897.98,
-          "bc": 889.56
+          "pivot": 895.28,
+          "tc": 899.5,
+          "bc": 891.07
         },
         "inside": false,
         "width_pct": 0.566
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 937.4,
-          "tc": 943.74,
-          "bc": 931.05
+          "pivot": 916.56,
+          "tc": 924.03,
+          "bc": 909.09
         },
         "prev_cpr": {
           "pivot": 920.61,
@@ -13372,7 +13372,7 @@
           "bc": 917.85
         },
         "inside": false,
-        "width_pct": 1.446
+        "width_pct": 1.703
       },
       "monthly": {
         "curr_cpr": {
@@ -13391,13 +13391,13 @@
       "cpr_trend": {
         "direction": "bearish",
         "pivots": [
-          942.04,
+          916.56,
           884.2,
           894.93,
           893.77,
           882.47
         ],
-        "pivot_shift": -59.57
+        "pivot_shift": -34.09
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -13412,7 +13412,7 @@
       "fno": false,
       "price": 540.8,
       "change": -2.56,
-      "volume": 597178,
+      "volume": 597186,
       "daily": {
         "curr_cpr": {
           "pivot": 544.1,
@@ -13479,7 +13479,7 @@
       "fno": false,
       "price": 997.9,
       "change": 0.09,
-      "volume": 1658668,
+      "volume": 1658842,
       "daily": {
         "curr_cpr": {
           "pivot": 995.8,
@@ -13546,7 +13546,7 @@
       "fno": false,
       "price": 765.65,
       "change": -4.32,
-      "volume": 9883848,
+      "volume": 9884475,
       "daily": {
         "curr_cpr": {
           "pivot": 773.35,
@@ -13613,7 +13613,7 @@
       "fno": false,
       "price": 47.0,
       "change": 0.49,
-      "volume": 31109121,
+      "volume": 31120638,
       "daily": {
         "curr_cpr": {
           "pivot": 47.12,
@@ -13680,7 +13680,7 @@
       "fno": false,
       "price": 22.74,
       "change": 0.0,
-      "volume": 34361741,
+      "volume": 34376881,
       "daily": {
         "curr_cpr": {
           "pivot": 22.81,
@@ -13690,7 +13690,7 @@
         "prev_cpr": {
           "pivot": 22.64,
           "tc": 22.69,
-          "bc": 22.6
+          "bc": 22.59
         },
         "inside": false,
         "width_pct": 0.308
@@ -13747,7 +13747,7 @@
       "fno": false,
       "price": 1904.7,
       "change": 1.87,
-      "volume": 500891,
+      "volume": 500903,
       "daily": {
         "curr_cpr": {
           "pivot": 1895.27,
@@ -13778,17 +13778,17 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 1853.0,
-          "tc": 1872.3,
-          "bc": 1833.7
+          "pivot": 1851.65,
+          "tc": 1870.28,
+          "bc": 1833.03
         },
         "prev_cpr": {
-          "pivot": 1709.73,
-          "tc": 1739.47,
-          "bc": 1680.0
+          "pivot": 1707.89,
+          "tc": 1737.59,
+          "bc": 1678.19
         },
         "inside": false,
-        "width_pct": 2.027
+        "width_pct": 1.956
       },
       "cpr_trend": {
         "direction": "sideways",
@@ -13814,7 +13814,7 @@
       "fno": false,
       "price": 1585.5,
       "change": 0.23,
-      "volume": 175194,
+      "volume": 175197,
       "daily": {
         "curr_cpr": {
           "pivot": 1592.17,
@@ -13881,7 +13881,7 @@
       "fno": false,
       "price": 625.75,
       "change": 6.47,
-      "volume": 1512120,
+      "volume": 1512316,
       "daily": {
         "curr_cpr": {
           "pivot": 614.68,
@@ -13948,7 +13948,7 @@
       "fno": false,
       "price": 414.3,
       "change": 0.95,
-      "volume": 3340054,
+      "volume": 3342671,
       "daily": {
         "curr_cpr": {
           "pivot": 419.03,
@@ -13979,8 +13979,8 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 374.96,
-          "tc": 376.08,
+          "pivot": 376.04,
+          "tc": 378.25,
           "bc": 373.84
         },
         "prev_cpr": {
@@ -13989,7 +13989,7 @@
           "bc": 345.61
         },
         "inside": false,
-        "width_pct": 0.541
+        "width_pct": 1.064
       },
       "cpr_trend": {
         "direction": "sideways",
@@ -14015,7 +14015,7 @@
       "fno": false,
       "price": 592.9,
       "change": 0.65,
-      "volume": 638651,
+      "volume": 641737,
       "daily": {
         "curr_cpr": {
           "pivot": 594.73,
@@ -14082,7 +14082,7 @@
       "fno": false,
       "price": 1007.2,
       "change": -0.04,
-      "volume": 67159,
+      "volume": 67167,
       "daily": {
         "curr_cpr": {
           "pivot": 1009.77,
@@ -14113,8 +14113,8 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 1072.55,
-          "tc": 1125.37,
+          "pivot": 1073.58,
+          "tc": 1127.43,
           "bc": 1019.73
         },
         "prev_cpr": {
@@ -14123,7 +14123,7 @@
           "bc": 827.38
         },
         "inside": false,
-        "width_pct": 10.488
+        "width_pct": 10.693
       },
       "cpr_trend": {
         "direction": "bullish",
@@ -14149,12 +14149,12 @@
       "fno": false,
       "price": 483.8,
       "change": 1.51,
-      "volume": 851592,
+      "volume": 851602,
       "daily": {
         "curr_cpr": {
           "pivot": 481.25,
           "tc": 482.52,
-          "bc": 479.97
+          "bc": 479.98
         },
         "prev_cpr": {
           "pivot": 475.87,
@@ -14162,7 +14162,7 @@
           "bc": 475.5
         },
         "inside": false,
-        "width_pct": 0.527
+        "width_pct": 0.525
       },
       "weekly": {
         "curr_cpr": {
@@ -14221,7 +14221,7 @@
         "curr_cpr": {
           "pivot": 608.65,
           "tc": 609.48,
-          "bc": 607.83
+          "bc": 607.82
         },
         "prev_cpr": {
           "pivot": 609.65,
@@ -14229,7 +14229,7 @@
           "bc": 609.4
         },
         "inside": false,
-        "width_pct": 0.272
+        "width_pct": 0.273
       },
       "weekly": {
         "curr_cpr": {
@@ -14283,7 +14283,7 @@
       "fno": false,
       "price": 147.79,
       "change": 3.42,
-      "volume": 7211138,
+      "volume": 7212958,
       "daily": {
         "curr_cpr": {
           "pivot": 146.43,
@@ -14350,7 +14350,7 @@
       "fno": false,
       "price": 596.0,
       "change": 0.13,
-      "volume": 5139322,
+      "volume": 5139528,
       "daily": {
         "curr_cpr": {
           "pivot": 597.9,
@@ -14417,7 +14417,7 @@
       "fno": false,
       "price": 772.75,
       "change": 3.45,
-      "volume": 83852,
+      "volume": 83854,
       "daily": {
         "curr_cpr": {
           "pivot": 766.58,
@@ -14484,7 +14484,7 @@
       "fno": false,
       "price": 834.7,
       "change": 1.88,
-      "volume": 453249,
+      "volume": 453366,
       "daily": {
         "curr_cpr": {
           "pivot": 835.1,
@@ -14551,7 +14551,7 @@
       "fno": false,
       "price": 1464.2,
       "change": -0.81,
-      "volume": 121794,
+      "volume": 121797,
       "daily": {
         "curr_cpr": {
           "pivot": 1468.7,
@@ -14568,9 +14568,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 1486.03,
+          "pivot": 1499.33,
           "tc": 1500.8,
-          "bc": 1471.27
+          "bc": 1497.87
         },
         "prev_cpr": {
           "pivot": 1582.93,
@@ -14578,7 +14578,7 @@
           "bc": 1560.37
         },
         "inside": false,
-        "width_pct": 2.017
+        "width_pct": 0.2
       },
       "monthly": {
         "curr_cpr": {
@@ -14597,13 +14597,13 @@
       "cpr_trend": {
         "direction": "bearish",
         "pivots": [
-          1458.5,
+          1486.1,
           1506.73,
           1486.73,
           1470.73,
           1468.7
         ],
-        "pivot_shift": 10.2
+        "pivot_shift": -17.4
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -14618,7 +14618,7 @@
       "fno": false,
       "price": 433.95,
       "change": -0.21,
-      "volume": 283252,
+      "volume": 283276,
       "daily": {
         "curr_cpr": {
           "pivot": 435.52,
@@ -14685,7 +14685,7 @@
       "fno": false,
       "price": 592.8,
       "change": -1.58,
-      "volume": 392942,
+      "volume": 393002,
       "daily": {
         "curr_cpr": {
           "pivot": 596.72,
@@ -14702,9 +14702,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 547.08,
-          "tc": 548.74,
-          "bc": 545.42
+          "pivot": 557.17,
+          "tc": 563.06,
+          "bc": 551.27
         },
         "prev_cpr": {
           "pivot": 536.52,
@@ -14712,7 +14712,7 @@
           "bc": 536.01
         },
         "inside": false,
-        "width_pct": 0.56
+        "width_pct": 1.989
       },
       "monthly": {
         "curr_cpr": {
@@ -14752,7 +14752,7 @@
       "fno": false,
       "price": 636.7,
       "change": 0.93,
-      "volume": 1236710,
+      "volume": 1236843,
       "daily": {
         "curr_cpr": {
           "pivot": 640.18,
@@ -14886,7 +14886,7 @@
       "fno": false,
       "price": 527.45,
       "change": 1.19,
-      "volume": 336533,
+      "volume": 336607,
       "daily": {
         "curr_cpr": {
           "pivot": 526.82,
@@ -14970,9 +14970,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 4526.47,
-          "tc": 4536.23,
-          "bc": 4516.7
+          "pivot": 4501.3,
+          "tc": 4516.7,
+          "bc": 4485.9
         },
         "prev_cpr": {
           "pivot": 4718.17,
@@ -14980,7 +14980,7 @@
           "bc": 4661.18
         },
         "inside": false,
-        "width_pct": 0.434
+        "width_pct": 0.684
       },
       "monthly": {
         "curr_cpr": {
@@ -14997,15 +14997,15 @@
         "width_pct": 1.269
       },
       "cpr_trend": {
-        "direction": "bearish",
+        "direction": "sideways",
         "pivots": [
-          4525.03,
+          4483.5,
           4490.97,
           4595.87,
           4526.67,
           4502.53
         ],
-        "pivot_shift": -22.5
+        "pivot_shift": 19.03
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -15020,12 +15020,12 @@
       "fno": false,
       "price": 508.05,
       "change": 2.22,
-      "volume": 2933570,
+      "volume": 2938868,
       "daily": {
         "curr_cpr": {
           "pivot": 505.9,
-          "tc": 506.97,
-          "bc": 504.83
+          "tc": 506.98,
+          "bc": 504.82
         },
         "prev_cpr": {
           "pivot": 498.32,
@@ -15033,7 +15033,7 @@
           "bc": 497.66
         },
         "inside": false,
-        "width_pct": 0.421
+        "width_pct": 0.425
       },
       "weekly": {
         "curr_cpr": {
@@ -15087,7 +15087,7 @@
       "fno": false,
       "price": 1175.5,
       "change": 0.13,
-      "volume": 2261430,
+      "volume": 2261483,
       "daily": {
         "curr_cpr": {
           "pivot": 1184.2,
@@ -15154,7 +15154,7 @@
       "fno": false,
       "price": 359.8,
       "change": 0.06,
-      "volume": 675221,
+      "volume": 675306,
       "daily": {
         "curr_cpr": {
           "pivot": 360.4,
@@ -15221,12 +15221,12 @@
       "fno": false,
       "price": 272.25,
       "change": -0.29,
-      "volume": 1162969,
+      "volume": 1163379,
       "daily": {
         "curr_cpr": {
           "pivot": 273.7,
           "tc": 274.43,
-          "bc": 272.98
+          "bc": 272.97
         },
         "prev_cpr": {
           "pivot": 270.27,
@@ -15234,7 +15234,7 @@
           "bc": 268.88
         },
         "inside": false,
-        "width_pct": 0.533
+        "width_pct": 0.536
       },
       "weekly": {
         "curr_cpr": {
@@ -15278,7 +15278,7 @@
       "virgin_cpr": {
         "is_virgin": true,
         "position": "below",
-        "dist_pct": 0.27
+        "dist_pct": 0.26
       }
     },
     {
@@ -15288,7 +15288,7 @@
       "fno": false,
       "price": 1489.0,
       "change": 0.27,
-      "volume": 458089,
+      "volume": 458250,
       "daily": {
         "curr_cpr": {
           "pivot": 1488.0,
@@ -15422,7 +15422,7 @@
       "fno": false,
       "price": 704.2,
       "change": -6.14,
-      "volume": 12470045,
+      "volume": 12482496,
       "daily": {
         "curr_cpr": {
           "pivot": 722.43,
@@ -15439,9 +15439,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 771.18,
-          "tc": 774.67,
-          "bc": 767.7
+          "pivot": 775.53,
+          "tc": 778.29,
+          "bc": 772.77
         },
         "prev_cpr": {
           "pivot": 753.27,
@@ -15449,7 +15449,7 @@
           "bc": 752.96
         },
         "inside": false,
-        "width_pct": 0.99
+        "width_pct": 0.784
       },
       "monthly": {
         "curr_cpr": {
@@ -15468,13 +15468,13 @@
       "cpr_trend": {
         "direction": "bearish",
         "pivots": [
-          776.0,
+          783.57,
           784.58,
           780.03,
           745.65,
           722.43
         ],
-        "pivot_shift": -53.57
+        "pivot_shift": -61.14
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -15489,7 +15489,7 @@
       "fno": false,
       "price": 8256.0,
       "change": -0.26,
-      "volume": 59423,
+      "volume": 59427,
       "daily": {
         "curr_cpr": {
           "pivot": 8291.0,
@@ -15556,7 +15556,7 @@
       "fno": false,
       "price": 1079.7,
       "change": 2.89,
-      "volume": 239601,
+      "volume": 239612,
       "daily": {
         "curr_cpr": {
           "pivot": 1070.53,
@@ -15623,7 +15623,7 @@
       "fno": false,
       "price": 1223.4,
       "change": 0.44,
-      "volume": 179573,
+      "volume": 179646,
       "daily": {
         "curr_cpr": {
           "pivot": 1223.93,
@@ -15654,8 +15654,8 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 1308.33,
-          "tc": 1312.97,
+          "pivot": 1305.6,
+          "tc": 1307.5,
           "bc": 1303.7
         },
         "prev_cpr": {
@@ -15664,7 +15664,7 @@
           "bc": 1091.75
         },
         "inside": false,
-        "width_pct": 0.758
+        "width_pct": 0.311
       },
       "cpr_trend": {
         "direction": "bearish",
@@ -15824,7 +15824,7 @@
       "fno": false,
       "price": 26120.0,
       "change": -1.08,
-      "volume": 7485,
+      "volume": 7487,
       "daily": {
         "curr_cpr": {
           "pivot": 26233.33,
@@ -15891,16 +15891,16 @@
       "fno": true,
       "price": 54.75,
       "change": 0.51,
-      "volume": 2599209,
+      "volume": 2603367,
       "daily": {
         "curr_cpr": {
           "pivot": 54.84,
-          "tc": 54.88,
-          "bc": 54.79
+          "tc": 54.89,
+          "bc": 54.8
         },
         "prev_cpr": {
           "pivot": 54.58,
-          "tc": 54.63,
+          "tc": 54.64,
           "bc": 54.53
         },
         "inside": false,
@@ -15948,7 +15948,7 @@
       "virgin_cpr": {
         "is_virgin": true,
         "position": "below",
-        "dist_pct": 0.07
+        "dist_pct": 0.09
       }
     },
     {
@@ -15958,7 +15958,7 @@
       "fno": false,
       "price": 657.65,
       "change": -0.99,
-      "volume": 664147,
+      "volume": 664263,
       "daily": {
         "curr_cpr": {
           "pivot": 660.28,
@@ -16025,7 +16025,7 @@
       "fno": false,
       "price": 188.64,
       "change": -0.04,
-      "volume": 2994006,
+      "volume": 2996778,
       "daily": {
         "curr_cpr": {
           "pivot": 189.41,
@@ -16092,7 +16092,7 @@
       "fno": false,
       "price": 1548.5,
       "change": 0.51,
-      "volume": 2182538,
+      "volume": 2182920,
       "daily": {
         "curr_cpr": {
           "pivot": 1549.37,
@@ -16159,7 +16159,7 @@
       "fno": false,
       "price": 1336.2,
       "change": -2.04,
-      "volume": 309921,
+      "volume": 310007,
       "daily": {
         "curr_cpr": {
           "pivot": 1344.07,
@@ -16226,7 +16226,7 @@
       "fno": false,
       "price": 1729.5,
       "change": 2.11,
-      "volume": 208176,
+      "volume": 208189,
       "daily": {
         "curr_cpr": {
           "pivot": 1722.47,
@@ -16293,7 +16293,7 @@
       "fno": false,
       "price": 3658.6,
       "change": -1.06,
-      "volume": 69375,
+      "volume": 69455,
       "daily": {
         "curr_cpr": {
           "pivot": 3687.53,
@@ -16427,7 +16427,7 @@
       "fno": false,
       "price": 1962.8,
       "change": -0.21,
-      "volume": 231592,
+      "volume": 232167,
       "daily": {
         "curr_cpr": {
           "pivot": 1963.27,
@@ -16494,7 +16494,7 @@
       "fno": true,
       "price": 11368.0,
       "change": -0.11,
-      "volume": 26557,
+      "volume": 26558,
       "daily": {
         "curr_cpr": {
           "pivot": 11364.67,
@@ -16561,7 +16561,7 @@
       "fno": false,
       "price": 80.28,
       "change": 0.58,
-      "volume": 10854934,
+      "volume": 10855447,
       "daily": {
         "curr_cpr": {
           "pivot": 80.71,
@@ -16570,7 +16570,7 @@
         },
         "prev_cpr": {
           "pivot": 80.05,
-          "tc": 80.17,
+          "tc": 80.16,
           "bc": 79.94
         },
         "inside": false,
@@ -16628,11 +16628,11 @@
       "fno": false,
       "price": 711.2,
       "change": -1.4,
-      "volume": 295355,
+      "volume": 295367,
       "daily": {
         "curr_cpr": {
           "pivot": 715.22,
-          "tc": 717.22,
+          "tc": 717.23,
           "bc": 713.21
         },
         "prev_cpr": {
@@ -16641,7 +16641,7 @@
           "bc": 720.08
         },
         "inside": false,
-        "width_pct": 0.564
+        "width_pct": 0.565
       },
       "weekly": {
         "curr_cpr": {
@@ -16695,7 +16695,7 @@
       "fno": false,
       "price": 5077.0,
       "change": 0.2,
-      "volume": 5545,
+      "volume": 5551,
       "daily": {
         "curr_cpr": {
           "pivot": 5075.67,
@@ -16762,7 +16762,7 @@
       "fno": false,
       "price": 1510.0,
       "change": 1.13,
-      "volume": 642196,
+      "volume": 642269,
       "daily": {
         "curr_cpr": {
           "pivot": 1508.83,
@@ -16829,7 +16829,7 @@
       "fno": true,
       "price": 3588.2,
       "change": 1.51,
-      "volume": 42072,
+      "volume": 42088,
       "daily": {
         "curr_cpr": {
           "pivot": 3574.87,
@@ -16896,7 +16896,7 @@
       "fno": false,
       "price": 464.1,
       "change": 1.0,
-      "volume": 2283794,
+      "volume": 2283813,
       "daily": {
         "curr_cpr": {
           "pivot": 463.03,
@@ -16913,9 +16913,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 486.9,
-          "tc": 487.6,
-          "bc": 486.2
+          "pivot": 482.57,
+          "tc": 485.8,
+          "bc": 479.33
         },
         "prev_cpr": {
           "pivot": 474.33,
@@ -16923,7 +16923,7 @@
           "bc": 466.5
         },
         "inside": false,
-        "width_pct": 0.302
+        "width_pct": 1.394
       },
       "monthly": {
         "curr_cpr": {
@@ -16942,13 +16942,13 @@
       "cpr_trend": {
         "direction": "bearish",
         "pivots": [
-          487.02,
+          479.4,
           475.88,
           468.87,
           462.23,
           463.03
         ],
-        "pivot_shift": -23.99
+        "pivot_shift": -16.37
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -16963,7 +16963,7 @@
       "fno": false,
       "price": 1291.2,
       "change": -1.71,
-      "volume": 512084,
+      "volume": 513137,
       "daily": {
         "curr_cpr": {
           "pivot": 1290.73,
@@ -16973,7 +16973,7 @@
         "prev_cpr": {
           "pivot": 1302.92,
           "tc": 1308.31,
-          "bc": 1297.52
+          "bc": 1297.53
         },
         "inside": false,
         "width_pct": 0.036
@@ -17030,7 +17030,7 @@
       "fno": true,
       "price": 2332.9,
       "change": 3.85,
-      "volume": 552091,
+      "volume": 552157,
       "daily": {
         "curr_cpr": {
           "pivot": 2309.0,
@@ -17097,7 +17097,7 @@
       "fno": false,
       "price": 841.6,
       "change": 0.05,
-      "volume": 420915,
+      "volume": 421049,
       "daily": {
         "curr_cpr": {
           "pivot": 846.47,
@@ -17217,7 +17217,7 @@
       "fno": false,
       "price": 1408.2,
       "change": -0.64,
-      "volume": 120862,
+      "volume": 120892,
       "daily": {
         "curr_cpr": {
           "pivot": 1412.93,
@@ -17418,7 +17418,7 @@
       "fno": false,
       "price": 1574.2,
       "change": 1.09,
-      "volume": 52327,
+      "volume": 52328,
       "daily": {
         "curr_cpr": {
           "pivot": 1572.63,
@@ -17485,7 +17485,7 @@
       "fno": false,
       "price": 269.75,
       "change": 0.39,
-      "volume": 716735,
+      "volume": 717361,
       "daily": {
         "curr_cpr": {
           "pivot": 271.42,
@@ -17619,7 +17619,7 @@
       "fno": false,
       "price": 321.7,
       "change": 1.0,
-      "volume": 204609,
+      "volume": 204635,
       "daily": {
         "curr_cpr": {
           "pivot": 320.43,
@@ -17686,7 +17686,7 @@
       "fno": false,
       "price": 480.9,
       "change": 1.27,
-      "volume": 1364338,
+      "volume": 1364701,
       "daily": {
         "curr_cpr": {
           "pivot": 475.8,
@@ -17918,8 +17918,8 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 1085.2,
-          "tc": 1107.9,
+          "pivot": 1085.48,
+          "tc": 1108.47,
           "bc": 1062.5
         },
         "prev_cpr": {
@@ -17928,7 +17928,7 @@
           "bc": 964.04
         },
         "inside": false,
-        "width_pct": 3.723
+        "width_pct": 3.77
       },
       "cpr_trend": {
         "direction": "bullish",
@@ -17954,7 +17954,7 @@
       "fno": false,
       "price": 4049.3,
       "change": -1.35,
-      "volume": 51209,
+      "volume": 51211,
       "daily": {
         "curr_cpr": {
           "pivot": 4097.63,
@@ -17985,9 +17985,9 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 4067.8,
-          "tc": 4081.65,
-          "bc": 4053.95
+          "pivot": 4069.73,
+          "tc": 4084.55,
+          "bc": 4054.92
         },
         "prev_cpr": {
           "pivot": 4143.27,
@@ -17995,7 +17995,7 @@
           "bc": 4120.05
         },
         "inside": false,
-        "width_pct": 0.684
+        "width_pct": 0.732
       },
       "cpr_trend": {
         "direction": "sideways",
@@ -18021,7 +18021,7 @@
       "fno": false,
       "price": 1601.7,
       "change": -1.72,
-      "volume": 102823,
+      "volume": 102843,
       "daily": {
         "curr_cpr": {
           "pivot": 1624.97,
@@ -18088,7 +18088,7 @@
       "fno": false,
       "price": 3650.0,
       "change": 1.11,
-      "volume": 143239,
+      "volume": 143243,
       "daily": {
         "curr_cpr": {
           "pivot": 3642.3,
@@ -18119,8 +18119,8 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 3381.17,
-          "tc": 3423.28,
+          "pivot": 3379.33,
+          "tc": 3419.62,
           "bc": 3339.05
         },
         "prev_cpr": {
@@ -18129,7 +18129,7 @@
           "bc": 3239.7
         },
         "inside": false,
-        "width_pct": 2.308
+        "width_pct": 2.207
       },
       "cpr_trend": {
         "direction": "bullish",
@@ -18155,7 +18155,7 @@
       "fno": false,
       "price": 2930.0,
       "change": -1.05,
-      "volume": 203111,
+      "volume": 203143,
       "daily": {
         "curr_cpr": {
           "pivot": 2935.93,
@@ -18222,7 +18222,7 @@
       "fno": false,
       "price": 24.63,
       "change": 0.57,
-      "volume": 2533263,
+      "volume": 2541012,
       "daily": {
         "curr_cpr": {
           "pivot": 24.71,
@@ -18356,7 +18356,7 @@
       "fno": false,
       "price": 25.81,
       "change": 0.51,
-      "volume": 1586970,
+      "volume": 1587371,
       "daily": {
         "curr_cpr": {
           "pivot": 25.82,
@@ -18365,7 +18365,7 @@
         },
         "prev_cpr": {
           "pivot": 25.74,
-          "tc": 25.76,
+          "tc": 25.77,
           "bc": 25.71
         },
         "inside": false,
@@ -18490,12 +18490,12 @@
       "fno": false,
       "price": 775.75,
       "change": 2.96,
-      "volume": 397945,
+      "volume": 398043,
       "daily": {
         "curr_cpr": {
           "pivot": 770.37,
           "tc": 773.06,
-          "bc": 767.68
+          "bc": 767.67
         },
         "prev_cpr": {
           "pivot": 759.43,
@@ -18503,7 +18503,7 @@
           "bc": 756.44
         },
         "inside": false,
-        "width_pct": 0.694
+        "width_pct": 0.695
       },
       "weekly": {
         "curr_cpr": {
@@ -18521,9 +18521,9 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 793.97,
-          "tc": 798.43,
-          "bc": 789.5
+          "pivot": 793.68,
+          "tc": 798.29,
+          "bc": 789.08
         },
         "prev_cpr": {
           "pivot": 806.07,
@@ -18531,7 +18531,7 @@
           "bc": 802.83
         },
         "inside": false,
-        "width_pct": 1.151
+        "width_pct": 1.187
       },
       "cpr_trend": {
         "direction": "bearish",
@@ -18557,7 +18557,7 @@
       "fno": false,
       "price": 988.2,
       "change": 2.41,
-      "volume": 148471,
+      "volume": 148500,
       "daily": {
         "curr_cpr": {
           "pivot": 978.17,
@@ -18567,7 +18567,7 @@
         "prev_cpr": {
           "pivot": 960.2,
           "tc": 962.58,
-          "bc": 957.82
+          "bc": 957.83
         },
         "inside": false,
         "width_pct": 1.015
@@ -18624,7 +18624,7 @@
       "fno": false,
       "price": 225.11,
       "change": -0.5,
-      "volume": 4030728,
+      "volume": 4030776,
       "daily": {
         "curr_cpr": {
           "pivot": 225.74,
@@ -18691,7 +18691,7 @@
       "fno": false,
       "price": 158.61,
       "change": 0.22,
-      "volume": 263473,
+      "volume": 263509,
       "daily": {
         "curr_cpr": {
           "pivot": 158.63,
@@ -18708,9 +18708,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 162.85,
-          "tc": 163.32,
-          "bc": 162.38
+          "pivot": 161.24,
+          "tc": 162.24,
+          "bc": 160.24
         },
         "prev_cpr": {
           "pivot": 166.43,
@@ -18718,7 +18718,7 @@
           "bc": 165.43
         },
         "inside": false,
-        "width_pct": 0.593
+        "width_pct": 1.261
       },
       "monthly": {
         "curr_cpr": {
@@ -18737,13 +18737,13 @@
       "cpr_trend": {
         "direction": "bearish",
         "pivots": [
-          162.08,
+          160.32,
           158.96,
           158.55,
           158.24,
           158.63
         ],
-        "pivot_shift": -3.45
+        "pivot_shift": -1.69
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -18758,12 +18758,12 @@
       "fno": false,
       "price": 183.36,
       "change": 5.48,
-      "volume": 2211274,
+      "volume": 2211342,
       "daily": {
         "curr_cpr": {
           "pivot": 180.2,
           "tc": 181.78,
-          "bc": 178.61
+          "bc": 178.62
         },
         "prev_cpr": {
           "pivot": 174.86,
@@ -18771,7 +18771,7 @@
           "bc": 174.35
         },
         "inside": false,
-        "width_pct": 1.729
+        "width_pct": 1.723
       },
       "weekly": {
         "curr_cpr": {
@@ -18825,7 +18825,7 @@
       "fno": false,
       "price": 1299.0,
       "change": -1.25,
-      "volume": 454089,
+      "volume": 455590,
       "daily": {
         "curr_cpr": {
           "pivot": 1302.07,
@@ -18842,9 +18842,9 @@
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 1303.43,
+          "pivot": 1298.67,
           "tc": 1305.75,
-          "bc": 1301.12
+          "bc": 1291.58
         },
         "prev_cpr": {
           "pivot": 1418.52,
@@ -18852,7 +18852,7 @@
           "bc": 1380.16
         },
         "inside": false,
-        "width_pct": 0.356
+        "width_pct": 1.091
       },
       "monthly": {
         "curr_cpr": {
@@ -18871,13 +18871,13 @@
       "cpr_trend": {
         "direction": "sideways",
         "pivots": [
-          1292.27,
+          1289.53,
           1278.43,
           1299.33,
           1321.83,
           1302.07
         ],
-        "pivot_shift": 9.8
+        "pivot_shift": 12.54
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -18959,11 +18959,11 @@
       "fno": false,
       "price": 160.61,
       "change": -0.85,
-      "volume": 1010533,
+      "volume": 1010861,
       "daily": {
         "curr_cpr": {
           "pivot": 161.47,
-          "tc": 161.9,
+          "tc": 161.91,
           "bc": 161.04
         },
         "prev_cpr": {
@@ -18972,13 +18972,13 @@
           "bc": 161.9
         },
         "inside": false,
-        "width_pct": 0.535
+        "width_pct": 0.542
       },
       "weekly": {
         "curr_cpr": {
-          "pivot": 160.07,
+          "pivot": 160.62,
           "tc": 160.81,
-          "bc": 159.34
+          "bc": 160.44
         },
         "prev_cpr": {
           "pivot": 162.15,
@@ -18986,7 +18986,7 @@
           "bc": 161.69
         },
         "inside": false,
-        "width_pct": 0.915
+        "width_pct": 0.23
       },
       "monthly": {
         "curr_cpr": {
@@ -19005,13 +19005,13 @@
       "cpr_trend": {
         "direction": "sideways",
         "pivots": [
-          160.07,
+          159.68,
           160.94,
           160.31,
           161.93,
           161.47
         ],
-        "pivot_shift": 1.4
+        "pivot_shift": 1.79
       },
       "virgin_cpr": {
         "is_virgin": true,
@@ -19026,11 +19026,11 @@
       "fno": false,
       "price": 711.95,
       "change": 0.55,
-      "volume": 1404184,
+      "volume": 1404434,
       "daily": {
         "curr_cpr": {
           "pivot": 708.9,
-          "tc": 710.43,
+          "tc": 710.42,
           "bc": 707.38
         },
         "prev_cpr": {
@@ -19039,7 +19039,7 @@
           "bc": 712.68
         },
         "inside": false,
-        "width_pct": 0.428
+        "width_pct": 0.427
       },
       "weekly": {
         "curr_cpr": {
@@ -19093,11 +19093,11 @@
       "fno": false,
       "price": 223.9,
       "change": -1.16,
-      "volume": 10050373,
+      "volume": 10056116,
       "daily": {
         "curr_cpr": {
           "pivot": 225.4,
-          "tc": 226.15,
+          "tc": 226.16,
           "bc": 224.65
         },
         "prev_cpr": {
@@ -19106,7 +19106,7 @@
           "bc": 227.42
         },
         "inside": false,
-        "width_pct": 0.67
+        "width_pct": 0.674
       },
       "weekly": {
         "curr_cpr": {
@@ -19218,5 +19218,5 @@
       "curr_bc_gt_prev_bc": true
     }
   ],
-  "inside_count": 18
+  "inside_count": 19
 }
