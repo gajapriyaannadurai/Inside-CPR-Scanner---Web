@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-11 14:23 IST",
-  "generated_date": "11 Sep 2026",
-  "scan_mode": "AFTER_CLOSE",
+  "generated_at": "2026-09-14 09:45 IST",
+  "generated_date": "14 Sep 2026",
+  "scan_mode": "DURING_MARKET",
   "scan_logic": "AFTER_CLOSE: tomorrow CPR (today OHLC) inside today CPR (yesterday OHLC) | DURING_MARKET: today CPR (yesterday OHLC) inside yesterday CPR (day-before-yesterday OHLC)",
   "total_stocks": 293,
   "stocks": [
@@ -4769,7 +4769,7 @@
       "fno": true,
       "price": 229.9,
       "change": -0.15,
-      "volume": 22091432,
+      "volume": 22102551,
       "daily": {
         "curr_cpr": {
           "pivot": 229.24,
