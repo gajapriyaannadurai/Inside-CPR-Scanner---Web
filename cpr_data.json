@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30 12:10 IST",
+  "generated_at": "2026-09-30 16:23 IST",
   "generated_date": "30 Sep 2026",
   "scan_mode": "AFTER_CLOSE",
   "scan_logic": "AFTER_CLOSE: tomorrow CPR (today OHLC) inside today CPR (yesterday OHLC) | DURING_MARKET: today CPR (yesterday OHLC) inside yesterday CPR (day-before-yesterday OHLC)",
@@ -5269,9 +5269,9 @@
       },
       "monthly": {
         "curr_cpr": {
-          "pivot": 464.4,
-          "tc": 474.7,
-          "bc": 454.1
+          "pivot": 464.53,
+          "tc": 474.9,
+          "bc": 454.17
         },
         "prev_cpr": {
           "pivot": 511.28,
@@ -5279,7 +5279,7 @@
           "bc": 508.4
         },
         "inside": false,
-        "width_pct": 4.642
+        "width_pct": 4.671
       },
       "cpr_trend": {
         "direction": "bearish",
@@ -5288,9 +5288,9 @@
           463.38,
           457.85,
           447.65,
-          445.4
+          445.53
         ],
-        "pivot_shift": -15.5
+        "pivot_shift": -15.37
       },
       "virgin_cpr": {
         "is_virgin": true,
